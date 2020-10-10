@@ -6,4 +6,4 @@ justificacion ......... Listo
 Objetivos ...... Listo
 Referencias bibliograficas .... Listo
 Ingenieria de requerimientos .... Listo
-Historia de usuarios ..... Listo
+Historia de usuarios ..... Listo.
