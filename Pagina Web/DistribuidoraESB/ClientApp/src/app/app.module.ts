@@ -7,12 +7,19 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavegacionComponent } from './navegacion/navegacion.component';
 import { PrincipalComponent } from './principal/principal.component';
+import { LoginComponent } from './ESB/login/login.component';
+import { AppRoutingModule } from './app-routing.module';
+import { RegistroComponent } from './ESB/registro/registro.component';
+import { PerfilComponent } from './ESB/perfil/perfil.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavegacionComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    LoginComponent,
+    RegistroComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -20,7 +27,8 @@ import { PrincipalComponent } from './principal/principal.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: PrincipalComponent, pathMatch: 'full' }
-    ])
+    ]),
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
