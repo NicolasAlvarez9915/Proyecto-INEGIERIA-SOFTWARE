@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "NpghSVs987C0sBOmv/gwxcWgKxNiZm3fRY5J++GAnDxdMw6T3g3lQK5z9+vE3CIk8qrVeE/g4lhj13Bn5kQZLQ==",
+  "success": true,
+  "projectFilePath": "C:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\I E Parodi\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\I E Parodi\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
