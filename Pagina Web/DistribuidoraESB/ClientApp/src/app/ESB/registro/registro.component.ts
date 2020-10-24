@@ -1,4 +1,7 @@
+import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UseExistingWebDriver } from 'protractor/built/driverProviders';
 
 @Component({
   selector: 'app-registro',
@@ -7,14 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistroComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
+  Permitir: boolean;
   ngOnInit(): void {
   }
 
   Registrar(){
-    alert(
-      "Registrado"
-    );
+    this.router.navigate(['/Perfil']);
   }
 }

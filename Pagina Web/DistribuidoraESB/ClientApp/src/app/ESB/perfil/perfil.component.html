@@ -1,221 +1,481 @@
-<div class="container" style="margin-top: 1rem; -webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);">
-
-    <div class="row" >
-        <form class="col" >
-            <h4>Informacion Personal.</h4>
-            <div class="row" style="margin-top: 1rem;">
-                <div class="col">
-                    <label for="LblIdentificacion" >Identificacion:  </label>
-                </div>
-                <div class="col">
-                    <label id="LblIdentificacionUser">..... </label> <br>
+<div class="container-fluid"> 
+    <div class="row">
+        <div class="col barraLateral text-center text-white Ocultar" id="barraLateral">
+            <div class="TituloBarra" >
+                <h1>Mi perfil</h1>
+            </div>
+            <hr>
+            <!-- BARRA MENU DEL ClIENTE-->
+            <div class="" id="BarraCliente">
+                <p>
+                    <button class=" btn-outline-danger btnbarra" style="width: 100%; " type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                      Editar info
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <hr>
+                    
+                    <button class="btn-outline-danger btnbarra" style="width: 100%; "  type="bootton" data-toggle="collapse" data-target="#collapsePersonal, #collapseExample" aria-expanded="false" aria-controls="collapsePersonal">Editar info. Personal</button>
+                    <button class="btn-outline-danger btnbarra" style="width: 100%; "  type="submit" data-toggle="collapse" data-target="#collapseDomicilio, #collapseExample" aria-expanded="false" aria-controls="collapseDomicilio">Editar info. Domicilio</button>
+                    <hr>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <label for="LblNombres" >Nombres:  </label>
-                </div>
-                <div class="col">
-                    <label id="LblNombresUser">..... </label> <br>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="LblApellidos" >Apellidos:  </label>
-                </div>
-                <div class="col">
-                    <label id="LblApellidosUser">..... </label> <br>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="LblCorreo" >Correo:  </label>
-                </div>
-                <div class="col">
-                    <label id="LblCorreoUser">..... </label> <br>
+            <!-- BARRA MENU DEL DOMICILIARIO -->
+            <div class="" id="BarraDomiciliario">
+                <p>
+                    <button class=" btn-outline-danger btnbarra" style="width: 100%; " type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                      Editar info
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <hr>
+                    
+                    <button class="btn-outline-danger btnbarra" style="width: 100%; "  type="bootton" data-toggle="collapse" data-target="#collapsePersonal, #collapseExample" aria-expanded="false" aria-controls="collapsePersonal">Editar info. Personal</button>
+                    <button class="btn-outline-danger btnbarra" style="width: 100%; "  type="submit" data-toggle="collapse" data-target="#collapseDomicilio, #collapseExample" aria-expanded="false" aria-controls="collapseDomicilio">Editar info. Domicilio</button>
+                    <hr>
                 </div>
             </div>
-            <h4>Informacion de domicilio.</h4>
-            <div class="row" style="margin-top: 1rem;">
-                <div class="col">
-                    <label for="LblDireccion" >Direccion:  </label>
-                </div>
-                <div class="col">
-                    <label id="LblDireccionUser">..... </label> <br>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="LblPais" >Pais:  </label>
-                </div>
-                <div class="col">
-                    <label id="LblPaisUser">..... </label> <br>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="LblCiudad" >Ciudad:  </label>
-                </div>
-                <div class="col">
-                    <label id="LblCiudadUser">..... </label> <br>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="LblTelefono" >Telefono fijo o movil:  </label>
-                </div>
-                <div class="col">
-                    <label id="LblTelefonoUser">..... </label> <br>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="LblWhatsapp" >Whatsapp:  </label>
-                </div>
-                <div class="col">
-                    <label id="LblWhatsappUser">..... </label> <br>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="LblHorario" >Horario Entrega:  </label>
-                </div>
-                <div class="col">
-                    <label id="LblHorarioUser">..... </label> <br>
-                </div>
-            </div>
-        </form>
-        <form class="col"style="margin-top: 1rem;">
-            <div class="row">
-                <form class="col">
-                    <button class="btn btn-lg btn-block btn-secondary text-white  " style=" font-style: italic;" type="submit" (click)="editarInforPersonal()">Editar info. Personal</button>
-                    <button class="btn btn-lg btn-block btn-secondary text-white  " style=" font-style: italic;" type="submit" (click)="editarInforDomicilio()">Editar info. Domicilio</button>
-                    <button class="btn btn-lg btn-block btn-secondary text-white  " style=" font-style: italic;" type="submit" [routerLink]="['/']" >Realizar un pedido</button>
-                </form>
-                <div class="col d-flex justify-content-end">
-                    <img class="mb-4" src="assets/LogoNombreNegro.png" alt="" width="300" height="300">
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <div class="row justify-content-center">
-        <form class="col-6 font-weight-normal Ocultar" id="formularioEditarPersonal" style="margin-top: 1rem; -webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);">
-        <div class="col ">
-            <div class="row">
-                <div class="col">
-                    <label for="LblName">Nombre</label>
-                    <input type="Text" id="LblName" class="form-control" placeholder="Nombres">
-                </div>
-                <div class="col">
-                  <label>Apellidos</label>
-                  <input type="text"  name="apellidos"  placeholder="Apellidos" class="form-control" />
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <label for="inputPassword1" >Contraseña</label>
-            <input type="password" id="inputPassword1" class="form-control" placeholder="Contraseña" required="" _mstplaceholder="182013">
-                </div>
-                <div class="col">
-                    <label for="inputPassword" >Contraseña</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="" _mstplaceholder="182013">
-                </div>
-            </div>
+            
+            <!-- BARRA MENO DEL ADMINISTRADOR -->
         </div>
-        <hr>
-        <div class="row d-flex justify-content-center" >
-            <div class="col d-flex justify-content-center">
-                <button class="btn btn-lg btn-block btn-secondary text-white  " style=" font-style: italic; width: 50%" type="submit" >Editar</button>
-                
-            </div>
-            <div class="col d-flex justify-content-center">
-                <button class="btn btn-lg btn-block btn-secondary text-white  " style=" font-style: italic; width: 50%" type="submit" (click)="volver()">Volver</button>
-            </div>
-        </div>
-        <hr style="visibility: hidden;">
-    </form>
-    </div>
-
-    <div class="row justify-content-center">
-        <form class="col-6 font-weight-normal Ocultar" id="formularioEditarDomicilio" style="margin-top: 1rem; -webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);">
-            <div class="col">
-                <label for="LblDreccion">Dirección</label>
-                <input type="text" id="LblDireccion" class="form-control" placeholder="Dirrecion">
-                <label for="SlcPais">Pais</label>
-                <select name="SlcPais"  class="form-control" id="SlcPais" >
-                    <option value="Col">Colombia</option>
-                    <option value="Ven">Venezuela</option>
-                </select>
-                <label for="LblCiudad">Ciudad</label>
-                <input type="text" id="LblCiudad" class="form-control" placeholder="Ciudad">
-                <div class="row">
-                    <div class="col">
-                        <label for="LblTelefono">Telefono fijo o Movil</label>
-                        <input type="number" id="LblTelefono" class="form-control">
+        <div class=" col contenido justify-content-end">
+            <div class="container-fluid" >
+                <!-- FORMULARIO DEL CLIENTE -->
+                <div class="" id="formularioCliente">
+                    <div class="row" >
+                        <form class="col" >
+                            <div class="row d-flex justify-content-star">
+                                <button class="btn btn-outline-dark" type="button"  (click)="alternarBarra()">Menu</button>
+                            </div>
+                            <div class="info">
+                                <h4>Informacion Personal.</h4>
+                            <div class="row" style="margin-top: 1rem;">
+                                <div class="col">
+                                    <label for="LblIdentificacion" >Identificacion:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblIdentificacionUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblNombres" >Nombres:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblNombresUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblApellidos" >Apellidos:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblApellidosUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblCorreo" >Correo:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblCorreoUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <h4>Informacion de domicilio.</h4>
+                            <div class="row" style="margin-top: 1rem;">
+                                <div class="col">
+                                    <label for="LblDireccion" >Direccion:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblDireccionUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblPais" >Pais:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblPaisUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblCiudad" >Ciudad:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblCiudadUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblTelefono" >Telefono fijo o movil:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblTelefonoUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblWhatsapp" >Whatsapp:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblWhatsappUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblHorario" >Horario Entrega:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblHorarioUser">..... </label> <br>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                        <form class="col"style="" id="Logo">
+                                <div class="d-flex justify-content-center">
+                                    <img class="mb-4" src="assets/LogoNombreBlanco.png" alt="" width="300" height="300">
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <h1 class="text-white">La mejor carne, al mejor precio.</h1>
+                                </div>
+                                <div class="d-flex justify-content-center" style="margin-top: 1cm;">
+                                    <h3 class="text-white">Perfil.</h3>
+                                </div>
+                                <div class="d-flex justify-content-center" style="margin-top: 1cm;">
+                                    <h5 class="text-white">Cliente.</h5>
+                                </div>
+                        </form>
                     </div>
-                    <div class="col">
-                      <label>Numero Whatsapp</label>
-                      <input type="number"  name="Whatsapp"  class="form-control" />
+                    <div class="collapse row justify-content-center "id="collapsePersonal">
+                        <form class="col-6 font-weight-normal   " id="formularioEditarPersonal" style="margin-top: 1rem;">
+                        <hr>
+                        <div class="col ">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblName">Nombre</label>
+                                    <input type="Text" id="LblName" class="form-control" placeholder="Nombres">
+                                </div>
+                                <div class="col">
+                                  <label>Apellidos</label>
+                                  <input type="text"  name="apellidos"  placeholder="Apellidos" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="inputPassword1" >Contraseña</label>
+                            <input type="password" id="inputPassword1" class="form-control" placeholder="Contraseña" required="" _mstplaceholder="182013">
+                                </div>
+                                <div class="col">
+                                    <label for="inputPassword" >Contraseña</label>
+                                    <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="" _mstplaceholder="182013">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row d-flex justify-content-center" >
+                            <div class="col d-flex justify-content-center">
+                                <button class="btn btn-outline-dark" style=" width: 50%" type="submit" >Editar</button>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <button class="btn btn-outline-dark" style=" width: 50%" type="submit" data-toggle="collapse" data-target="#collapsePersonal" aria-expanded="false" aria-controls="collapsePersonal">Volver</button>
+                            </div>
+                        </div>
+                        <hr style="visibility: hidden;">
+                    </form>
                     </div>
+                    <div class="collapse row justify-content-center"id="collapseDomicilio">
+                        <form class="col-6 font-weight-normal" id="formularioEditarDomicilio" style="margin-top: 1rem;">
+                            <hr>
+                            <div class="col">
+                                <label for="LblDreccion">Dirección</label>
+                                <input type="text" id="LblDireccion" class="form-control" placeholder="Dirrecion">
+                                <label for="SlcPais">Pais</label>
+                                <select name="SlcPais"  class="form-control" id="SlcPais" >
+                                    <option value="Col">Colombia</option>
+                                    <option value="Ven">Venezuela</option>
+                                </select>
+                                <label for="LblCiudad">Ciudad</label>
+                                <input type="text" id="LblCiudad" class="form-control" placeholder="Ciudad">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="LblTelefono">Telefono fijo o Movil</label>
+                                        <input type="number" id="LblTelefono" class="form-control">
+                                    </div>
+                                    <div class="col">
+                                      <label>Numero Whatsapp</label>
+                                      <input type="number"  name="Whatsapp"  class="form-control" />
+                                    </div>
+                                </div>
+                                <label for="SlcHorario">Horario de entrega</label>
+                                <select name="SlcHorario"  class="form-control" id="SlcHorario" >
+                                    <option value="H1">8:00 AM / 6:00 PM</option>
+                                    <option value="H2">8:00 AM / 12:00 PM</option>
+                                    <option value="H2">12:00 PM / 6:00 PM</option>
+                                </select>
+                            </div>
+                        <hr>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col d-flex justify-content-center">
+                                <button class="btn btn-outline-dark" style="width: 50%" type="submit" >Editar</button>
+                                
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <button class="btn btn-outline-dark" style="width: 50%" type="submit" data-toggle="collapse" data-target="#collapseDomicilio" aria-expanded="false" aria-controls="collapseDomicilio">Volver</button>
+                            </div>
+                        </div>
+                        <hr style="visibility: hidden;">
+                    </form>
+                    </div>
+                    <form  class="col " >
+                        <h1 class="font-weight-normal text-center">Historial de pedidos.</h1>
+                        <div class="justify-content-center">
+                            <table style="width:100%; margin: auto;" class="table table-responsive-sm">
+                                <thead>
+                                  <tr>
+                                    <th>Codigo Del pedido</th>
+                                    <th>Fecha del pedido</th>
+                                    <th>Valor</th>
+                                    <th>Estado</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="tdPedidos" >
+                                    <tr scope="row"> 
+                                        <td>1029</td>
+                                        <td>10/10/2020</td>
+                                        <td>120000</td>
+                                        <td>Entregado</td>
+                                    </tr>
+                                    <tr scope="row"> 
+                                        <td>1030</td>
+                                        <td>20/10/2020</td>
+                                        <td>129000</td>
+                                        <td>En camino</td>
+                                    </tr>
+                                </tbody>
+                              </table >
+                        </div>
+                    </form>
                 </div>
-                <label for="SlcHorario">Horario de entrega</label>
-                <select name="SlcHorario"  class="form-control" id="SlcHorario" >
-                    <option value="H1">8:00 AM / 6:00 PM</option>
-                    <option value="H2">8:00 AM / 12:00 PM</option>
-                    <option value="H2">12:00 PM / 6:00 PM</option>
-                </select>
-            </div>
-        <hr>
-        <div class="row d-flex justify-content-center">
-            <div class="col d-flex justify-content-center">
-                <button class="btn btn-lg btn-block btn-secondary text-white  " style=" font-style: italic; width: 50%" type="submit" >Editar</button>
-                
-            </div>
-            <div class="col d-flex justify-content-center">
-                <button class="btn btn-lg btn-block btn-secondary text-white  " style=" font-style: italic; width: 50%" type="submit" (click)="volver()">Volver</button>
+                <!-- FORMULARIO DOMICILIARIO -->
+                <div class="" id="formularioDomiciliario">
+                    <div class="row" >
+                        <form class="col" >
+                            <div class="row d-flex justify-content-star">
+                                <button class="btn btn-outline-dark" type="button"  (click)="alternarBarra()">Menu</button>
+                            </div>
+                            <div class="info">
+                                <h4>Informacion Personal.</h4>
+                            <div class="row" style="margin-top: 1rem;">
+                                <div class="col">
+                                    <label for="LblIdentificacion" >Identificacion:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblIdentificacionUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblNombres" >Nombres:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblNombresUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblApellidos" >Apellidos:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblApellidosUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblCorreo" >Correo:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblCorreoUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <h4>Informacion de domicilio.</h4>
+                            <div class="row" style="margin-top: 1rem;">
+                                <div class="col">
+                                    <label for="LblDireccion" >Direccion:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblDireccionUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblPais" >Pais:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblPaisUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblCiudad" >Ciudad:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblCiudadUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblTelefono" >Telefono fijo o movil:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblTelefonoUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblWhatsapp" >Whatsapp:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblWhatsappUser">..... </label> <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblHorario" >Horario Entrega:  </label>
+                                </div>
+                                <div class="col">
+                                    <label id="LblHorarioUser">..... </label> <br>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                        <form class="col"style="" id="Logo">
+                                <div class="d-flex justify-content-center">
+                                    <img class="mb-4" src="assets/LogoNombreBlanco.png" alt="" width="300" height="300">
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <h1 class="text-white">La mejor carne, al mejor precio.</h1>
+                                </div>
+                                <div class="d-flex justify-content-center" style="margin-top: 1cm;">
+                                    <h3 class="text-white">Perfil.</h3>
+                                </div>
+                                <div class="d-flex justify-content-center" style="margin-top: 1cm;">
+                                    <h5 class="text-white">Cliente.</h5>
+                                </div>
+                        </form>
+                    </div>
+                    <div class="collapse row justify-content-center "id="collapsePersonal">
+                        <form class="col-6 font-weight-normal   " id="formularioEditarPersonal" style="margin-top: 1rem;">
+                        <hr>
+                        <div class="col ">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="LblName">Nombre</label>
+                                    <input type="Text" id="LblName" class="form-control" placeholder="Nombres">
+                                </div>
+                                <div class="col">
+                                  <label>Apellidos</label>
+                                  <input type="text"  name="apellidos"  placeholder="Apellidos" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="inputPassword1" >Contraseña</label>
+                            <input type="password" id="inputPassword1" class="form-control" placeholder="Contraseña" required="" _mstplaceholder="182013">
+                                </div>
+                                <div class="col">
+                                    <label for="inputPassword" >Contraseña</label>
+                                    <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="" _mstplaceholder="182013">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row d-flex justify-content-center" >
+                            <div class="col d-flex justify-content-center">
+                                <button class="btn btn-outline-dark" style=" width: 50%" type="submit" >Editar</button>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <button class="btn btn-outline-dark" style=" width: 50%" type="submit" data-toggle="collapse" data-target="#collapsePersonal" aria-expanded="false" aria-controls="collapsePersonal">Volver</button>
+                            </div>
+                        </div>
+                        <hr style="visibility: hidden;">
+                    </form>
+                    </div>
+                    <div class="collapse row justify-content-center"id="collapseDomicilio">
+                        <form class="col-6 font-weight-normal" id="formularioEditarDomicilio" style="margin-top: 1rem;">
+                            <hr>
+                            <div class="col">
+                                <label for="LblDreccion">Dirección</label>
+                                <input type="text" id="LblDireccion" class="form-control" placeholder="Dirrecion">
+                                <label for="SlcPais">Pais</label>
+                                <select name="SlcPais"  class="form-control" id="SlcPais" >
+                                    <option value="Col">Colombia</option>
+                                    <option value="Ven">Venezuela</option>
+                                </select>
+                                <label for="LblCiudad">Ciudad</label>
+                                <input type="text" id="LblCiudad" class="form-control" placeholder="Ciudad">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="LblTelefono">Telefono fijo o Movil</label>
+                                        <input type="number" id="LblTelefono" class="form-control">
+                                    </div>
+                                    <div class="col">
+                                      <label>Numero Whatsapp</label>
+                                      <input type="number"  name="Whatsapp"  class="form-control" />
+                                    </div>
+                                </div>
+                                <label for="SlcHorario">Horario de entrega</label>
+                                <select name="SlcHorario"  class="form-control" id="SlcHorario" >
+                                    <option value="H1">8:00 AM / 6:00 PM</option>
+                                    <option value="H2">8:00 AM / 12:00 PM</option>
+                                    <option value="H2">12:00 PM / 6:00 PM</option>
+                                </select>
+                            </div>
+                        <hr>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col d-flex justify-content-center">
+                                <button class="btn btn-outline-dark" style="width: 50%" type="submit" >Editar</button>
+                                
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <button class="btn btn-outline-dark" style="width: 50%" type="submit" data-toggle="collapse" data-target="#collapseDomicilio" aria-expanded="false" aria-controls="collapseDomicilio">Volver</button>
+                            </div>
+                        </div>
+                        <hr style="visibility: hidden;">
+                    </form>
+                    </div>
+                    <form  class="col " >
+                        <h1 class="font-weight-normal text-center">Historial de pedidos.</h1>
+                        <div class="justify-content-center">
+                            <table style="width:100%; margin: auto;" class="table table-responsive-sm">
+                                <thead>
+                                  <tr>
+                                    <th>Codigo Del pedido</th>
+                                    <th>Fecha del pedido</th>
+                                    <th>Valor</th>
+                                    <th>Estado</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="tdPedidos" >
+                                    <tr scope="row"> 
+                                        <td>1029</td>
+                                        <td>10/10/2020</td>
+                                        <td>120000</td>
+                                        <td>Entregado</td>
+                                    </tr>
+                                    <tr scope="row"> 
+                                        <td>1030</td>
+                                        <td>20/10/2020</td>
+                                        <td>129000</td>
+                                        <td>En camino</td>
+                                    </tr>
+                                </tbody>
+                              </table >
+                        </div>
+                    </form>
+                </div>
+                <!-- FORMULARIO ADMINISTRADOR -->
             </div>
         </div>
-        <hr style="visibility: hidden;">
-    </form>
-
     </div>
-    
-    <form  class="col" >
-        <h1 class="font-weight-normal text-center">Historial de pedidos.</h1>
-
-        <table style="width:100%" class="table">
-            <thead>
-              <tr>
-                <th>Codigo Del pedido</th>
-                <th>Fecha del pedido</th>
-                <th>Valor</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-            <tbody id="tdPedidos" >
-                <tr scope="row"> 
-                    <td>1029</td>
-                    <td>10/10/2020</td>
-                    <td>120000</td>
-                    <td>Entregado</td>
-                </tr>
-                <tr scope="row"> 
-                    <td>1030</td>
-                    <td>20/10/2020</td>
-                    <td>129000</td>
-                    <td>En camino</td>
-                </tr>
-            </tbody>
-              
-          </table >
-    </form>
-    
 </div>
