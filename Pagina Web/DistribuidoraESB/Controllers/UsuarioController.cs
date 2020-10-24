@@ -47,8 +47,4 @@ namespace DistribuidoraESB.Controllers
             return usuario;
         }
     }
-
-
-
-    
 }

@@ -25,4 +25,16 @@ export class UsuarioService {
       catchError(this.handleErrorService.handleError<Usuario>('Validar Usuario', null))
     );
   }
+
+  GuardarUsuarioSesion(usuario: Usuario){
+    localStorage.setItem('Usuario', JSON.stringify(usuario));
+  }
+
+  UsuarioLogueado(){
+    return JSON.parse(localStorage.getItem('Usuario'));
+  }
+
+  EliminarUsuarioSesion(){
+    localStorage.removeItem('Usuario');
+  }
 }

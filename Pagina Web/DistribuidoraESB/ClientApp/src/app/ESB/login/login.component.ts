@@ -16,8 +16,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuario = new User;
+    this.BotonLogin();
   }
 
+  BotonLogin(){
+    this.service.EliminarUsuarioSesion();
+    document.getElementById("BtnLogin").innerHTML = "lOG";
+    document.getElementById("BtnRegistrar").classList.add("Mostrar");
+    document.getElementById("BtnRegistrar").classList.remove("Ocultar");
+  }
   iniciarSession(){
     if(this.validarCampos()){
       this.service.validarSession(this.usuario.correo).subscribe(usuarioRespuesta => {
@@ -28,6 +35,9 @@ export class LoginComponent implements OnInit {
         {
           if(usuarioRespuesta.contraseña == this.usuario.contrasena)
           {
+            usuarioRespuesta.contraseña = null;
+            this.service.GuardarUsuarioSesion(usuarioRespuesta);
+            document.getElementById("BtnLogin").innerHTML = "lOG OUT";
             this.router.navigate(['/Perfil']);
           }else
           {
@@ -35,7 +45,6 @@ export class LoginComponent implements OnInit {
           }
         }
       }
-
       )
     }
   }
