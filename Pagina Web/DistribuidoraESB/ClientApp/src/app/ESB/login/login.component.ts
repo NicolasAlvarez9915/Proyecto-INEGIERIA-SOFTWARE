@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { User } from '../Models/user';
+import { Usuario } from '../Models/usuario';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,7 @@ import { User } from '../Models/user';
 export class LoginComponent implements OnInit {
 
   usuario: User;
-  constructor(private router: Router) {}
+  constructor(private router: Router, private service: UsuarioService) {}
 
   ngOnInit(): void {
     this.usuario = new User;
@@ -18,7 +20,23 @@ export class LoginComponent implements OnInit {
 
   iniciarSession(){
     if(this.validarCampos()){
-      this.router.navigate(['/Perfil']);
+      this.service.validarSession(this.usuario.correo).subscribe(usuarioRespuesta => {
+        if (usuarioRespuesta == null )
+        {
+          alert("No existe un usuario con este correo");
+        }else
+        {
+          if(usuarioRespuesta.contraseña == this.usuario.contrasena)
+          {
+            this.router.navigate(['/Perfil']);
+          }else
+          {
+            alert("Contraseña incorrecta");
+          }
+        }
+      }
+
+      )
     }
   }
 

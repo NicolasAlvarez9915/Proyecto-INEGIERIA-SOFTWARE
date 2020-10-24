@@ -22,21 +22,13 @@ namespace DistribuidoraESB.Controllers
         {
             Usuario usuario = MapearUsuario(usuarioInput);
             var response = service.Guardar(usuario);
-            if (response.Error) 
-            {
-                return BadRequest(response.Mensaje);
-            }
             return Ok(response.usuario);
         }
         
-        [HttpGet]
-        public ActionResult<UsuarioViewModel> Get(string correo, string contraseña)
+        [HttpGet("{correo}")]
+        public ActionResult<UsuarioViewModel> Get(string correo)
         {
-            Usuario usuario = new Usuario(){
-                Correo = correo,
-                Contraseña = contraseña,
-            };
-            var response = service.ValidarSesion(usuario);
+            var response = service.ValidarCorreo(correo);
             if (response.Error) 
             {
                 return BadRequest(response.Mensaje);

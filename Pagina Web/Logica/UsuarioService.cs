@@ -27,18 +27,13 @@ namespace Logica
             }
         }
 
-        public UsuarioResponse ValidarSesion(Usuario usuario)
+        public UsuarioResponse ValidarCorreo(string correo)
         {
-            var usuarioEncontrado = context.Usuarios.Find(usuario.Correo);
+            var usuarioEncontrado = context.Usuarios.Find(correo);
             if (usuarioEncontrado == null)
             {
                 return new UsuarioResponse("Correo inexistente");
             }
-            if (usuarioEncontrado.Contraseña != usuario.Contraseña)
-            {
-                return new UsuarioResponse("Contraseña incorrecta");
-            }
-            usuarioEncontrado.Contraseña = null;
             return new UsuarioResponse(usuarioEncontrado);
         }
 
