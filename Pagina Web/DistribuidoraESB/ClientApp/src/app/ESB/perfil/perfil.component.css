@@ -24,6 +24,12 @@
     outline: none;
     background-color:  rgb(52, 58, 64);
 }
+.btnbarraOps{
+    border-radius: 17px;
+    border: none;
+    outline: none;
+    background-color:  rgb(50, 51, 53);
+}
 
 *{
     font-size: .7cm;
@@ -43,21 +49,37 @@ h1{
     background-attachment: fixed;
     border-radius: 20px;
     margin-top: 1rem;
+    margin-bottom: 1rem;
     height: 610px;
     max-width: 610px;
 }
 
+.OpsMenu{
+    background-color:  rgb(50, 51, 53);
+}
+
 .barraLateral{
+    position: relative;
     min-width: 250px;
     max-width: 250px;
     background-color: rgb(52, 58, 64);
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
     margin-top: 1rem;
-    box-shadow: 0px 0px 5px 2px rgba(153, 152, 152, 0.75); 
+    box-shadow: 0px 0px 5px 2px rgba(153, 152, 152, 0.75);
+    transition: all 400ms linear;
 }
 
+.BarraActiva {
+    left: 0px;
+}
+
+
+.BarraActivaContenido{
+    left: 260px;
+}
 .contenido{
+    left: 0px;
     background-color: rgb(255, 255, 255);
     border-radius: 20px;
     margin-bottom: 0rem;

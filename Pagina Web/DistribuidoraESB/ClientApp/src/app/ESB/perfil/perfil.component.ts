@@ -2,7 +2,9 @@ import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { stringify } from 'querystring';
+import { AdministradorService } from 'src/app/services/administrador.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Administrador } from '../Models/administrador';
 import { Usuario } from '../Models/usuario';
 
 @Component({
@@ -13,25 +15,38 @@ import { Usuario } from '../Models/usuario';
 export class PerfilComponent implements OnInit {
 
   usuario: Usuario;
+  administrador: Administrador;
+  administradorActualizar: Administrador;
+  contrasenaActualizar: string;
+  contrasenaconfirmar: string;
   i: number;
   existe: Boolean;
-  constructor(private router: Router,private service: UsuarioService) { }
+  Rol: string;
+  constructor(
+    private router: Router,
+    private usuarioService: UsuarioService,
+    private administradorService: AdministradorService
+    ) { 
+      this.administradorActualizar = new Administrador();
+    }
 
   ngOnInit(): void {
     this.validarRol();
+    
+    this.administrador = new Administrador();
   }
 
 
   validarRol(){
-    this.usuario = this.service.UsuarioLogueado();
+    this.usuario = this.usuarioService.UsuarioLogueado();
     if(this.usuario == null){
       this.router.navigate(['/Login']);
     }
     document.getElementById("BtnLogin").innerHTML = "lOG OUT";
     document.getElementById("BtnRegistrar").classList.add("Ocultar");
     document.getElementById("BtnRegistrar").classList.remove("Mostrar");
-    let Rol = this.usuario.rol;
-    switch (Rol){
+    this.Rol = this.usuario.rol;
+    switch (this.Rol){
       case "Cliente":
         document.getElementById("formularioCliente").classList.add("Mostrar");
         document.getElementById("BarraCliente").classList.add("Mostrar");
@@ -55,7 +70,42 @@ export class PerfilComponent implements OnInit {
         document.getElementById("formularioDomiciliario").classList.add("Ocultar");
         document.getElementById("formularioAdministrador").classList.add("Mostrar");
         document.getElementById("BarraAdministrador").classList.add("Mostrar");
+        this.pedirInforAdministrador();
       break;
+    }
+  }
+
+  pedirInforAdministrador()
+  {
+    this.administradorService.buscar(this.usuario.idPersona).subscribe(
+      r => {
+        this.administrador = r;
+      }
+    )
+  }
+
+  atualizarInformacion(tipoInformacion: string)
+  {
+    switch (this.Rol){
+      case "Cliente":
+        
+      break;
+      case "Domiciliario":
+        
+      break;
+      case "Administrador":
+        this.actualizarInformacionAdministrador();
+      break;
+    }
+  }
+
+  actualizarInformacionAdministrador()
+  {
+    if(this.administradorActualizar.nombres != undefined && this.administradorActualizar.nombres.trim() != "" )
+    {
+      if (confirm('¿Desea cambiar su nombre?')) {
+        this.administrador.nombres = this.administradorActualizar.nombres;
+      }
     }
   }
 
@@ -65,17 +115,16 @@ export class PerfilComponent implements OnInit {
     var existe: boolean;
     existe = false;
     for (i = 0; i<clases.length; i++){
-      if(clases[i] === "Mostrar"){
+      if(clases[i] === "Ocultar"){
         existe = true;
       }
     }
     if(existe){
-      document.getElementById("barraLateral").classList.remove("Mostrar");
-      document.getElementById("barraLateral").classList.add("Ocultar");
-    }else{
       document.getElementById("barraLateral").classList.remove("Ocultar");
-      document.getElementById("barraLateral").classList.add("Mostrar");
+        document.getElementById("barraLateral").classList.add("Mostrar");
+    }else{
+      document.getElementById("barraLateral").classList.add("Ocultar");
+      document.getElementById("barraLateral").classList.remove("Mostrar");
     }
-
   }
 }

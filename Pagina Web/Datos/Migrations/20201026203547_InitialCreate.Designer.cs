@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datos.Migrations
 {
     [DbContext(typeof(DESBContext))]
-    [Migration("20201024182639_InitialCreate")]
+    [Migration("20201026203547_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,6 +19,31 @@ namespace Datos.Migrations
                 .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Entity.Administrador", b =>
+                {
+                    b.Property<string>("Identificacion")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("Apellidos")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Nombres")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Puesto")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Whatsapp")
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Identificacion");
+
+                    b.ToTable("administradores");
+                });
 
             modelBuilder.Entity("Entity.Usuario", b =>
                 {

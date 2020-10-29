@@ -9,7 +9,7 @@ namespace Datos
         public DESBContext (DbContextOptions options): base (options)
         {
         }
-
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Administrador> administradores { get; set; }
     }
 }

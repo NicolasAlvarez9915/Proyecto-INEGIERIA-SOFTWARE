@@ -18,6 +18,31 @@ namespace Datos.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Entity.Administrador", b =>
+                {
+                    b.Property<string>("Identificacion")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("Apellidos")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Nombres")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Puesto")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Whatsapp")
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Identificacion");
+
+                    b.ToTable("administradores");
+                });
+
             modelBuilder.Entity("Entity.Usuario", b =>
                 {
                     b.Property<string>("Correo")
