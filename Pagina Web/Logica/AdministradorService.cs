@@ -17,7 +17,7 @@ namespace Logica
         {
             try
             {
-                context.administradores.Add(administrador);
+                context.Administradores.Add(administrador);
                 context.SaveChanges();
                 return new AdministradorResponse(administrador);
             }
@@ -28,7 +28,7 @@ namespace Logica
         }
 
         public AdministradorResponse Buscar(string Identificacion){
-            Administrador administrador = context.administradores.Find(Identificacion);
+            Administrador administrador = context.Administradores.Find(Identificacion);
             return new AdministradorResponse(administrador);
         }
     }

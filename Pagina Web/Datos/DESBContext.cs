@@ -10,6 +10,7 @@ namespace Datos
         {
         }
         public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Administrador> administradores { get; set; }
+        public DbSet<Administrador> Administradores { get; set; }
+        public DbSet<Cliente> Clientes { get; set;}
     }
 }

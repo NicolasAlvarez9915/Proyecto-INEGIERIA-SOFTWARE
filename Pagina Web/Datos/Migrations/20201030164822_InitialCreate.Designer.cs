@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datos.Migrations
 {
     [DbContext(typeof(DESBContext))]
-    [Migration("20201026203547_InitialCreate")]
+    [Migration("20201030164822_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,7 +42,35 @@ namespace Datos.Migrations
 
                     b.HasKey("Identificacion");
 
-                    b.ToTable("administradores");
+                    b.ToTable("Administradores");
+                });
+
+            modelBuilder.Entity("Entity.Cliente", b =>
+                {
+                    b.Property<string>("Identificacion")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("Apellidos")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Direccion")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Horaio")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Nombres")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Whatsapp")
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Identificacion");
+
+                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("Entity.Usuario", b =>
