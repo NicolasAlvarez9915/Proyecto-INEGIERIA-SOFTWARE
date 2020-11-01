@@ -1,9 +1,16 @@
 Titulo ................ Listo
 Autor y docente ....... Listo
-Estador del arte ...... Semi Listo
+Estador del arte ...... MODIFICARLO ----------- TERCER CORTE
 Descripción del problema ...... Listo
 justificacion ......... Listo
 Objetivos ...... Listo
 Referencias bibliograficas .... Listo
 Ingenieria de requerimientos .... Listo
 Historia de usuarios ..... Listo.
+
+
+diagramas de casos de uso ....... Listos en observacion.
+descripción de casos uso ....... Falta.
+diagramas de actividades ....... Semi listos.
+diagrama de clases ..... Falta.
+diagramas de secuencia ... Falta.
