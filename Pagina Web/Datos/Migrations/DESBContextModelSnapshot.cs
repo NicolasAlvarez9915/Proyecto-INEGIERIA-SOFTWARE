@@ -63,6 +63,9 @@ namespace Datos.Migrations
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<string>("TipoCliente")
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<string>("Whatsapp")
                         .HasColumnType("nvarchar(15)");
 

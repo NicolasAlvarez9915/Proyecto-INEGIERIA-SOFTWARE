@@ -9,5 +9,7 @@ namespace Entity
         public string Direccion { get; set; }
         [Column(TypeName = "nvarchar(50)")]
         public string Horaio { get; set; }
+        [Column(TypeName = "nvarchar(20)")]
+        public string TipoCliente { get; set; }
     }
 }

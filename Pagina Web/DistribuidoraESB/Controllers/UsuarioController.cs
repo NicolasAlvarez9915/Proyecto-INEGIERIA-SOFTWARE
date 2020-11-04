@@ -25,6 +25,13 @@ namespace DistribuidoraESB.Controllers
             return Ok(response.usuario);
         }
         
+        [HttpPut("{campo}")]
+        public ActionResult<String> Put(string campo,UsuarioInputModel usuarioInput)
+        {
+            service.actualizarContraseña(MapearUsuario(usuarioInput));
+            return Ok("Correcto");
+        }
+
         [HttpGet("{correo}")]
         public ActionResult<UsuarioViewModel> Get(string correo)
         {

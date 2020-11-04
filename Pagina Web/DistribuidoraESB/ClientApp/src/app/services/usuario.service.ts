@@ -26,6 +26,15 @@ export class UsuarioService {
     );
   }
 
+  actualizarContraseña(usuario: Usuario): Observable<String>
+  {
+    return this.http.put<String>(this.baseUrl+'api/Usuario/Todo',usuario)
+    .pipe(
+      tap(_ => this.handleErrorService.log('Encontrado')),
+      catchError(this.handleErrorService.handleError<String>('Buscar Administrador', null))
+    );
+  }
+
   GuardarUsuarioSesion(usuario: Usuario){
     localStorage.setItem('Usuario', JSON.stringify(usuario));
   }

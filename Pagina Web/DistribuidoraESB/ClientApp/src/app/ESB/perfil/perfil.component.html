@@ -681,41 +681,76 @@
                     </form>
                     </div>
                     <div class="collapse row justify-content-center"id="collapseRegistrarCliente">
-                        <form class="col-6 font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;">
+                        <form class="col-8 font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;"[formGroup]="formularioRegistroCliente">
                             <hr>
-                            <label for="LblIdentificacion">Identificacion</label>
-                            <input type="Text" id="LblIdentificacion" name="identificacion" class="form-control" placeholder="Identificacion">
-                            <div class="row">
+                            
+                            <div class="col-6">
+                                <label for="">Identificacion</label>
+                                <input type="text"  name="identificacion"  placeholder="identificacion" class="form-control"formControlName="identificacion" [ngClass]="{'is-invalid':  control.identificacion.touched && control.identificacion.errors}"/>
+                                <div *ngIf="control.identificacion.errors" class="invalid-feedback">
+                                    <div *ngIf="control.identificacion.errors.required">Se require la identificacionx</div>
+                                </div>
+                            </div>
+                            
+
+                            <div class="col row">
                                 <div class="col">
-                                    <label for="LblName">Nombre</label>
-                                    <input type="Text" id="LblName" class="form-control" placeholder="Nombres">
+                                    <label for="LblNameAdministrador">Nombre</label>
+                                    <input type="Text" id="LblNameAdministrador" class="form-control" placeholder="Nombres"formControlName="nombres"[ngClass]="{'is-invalid':  control.nombres.errors  && control.nombres.touched}">
+                                    <div *ngIf="control.nombres.errors" class="invalid-feedback">
+                                        <div *ngIf="control.nombres.errors.required">Se requiren los nombres</div>
+                                    </div>
                                 </div>
                                 <div class="col">
                                     <label>Apellidos</label>
-                                    <input type="text"  name="apellidos"  placeholder="Apellidos" class="form-control" />
+                                    <input type="text"  name="apellidos"  placeholder="Apellidos" class="form-control"formControlName="apellidos" [ngClass]="{'is-invalid':  control.apellidos.touched && control.apellidos.errors}"/>
+                                    <div *ngIf="control.apellidos.errors" class="invalid-feedback">
+                                        <div *ngIf="control.apellidos.errors.required">Se requiren los apellidos</div>
+                                    </div>
                                 </div>
                             </div>
-                            <label for="inputEmail">Correo Electronico</label>
-                            <input type="email" id="inputEmail" class="form-control" placeholder="Correo Electronico" required="" autofocus="" _mstplaceholder="868153">
-                            <div class="row">
+                            <div class="col row">
+                                <div class="col">
+                                    <label for="inputEmail">Correo Electronico</label>
+                                    <input type="email" id="inputEmail" class="form-control" placeholder="Correo Electronico" required="" autofocus="" _mstplaceholder="868153" formControlName="correo" [ngClass]="{'is-invalid':  control.correo.touched && control.correo.errors}">
+                                    <div *ngIf="control.correo.errors" class="invalid-feedback">
+                                        <div *ngIf="control.correo.errors.required">Se require el correo</div>
+                                    </div>
+                                </div>
+                                <div class="col"> 
+                                    <label for="">Tipo de cliente</label>
+                                      <select class="form-control " formControlName="tipoCliente">
+                                        <option value="Cliente Negocio">Tiene negocio</option>
+                                        <option value="Cliente casual">Cliente casual</option>
+                                      </select>
+                                </div>
+                            </div>
+                            <div class="col row">
                                 <div class="col">
                                     <label for="inputPassword1" >Contraseña</label>
-                                    <input type="password" id="inputPassword1" class="form-control" placeholder="Contraseña" required="" _mstplaceholder="182013">
+                                    <input type="password" id="inputPassword1" class="form-control" placeholder="Contraseña" required="" _mstplaceholder="182013"formControlName="contrasena" [ngClass]="{'is-invalid':  control.contrasena.touched && control.contrasena.errors}">
+                                    <div *ngIf="control.contrasena.errors" class="invalid-feedback">
+                                        <div *ngIf="control.contrasena.errors.required">Se require la contraseña</div>
+                                    </div>
                                 </div>
                                 <div class="col">
                                     <label for="inputPassword" >Contraseña</label>
-                                    <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="" _mstplaceholder="182013">
+                                    <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="" _mstplaceholder="182013"formControlName="contrasenaconfirmar" [ngClass]="{'is-invalid':  control.contrasenaconfirmar.touched && control.contrasenaconfirmar.errors}">
+                                    <div *ngIf="control.contrasenaconfirmar.errors" class="invalid-feedback">
+                                        <div *ngIf="control.contrasenaconfirmar.errors.required">Se require la confirmacion de la contraseña</div>
+                                    </div>
                                 </div>
                             </div>
                             <hr>
                             <div class="row d-flex justify-content-center">
                                 <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" style="width: 50%" type="submit" >        
+                                    <button class="btn btn-outline-dark" style="width: 50%" type="submit" (click)="onSubmit()" 
+                                    [disabled]="formularioRegistroCliente.invalid">        
                                         Registrar
                                     </button>
                                 </div>
                                 <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" style="width: 50%" type="submit" data-toggle="collapse" data-target="#collapseRegistrarCliente" aria-expanded="false" aria-controls="collapseRegistrarCliente">
+                                    <button class="btn btn-outline-dark" style="width: 50%" type="reset" data-toggle="collapse" data-target="#collapseRegistrarCliente" aria-expanded="false" aria-controls="collapseRegistrarCliente">
                                         Volver
                                     </button>
                                 </div>

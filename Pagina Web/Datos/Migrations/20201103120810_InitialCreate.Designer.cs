@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datos.Migrations
 {
     [DbContext(typeof(DESBContext))]
-    [Migration("20201030164822_InitialCreate")]
+    [Migration("20201103120810_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,6 +64,9 @@ namespace Datos.Migrations
 
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("TipoCliente")
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Whatsapp")
                         .HasColumnType("nvarchar(15)");

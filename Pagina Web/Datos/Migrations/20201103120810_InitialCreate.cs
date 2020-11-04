@@ -32,7 +32,8 @@ namespace Datos.Migrations
                     Telefono = table.Column<string>(type: "nvarchar(15)", nullable: true),
                     Whatsapp = table.Column<string>(type: "nvarchar(15)", nullable: true),
                     Direccion = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    Horaio = table.Column<string>(type: "nvarchar(50)", nullable: true)
+                    Horaio = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    TipoCliente = table.Column<string>(type: "nvarchar(20)", nullable: true)
                 },
                 constraints: table =>
                 {

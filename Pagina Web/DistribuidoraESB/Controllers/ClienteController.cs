@@ -39,6 +39,20 @@ namespace DistribuidoraESB.Controllers
             return Ok(response.cliente);
         }
 
+        [HttpPut("{tipoInformacion}")]
+        public ActionResult<String> Put(string tipoInformacion, ClienteInputModel clienteInput)
+        {
+            Cliente cliente = MapearCliente(clienteInput);
+
+            if(tipoInformacion == "Personal")
+            {
+                service.ActualizarInfoPersonal(cliente);
+            }else{
+                service.ActualizarInfoDomicilio(cliente);
+            }
+            return Ok("Correcto");
+        }
+
         [HttpGet]
         public IEnumerable<ClienteViewModel> Gets()
         {

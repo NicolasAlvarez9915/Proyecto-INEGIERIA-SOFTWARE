@@ -40,6 +40,44 @@ namespace Logica
             return clientes;
         }
 
+        public void ActualizarInfoPersonal(Cliente cliente)
+        {
+            Cliente clienteEncontrado = context.Clientes.Find(cliente.Identificacion);
+            if(clienteEncontrado.Nombres != cliente.Nombres)
+            {
+                clienteEncontrado.Nombres = cliente.Nombres;
+            }
+            if(clienteEncontrado.Apellidos != cliente.Apellidos)
+            {
+                clienteEncontrado.Apellidos = cliente.Apellidos;
+            }
+            if(clienteEncontrado.Telefono != cliente.Telefono)
+            {
+                clienteEncontrado.Telefono = cliente.Telefono;
+            }
+            if(clienteEncontrado.Whatsapp != cliente.Whatsapp)
+            {
+                clienteEncontrado.Whatsapp = cliente.Whatsapp;
+            }
+            context.Clientes.Update(clienteEncontrado);
+            context.SaveChanges();
+        }
+
+        public void ActualizarInfoDomicilio(Cliente cliente)
+        {
+            Cliente clienteEncontrado = context.Clientes.Find(cliente.Identificacion);
+            if(clienteEncontrado.Direccion != cliente.Direccion)
+            {
+                clienteEncontrado.Direccion = cliente.Direccion;
+            }
+            if(clienteEncontrado.Horaio != cliente.Horaio)
+            {
+                clienteEncontrado.Apellidos = cliente.Apellidos;
+            }
+            context.Clientes.Update(clienteEncontrado);
+            context.SaveChanges();
+        }
+
     }
     public class ClienteResponse 
         {

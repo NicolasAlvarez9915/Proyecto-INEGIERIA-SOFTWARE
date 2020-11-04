@@ -1,10 +1,13 @@
 import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { stringify } from 'querystring';
+import { Observable } from 'rxjs';
 import { AdministradorService } from 'src/app/services/administrador.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Administrador } from '../Models/administrador';
+import { Cliente } from '../Models/cliente';
 import { Usuario } from '../Models/usuario';
 
 @Component({
@@ -13,28 +16,32 @@ import { Usuario } from '../Models/usuario';
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
+  formularioRegistroCliente: FormGroup;
 
   usuario: Usuario;
   administrador: Administrador;
   administradorActualizar: Administrador;
   contrasenaActualizar: string;
   contrasenaconfirmar: string;
+  clienteRegistrar: Cliente;
   i: number;
   existe: Boolean;
   Rol: string;
   constructor(
     private router: Router,
     private usuarioService: UsuarioService,
-    private administradorService: AdministradorService
+    private administradorService: AdministradorService,
+    private formBuilder: FormBuilder
     ) { 
       this.administradorActualizar = new Administrador();
     }
 
   ngOnInit(): void {
-    this.validarRol();
-    
     this.administrador = new Administrador();
+    this.validarRol();
   }
+
+
 
 
   validarRol(){
@@ -70,11 +77,51 @@ export class PerfilComponent implements OnInit {
         document.getElementById("formularioDomiciliario").classList.add("Ocultar");
         document.getElementById("formularioAdministrador").classList.add("Mostrar");
         document.getElementById("BarraAdministrador").classList.add("Mostrar");
+        
         this.pedirInforAdministrador();
+        this.buildForm();
       break;
     }
   }
+    
+  private buildForm()
+  {
+    this.clienteRegistrar = new Cliente();
+    this.clienteRegistrar.apellidos = '';
+    this.clienteRegistrar.identificacion = '';
+    this.clienteRegistrar.nombres = '';
+    this.clienteRegistrar.tipoCliente = '';
+    var contrasena: string = '';
+    this.contrasenaconfirmar = '';
+    var correo: string = '';
+    this.formularioRegistroCliente = this.formBuilder.group({
+      identificacion: [this.clienteRegistrar.identificacion, Validators.required],
+      nombres: [this.clienteRegistrar.nombres, Validators.required],
+      apellidos: [this.clienteRegistrar.apellidos, [Validators.required]],
+      tipoCliente: [this.clienteRegistrar.tipoCliente, Validators.required],
+      contrasena: [contrasena, Validators.required],
+      contrasenaconfirmar: [this.contrasenaconfirmar, Validators.required],
+      correo: [correo, Validators.required]
+    });
+  }
 
+  get control() 
+  {
+    return this.formularioRegistroCliente.controls;
+  }
+
+  onSubmit() {
+        if (this.formularioRegistroCliente.invalid) {
+          return;
+        }
+        this.registrarCliente();
+  }
+
+  registrarCliente()
+  {
+    this.clienteRegistrar = this.formularioRegistroCliente.value;
+
+  }
   pedirInforAdministrador()
   {
     this.administradorService.buscar(this.usuario.idPersona).subscribe(
@@ -101,10 +148,71 @@ export class PerfilComponent implements OnInit {
 
   actualizarInformacionAdministrador()
   {
-    if(this.administradorActualizar.nombres != undefined && this.administradorActualizar.nombres.trim() != "" )
+    var administradorInformacionNueva = this.administrador;
+    var acumulado: number;
+    acumulado = 0;
+    if(confirm("Se actualizaran solo los campos en los que ingreso datos. ¿De acuerdo?"))
     {
-      if (confirm('¿Desea cambiar su nombre?')) {
-        this.administrador.nombres = this.administradorActualizar.nombres;
+      this.administradorActualizar.identificacion = this.usuario.idPersona;
+      if(this.administradorActualizar.nombres != undefined && this.administradorActualizar.nombres.trim() != "" )
+      {
+        acumulado++;
+        administradorInformacionNueva.nombres = this.administradorActualizar.nombres;
+      }
+      if(this.administradorActualizar.apellidos != undefined && this.administradorActualizar.apellidos.trim() != "" )
+      {
+        acumulado++;
+        administradorInformacionNueva.apellidos = this.administradorActualizar.apellidos;
+      }
+      if(this.administradorActualizar.puesto != undefined && this.administradorActualizar.puesto.trim() != "" )
+      {
+        acumulado++;
+        administradorInformacionNueva.puesto = this.administradorActualizar.puesto;
+      }
+      if(this.administradorActualizar.telefono != undefined && this.administradorActualizar.telefono.trim() != "" )
+      {
+        acumulado++;
+        administradorInformacionNueva.telefono = this.administradorActualizar.telefono;
+      }
+      if(this.administradorActualizar.whatsapp != undefined && this.administradorActualizar.whatsapp.trim() != "" )
+      {
+        acumulado++;
+        administradorInformacionNueva.whatsapp = this.administradorActualizar.whatsapp;
+      }
+      if(acumulado>0)
+      {
+        this.administradorService.Actualizar(administradorInformacionNueva).subscribe(r =>{
+          this.pedirInforAdministrador();
+          alert("Datos actualizados personales correctamente");
+        });
+      }
+      acumulado = 0;
+      if(this.contrasenaActualizar != undefined && this.contrasenaActualizar.trim() != "")
+      {
+        acumulado++;
+      }
+      if(this.contrasenaconfirmar != undefined && this.contrasenaconfirmar.trim() != "" )
+      {
+        acumulado++;
+      }
+      if(acumulado>0)
+      {
+        if(acumulado == 2)
+        {
+          if(this.contrasenaActualizar == this.contrasenaconfirmar)
+          {
+            this.usuario.contraseña = this.contrasenaconfirmar;
+            this.usuarioService.actualizarContraseña(this.usuario).subscribe(r =>{
+              this.usuario.contraseña = null;
+              alert("Contraseña actualizada")
+            });
+          }else{
+            alert("Las contraseñas no coinsiden");
+          }
+        }else
+        {
+          alert("Para actualizar la contraseña debe ingresar la contraseña y confirmarla.");
+        }
       }
     }
   }

@@ -27,7 +27,7 @@ export class ClienteService {
     );
   }
   
-  Todes(): Observable<Cliente[]>
+  Todos(): Observable<Cliente[]>
   {
     return this.http.get<Cliente[]>(this.baseUrl+'api/Cliente')
     .pipe(
@@ -42,6 +42,15 @@ export class ClienteService {
     .pipe(
       tap(_ => this.handleErrorService.log('Resgitrado')),
       catchError(this.handleErrorService.handleError<Cliente>('Registrar Cliente', null))
+    );
+  }
+
+  Actualizar(tipo: string, cliente: Cliente): Observable<String>
+  {
+    return this.http.put<String>(this.baseUrl+'api/Cliente/'+tipo,cliente)
+    .pipe(
+      tap(_ => this.handleErrorService.log('Actualizado')),
+      catchError(this.handleErrorService.handleError<String>('Actualizar informacion Cliente', null))
     );
   }
 }

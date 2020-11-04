@@ -1,0 +1,7 @@
+SELECT TOP (1000) [Identificacion]
+      ,[Nombres]
+      ,[Apellidos]
+      ,[Telefono]
+      ,[Whatsapp]
+      ,[Puesto]
+  FROM [DESB].[dbo].[Administradores]

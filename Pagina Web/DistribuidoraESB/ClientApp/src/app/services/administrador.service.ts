@@ -26,4 +26,13 @@ export class AdministradorService {
       catchError(this.handleErrorService.handleError<Administrador>('Buscar Administrador', null))
     );
   }
+
+  Actualizar(administrador: Administrador): Observable<String>
+  {
+    return this.http.put<String>(this.baseUrl+'api/Adminstrador/Todo',administrador)
+    .pipe(
+      tap(_ => this.handleErrorService.log('Encontrado')),
+      catchError(this.handleErrorService.handleError<String>('Buscar Administrador', null))
+    );
+  }
 }

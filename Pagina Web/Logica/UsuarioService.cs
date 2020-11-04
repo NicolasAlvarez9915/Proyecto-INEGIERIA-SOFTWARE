@@ -27,6 +27,14 @@ namespace Logica
             }
         }
 
+        public void actualizarContraseña(Usuario usuario)
+        {
+            Usuario usuarioActual =  context.Usuarios.Find(usuario.Correo);
+            usuarioActual.Contraseña = usuario.Contraseña;
+            context.Usuarios.Update(usuarioActual);
+            context.SaveChanges();
+        }
+
         public UsuarioResponse ValidarCorreo(string correo)
         {
             var usuarioEncontrado = context.Usuarios.Find(correo);

@@ -7,6 +7,7 @@ namespace DistribuidoraESB.Models
     {
         public string Direccion { get; set; }
         public string Horaio { get; set; }
+        public string TipoCliente { get; set; }
     }
 
     public class ClienteViewModel: ClienteInputModel
@@ -24,6 +25,7 @@ namespace DistribuidoraESB.Models
             Whatsapp = cliente.Whatsapp;
             Direccion = cliente.Direccion;
             Horaio = cliente.Horaio;
+            TipoCliente = cliente.TipoCliente;
         }
     }
 }

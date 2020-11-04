@@ -37,6 +37,13 @@ namespace DistribuidoraESB.Controllers
             }
             return Ok(response.adminitrador);
         }
+
+        [HttpPut("{campo}")]
+        public ActionResult<String> Put(string campo, AdministradorInputModel administradorInput)
+        {
+            service.ActualizarInfo(MapearAdministrador(administradorInput));
+            return Ok("Correcto");
+        }
         private Administrador MapearAdministrador(AdministradorInputModel administradorInput)
         {
             var administrador = new Administrador

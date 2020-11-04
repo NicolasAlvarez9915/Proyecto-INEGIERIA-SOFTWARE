@@ -6,4 +6,5 @@ export class Cliente {
     apellidos: string;
     telefono: string;
     whatsapp: string;
+    tipoCliente: string;
 }
