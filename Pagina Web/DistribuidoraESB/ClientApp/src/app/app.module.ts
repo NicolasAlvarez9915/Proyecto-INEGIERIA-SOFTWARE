@@ -13,6 +13,8 @@ import { RegistroComponent } from './ESB/registro/registro.component';
 import { PerfilComponent } from './ESB/perfil/perfil.component';
 import { CarritoComponent } from './ESB/carrito/carrito.component';
 import { FooterComponent } from './footer/footer.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AlertModalComponent } from './@base/alert-modal/alert-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { FooterComponent } from './footer/footer.component';
     RegistroComponent,
     PerfilComponent,
     CarritoComponent,
-    FooterComponent
+    FooterComponent,
+    AlertModalComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -33,8 +36,10 @@ import { FooterComponent } from './footer/footer.component';
     RouterModule.forRoot([
       { path: '', component: PrincipalComponent, pathMatch: 'full' }
     ]),
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
+  entryComponents:[AlertModalComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

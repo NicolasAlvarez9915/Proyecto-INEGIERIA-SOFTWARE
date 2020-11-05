@@ -1,7 +1,1 @@
-SELECT TOP (1000) [Identificacion]
-      ,[Nombres]
-      ,[Apellidos]
-      ,[Telefono]
-      ,[Whatsapp]
-      ,[Puesto]
-  FROM [DESB].[dbo].[Administradores]
+insert into Usuarios (Correo, IdPersona, Contraseña, Rol) values('admin@admin.com','1120754742',123, 'Administrador')
