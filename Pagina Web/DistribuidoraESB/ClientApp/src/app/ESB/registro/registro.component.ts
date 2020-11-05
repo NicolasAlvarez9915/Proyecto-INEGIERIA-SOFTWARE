@@ -79,10 +79,12 @@ export class RegistroComponent implements OnInit {
   Registrar(){
 
     this.cliente = this.formularioRegistro.value;
-    this.usuario.contraseña = this.formularioRegistro.value.contrasenaConfirmar;
+    this.usuario = new Usuario();
+    this.usuario.contraseña = this.formularioRegistro.value.contrasena;
     this.usuario.correo = this.formularioRegistro.value.correo;
     this.usuario.idPersona = this.cliente.identificacion;
     this.usuario.rol = 'Cliente';
+    alert(this.usuario.contraseña);
     if(this.formularioRegistro.value.contrasenaconfirmar != this.formularioRegistro.value.contrasena )
     {
       const messageBox = this.modalService.open(AlertModalComponent)
