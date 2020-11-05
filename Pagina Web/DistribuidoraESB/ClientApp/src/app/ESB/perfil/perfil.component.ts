@@ -47,6 +47,7 @@ export class PerfilComponent implements OnInit {
   ngOnInit(): void {
     this.administrador = new Administrador();
     this.validarRol();
+    this.buildForm();
   }
 
 
