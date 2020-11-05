@@ -1,10 +1,13 @@
 import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { stringify } from 'querystring';
 import { Observable } from 'rxjs';
+import { AlertModalComponent } from 'src/app/@base/alert-modal/alert-modal.component';
 import { AdministradorService } from 'src/app/services/administrador.service';
+import { ClienteService } from 'src/app/services/cliente.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Administrador } from '../Models/administrador';
 import { Cliente } from '../Models/cliente';
@@ -24,13 +27,18 @@ export class PerfilComponent implements OnInit {
   contrasenaActualizar: string;
   contrasenaconfirmar: string;
   clienteRegistrar: Cliente;
+  usuarioRegistrar: Usuario;
+  listaClientes: Cliente[];
+  filtroClientes: string;
   i: number;
   existe: Boolean;
   Rol: string;
   constructor(
     private router: Router,
     private usuarioService: UsuarioService,
+    private clienteService: ClienteService,
     private administradorService: AdministradorService,
+    private modalService: NgbModal,
     private formBuilder: FormBuilder
     ) { 
       this.administradorActualizar = new Administrador();
@@ -80,8 +88,20 @@ export class PerfilComponent implements OnInit {
         
         this.pedirInforAdministrador();
         this.buildForm();
+        this.clientes();
       break;
     }
+  }
+
+  clientes()
+  {
+    this.clienteService.Todos().subscribe
+    (
+      r =>
+      {
+        this.listaClientes = r;
+      }
+    )
   }
     
   private buildForm()
@@ -100,7 +120,7 @@ export class PerfilComponent implements OnInit {
       apellidos: [this.clienteRegistrar.apellidos, [Validators.required]],
       tipoCliente: [this.clienteRegistrar.tipoCliente, Validators.required],
       contrasena: [contrasena, Validators.required],
-      contrasenaconfirmar: [this.contrasenaconfirmar, Validators.required],
+      contrasenaconfirmar: [this.contrasenaconfirmar, [Validators.required]],
       correo: [correo, Validators.required]
     });
   }
@@ -108,6 +128,14 @@ export class PerfilComponent implements OnInit {
   get control() 
   {
     return this.formularioRegistroCliente.controls;
+  }
+
+  
+  vercliente(cliente: Cliente)
+  {
+    const messageBox = this.modalService.open(AlertModalComponent)
+      messageBox.componentInstance.title = "ALERTA";
+      messageBox.componentInstance.message = cliente.identificacion + ' '+ cliente.nombres;
   }
 
   onSubmit() {
@@ -120,7 +148,62 @@ export class PerfilComponent implements OnInit {
   registrarCliente()
   {
     this.clienteRegistrar = this.formularioRegistroCliente.value;
+    this.usuarioRegistrar = new Usuario();
+    this.usuarioRegistrar.contraseña = this.formularioRegistroCliente.value.contrasena;
+    this.usuarioRegistrar.correo = this.formularioRegistroCliente.value.correo;
+    this.usuarioRegistrar.rol = "Cliente";
+    this.usuarioRegistrar.idPersona = this.clienteRegistrar.identificacion;
+    if(this.formularioRegistroCliente.value.contrasenaconfirmar != this.formularioRegistroCliente.value.contrasena )
+    {
+      const messageBox = this.modalService.open(AlertModalComponent)
+      messageBox.componentInstance.title = "ALERTA";
+      messageBox.componentInstance.message = "Las contraseñas no coninciden";
 
+    }else
+    {
+      this.clienteService.buscar(this.clienteRegistrar.identificacion).subscribe(
+        r =>
+        {
+          if(r!=null)
+          {
+            const messageBox = this.modalService.open(AlertModalComponent)
+            messageBox.componentInstance.title = "ALERTA";
+            messageBox.componentInstance.message = "Ya existe un cliente registrado con esta identificacion";
+          }else
+          {
+            this.usuarioService.validarSession(this.usuarioRegistrar.correo).subscribe(r=>
+              {
+                if(r != null )
+                {
+                  const messageBox = this.modalService.open(AlertModalComponent)
+            messageBox.componentInstance.title = "ALERTA";
+            messageBox.componentInstance.message = "Ya existe un cliente registrado con este correo";
+                }else{
+                  this.clienteService.post(this.clienteRegistrar).subscribe
+            (
+              r =>
+              {
+                
+                this.usuarioService.post(this.usuarioRegistrar).subscribe(
+                  r=>{
+                    if(r!=null)
+                    {
+                      const messageBox = this.modalService.open(AlertModalComponent)
+                      messageBox.componentInstance.title = "BIEN HECHO.";
+                      messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
+                      this.clientes();
+                    }
+                  }
+                )
+              }
+            );
+                }
+              })
+  
+          }
+        }
+      );
+    }
   }
   pedirInforAdministrador()
   {

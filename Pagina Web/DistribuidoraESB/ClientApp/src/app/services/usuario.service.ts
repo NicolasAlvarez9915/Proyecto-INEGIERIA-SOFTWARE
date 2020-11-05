@@ -18,6 +18,14 @@ export class UsuarioService {
       this.baseUrl = baseUrl;
   }
 
+  post(usuario : Usuario): Observable<Usuario>
+  {
+    return this.http.post<Usuario>(this.baseUrl+'api/Usuario',usuario)
+    .pipe(
+      tap(_ => this.handleErrorService.log('Resgitrado')),
+      catchError(this.handleErrorService.handleError<Usuario>('Registrar Usuario', null))
+    );
+  }
   validarSession(correo: string): Observable<Usuario>{
     return this.http.get<Usuario>(this.baseUrl+'api/Usuario/'+correo)
     .pipe(

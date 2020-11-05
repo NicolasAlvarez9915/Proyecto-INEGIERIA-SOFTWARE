@@ -15,6 +15,8 @@ import { CarritoComponent } from './ESB/carrito/carrito.component';
 import { FooterComponent } from './footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from './@base/alert-modal/alert-modal.component';
+import { FiltroPersonaPipe } from './pipe/filtro-persona.pipe';
+import { FiltroClientePipe } from './pipe/filtro-cliente.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AlertModalComponent } from './@base/alert-modal/alert-modal.component';
     PerfilComponent,
     CarritoComponent,
     FooterComponent,
-    AlertModalComponent
+    AlertModalComponent,
+    FiltroPersonaPipe,
+    FiltroClientePipe
   ],
   imports: [
     ReactiveFormsModule,

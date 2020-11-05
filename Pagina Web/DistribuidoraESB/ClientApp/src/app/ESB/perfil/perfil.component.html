@@ -52,7 +52,7 @@
                     <button class="btn-outline-danger btnbarraOps" style="width: 100%; "  type="bootton" data-toggle="collapse" data-target="#collapseRegistrarCliente, #collapseOpsClientes" aria-expanded="false" aria-controls="collapseRegistrarCliente"(click)="alternarBarra()">
                         Registrar cliente
                     </button>
-                    <button class="btn-outline-danger btnbarraOps" style="width: 100%; "  type="submit" data-toggle="collapse" data-target="#collapseListaClientes, #collapseOpsClientes" aria-expanded="false" aria-controls="collapseListaClientes"(click)="alternarBarra()">
+                    <button class="btn-outline-danger btnbarraOps" style="width: 100%; "  type="submit" data-toggle="collapse" data-target="#collapseGestionClientes, #collapseOpsClientes" aria-expanded="false" aria-controls="collapseListaClientes"(click)="alternarBarra()">
                         Lista de Clientes
                     </button>
                     <hr>
@@ -719,10 +719,13 @@
                                 </div>
                                 <div class="col"> 
                                     <label for="">Tipo de cliente</label>
-                                      <select class="form-control " formControlName="tipoCliente">
+                                      <select class="form-control " formControlName="tipoCliente"  [ngClass]="{'is-invalid':  control.tipoCliente.touched && control.tipoCliente.errors}">
                                         <option value="Cliente Negocio">Tiene negocio</option>
                                         <option value="Cliente casual">Cliente casual</option>
                                       </select>
+                                      <div *ngIf="control.tipoCliente.errors" class="invalid-feedback">
+                                        <div *ngIf="control.tipoCliente.errors.required">Se require la contraseña</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col row">
@@ -738,6 +741,7 @@
                                     <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="" _mstplaceholder="182013"formControlName="contrasenaconfirmar" [ngClass]="{'is-invalid':  control.contrasenaconfirmar.touched && control.contrasenaconfirmar.errors}">
                                     <div *ngIf="control.contrasenaconfirmar.errors" class="invalid-feedback">
                                         <div *ngIf="control.contrasenaconfirmar.errors.required">Se require la confirmacion de la contraseña</div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -757,6 +761,48 @@
                             </div>
                             <hr style="visibility: hidden;">
                         </form>
+                    </div>
+                    <div class="collapse row justify-content-center"id="collapseGestionClientes">
+                        <form class="col font-weight-normal">
+                            <hr>
+                            <label>Filtro por identificacion.</label>
+                            <input class="form-control col-4" type="text" placeholder="Filtro por identificacion"[(ngModel)]="filtroClientes"  [ngModelOptions]="{standalone: true}">
+                            <hr style="visibility: hidden;">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered " *ngIf='listaClientes && listaClientes.length'>
+                                    <thead class="thead-light">
+                                        <tr >
+                                            <th scope="col" >#</th>
+                                            <th scope="col">Identificación</th>
+                                            <th scope="col">Nombres </th>
+                                            <th scope="col">Apellidos </th>
+                                            <th scope="col">Telefono</th>
+                                            <th scope="col">Whatsapp</th>
+                                            <th scope="col">Direccion</th>
+                                            <th scope="col">Horario</th>
+                                            <th scope="col">Tipo Cliente</th>
+                                            <th scope="col">Opcion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cliente of listaClientes|filtroCliente:filtroClientes; index as i">
+                                            <th scope="row">{{ i + 1 }}</th>
+                                            <td>{{ cliente.identificacion }} </td>
+                                            <td>{{ cliente.nombres }}</td>
+                                            <td>{{ cliente.apellidos }}</td>
+                                            <td>{{ cliente.telefono }}</td>
+                                            <td>{{ cliente.whatsapp }}</td>
+                                            <td>{{ cliente.direccion }}</td>
+                                            <td>{{ cliente.horaio }}</td>
+                                            <td>{{ cliente.tipoCliente }}</td>
+                                            <td><button (click)="vercliente(cliente)">Ver cliente</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <hr>
+                        </form>
+                        
                     </div>
                     <!--<form  class="col " >
                         <h1 class="font-weight-normal text-center">Historial de pedidos.</h1>

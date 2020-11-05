@@ -32,7 +32,7 @@ export class ClienteService {
     return this.http.get<Cliente[]>(this.baseUrl+'api/Cliente')
     .pipe(
       tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<Cliente[]>('Buscar Cliente', null))
+      catchError(this.handleErrorService.handleError<Cliente[]>('Buscar Clientes', null))
     );
   }
 

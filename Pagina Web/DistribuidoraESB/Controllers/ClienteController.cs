@@ -67,12 +67,22 @@ namespace DistribuidoraESB.Controllers
                 Identificacion = clienteInput.Identificacion,
                 Nombres = clienteInput.Nombres,
                 Apellidos = clienteInput.Apellidos,
-                Telefono = clienteInput.Telefono,
-                Whatsapp = clienteInput.Whatsapp,
-                Direccion = clienteInput.Direccion,
-                Horaio = clienteInput.Horaio
+                Telefono = ValidarNull(clienteInput.Telefono),
+                Whatsapp = ValidarNull(clienteInput.Whatsapp),
+                Direccion = ValidarNull(clienteInput.Direccion),
+                Horaio = ValidarNull(clienteInput.Horaio),
+                TipoCliente = ValidarNull(clienteInput.TipoCliente)
             };
             return cliente;
+        }
+
+        private string ValidarNull(string texto)
+        {
+            if(texto == null)
+            {
+                return "No asignado";
+            }
+            return texto;
         }
     }
 }
