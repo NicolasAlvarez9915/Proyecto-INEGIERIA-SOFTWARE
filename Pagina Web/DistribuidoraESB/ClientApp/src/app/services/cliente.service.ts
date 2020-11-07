@@ -36,7 +36,7 @@ export class ClienteService {
     );
   }
 
-  post(cliente :Cliente): Observable<Cliente>
+  post(cliente: Cliente): Observable<Cliente>
   {
     return this.http.post<Cliente>(this.baseUrl+'api/Cliente',cliente)
     .pipe(

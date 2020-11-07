@@ -79,11 +79,16 @@ export class RegistroComponent implements OnInit {
   Registrar(){
 
     this.cliente = this.formularioRegistro.value;
+    
     this.usuario = new Usuario();
     this.usuario.contraseña = this.formularioRegistro.value.contrasena;
     this.usuario.correo = this.formularioRegistro.value.correo;
     this.usuario.idPersona = this.cliente.identificacion;
     this.usuario.rol = 'Cliente';
+    this.cliente.horaio = this.formularioRegistro.value.horario;
+    alert(this.cliente.identificacion +" "+ this.cliente.nombres+" "+this.cliente.apellidos+" "+this.cliente.direccion+" "+this.cliente.horaio+" "+this.cliente.telefono+" "+this.cliente.tipoCliente+" "+this.cliente.whatsapp);
+    alert(this.usuario.idPersona+ " "+ this.usuario.rol +" "+ this.usuario.correo+ " "+ this.usuario.contraseña );
+    
     if(this.formularioRegistro.value.contrasenaConfirmar != this.formularioRegistro.value.contrasena )
     {
       const messageBox = this.modalService.open(AlertModalComponent)
@@ -107,30 +112,34 @@ export class RegistroComponent implements OnInit {
                 if(r != null )
                 {
                   const messageBox = this.modalService.open(AlertModalComponent)
-            messageBox.componentInstance.title = "ALERTA";
-            messageBox.componentInstance.message = "Ya existe un cliente registrado con este correo";
+                  messageBox.componentInstance.title = "ALERTA";
+                  messageBox.componentInstance.message = "Ya existe un cliente registrado con este correo";
                 }else{
                   this.clienteService.post(this.cliente).subscribe
-            (
-              r =>
-              {
-                this.usuarioService.post(this.usuario).subscribe(
-                  r=>{
-                    if(r!=null)
+                  (
+                    r =>
                     {
-                      const messageBox = this.modalService.open(AlertModalComponent)
-                      messageBox.componentInstance.title = "BIEN HECHO.";
-                      messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
-                      this.usuarioService.GuardarUsuarioSesion(this.usuario);
-                      this.router.navigate(['/Perfil']);
+                      alert(r == null);
+                      if(r!=null)
+                      {
+                        this.usuarioService.post(this.usuario).subscribe(
+                          r=>{
+                            if(r!=null)
+                            {
+                              const messageBox = this.modalService.open(AlertModalComponent)
+                              messageBox.componentInstance.title = "BIEN HECHO.";
+                              messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
+                              this.usuarioService.GuardarUsuarioSesion(this.usuario);
+                              this.router.navigate(['/Perfil']);
+                            }
+                          }
+                        );
+                      }
                     }
-                  }
-                )
+                  );
+                }
               }
             );
-                }
-              })
-  
           }
         }
       );

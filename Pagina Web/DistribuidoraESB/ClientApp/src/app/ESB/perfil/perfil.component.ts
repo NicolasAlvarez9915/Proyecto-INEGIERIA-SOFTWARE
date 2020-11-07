@@ -154,6 +154,8 @@ export class PerfilComponent implements OnInit {
     this.usuarioRegistrar.correo = this.formularioRegistroCliente.value.correo;
     this.usuarioRegistrar.rol = "Cliente";
     this.usuarioRegistrar.idPersona = this.clienteRegistrar.identificacion;
+
+    
     if(this.formularioRegistroCliente.value.contrasenaconfirmar != this.formularioRegistroCliente.value.contrasena )
     {
       const messageBox = this.modalService.open(AlertModalComponent)
@@ -177,27 +179,26 @@ export class PerfilComponent implements OnInit {
                 if(r != null )
                 {
                   const messageBox = this.modalService.open(AlertModalComponent)
-            messageBox.componentInstance.title = "ALERTA";
-            messageBox.componentInstance.message = "Ya existe un cliente registrado con este correo";
+                  messageBox.componentInstance.title = "ALERTA";
+                  messageBox.componentInstance.message = "Ya existe un cliente registrado con este correo";
                 }else{
                   this.clienteService.post(this.clienteRegistrar).subscribe
-            (
-              r =>
-              {
-                
-                this.usuarioService.post(this.usuarioRegistrar).subscribe(
-                  r=>{
-                    if(r!=null)
+                  (
+                    r =>
                     {
-                      const messageBox = this.modalService.open(AlertModalComponent)
-                      messageBox.componentInstance.title = "BIEN HECHO.";
-                      messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
-                      this.clientes();
+                      this.usuarioService.post(this.usuarioRegistrar).subscribe(
+                        r=>{
+                          if(r!=null)
+                          {
+                            const messageBox = this.modalService.open(AlertModalComponent)
+                            messageBox.componentInstance.title = "BIEN HECHO.";
+                            messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
+                            this.clientes();
+                          }
+                        }
+                      )
                     }
-                  }
-                )
-              }
-            );
+                  );
                 }
               })
   
