@@ -8,4 +8,5 @@ namespace Entity
         [Column(TypeName = "Date")]
         public DateTime FechaContratacion { get; set; }
     }
+    
 }
