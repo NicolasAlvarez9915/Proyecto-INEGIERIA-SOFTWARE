@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entity
 {
-    public class Persona
+    public abstract class Persona
     {
         [Key]
         [Column(TypeName = "nvarchar(11)")]
@@ -13,7 +13,6 @@ namespace Entity
         public string Nombres { get; set; }
         [Column(TypeName = "nvarchar(50)")]
         public string Apellidos { get; set; }
-
         [Column(TypeName = "nvarchar(15)")]
         public string Telefono { get; set; }
         [Column(TypeName = "nvarchar(15)")]
