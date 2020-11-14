@@ -193,6 +193,7 @@ export class PerfilComponent implements OnInit {
           const messageBox = this.modalService.open(AlertModalComponent)
           messageBox.componentInstance.title = "BIEN HECHO.";
           messageBox.componentInstance.message = "Producto registrado correctamente.";
+          this.productos();
         }
       }
     );
