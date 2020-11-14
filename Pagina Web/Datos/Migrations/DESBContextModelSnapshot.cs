@@ -74,6 +74,48 @@ namespace Datos.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("Entity.Descuento", b =>
+                {
+                    b.Property<string>("Codigo")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("CodProducto")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("IdPersona")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("Porcentaje")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(11)");
+
+                    b.HasKey("Codigo");
+
+                    b.ToTable("Descuentos");
+                });
+
+            modelBuilder.Entity("Entity.Producto", b =>
+                {
+                    b.Property<string>("Codigo")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Categoria")
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Codigo");
+
+                    b.ToTable("Productos");
+                });
+
             modelBuilder.Entity("Entity.Usuario", b =>
                 {
                     b.Property<string>("Correo")

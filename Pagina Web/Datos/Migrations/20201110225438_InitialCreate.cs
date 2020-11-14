@@ -41,6 +41,35 @@ namespace Datos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Descuentos",
+                columns: table => new
+                {
+                    Codigo = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    Porcentaje = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    CodProducto = table.Column<string>(type: "nvarchar(11)", nullable: true),
+                    IdPersona = table.Column<string>(type: "nvarchar(11)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Descuentos", x => x.Codigo);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Productos",
+                columns: table => new
+                {
+                    Codigo = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    Categoria = table.Column<string>(type: "nvarchar(20)", nullable: true),
+                    Nombre = table.Column<string>(type: "nvarchar(20)", nullable: true),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(100)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Productos", x => x.Codigo);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
@@ -62,6 +91,12 @@ namespace Datos.Migrations
 
             migrationBuilder.DropTable(
                 name: "Clientes");
+
+            migrationBuilder.DropTable(
+                name: "Descuentos");
+
+            migrationBuilder.DropTable(
+                name: "Productos");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

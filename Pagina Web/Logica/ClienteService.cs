@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Datos;
 using Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Logica
 {
@@ -28,7 +29,7 @@ namespace Logica
                 return new ClienteResponse($"Error de la aplicacion: {e.Message}");
             }
         }
-
+        
         public ClienteResponse Buscar(string Identificacion){
             Cliente cliente = context.Clientes.Find(Identificacion);
             return new ClienteResponse(cliente);
@@ -80,19 +81,19 @@ namespace Logica
 
     }
     public class ClienteResponse 
+    {
+        public ClienteResponse(Cliente cliente)
         {
-            public ClienteResponse(Cliente cliente)
-            {
-                Error = false;
-                this.cliente  = cliente;
-            }
-            public ClienteResponse(string mensaje)
-            {
-                Error = true;
-                this.Mensaje = mensaje;
-            }
-            public string Mensaje { get; set; }
-            public bool Error { get; set; }
-            public Cliente cliente { get; set; }
+            Error = false;
+            this.cliente  = cliente;
         }
+        public ClienteResponse(string mensaje)
+        {
+            Error = true;
+            this.Mensaje = mensaje;
+        }
+        public string Mensaje { get; set; }
+        public bool Error { get; set; }
+        public Cliente cliente { get; set; }
+    }
 }

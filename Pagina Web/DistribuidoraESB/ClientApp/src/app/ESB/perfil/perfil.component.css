@@ -3,12 +3,24 @@
     align-items: stretch;
 }
 
-
+.btnBarraProducto{
+    width: 200px;
+}
 
 .TituloBarra{
     margin-top: 1rem; 
     background-color: brown; 
     border-top-right-radius: 17px;
+}
+
+.divProductos{
+    border-radius: 20px;
+    margin-bottom: 1rem;
+}
+
+.divOpciones{
+    background-image: url("../../../assets/PicsArt_10-14-12.14.04.jpg");
+    border-radius: 20px;
 }
 
 .btn{
