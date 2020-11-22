@@ -71,11 +71,13 @@ namespace DistribuidoraESB.Controllers
                 Whatsapp = ValidarNull(clienteInput.Whatsapp),
                 Direccion = ValidarNull(clienteInput.Direccion),
                 Horaio = ValidarNull(clienteInput.Horaio),
-                TipoCliente = ValidarNull(clienteInput.TipoCliente)
+                TipoCliente = ValidarNull(clienteInput.TipoCliente),
+                Descuentos = clienteInput.Descuentos
             };
             return cliente;
         }
 
+        
         private string ValidarNull(string texto)
         {
             if(texto == null)

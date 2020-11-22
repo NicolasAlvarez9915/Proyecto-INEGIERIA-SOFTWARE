@@ -14,5 +14,13 @@ namespace Datos
         public DbSet<Cliente> Clientes { get; set;}
         public DbSet<Descuento> Descuentos { get; set; }
         public DbSet<Producto> Productos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Descuento>()
+            .HasOne<Cliente>()
+            .WithMany()
+            .HasForeignKey(p => p.IdPersona);
+        }
     }
 }

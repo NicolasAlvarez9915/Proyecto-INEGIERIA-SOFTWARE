@@ -41,7 +41,8 @@ namespace DistribuidoraESB.Controllers
                 Cantidad = productoInput.Cantidad,
                 Descripcion = productoInput.Descripcion,
                 Categoria = productoInput.Categoria,
-                Nombre = productoInput.Nombre
+                Nombre = productoInput.Nombre,
+                Valor = productoInput.Valor
             };
             return producto;
         }

@@ -1,10 +1,12 @@
-<header>    
+<header class="Cuerpo">    
 
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(52, 58, 64);box-shadow: 0px 0px 5px 2px rgba(153, 152, 152, 0.75);  border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:   rgb(73, 78, 82);">
     
-    <a class="" [routerLink]="['/']" >
-      <img src="assets/LogoNombreBlanco.png" width="150" height="130" alt="" loading="lazy">
-    </a>
+    <div class=" row justify-content-center logo" >
+      <a class="" [routerLink]="['/']" >
+        <img src="assets/LogoBlanco.png" width="80" height="60" alt="" loading="lazy">
+      </a>
+    </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -12,30 +14,27 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
         <li class="nav-item">
-          <a class="nav-link text-white" id="Prueba" [routerLink]="['/']">INICIO</a>
+          <a class="nav-link text-white" id="Prueba" [routerLink]="['/']"><span class="fas fa-home"></span> INICIO</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" [routerLink]="['/']">QUIENES SOMOS</a>
+          <a class="nav-link text-white" [routerLink]="['/']"> <span class="fas fa-hat-cowboy-side"></span>QUIENES SOMOS</a>
         </li>
         <li class="nav-item ">
-        <a class="nav-link text-white" [routerLink]="['/']">NUESTROS PRODUCTOS</a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link text-white" [routerLink]="['/']">CONTACTANOS</a>
+          <a class="nav-link text-white" [routerLink]="['/']"> <span class="far fa-comments"></span>CONTACTANOS</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item text-white">
-          <a class="nav-link text-white" [routerLink]="['/Carrito']">CARRITO</a>
+          <a class="nav-link text-white" [routerLink]="['/Carrito']"><span class="fas fa-shopping-cart"></span>CARRITO</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link text-white" [routerLink]="['/Perfil']">PERFIL</a>
+          <a class="nav-link text-white" [routerLink]="['/Perfil']"><span class="fas fa-user-circle"></span>PERFIL</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" id="BtnRegistrar" [routerLink]="['/Registro']">REGISTRAR</a>
+          <a class="nav-link text-white" id="BtnRegistrar" [routerLink]="['/Registro']"><span class="far fa-user-circle"></span>REGISTRAR</a>
         </li>
         <li class="nav-item" >
-          <a class="nav-link text-white" id="BtnLogin"[routerLink]="['/Login']">LOGIN</a>
+          <a class="nav-link text-white" id="BtnLogin"[routerLink]="['/Login']">LOG</a>
         </li>
       </ul>
     </div>

@@ -12,10 +12,13 @@ namespace DistribuidoraESB.Models
         
         public string Nombre { get; set; }
         
-        public int Cantidad { get; set; }
+        public decimal Cantidad { get; set; }
         
         public string Descripcion { get; set; }
+        
+        public int Valor { get; set; }
     }
+    
     
     public class ProductoViewModel: ProductoInputModel
     {
@@ -30,6 +33,7 @@ namespace DistribuidoraESB.Models
             Nombre = producto.Nombre;
             Cantidad = producto.Cantidad;
             Descripcion = producto.Descripcion;
+            Valor = producto.Valor;
         }
     }
 }

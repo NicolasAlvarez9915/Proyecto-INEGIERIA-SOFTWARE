@@ -8,10 +8,12 @@ import { Observable } from 'rxjs';
 import { AlertModalComponent } from 'src/app/@base/alert-modal/alert-modal.component';
 import { AdministradorService } from 'src/app/services/administrador.service';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { DescuentoService } from 'src/app/services/descuento.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Administrador } from '../Models/administrador';
 import { Cliente } from '../Models/cliente';
+import { Descuento } from '../Models/descuento';
 import { Producto } from '../Models/producto';
 import { Usuario } from '../Models/usuario';
 
@@ -30,14 +32,21 @@ export class PerfilComponent implements OnInit {
   contrasenaActualizar: string;
   contrasenaconfirmar: string;
   clienteRegistrar: Cliente;
+  clienteConsuta: Cliente = new Cliente();
   usuarioRegistrar: Usuario;
   listaClientes: Cliente[];
+  totalClientes: number;
   listaProductos: Producto[];
+  totalProductos: number;
+  listaDescuentos: Descuento[];
   filtroClientes: string;
   i: number;
   existe: Boolean;
   Rol: string;
   producto: Producto;
+  mostrar: string;
+  mostrarInterno: string;
+  activa: boolean = false;
   constructor(
     private router: Router,
     private usuarioService: UsuarioService,
@@ -45,21 +54,35 @@ export class PerfilComponent implements OnInit {
     private administradorService: AdministradorService,
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
-    private productoService: ProductoService
+    private productoService: ProductoService,
+    private descuentoService: DescuentoService
   ) {
     this.administradorActualizar = new Administrador();
   }
 
   ngOnInit(): void {
     this.administrador = new Administrador();
-    this.validarRol();
+    this.validarSesion();
     this.buildForm();
+    this.pedirInforAdministrador();
+    this.clientes();
+    this.productos();
+    this.mostrar = 'Principal';
+    this.mostrarInterno = 'Principal';
   }
 
+  mostrarDescuentosCliente(){
+    this.mostrar = 'DescuentosCliente';
+    this.descuentoService.DescuentosPorCliente(this.clienteConsuta.identificacion).subscribe( r =>{
+      this.listaDescuentos = r;
+    });
+  }
 
+  alternarBarra(){
+    this.activa = !this.activa;
+  }
 
-
-  validarRol() {
+  validarSesion() {
     this.usuario = this.usuarioService.UsuarioLogueado();
     if (this.usuario == null) {
       this.router.navigate(['/Login']);
@@ -68,37 +91,6 @@ export class PerfilComponent implements OnInit {
     document.getElementById("BtnRegistrar").classList.add("Ocultar");
     document.getElementById("BtnRegistrar").classList.remove("Mostrar");
     this.Rol = this.usuario.rol;
-    switch (this.Rol) {
-      case "Cliente":
-        document.getElementById("formularioCliente").classList.add("Mostrar");
-        document.getElementById("BarraCliente").classList.add("Mostrar");
-        document.getElementById("BarraDomiciliario").classList.add("Ocultar");
-        document.getElementById("formularioDomiciliario").classList.add("Ocultar");
-        document.getElementById("formularioAdministrador").classList.add("Ocultar");
-        document.getElementById("BarraAdministrador").classList.add("Ocultar");
-        break;
-      case "Domiciliario":
-        document.getElementById("formularioCliente").classList.add("Ocultar");
-        document.getElementById("BarraCliente").classList.add("Ocultar");
-        document.getElementById("BarraDomiciliario").classList.add("Mostrar");
-        document.getElementById("formularioDomiciliario").classList.add("Mostrar");
-        document.getElementById("formularioAdministrador").classList.add("Ocultar");
-        document.getElementById("BarraAdministrador").classList.add("Ocultar");
-        break;
-      case "Administrador":
-        document.getElementById("formularioCliente").classList.add("Ocultar");
-        document.getElementById("BarraCliente").classList.add("Ocultar");
-        document.getElementById("BarraDomiciliario").classList.add("Ocultar");
-        document.getElementById("formularioDomiciliario").classList.add("Ocultar");
-        document.getElementById("formularioAdministrador").classList.add("Mostrar");
-        document.getElementById("BarraAdministrador").classList.add("Mostrar");
-
-        this.pedirInforAdministrador();
-        this.buildForm();
-        this.clientes();
-        this.productos();
-        break;
-    }
   }
 
   productos()
@@ -106,6 +98,7 @@ export class PerfilComponent implements OnInit {
     this.productoService.todos().subscribe(
       r => {
         this.listaProductos = r;
+        this.totalProductos = this.listaProductos.length;
       }
     )
   }
@@ -115,6 +108,7 @@ export class PerfilComponent implements OnInit {
       (
         r => {
           this.listaClientes = r;
+          this.totalClientes = this.listaClientes.length;
         }
       )
   }
@@ -129,9 +123,14 @@ export class PerfilComponent implements OnInit {
     this.contrasenaconfirmar = '';
     var correo: string = '';
 
+
     this.producto = new Producto();
     this.producto.cantidad = 1;
     this.producto.nombre = '';
+    this.producto.valor = 0;
+    this.producto.descripcion = '';
+    this.producto.codigo = '';
+    this.producto.cantidadMinima = 1;
 
     this.formularioRegistroCliente = this.formBuilder.group({
       identificacion: [this.clienteRegistrar.identificacion, Validators.required],
@@ -145,7 +144,11 @@ export class PerfilComponent implements OnInit {
 
     this.formularioregistroProducto = this.formBuilder.group({
       cantidad: [this.producto.cantidad, Validators.required],
-      nombre: [this.producto.nombre, Validators.required]
+      nombre: [this.producto.nombre, Validators.required],
+      valor: [this.producto.valor, Validators.required],
+      descripcion: [this.producto.descripcion, Validators.required],
+      codigo: [this.producto.codigo, Validators.required],
+      cantidadMinima: [this.producto.cantidadMinima, Validators.required]
     });
   }
 
@@ -159,9 +162,8 @@ export class PerfilComponent implements OnInit {
 
 
   vercliente(cliente: Cliente) {
-    const messageBox = this.modalService.open(AlertModalComponent)
-    messageBox.componentInstance.title = "ALERTA";
-    messageBox.componentInstance.message = cliente.identificacion + ' ' + cliente.nombres;
+    this.clienteConsuta = cliente;
+    this.mostrar = 'Cliente';
   }
 
   onSubmit() {
@@ -182,9 +184,15 @@ export class PerfilComponent implements OnInit {
     this.producto = this.formularioregistroProducto.value;
     if(categoria == 1)
     {
-      this.producto.codigo = "1263";
       this.producto.categoria = "Carne de res";
-      this.producto.descripcion = "Carne de res de calidad";
+    }
+    if(categoria == 2)
+    {
+      this.producto.categoria = "Pollo";
+    }
+    if(categoria == 3)
+    {
+      this.producto.categoria = "Carne de cerdo";
     }
     this.productoService.registrar(this.producto).subscribe(
       r => {
@@ -194,12 +202,18 @@ export class PerfilComponent implements OnInit {
           messageBox.componentInstance.title = "BIEN HECHO.";
           messageBox.componentInstance.message = "Producto registrado correctamente.";
           this.productos();
+        }else{
+          
+          const messageBox = this.modalService.open(AlertModalComponent)
+          messageBox.componentInstance.title = "ALERTA.";
+          messageBox.componentInstance.message = "Producto existente.";
         }
       }
     );
   }
   registrarCliente() {
     this.clienteRegistrar = this.formularioRegistroCliente.value;
+    this.clienteRegistrar.descuentos = [];
     this.usuarioRegistrar = new Usuario();
     this.usuarioRegistrar.contraseña = this.formularioRegistroCliente.value.contrasena;
     this.usuarioRegistrar.correo = this.formularioRegistroCliente.value.correo;
@@ -211,7 +225,6 @@ export class PerfilComponent implements OnInit {
       const messageBox = this.modalService.open(AlertModalComponent)
       messageBox.componentInstance.title = "ALERTA";
       messageBox.componentInstance.message = "Las contraseñas no coninciden";
-
     } else {
       this.clienteService.buscar(this.clienteRegistrar.identificacion).subscribe(
         r => {
@@ -325,25 +338,6 @@ export class PerfilComponent implements OnInit {
           alert("Para actualizar la contraseña debe ingresar la contraseña y confirmarla.");
         }
       }
-    }
-  }
-
-  alternarBarra() {
-    var i: number;
-    var clases = document.getElementById("barraLateral").classList;
-    var existe: boolean;
-    existe = false;
-    for (i = 0; i < clases.length; i++) {
-      if (clases[i] === "Ocultar") {
-        existe = true;
-      }
-    }
-    if (existe) {
-      document.getElementById("barraLateral").classList.remove("Ocultar");
-      document.getElementById("barraLateral").classList.add("Mostrar");
-    } else {
-      document.getElementById("barraLateral").classList.add("Ocultar");
-      document.getElementById("barraLateral").classList.remove("Mostrar");
     }
   }
 }

@@ -1,1097 +1,910 @@
-<div class="container-fluid">
-    <div class="row" id="Row">
-        <div class="col barraLateral text-center text-white Ocultar" id="barraLateral">
-            <div class="TituloBarra">
-                <h1>Mi perfil</h1>
-            </div>
+<div class="wrapper">
+    <div id="sidebar" [ngClass]="{'active':  activa}">
+        <div class="TituloBarra">
+            <h5><span class="fas fa-user-cog"></span>Admin</h5>
+        </div>
+        <hr>
+        <p>
+            <button class="btnbarra" style="width: 100%; " type="bootton" (click)="mostrar = 'EditarInfo'">
+                <span class="far fa-edit"></span> Editar info
+            </button>
+        </p>
+        <p>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes">
+                <span class="fas fa-users"></span>Clientes
+            </button>
+        </p>
+        <div class="collapse OpsMenu" id="collapseOpsClientes">
+            <hr style="background-color: rgb(250, 81, 81);">
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
+                (click)="mostrar ='RegistrarCliente'">
+                <span class="fas fa-user-plus"></span>R. cliente
+            </button>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
+                (click)="mostrar = 'Clientes'">
+                <span class="fas fa-users"></span>L. Clientes
+            </button>
             <hr>
-            <!-- BARRA MENU DEL ClIENTE-->
-            <div class="" id="BarraCliente">
-                <p>
-                    <button class=" btn-outline-danger btnbarra" style="width: 100%; " type="button"
-                        data-toggle="collapse" data-target="#collapseCliente" aria-expanded="false"
-                        aria-controls="collapseExample">
-                        Editar info
-                    </button>
-                </p>
-                <div class="collapse" id="collapseCliente">
-                    <hr>
-                    <button class="btn-outline-danger btnbarra" style="width: 100%; " type="bootton"
-                        data-toggle="collapse" data-target="#collapsePersonal, #collapseCliente" aria-expanded="false"
-                        aria-controls="collapsePersonal">
-                        Editar info. Personal</button>
-                    <button class="btn-outline-danger btnbarra" style="width: 100%; " type="submit"
-                        data-toggle="collapse" data-target="#collapseDomicilio, #collapseCliente" aria-expanded="false"
-                        aria-controls="collapseDomicilio">
-                        Editar info. Domicilio</button>
-                    <hr>
-                </div>
+        </div>
+        <p>
+            <button class=" btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
+                data-target="#collapseOpsProductos" aria-expanded="false" aria-controls="collapseOpsProductos">
+                <span class="fas fa-tags"></span>Productos
+            </button>
+        </p>
+        <div class="collapse OpsMenu" id="collapseOpsProductos">
+            <hr>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsProductos" (click)="mostrar ='RegistrarPrdocuto'">
+                <span class="fas fa-tag"></span> R. Producto
+            </button>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsProductos" (click)="mostrar = 'Productos'">
+                <span class="fas fa-tags"></span> L. Productos
+            </button>
+            <hr>
+        </div>
+    </div>
+    <div id="content">
+        <div class="row barraTituloContenido">
+            <div class="col" style="max-width: 50px;">
+                <button type="button" id="sidebarCollapse" class="btn btn-outline-danger btnMenu"
+                    style="border-radius: 50%;" (click)="alternarBarra()">
+                    <span class="fas fa-bars" style="margin-right: 0rem;"></span>
+                </button>
             </div>
-            <!-- BARRA MENU DEL DOMICILIARIO -->
-            <div class="" id="BarraDomiciliario">
-                <p>
-                    <button class=" btn-outline-danger btnbarra" style="width: 100%; " type="button"
-                        data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-                        aria-controls="collapseExample">
-                        Editar info
-                    </button>
-                </p>
-                <div class="collapse" id="collapseExample">
-                    <hr>
-
-                    <button class="btn-outline-danger btnbarra" style="width: 100%; " type="bootton"
-                        data-toggle="collapse" data-target="#collapsePersonal, #collapseExample" aria-expanded="false"
-                        aria-controls="collapsePersonal">Editar info. Personal</button>
-                    <button class="btn-outline-danger btnbarra" style="width: 100%; " type="submit"
-                        data-toggle="collapse" data-target="#collapseDomicilio, #collapseExample" aria-expanded="false"
-                        aria-controls="collapseDomicilio">Editar info. Domicilio</button>
-                    <hr>
-                </div>
-            </div>
-            <!-- BARRA MENU DEL ADMINISTRADOR -->
-            <div class="" id="BarraAdministrador">
-                <p>
-                    <button class="btn-outline-danger btnbarra" style="width: 100%; " type="bootton"
-                        data-toggle="collapse" data-target="#collapsePersonalAdministrador" aria-expanded="false"
-                        aria-controls="collapsePersonalAdministrador" (click)="alternarBarra()">
-                        Editar info
-                    </button>
-                </p>
-
-                <p>
-                    <button class=" btn-outline-danger btnbarra" style="width: 100%; " type="button"
-                        data-toggle="collapse" data-target="#collapseOpsClientes" aria-expanded="false"
-                        aria-controls="collapseOpsClientes">
-                        Clientes
-                    </button>
-                </p>
-                <div class="collapse OpsMenu" id="collapseOpsClientes">
-                    <hr>
-                    <button class="btn-outline-danger btnbarraOps" style="width: 100%; " type="button"
-                        data-toggle="collapse" data-target="#collapseRegistrarCliente, #collapseOpsClientes"
-                        aria-expanded="false" aria-controls="collapseRegistrarCliente" (click)="alternarBarra()">
-                        Registrar cliente
-                    </button>
-                    <button class="btn-outline-danger btnbarraOps" style="width: 100%; " type="submit"
-                        data-toggle="collapse" data-target="#collapseGestionClientes, #collapseOpsClientes"
-                        aria-expanded="false" aria-controls="collapseListaClientes" (click)="alternarBarra()">
-                        Lista de Clientes
-                    </button>
-                    <hr>
-                </div>
-
-                <p>
-                    <button class=" btn-outline-danger btnbarra" style="width: 100%; " type="button"
-                        data-toggle="collapse" data-target="#collapseOpsProductos" aria-expanded="false"
-                        aria-controls="collapseOpsProductos">
-                        Productos
-                    </button>
-                </p>
-                <div class="collapse OpsMenu" id="collapseOpsProductos">
-                    <hr>
-                    <button class="btn-outline-danger btnbarraOps" style="width: 100%; " type="bootton"
-                        data-toggle="collapse" data-target="#collapseRegistrarProducto, #collapseOpsProductos"
-                        aria-expanded="false" aria-controls="collapseRegistrarProducto" (click)="alternarBarra()">
-                        Registrar Producto
-                    </button>
-                    <button class="btn-outline-danger btnbarraOps" style="width: 100%; " type="submit"
-                        data-toggle="collapse" data-target="#collapseGestionProductos, #collapseOpsProductos"
-                        aria-expanded="false" aria-controls="collapseGestionProductos" (click)="alternarBarra()">
-                        Lista de Productos
-                    </button>
-                    <hr>
-                </div>
-
-                <p>
-                    <button class=" btn-outline-danger btnbarra" style="width: 100%; " type="button"
-                        data-toggle="collapse" data-target="#collapseOpsDomiciliarios" aria-expanded="false"
-                        aria-controls="collapseOpsDomiciliarios">
-                        Domiciliarios
-                    </button>
-                </p>
-                <div class="collapse OpsMenu" id="collapseOpsDomiciliarios">
-                    <hr>
-                    <button class="btn-outline-danger btnbarraOps" style="width: 100%; " type="bootton"
-                        data-toggle="collapse" data-target="#collapseRegistrarDomiciliario, #collapseOpsDomiciliarios"
-                        aria-expanded="false" aria-controls="collapseRegistrarCliente" (click)="alternarBarra()">
-                        Registrar domiciliario
-                    </button>
-                    <button class="btn-outline-danger btnbarraOps" style="width: 100%; " type="submit"
-                        data-toggle="collapse" data-target="#collapseListaClientes, #collapseOpsClientes"
-                        aria-expanded="false" aria-controls="collapseListaClientes" (click)="alternarBarra()">
-                        Lista de Domiciliarios
-                    </button>
-                    <hr>
-                </div>
-
+            <div class="col text-center" style="margin-top: 1rem; max-width: 100%;">
+                <h4>{{administrador.puesto}} {{administrador.nombres}} {{administrador.apellidos}}</h4>
             </div>
         </div>
-        <div class=" col contenido justify-content-end" id="contenido">
-            <div class="container-fluid">
-                <!-- FORMULARIO DEL CLIENTE -->
-                <div class="" id="formularioCliente">
-                    <div class="row">
-                        <form class="col">
-                            <div class="row d-flex justify-content-star">
-                                <button class="btn btn-outline-dark" type="button"
-                                    (click)="alternarBarra()">Menu</button>
-                            </div>
-                            <div class="info">
-                                <h4>Informacion Personal.</h4>
-                                <div class="row" style="margin-top: 1rem;">
-                                    <div class="col">
-                                        <label for="LblIdentificacion">Identificacion: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblIdentificacionUser">.....</label> <br>
-                                    </div>
+        <div class="contenedor" [ngClass]="{'Ocultar':  mostrar != 'Principal'}">
+            <div class="row">
+                <div class="Cuerpo ">
+                    <div class="row d-flex justify-content-center"style="width: 98%;">
+                        <div class="col CuerpoCard">
+                            <div class="row" style="margin: 1rem;">
+                                <div class="col iconoCard">
+                                <div style="font-size: 2rem;">
+                                    <span class="fas fa-users"></span>
                                 </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblNombres">Nombres: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblNombresUser">..... </label> <br>
-                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblApellidos">Apellidos: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblApellidosUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblCorreo">Correo: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblCorreoUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <h4>Informacion de domicilio.</h4>
-                                <div class="row" style="margin-top: 1rem;">
-                                    <div class="col">
-                                        <label for="LblDireccion">Direccion: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblDireccionUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblPais">Pais: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblPaisUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblCiudad">Ciudad: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblCiudadUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblTelefono">Telefono fijo o movil: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblTelefonoUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblWhatsapp">Whatsapp: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblWhatsappUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblHorario">Horario Entrega: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblHorarioUser">..... </label> <br>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <form class="col" id="Logo">
-                            <div class="d-flex justify-content-center">
-                                <img class="mb-4" src="assets/LogoNombreBlanco.png" alt="" width="300" height="300">
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <h1 class="text-white">La mejor carne, al mejor precio.</h1>
-                            </div>
-                            <div class="d-flex justify-content-center" style="margin-top: 1cm;">
-                                <h3 class="text-white">Perfil.</h3>
-                            </div>
-                            <div class="d-flex justify-content-center" style="margin-top: 1cm;">
-                                <h5 class="text-white">Cliente.</h5>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="collapse row justify-content-center " id="collapsePersonal">
-                        <form class="col-6 font-weight-normal   " id="formularioEditarPersonal"
-                            style="margin-top: 1rem;">
-                            <hr>
-                            <div class="col ">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblName">Nombre</label>
-                                        <input type="Text" id="LblName" class="form-control" placeholder="Nombres">
-                                    </div>
-                                    <div class="col">
-                                        <label>Apellidos</label>
-                                        <input type="text"  name="apellidos"  placeholder="Apellidos"
-                                            class="form-control"   />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="inputPassword1">Contraseña</label>
-                                        <input type="password" id="inputPassword1" class="form-control"
-                                            placeholder="Contraseña" required="" _mstplaceholder="182013">
-                                    </div>
-                                    <div class="col">
-                                        <label for="inputPassword">Contraseña</label>
-                                        <input type="password" id="inputPassword" class="form-control"
-                                            placeholder="Contraseña" required="" _mstplaceholder="182013">
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row d-flex justify-content-center">
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" style=" width: 50%"
-                                        type="submit">Editar</button>
-                                </div>
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" style=" width: 50%" type="submit"
-                                        data-toggle="collapse" data-target="#collapsePersonal" aria-expanded="false"
-                                        aria-controls="collapsePersonal">Volver</button>
-                                </div>
-                            </div>
-                            <hr style="visibility: hidden;">
-                        </form>
-                    </div>
-                    <div class="collapse row justify-content-center" id="collapseDomicilio">
-                        <form class="col-6 font-weight-normal" id="formularioEditarDomicilio" style="margin-top: 1rem;">
-                            <hr>
-                            <div class="col">
-                                <label for="LblDreccion">Dirección</label>
-                                <input type="text" id="LblDireccion" class="form-control" placeholder="Dirrecion">
-                                <label for="SlcPais">Pais</label>
-                                <select name="SlcPais" class="form-control" id="SlcPais">
-                                    <option value="Col">Colombia</option>
-                                    <option value="Ven">Venezuela</option>
-                                </select>
-                                <label for="LblCiudad">Ciudad</label>
-                                <input type="text" id="LblCiudad" class="form-control" placeholder="Ciudad">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblTelefono">Telefono fijo o Movil</label>
-                                        <input type="number" id="LblTelefono" class="form-control">
-                                    </div>
-                                    <div class="col">
-                                        <label>Numero Whatsapp</label>
-                                        <input type="number"  name="Whatsapp"  class="form-control"  />
-                                    </div>
-                                </div>
-                                <label for="SlcHorario">Horario de entrega</label>
-                                <select name="SlcHorario" class="form-control" id="SlcHorario">
-                                    <option value="H1">8:00 AM / 6:00 PM</option>
-                                    <option value="H2">8:00 AM / 12:00 PM</option>
-                                    <option value="H2">12:00 PM / 6:00 PM</option>
-                                </select>
-                            </div>
-                            <hr>
-                            <div class="row d-flex justify-content-center">
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" style="width: 50%"
-                                        type="submit">Editar</button>
-
-                                </div>
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" style="width: 50%" type="submit"
-                                        data-toggle="collapse" data-target="#collapseDomicilio" aria-expanded="false"
-                                        aria-controls="collapseDomicilio">Volver</button>
-                                </div>
-                            </div>
-                            <hr style="visibility: hidden;">
-                        </form>
-                    </div>
-                    <form class="col ">
-                        <h1 class="font-weight-normal text-center">Historial de pedidos.</h1>
-                        <div class="justify-content-center">
-                            <table style="width:100%; margin: auto;" class="table table-responsive-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Codigo Del pedido</th>
-                                        <th>Fecha del pedido</th>
-                                        <th>Valor</th>
-                                        <th>Estado</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tdPedidos">
-                                    <tr scope="row">
-                                        <td>1029</td>
-                                        <td>10/10/2020</td>
-                                        <td>120000</td>
-                                        <td>Entregado</td>
-                                    </tr>
-                                    <tr scope="row">
-                                        <td>1030</td>
-                                        <td>20/10/2020</td>
-                                        <td>129000</td>
-                                        <td>En camino</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
-                </div>
-                <!-- FORMULARIO DOMICILIARIO -->
-                <div class="" id="formularioDomiciliario">
-                    <div class="row">
-                        <form class="col">
-                            <div class="row d-flex justify-content-star">
-                                <button class="btn btn-outline-dark" type="button"
-                                    (click)="alternarBarra()">Menu</button>
-                            </div>
-                            <div class="info">
-                                <h4>Informacion Personal.</h4>
-                                <div class="row" style="margin-top: 1rem;">
-                                    <div class="col">
-                                        <label for="LblIdentificacion">Identificacion: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblIdentificacionUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblNombres">Nombres: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblNombresUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblApellidos">Apellidos: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblApellidosUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblCorreo">Correo: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblCorreoUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <h4>Informacion de domicilio.</h4>
-                                <div class="row" style="margin-top: 1rem;">
-                                    <div class="col">
-                                        <label for="LblDireccion">Direccion: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblDireccionUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblPais">Pais: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblPaisUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblCiudad">Ciudad: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblCiudadUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblTelefono">Telefono fijo o movil: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblTelefonoUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblWhatsapp">Whatsapp: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblWhatsappUser">..... </label> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblHorario">Horario Entrega: </label>
-                                    </div>
-                                    <div class="col">
-                                        <label id="LblHorarioUser">..... </label> <br>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <form class="col" id="Logo">
-                            <div class="d-flex justify-content-center">
-                                <img class="mb-4" src="assets/LogoNombreBlanco.png" alt="" width="300" height="300">
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <h1 class="text-white">La mejor carne, al mejor precio.</h1>
-                            </div>
-                            <div class="d-flex justify-content-center" style="margin-top: 1cm;">
-                                <h3 class="text-white">Perfil.</h3>
-                            </div>
-                            <div class="d-flex justify-content-center" style="margin-top: 1cm;">
-                                <h5 class="text-white">Cliente.</h5>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="collapse row justify-content-center " id="collapsePersonal">
-                        <form class="col-6 font-weight-normal   " id="formularioEditarPersonal"
-                            style="margin-top: 1rem;">
-                            <hr>
-                            <div class="col ">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblName">Nombre</label>
-                                        <input type="Text" id="LblName" class="form-control" placeholder="Nombres">
-                                    </div>
-                                    <div class="col">
-                                        <label>Apellidos</label>
-                                        <input type="text"  name="apellidos"  placeholder="Apellidos"
-                                            class="form-control"   />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="inputPassword1">Contraseña</label>
-                                        <input type="password" id="inputPassword1" class="form-control"
-                                            placeholder="Contraseña" required="" _mstplaceholder="182013">
-                                    </div>
-                                    <div class="col">
-                                        <label for="inputPassword">Contraseña</label>
-                                        <input type="password" id="inputPassword" class="form-control"
-                                            placeholder="Contraseña" required="" _mstplaceholder="182013">
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row d-flex justify-content-center">
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" style=" width: 50%"
-                                        type="submit">Editar</button>
-                                </div>
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" style=" width: 50%" type="submit"
-                                        data-toggle="collapse" data-target="#collapsePersonal" aria-expanded="false"
-                                        aria-controls="collapsePersonal">Volver</button>
-                                </div>
-                            </div>
-                            <hr style="visibility: hidden;">
-                        </form>
-                    </div>
-                    <div class="collapse row justify-content-center" id="collapseDomicilio">
-                        <form class="col-6 font-weight-normal" id="formularioEditarDomicilio" style="margin-top: 1rem;">
-                            <hr>
-                            <div class="col">
-                                <label for="LblDreccion">Dirección</label>
-                                <input type="text" id="LblDireccion" class="form-control" placeholder="Dirrecion">
-                                <label for="SlcPais">Pais</label>
-                                <select name="SlcPais" class="form-control" id="SlcPais">
-                                    <option value="Col">Colombia</option>
-                                    <option value="Ven">Venezuela</option>
-                                </select>
-                                <label for="LblCiudad">Ciudad</label>
-                                <input type="text" id="LblCiudad" class="form-control" placeholder="Ciudad">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblTelefono">Telefono fijo o Movil</label>
-                                        <input type="number" id="LblTelefono" class="form-control">
-                                    </div>
-                                    <div class="col">
-                                        <label>Numero Whatsapp</label>
-                                        <input type="number"  name="Whatsapp"  class="form-control"  />
-                                    </div>
-                                </div>
-                                <label for="SlcHorario">Horario de entrega</label>
-                                <select name="SlcHorario" class="form-control" id="SlcHorario">
-                                    <option value="H1">8:00 AM / 6:00 PM</option>
-                                    <option value="H2">8:00 AM / 12:00 PM</option>
-                                    <option value="H2">12:00 PM / 6:00 PM</option>
-                                </select>
-                            </div>
-                            <hr>
-                            <div class="row d-flex justify-content-center">
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" style="width: 50%"
-                                        type="submit">Editar</button>
-
-                                </div>
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" style="width: 50%" type="submit"
-                                        data-toggle="collapse" data-target="#collapseDomicilio" aria-expanded="false"
-                                        aria-controls="collapseDomicilio">Volver</button>
-                                </div>
-                            </div>
-                            <hr style="visibility: hidden;">
-                        </form>
-                    </div>
-                    <form class="col ">
-                        <h1 class="font-weight-normal text-center">Historial de pedidos.</h1>
-                        <div class="justify-content-center">
-                            <table style="width:100%; margin: auto;" class="table table-responsive-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Codigo Del pedido</th>
-                                        <th>Fecha del pedido</th>
-                                        <th>Valor</th>
-                                        <th>Estado</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tdPedidos">
-                                    <tr scope="row">
-                                        <td>1029</td>
-                                        <td>10/10/2020</td>
-                                        <td>120000</td>
-                                        <td>Entregado</td>
-                                    </tr>
-                                    <tr scope="row">
-                                        <td>1030</td>
-                                        <td>20/10/2020</td>
-                                        <td>129000</td>
-                                        <td>En camino</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
-                </div>
-                <!-- FORMULARIO ADMINISTRADOR -->
-                <div class="" id="formularioAdministrador">
-                    <div class="row">
-                        <form class="col">
-                            <div class="row d-flex justify-content-star">
-                                <button class="btn btn-outline-dark" type="button"
-                                    (click)="alternarBarra()">Menu</button>
-                            </div>
-                            <div class="info">
-                                <h4>Informacion Personal-Administrador.</h4>
-                                <div class="row" style="margin-top: 1rem;">
-                                    <div class="col">
-                                        <label for="LblIdentificacion">Identificacion: </label>
-                                    </div>
-                                    <div class="col">
-                                        <p>
-                                            {{administrador.identificacion}}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblNombres">Nombres: </label>
-                                    </div>
-                                    <div class="col">
-                                        <p>
-                                            {{administrador.nombres}}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblApellidos">Apellidos: </label>
-                                    </div>
-                                    <div class="col">
-                                        <p>
-                                            {{administrador.apellidos}}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblCorreo">Puesto: </label>
-                                    </div>
-                                    <div class="col">
-                                        <p>
-                                            {{administrador.puesto}}
-                                        </p>
-                                    </div>
-                                </div>
-                                <h4>Informacion de contacto.</h4>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblCorreo">Correo: </label>
-                                    </div>
-                                    <div class="col">
-                                        <p>
-                                            {{usuario.correo}}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblTelefono">Telefono fijo o movil: </label>
-                                    </div>
-                                    <div class="col">
-                                        <p>
-                                            {{administrador.telefono}}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblWhatsapp">Whatsapp: </label>
-                                    </div>
-                                    <div class="col">
-                                        <p>
-                                            {{administrador.whatsapp}}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <form class="col" id="Logo">
-                            <div class="d-flex justify-content-center">
-                                <img class="mb-4" src="assets/LogoNombreBlanco.png" alt="" width="300" height="300">
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <h1 class="text-white">La mejor carne, al mejor precio.</h1>
-                            </div>
-                            <div class="d-flex justify-content-center" style="margin-top: 1cm;">
-                                <h3 class="text-white">Perfil.</h3>
-                            </div>
-                            <div class="d-flex justify-content-center" style="margin-top: 1cm;">
-                                <h5 class="text-white">Administrador.</h5>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="collapse row justify-content-center " id="collapsePersonalAdministrador">
-                        <form class="col-8 font-weight-normal   " id="formularioEditarAdministrador"
-                            style="margin-top: 1rem;">
-                            <hr>
-                            <div class="col ">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblNameAdministrador">Nombre</label>
-                                        <input type="Text" id="LblNameAdministrador" class="form-control"
-                                            placeholder="Nombres" [(ngModel)]="administradorActualizar.nombres"
-                                            [ngModelOptions]="{standalone: true}">
-                                    </div>
-                                    <div class="col">
-                                        <label for="LblApellidoAdministrador">Apellidos</label>
-                                        <input type="text" id="LblApellidoAdministrador" name="apellidos"  placeholder="Apellidos"
-                                            class="form-control"  [(ngModel)]="administradorActualizar.apellidos"
-                                            [ngModelOptions]="{standalone: true}" />
-                                    </div>
-                                    <div class="col">
-                                        <label for="LblPuestoAdministrador">Puesto</label>
-                                        <input type="Text" id="LblPuestoAdministrador" class="form-control"
-                                            placeholder="Puesto" [(ngModel)]="administradorActualizar.puesto"
-                                            [ngModelOptions]="{standalone: true}">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="LblTelefonoAdministrador">Telefono fijo o Movil</label>
-                                        <input type="text" id="LblTelefonoAdministrador" class="form-control"
-                                            [(ngModel)]="administradorActualizar.telefono"
-                                            [ngModelOptions]="{standalone: true}">
-                                    </div>
-                                    <div class="col">
-                                        <label for="LblWhatsappAdministrador">Numero Whatsapp</label>
-                                        <input type="text" id="LblWhatsappAdministrador"   name="Whatsapp"
-                                              class="form-control"  [(ngModel)]="administradorActualizar.whatsapp"
-                                            [ngModelOptions]="{standalone: true}" />
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="inputPassword1Administrador">Contraseña</label>
-                                        <input type="password" id="inputPassword1Administrador" class="form-control"
-                                            placeholder="Contraseña" required="" _mstplaceholder="182013"
-                                            [(ngModel)]="contrasenaActualizar" [ngModelOptions]="{standalone: true}">
-                                    </div>
-                                    <div class="col">
-                                        <label for="inputPasswordAdministrador">Contraseña</label>
-                                        <input type="password" id="inputPasswordAdministrador" class="form-control"
-                                            placeholder="Contraseña" required="" _mstplaceholder="182013"
-                                            [(ngModel)]="contrasenaconfirmar" [ngModelOptions]="{standalone: true}">
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row d-flex justify-content-center">
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" style=" width: 50%" type="submit"
-                                        (click)='atualizarInformacion("Administrador")'>
-                                        Editar
-                                    </button>
-                                </div>
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" style=" width: 50%" type="submit"
-                                        data-toggle="collapse" data-target="#collapsePersonalAdministrador"
-                                        aria-expanded="false" aria-controls="collapsePersonalAdministrador">
-                                        Volver
-                                    </button>
-                                </div>
-                            </div>
-                            <hr style="visibility: hidden;">
-                        </form>
-                    </div>
-                    <div class="collapse row justify-content-center" id="collapseRegistrarCliente">
-                        <form class="col-8 font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;"
-                            [formGroup]="formularioRegistroCliente">
-                            <hr>
-
-                            <div class="col-6">
-                                <label for="">Identificacion</label>
-                                <input type="text"  name="identificacion"  placeholder="identificacion"
-                                    class="form-control" formControlName="identificacion"
-                                     [ngClass]="{'is-invalid':  control.identificacion.touched && control.identificacion.errors}" />
-                                <div *ngIf="control.identificacion.errors" class="invalid-feedback">
-                                    <div *ngIf="control.identificacion.errors.required">Se require la identificacion
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col row">
-                                <div class="col">
-                                    <label for="LblNameAdministrador">Nombre</label>
-                                    <input type="Text" id="LblNameAdministrador" class="form-control"
-                                        placeholder="Nombres" formControlName="nombres"
-                                        [ngClass]="{'is-invalid':  control.nombres.errors  && control.nombres.touched}">
-                                    <div *ngIf="control.nombres.errors" class="invalid-feedback">
-                                        <div *ngIf="control.nombres.errors.required">Se requiren los nombres</div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label>Apellidos</label>
-                                    <input type="text"  name="apellidos"  placeholder="Apellidos" class="form-control"
-                                        formControlName="apellidos"
-                                         [ngClass]="{'is-invalid':  control.apellidos.touched && control.apellidos.errors}" />
-                                    <div *ngIf="control.apellidos.errors" class="invalid-feedback">
-                                        <div *ngIf="control.apellidos.errors.required">Se requiren los apellidos</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col row">
-                                <div class="col">
-                                    <label for="inputEmail">Correo Electronico</label>
-                                    <input type="email" id="inputEmail" class="form-control"
-                                        placeholder="Correo Electronico" required="" autofocus=""
-                                        _mstplaceholder="868153" formControlName="correo"
-                                         [ngClass]="{'is-invalid':  control.correo.touched && control.correo.errors}">
-                                    <div *ngIf="control.correo.errors" class="invalid-feedback">
-                                        <div *ngIf="control.correo.errors.required">Se require el correo</div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="">Tipo de cliente</label>
-                                    <select class="form-control " formControlName="tipoCliente"
-                                         [ngClass]="{'is-invalid':  control.tipoCliente.touched && control.tipoCliente.errors}">
-                                        <option value="Cliente Negocio">Tiene negocio</option>
-                                        <option value="Cliente casual">Cliente casual</option>
-                                    </select>
-                                    <div *ngIf="control.tipoCliente.errors" class="invalid-feedback">
-                                        <div *ngIf="control.tipoCliente.errors.required">Se require que seleccione el
-                                            tipo de cliente</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col row">
-                                <div class="col">
-                                    <label for="inputPassword1">Contraseña</label>
-                                    <input type="password" id="inputPassword1" class="form-control"
-                                        placeholder="Contraseña" required="" _mstplaceholder="182013"
-                                        formControlName="contrasena"
-                                         [ngClass]="{'is-invalid':  control.contrasena.touched && control.contrasena.errors}">
-                                    <div *ngIf="control.contrasena.errors" class="invalid-feedback">
-                                        <div *ngIf="control.contrasena.errors.required">Se require la contraseña</div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="inputPassword">Contraseña</label>
-                                    <input type="password" id="inputPassword" class="form-control"
-                                        placeholder="Contraseña" required="" _mstplaceholder="182013"
-                                        formControlName="contrasenaconfirmar"
-                                         [ngClass]="{'is-invalid':  control.contrasenaconfirmar.touched && control.contrasenaconfirmar.errors}">
-                                    <div *ngIf="control.contrasenaconfirmar.errors" class="invalid-feedback">
-                                        <div *ngIf="control.contrasenaconfirmar.errors.required">Se require la
-                                            confirmacion de la contraseña</div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row d-flex justify-content-center">
                                 <div class="col d-flex justify-content-end">
-                                    <button class="btn btn-outline-dark" style="width: 50%" type="submit"
-                                        (click)="onSubmit()"   [disabled]="formularioRegistroCliente.invalid">
-                                        Registrar
-                                    </button>
-                                </div>
-
-                                <div class="col d-flex justify-content-star">
-                                    <button class="btn btn-outline-dark" style="width: 50%" type="reset"
-                                        data-toggle="collapse" data-target="#collapseRegistrarCliente"
-                                        aria-expanded="false" aria-controls="collapseRegistrarCliente">
-                                        Volver
-                                    </button>
+                                    <h5>Clientes.</h5> 
                                 </div>
                             </div>
-                            <hr style="visibility: hidden;">
-                        </form>
+                            <hr>
+                            <div style="margin-bottom: .5rem; font-size: .4cm;">
+                                Clientes registrados: {{totalClientes}}
+                            </div>
+                        </div>
+                        <div class="col CuerpoCard">
+                            <div class="row" style="margin: 1rem;">
+                                <div class="col iconoCard">
+                                <div style="font-size: 2rem;">
+                                    <span class="fas fa-users"></span>
+                                </div>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <h5>Clientes.</h5> 
+                                </div>
+                            </div>
+                            <hr>
+                            <div style="margin-bottom: .5rem;font-size: .4cm">
+                                Clientes nuevos: {{totalClientes}}
+                            </div>
+                        </div>
+                        <div class="col CuerpoCard">
+                            <div class="row" style="margin: 1rem;">
+                                <div class="col iconoCard">
+                                <div style="font-size: 2rem;">
+                                    <span class="fas fa-users"></span>
+                                </div>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <h5>Domiciliarios.</h5> 
+                                </div>
+                            </div>
+                            <hr>
+                            <div style="margin-bottom: .5rem; font-size: .4cm">
+                                Domiciliarios registrados: 10
+                            </div>
+                        </div>
+                        <div class="col CuerpoCard">
+                            <div class="row" style="margin: 1rem;">
+                                <div class="col iconoCard">
+                                <div style="font-size: 2rem;">
+                                    <span class="fas fa-users"></span>
+                                </div>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <h5>Domiciliarios.</h5> 
+                                </div>
+                            </div>
+                            <hr>
+                            <div style="margin-bottom: .5rem; font-size: .4cm">
+                                Domiciliarios con papeles en proxima expiración: 1
+                            </div>
+                        </div>
+                        
+                        <div class="col CuerpoCard">
+                            <div class="row" style="margin: 1rem;">
+                                <div class="col iconoCard">
+                                <div style="font-size: 2rem;">
+                                    <span class="icon-motorcycle"></span>
+                                </div>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <h5>Vehiculos.</h5> 
+                                </div>
+                            </div>
+                            <hr>
+                            <div style="margin-bottom: .5rem;font-size: .4cm">
+                                Veiculos con papeles en proxima expiración: 1
+                            </div>
+                        </div>
+                        <div class="col CuerpoCard">
+                            <div class="row" style="margin: 1rem;">
+                                <div class="col iconoCard">
+                                <div style="font-size: 2rem;">
+                                    <span class="fas fa-tags"></span>
+                                </div>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <h5>Productos.</h5> 
+                                </div>
+                            </div>
+                            <hr>
+                            <div style="margin-bottom: .5rem;font-size: .4cm">
+                                Productos registrados: {{totalProductos}}
+                            </div>
+                        </div>
+                        <div class="col CuerpoCard">
+                            <div class="row" style="margin: 1rem;">
+                                <div class="col iconoCard">
+                                <div style="font-size: 2rem;">
+                                    <span class="fas fa-tags"></span>
+                                </div>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <h5>Productos.</h5> 
+                                </div>
+                            </div>
+                            <hr>
+                            <div style="margin-bottom: .5rem;font-size: .4cm">
+                                Productos con pocas cantidades: {{totalProductos}}
+                            </div>
+                        </div>
                     </div>
-                    <div class="collapse row justify-content-center" id="collapseGestionClientes">
-                        <form class="col font-weight-normal">
-                            <hr>
-                            <label>Filtro por identificacion.</label>
-                            <input class="form-control col-4" type="text" placeholder="Filtro por identificacion"
-                                [(ngModel)]="filtroClientes" [ngModelOptions]="{standalone: true}">
-                            <hr style="visibility: hidden;">
-                            <div >
-                                <button class="btn btn-outline-danger" style="width: 10%; margin-left: .5rem;"
-                                    type="reset" data-toggle="collapse" data-target="#collapseGestionClientes"
-                                    aria-expanded="false" aria-controls="collapseGestionClientes">
-                                    Volver
-                                </button>
+                </div>
+            </div>
+        </div>
+        <div [ngClass]="{'Ocultar':  mostrar != 'EditarInfo'}">
+            <div class="Cuerpo">
+                <form class="col-8 font-weight-normal   " id="formularioEditarAdministrador" style="margin-top: 1rem;">
+
+                    <div class="text-center">
+                        <h5>Editar informacion</h5>
+                    </div>
+                    <hr>
+                    <div class="col ">
+                        <div class="row">
+                            <div class="col">
+                                <label for="LblNameAdministrador">Nombre</label>
+                                <input type="Text" id="LblNameAdministrador" class="form-control" placeholder="Nombres"
+                                    [(ngModel)]="administradorActualizar.nombres" [ngModelOptions]="{standalone: true}">
+                            </div>
+                            <div class="col">
+                                <label for="LblApellidoAdministrador">Apellidos</label>
+                                <input type="text" id="LblApellidoAdministrador" name="apellidos"  placeholder="Apellidos"
+                                    class="form-control"  [(ngModel)]="administradorActualizar.apellidos"
+                                    [ngModelOptions]="{standalone: true}" />
+                            </div>
+                            <div class="col">
+                                <label for="LblPuestoAdministrador">Puesto</label>
+                                <input type="Text" id="LblPuestoAdministrador" class="form-control" placeholder="Puesto"
+                                    [(ngModel)]="administradorActualizar.puesto" [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="LblTelefonoAdministrador">Telefono fijo o Movil</label>
+                                <input type="text" id="LblTelefonoAdministrador" class="form-control"
+                                    [(ngModel)]="administradorActualizar.telefono"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                            <div class="col">
+                                <label for="LblWhatsappAdministrador">Numero Whatsapp</label>
+                                <input type="text" id="LblWhatsappAdministrador"   name="Whatsapp"
+                                      class="form-control"  [(ngModel)]="administradorActualizar.whatsapp"
+                                    [ngModelOptions]="{standalone: true}" />
                             </div>
 
-                            <div class="table-responsive">
-                                <table class="table table-responsive-sm" *ngIf='listaClientes && listaClientes.length'>
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Identificación</th>
-                                            <th scope="col">Nombres </th>
-                                            <th scope="col">Apellidos </th>
-                                            <th scope="col">Telefono</th>
-                                            <th scope="col">Whatsapp</th>
-                                            <th scope="col">Direccion</th>
-                                            <th scope="col">Horario</th>
-                                            <th scope="col">Tipo Cliente</th>
-                                            <th scope="col">Opcion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr
-                                            *ngFor="let cliente of listaClientes|filtroCliente:filtroClientes; index as i">
-                                            <th scope="row">{{ i + 1 }}</th>
-                                            <td>{{ cliente.identificacion }} </td>
-                                            <td>{{ cliente.nombres }}</td>
-                                            <td>{{ cliente.apellidos }}</td>
-                                            <td>{{ cliente.telefono }}</td>
-                                            <td>{{ cliente.whatsapp }}</td>
-                                            <td>{{ cliente.direccion }}</td>
-                                            <td>{{ cliente.horaio }}</td>
-                                            <td>{{ cliente.tipoCliente }}</td>
-                                            <td><button class="btn btn-outline-dark"
-                                                    (click)="vercliente(cliente)">Ver</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inputPassword1Administrador">Contraseña</label>
+                                <input type="password" id="inputPassword1Administrador" class="form-control"
+                                    placeholder="Contraseña" required="" _mstplaceholder="182013"
+                                    [(ngModel)]="contrasenaActualizar" [ngModelOptions]="{standalone: true}">
                             </div>
-                            <hr>
-                        </form>
-                    </div>
-                    <div class="collapse divProductos" id="collapseRegistrarProducto">
-                        <form>
-                            <hr>
-                            <div>
-                                <div class="col divOpciones">
-                                    <div class="row">
-                                        <div class="col d-flex justify-content-center">
-                                            <button class="btn btn-outline-light" type="button"
-                                                style="width: 200px; box-shadow: 0px 0px 5px 2px rgba(255, 255, 255, 0.75); "
-                                                data-toggle="collapse" data-target="#collapseRegistroCarneRes"
-                                                aria-expanded="false" aria-controls="collapseRegistroCarneRes">
-                                                Carne de res
-                                            </button>
-                                        </div>
-                                        <div class="col d-flex justify-content-center">
-                                            <button class="btn btn-outline-light "
-                                                style="width: 200px; box-shadow: 0px 0px 5px 2px rgba(255, 255, 255, 0.75);">
-                                                Pollo
-                                            </button>
-                                        </div>
-                                        <div class="col d-flex justify-content-center">
-                                            <button class="btn btn-outline-light "
-                                                style="width: 200px; box-shadow: 0px 0px 5px 2px rgba(255, 255, 255, 0.75);">
-                                                Cane de pollo
-                                            </button>
-                                        </div>
-                                        <div class="col d-flex justify-content-center">
-                                            <button class="btn btn-outline-light"
-                                                style="width: 200px; box-shadow: 0px 0px 5px 2px rgba(255, 255, 255, 0.75);"
-                                                type="reset" data-toggle="collapse"
-                                                data-target="#collapseRegistrarProducto" aria-expanded="false"
-                                                aria-controls="collapseRegistrarProducto">
-                                                Volver
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="collapse" id="collapseRegistroCarneRes">
-                                    <div class="d-flex justify-content-center">
-                                        <img class="mb-4" src="assets/Despiece-vaca.png" alt="" width="600"
-                                            height="500">
-                                    </div>
-                                    <form class="font-weight-normal" id="formularioRgistrarProducto"
-                                        style="margin-top: 1rem;" [formGroup]="formularioregistroProducto">
-                                        <hr>
-                                        <div class="col row">
-                                            <div class="col">
-                                                <label for="">Nombre del producto</label>
-                                                <select class="form-control " formControlName="nombre"
-                                                     [ngClass]="{'is-invalid':  controlProducto.nombre.touched && controlProducto.nombre.errors}">
-                                                    <option value="Morrillo">Morrillo</option>
-                                                    <option value="Pescuezo">Pescuezo</option>
-                                                    <option value="Aguja">Aguja</option>
-                                                    <option value="Pez">Pez</option>
-                                                    <option value="Espaldilla">Espaldilla</option>
-                                                    <option value="Llana">Llana</option>
-                                                    <option value="Pecho">Pecho</option>
-                                                    <option value="Morcillo">Morcillo</option>
-                                                    <option value="Brazuela">Brazuela</option>
-                                                    <option value="Costillar">Costillar</option>
-                                                    <option value="Lomo alto">Lomo alto</option>
-                                                    <option value="Lomo bajo">Lomo bajo</option>
-                                                    <option value="Solomillo">Solomilo</option>
-                                                    <option value="Cadera">Cadera</option>
-                                                    <option value="Falda">Falda</option>
-                                                    <option value="Tapa">Tapa</option>
-                                                    <option value="Redondo">Redondo</option>
-                                                    <option value="Contra">Contra</option>
-                                                    <option value="Babilla">Babilla</option>
-                                                    <option value="Culata de contra">Culata de contra</option>
-                                                </select>
-                                                <div *ngIf="controlProducto.nombre.errors" class="invalid-feedback">
-                                                    <div *ngIf="controlProducto.nombre.errors.required">
-                                                        Se require que ingrese el nombre del producto
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label>Cantidad (Kg)</label>
-                                                <input type="number" class="form-control" formControlName="cantidad"
-                                                     [ngClass]="{'is-invalid':  controlProducto.cantidad.touched && controlProducto.cantidad.errors}" />
-                                                <div *ngIf="controlProducto.cantidad.errors" class="invalid-feedback">
-                                                    <div *ngIf="controlProducto.cantidad.errors.required">Se require la
-                                                        cantidad</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col ">
-                                                <hr style="visibility: hidden;">
-                                                <div class="d-flex justify-content-end">
-                                                    <button class="btn btn-outline-dark"
-                                                        style="width: 50%; margin-right: .5rem;" type="submit"
-                                                        (click)="onSubmitProducto(1)"  
-                                                        [disabled]="formularioregistroProducto.invalid">
-                                                        Registrar
-                                                    </button>
-                                                    <button class="btn btn-outline-danger"
-                                                        style="width: 50%; margin-left: .5rem;" type="reset"
-                                                        data-toggle="collapse" data-target="#collapseRegistroCarneRes"
-                                                        aria-expanded="false" aria-controls="collapseRegistroCarneRes">
-                                                        Volver
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr style="visibility: hidden;">
-                                    </form>
-                                </div>
+                            <div class="col">
+                                <label for="inputPasswordAdministrador">Contraseña</label>
+                                <input type="password" id="inputPasswordAdministrador" class="form-control"
+                                    placeholder="Contraseña" required="" _mstplaceholder="182013"
+                                    [(ngModel)]="contrasenaconfirmar" [ngModelOptions]="{standalone: true}">
                             </div>
-                            <hr>
-                        </form>
+                        </div>
                     </div>
-                    <div class="collapse row justify-content-center" id="collapseGestionProductos">
-                        <form class="col font-weight-normal">
-                            <hr>
-                            <button class="btn btn-outline-danger" style="width: 10%; margin-left: .5rem;" type="reset"
-                                data-toggle="collapse" data-target="#collapseGestionProductos" aria-expanded="false"
-                                aria-controls="collapseGestionProductos">
-                                Volver
+                    <hr>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col d-flex justify-content-center">
+                            <button class="btn btn-outline-dark" style=" width: 50%" type="submit"
+                                (click)='atualizarInformacion("Administrador")'>
+                                <span class="fas fa-sync-alt"></span> Editar
                             </button>
-                            <div class="table-responsive">
-                                <table class="table table-responsive-sm"
-                                    *ngIf='listaProductos && listaProductos.length'>
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">codigo</th>
-                                            <th scope="col">categoria </th>
-                                            <th scope="col">nombre </th>
-                                            <th scope="col">cantidad</th>
-                                            <th scope="col">opciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let producto of listaProductos; index as i">
-                                            <th scope="row">{{ i + 1 }}</th>
-                                            <td>{{ producto.codigo }} </td>
-                                            <td>{{ producto.categoria }}</td>
-                                            <td>{{ producto.nombre }}</td>
-                                            <td>{{ producto.cantidad }}</td>
-                                            <td><button class="btn btn-outline-dark">Ver</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <button class="btn btn-outline-danger" style=" width: 50%"
+                                (click)="mostrar = 'Principal'">
+                                <span class="icon-arrow-left1"></span> Volver
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="visibility: hidden;">
+                </form>
+            </div>
+        </div>
+        <div [ngClass]="{'Ocultar':  mostrar != 'RegistrarCliente'}">
+            <div class="Cuerpo">
+                <form class="col-8 font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;"
+                    [formGroup]="formularioRegistroCliente">
+                    <div class="text-center">
+                        <h5>Registrar cliente</h5>
+                    </div>
+                    <hr>
+
+                    <div class="col-6">
+                        <label for="">Identificacion</label>
+                        <input type="text"  name="identificacion"  placeholder="identificacion" class="form-control"
+                            formControlName="identificacion"
+                             [ngClass]="{'is-invalid':  control.identificacion.touched && control.identificacion.errors}" />
+                        <div *ngIf="control.identificacion.errors" class="invalid-feedback">
+                            <div *ngIf="control.identificacion.errors.required">Se require la identificacion
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col row">
+                        <div class="col">
+                            <label for="LblNameAdministrador">Nombre</label>
+                            <input type="Text" id="LblNameAdministrador" class="form-control" placeholder="Nombres"
+                                formControlName="nombres"
+                                [ngClass]="{'is-invalid':  control.nombres.errors  && control.nombres.touched}">
+                            <div *ngIf="control.nombres.errors" class="invalid-feedback">
+                                <div *ngIf="control.nombres.errors.required">Se requiren los nombres</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label>Apellidos</label>
+                            <input type="text"  name="apellidos"  placeholder="Apellidos" class="form-control"
+                                formControlName="apellidos"
+                                 [ngClass]="{'is-invalid':  control.apellidos.touched && control.apellidos.errors}" />
+                            <div *ngIf="control.apellidos.errors" class="invalid-feedback">
+                                <div *ngIf="control.apellidos.errors.required">Se requiren los apellidos</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col row">
+                        <div class="col">
+                            <label for="inputEmail">Correo Electronico</label>
+                            <input type="email" id="inputEmail" class="form-control" placeholder="Correo Electronico"
+                                required="" autofocus="" _mstplaceholder="868153" formControlName="correo"
+                                 [ngClass]="{'is-invalid':  control.correo.touched && control.correo.errors}">
+                            <div *ngIf="control.correo.errors" class="invalid-feedback">
+                                <div *ngIf="control.correo.errors.required">Se require el correo</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="">Tipo de cliente</label>
+                            <select class="form-control " formControlName="tipoCliente"
+                                 [ngClass]="{'is-invalid':  control.tipoCliente.touched && control.tipoCliente.errors}">
+                                <option value="Cliente Negocio">Tiene negocio</option>
+                                <option value="Cliente casual">Cliente casual</option>
+                            </select>
+                            <div *ngIf="control.tipoCliente.errors" class="invalid-feedback">
+                                <div *ngIf="control.tipoCliente.errors.required">Se require que seleccione el
+                                    tipo de cliente</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col row">
+                        <div class="col">
+                            <label for="inputPassword1">Contraseña</label>
+                            <input type="password" id="inputPassword1" class="form-control" placeholder="Contraseña"
+                                required="" _mstplaceholder="182013" formControlName="contrasena"
+                                 [ngClass]="{'is-invalid':  control.contrasena.touched && control.contrasena.errors}">
+                            <div *ngIf="control.contrasena.errors" class="invalid-feedback">
+                                <div *ngIf="control.contrasena.errors.required">Se require la contraseña</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="inputPassword">Contraseña</label>
+                            <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña"
+                                required="" _mstplaceholder="182013" formControlName="contrasenaconfirmar"
+                                 [ngClass]="{'is-invalid':  control.contrasenaconfirmar.touched && control.contrasenaconfirmar.errors}">
+                            <div *ngIf="control.contrasenaconfirmar.errors" class="invalid-feedback">
+                                <div *ngIf="control.contrasenaconfirmar.errors.required">Se require la
+                                    confirmacion de la contraseña</div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col d-flex justify-content-end">
+                            <button class="btn btn-outline-dark" style="width: 50%" type="submit" (click)="onSubmit()"  
+                                [disabled]="formularioRegistroCliente.invalid">
+                                <span class="fas fa-user-plus"></span> Registrar
+                            </button>
+                        </div>
+
+                        <div class="col d-flex justify-content-star">
+                            <button class="btn btn-outline-danger" style="width: 50%" type="reset"
+                                (click)="mostrar = 'Principal'">
+                                <span class="icon-arrow-left1"></span>Volver
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="visibility: hidden;">
+                </form>
+            </div>
+        </div>
+        <div  [ngClass]="{'Ocultar':  mostrar != 'Clientes'}">
+            <div class="Cuerpo" >
+                <form class="col font-weight-normal">
+                    <div class="text-center" style="margin-top: 1rem;" >
+                        <h5 >Clientes</h5>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <label>Filtro por identificacion.</label>
+                            <input class="form-control col-5" type="text" placeholder="Identificacion"
+                                [(ngModel)]="filtroClientes" [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <div class="col">
+                            <hr style="visibility: hidden;">
+                            <button class="btn btn-outline-danger" style=" margin-left: .5rem;" type="reset"
+                                (click)="mostrar = 'Principal'">
+                                <span class="icon-arrow-left1"></span>Volver
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="visibility: hidden;">
+
+
+                    <div class="table-responsive">
+                        <table class="table table-responsive-sm" *ngIf='listaClientes && listaClientes.length'>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Identificación</th>
+                                    <th scope="col">Nombres </th>
+                                    <th scope="col">Apellidos </th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Whatsapp</th>
+                                    <th scope="col">Direccion</th>
+                                    <th scope="col">Horario</th>
+                                    <th scope="col">Tipo Cliente</th>
+                                    <th scope="col">Opcion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cliente of listaClientes|filtroCliente:filtroClientes; index as i">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ cliente.identificacion }} </td>
+                                    <td>{{ cliente.nombres }}</td>
+                                    <td>{{ cliente.apellidos }}</td>
+                                    <td>{{ cliente.telefono }}</td>
+                                    <td>{{ cliente.whatsapp }}</td>
+                                    <td>{{ cliente.direccion }}</td>
+                                    <td>{{ cliente.horaio }}</td>
+                                    <td>{{ cliente.tipoCliente }}</td>
+                                    <td><button class="btn btn-outline-dark" (click)="vercliente(cliente)">Ver</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div [ngClass]="{'Ocultar':  mostrar != 'RegistrarPrdocuto'}">
+            <div class="Cuerpo contenedor">
+                <form>
+                    <div class="text-center" style="margin-top: 1rem;">
+                        <h5>Registrar producto</h5>
+                    </div>
+                    <hr>
+                    <div>
+                        <div class="col divOpciones">
+                            <div class="row">
+                                <div class="col d-flex justify-content-center">
+                                    <button class="btn btn-outline-dark" type="button" style="width: 200px;"
+                                        (click)="mostrarInterno = 'Carne de res'">
+                                        Carne de res
+                                    </button>
+                                </div>
+                                <div class="col d-flex justify-content-center">
+                                    <button class="btn btn-outline-dark " style="width: 200px;"
+                                        (click)="mostrarInterno ='Pollo'">
+                                        Pollo
+                                    </button>
+                                </div>
+                                <div class="col d-flex justify-content-center">
+                                    <button class="btn btn-outline-dark " style="width: 200px;"
+                                        (click)="mostrarInterno = 'Carne de cerdo' ">
+                                        Cane de cerdo
+                                    </button>
+                                </div>
+                                <div class="col d-flex justify-content-center">
+                                    <button class="btn btn-outline-danger" style="width: 200px; "
+                                        (click)="mostrar = 'Principal'">
+                                        <span class="icon-arrow-left1"></span>Volver
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div [ngClass]="{'Ocultar':  mostrarInterno != 'Principal'}" style="min-height: 100vh;">
+                            <div class="row ">
+                                <div class=" col d-flex justify-content-center">
+                                    <img class="mb-2" src="assets/Despiece-vaca.png" alt="" width="400" height="300">
+                                </div>
+                                <div class=" col d-flex justify-content-center">
+                                    <img class="mb-2" src="assets/Despiece-pollo.png" alt="" width="400" height="300">
+                                </div>
+                                <div class=" col d-flex justify-content-center">
+                                    <img class="mb-2" src="assets/Despiece-cerdo.png" alt="" width="400" height="300">
+                                </div>
+                            </div>
+                        </div>
+                        <div [ngClass]="{'Ocultar':  mostrarInterno != 'Carne de res'}">
+                            <div class="d-flex justify-content-center">
+                                <img class="mb-4" src="assets/Despiece-vaca.png" alt="" width="600" height="500">
+                            </div>
+                            <form class="font-weight-normal" id="formularioRgistrarProducto" style="margin-top: 1rem;"
+                                [formGroup]="formularioregistroProducto">
+                                <hr>
+                                <label>Si el producto existe, la cantidad que ingrese se sumara al actual; Si en la
+                                    descripción coloca 'No cambiar' se dejara la descripción actual
+                                </label>
+                                <hr>
+                                <div class="col row">
+                                    <div class="col">
+                                        <label>Referencia del producto</label>
+                                        <input type="text" class="form-control" formControlName="codigo"
+                                             [ngClass]="{'is-invalid':  controlProducto.codigo.touched && controlProducto.codigo.errors}" />
+                                        <div *ngIf="controlProducto.codigo.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.codigo.errors.required">Se requiere una referencia</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label for="">Nombre del producto</label>
+                                        <select class="form-control " formControlName="nombre"
+                                             [ngClass]="{'is-invalid':  controlProducto.nombre.touched && controlProducto.nombre.errors}">
+                                            <option value="Morrillo">Morrillo</option>
+                                            <option value="Pescuezo">Pescuezo</option>
+                                            <option value="Aguja">Aguja</option>
+                                            <option value="Pez">Pez</option>
+                                            <option value="Espaldilla">Espaldilla</option>
+                                            <option value="Llana">Llana</option>
+                                            <option value="Pecho">Pecho</option>
+                                            <option value="Morcillo">Morcillo</option>
+                                            <option value="Brazuela">Brazuela</option>
+                                            <option value="Costillar">Costillar</option>
+                                            <option value="Lomo alto">Lomo alto</option>
+                                            <option value="Lomo bajo">Lomo bajo</option>
+                                            <option value="Solomillo">Solomilo</option>
+                                            <option value="Cadera">Cadera</option>
+                                            <option value="Falda">Falda</option>
+                                            <option value="Tapa">Tapa</option>
+                                            <option value="Redondo">Redondo</option>
+                                            <option value="Contra">Contra</option>
+                                            <option value="Babilla">Babilla</option>
+                                            <option value="Culata de contra">Culata de contra</option>
+                                        </select>
+                                        <div *ngIf="controlProducto.nombre.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.nombre.errors.required">
+                                                Se require que ingrese el nombre del producto
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label>Cantidad (Kg)</label>
+                                        <input type="number" class="form-control" formControlName="cantidad"
+                                             [ngClass]="{'is-invalid':  controlProducto.cantidad.touched && controlProducto.cantidad.errors}" />
+                                        <div *ngIf="controlProducto.cantidad.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.cantidad.errors.required">Se require la
+                                                cantidad</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label>Cantidad Minima (Kg)</label>
+                                        <input type="number" class="form-control" formControlName="cantidadMinima"
+                                             [ngClass]="{'is-invalid':  controlProducto.cantidadMinima.touched && controlProducto.cantidadMinima.errors}" />
+                                        <div *ngIf="controlProducto.cantidadMinima.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.cantidadMinima.errors.required">Se require la
+                                                cantidad minima</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label>Precio por kilo</label>
+                                        <input type="number" class="form-control" formControlName="valor"
+                                             [ngClass]="{'is-invalid':  controlProducto.valor.touched && controlProducto.valor.errors}" />
+                                        <div *ngIf="controlProducto.valor.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.valor.errors.required">Se require el valor</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label>Descripción</label>
+                                        <input type="text" class="form-control" formControlName="descripcion"
+                                             [ngClass]="{'is-invalid':  controlProducto.descripcion.touched && controlProducto.descripcion.errors}" />
+                                        <div *ngIf="controlProducto.descripcion.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.descripcion.errors.required">Se requiere una
+                                                breve descripción</div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col ">
+                                        <hr style="visibility: hidden;">
+                                        <div class="d-flex justify-content-end">
+                                            <button class="btn btn-outline-dark"
+                                                style="width: 50%; margin-right: .5rem;" type="submit"
+                                                (click)="onSubmitProducto(1)"  
+                                                [disabled]="formularioregistroProducto.invalid">Registrar
+                                            </button>
+                                            <button class="btn btn-outline-danger"
+                                                style="width: 50%; margin-left: .5rem;" type="reset"
+                                                (click)="mostrarInterno = 'Principal'">
+                                                <span class="icon-arrow-left1"></span>Volver
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr style="visibility: hidden;">
+                            </form>
+                        </div>
+                        <div [ngClass]="{'Ocultar':  mostrarInterno != 'Pollo'}">
+                            <div class="d-flex justify-content-center">
+                                <img class="mb-4" src="assets/Despiece-pollo.png" alt="" width="600" height="500">
+                            </div>
+                            <form class="font-weight-normal" id="formularioRgistrarProducto" style="margin-top: 1rem;"
+                                [formGroup]="formularioregistroProducto">
+                                <hr>
+                                <label>Si el producto existe, la cantidad que ingrese se sumara al actual; Si en la
+                                    descripción coloca 'No cambiar' se dejara la descripción actual
+                                </label>
+                                <hr>
+                                <div class="col row">
+                                    <div class="col">
+                                        <label for="">Nombre del producto</label>
+                                        <select class="form-control " formControlName="nombre"
+                                             [ngClass]="{'is-invalid':  controlProducto.nombre.touched && controlProducto.nombre.errors}">
+                                            <option value="Rabadilla">Rabadilla</option>
+                                            <option value="Espinazo">Espinazo</option>
+                                            <option value="Ala">Ala</option>
+                                            <option value="Pescuezo">Pescuezo</option>
+                                            <option value="Contramuslo">Contramuslo</option>
+                                            <option value="Muslo">Muslo</option>
+                                            <option value="Pechuga">Pechuga</option>
+
+                                        </select>
+                                        <div *ngIf="controlProducto.nombre.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.nombre.errors.required">
+                                                Se require que ingrese el nombre del producto
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label>Cantidad (Kg)</label>
+                                        <input type="number" class="form-control" formControlName="cantidad"
+                                             [ngClass]="{'is-invalid':  controlProducto.cantidad.touched && controlProducto.cantidad.errors}" />
+                                        <div *ngIf="controlProducto.cantidad.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.cantidad.errors.required">Se require la
+                                                cantidad</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label>Precio por kilo</label>
+                                        <input type="number" class="form-control" formControlName="valor"
+                                             [ngClass]="{'is-invalid':  controlProducto.valor.touched && controlProducto.valor.errors}" />
+                                        <div *ngIf="controlProducto.valor.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.valor.errors.required">Se require el valor</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label>Descripción</label>
+                                        <input type="text" class="form-control" formControlName="descripcion"
+                                             [ngClass]="{'is-invalid':  controlProducto.descripcion.touched && controlProducto.descripcion.errors}" />
+                                        <div *ngIf="controlProducto.descripcion.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.descripcion.errors.required">Se requiere una
+                                                breve descripción</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col ">
+                                        <hr style="visibility: hidden;">
+                                        <div class="d-flex justify-content-end">
+                                            <button class="btn btn-outline-dark"
+                                                style="width: 50%; margin-right: .5rem;" type="submit"
+                                                (click)="onSubmitProducto(2)"  
+                                                [disabled]="formularioregistroProducto.invalid">Registrar
+                                            </button>
+                                            <button class="btn btn-outline-danger"
+                                                style="width: 50%; margin-left: .5rem;" type="reset"
+                                                (click)="mostrarInterno = 'Principal'">
+                                                <span class="icon-arrow-left1"></span>Volver
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr style="visibility: hidden;">
+                            </form>
+                        </div>
+                        <div [ngClass]="{'Ocultar':  mostrarInterno != 'Carne de cerdo'}">
+                            <div class="d-flex justify-content-center">
+                                <img class="mb-4" src="assets/Despiece-cerdo.png" alt="" width="600" height="500">
+                            </div>
+                            <form class="font-weight-normal" id="formularioRgistrarProducto" style="margin-top: 1rem;"
+                                [formGroup]="formularioregistroProducto">
+                                <hr>
+                                <label>Si el producto existe, la cantidad que ingrese se sumara al actual; Si en la
+                                    descripción coloca 'No cambiar' se dejara la descripción actual
+                                </label>
+                                <hr>
+                                <div class="col row">
+                                    <div class="col">
+                                        <label for="">Nombre del producto</label>
+                                        <select class="form-control " formControlName="nombre"
+                                             [ngClass]="{'is-invalid':  controlProducto.nombre.touched && controlProducto.nombre.errors}">
+                                            <option value="Jamon">Jamon</option>
+                                            <option value="Lomo">Lomo</option>
+                                            <option value="Solomillo">Solomillo</option>
+                                            <option value="Chuleta">Chuleta</option>
+                                            <option value="Panceta">Panceta</option>
+                                            <option value="Paletilla">Paletilla</option>
+                                            <option value="Manitas">Manitas</option>
+                                            <option value="Aguja">Aguja</option>
+                                        </select>
+                                        <div *ngIf="controlProducto.nombre.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.nombre.errors.required">
+                                                Se require que ingrese el nombre del producto
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label>Cantidad (Kg)</label>
+                                        <input type="number" class="form-control" formControlName="cantidad"
+                                             [ngClass]="{'is-invalid':  controlProducto.cantidad.touched && controlProducto.cantidad.errors}" />
+                                        <div *ngIf="controlProducto.cantidad.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.cantidad.errors.required">Se require la
+                                                cantidad</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label>Precio por kilo</label>
+                                        <input type="number" class="form-control" formControlName="valor"
+                                             [ngClass]="{'is-invalid':  controlProducto.valor.touched && controlProducto.valor.errors}" />
+                                        <div *ngIf="controlProducto.valor.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.valor.errors.required">Se require el valor</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label>Descripción</label>
+                                        <input type="text" class="form-control" formControlName="descripcion"
+                                             [ngClass]="{'is-invalid':  controlProducto.descripcion.touched && controlProducto.descripcion.errors}" />
+                                        <div *ngIf="controlProducto.descripcion.errors" class="invalid-feedback">
+                                            <div *ngIf="controlProducto.descripcion.errors.required">Se requiere una
+                                                breve descripción</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col ">
+                                        <hr style="visibility: hidden;">
+                                        <div class="d-flex justify-content-end">
+                                            <button class="btn btn-outline-dark"
+                                                style="width: 50%; margin-right: .5rem;" type="submit"
+                                                (click)="onSubmitProducto(3)"  
+                                                [disabled]="formularioregistroProducto.invalid">Registrar
+                                            </button>
+                                            <button class="btn btn-outline-danger"
+                                                style="width: 50%; margin-left: .5rem;" type="reset"
+                                                (click)=" mostrarInterno = 'Principal'">
+                                                <span class="icon-arrow-left1"></span>Volver
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr style="visibility: hidden;">
+                            </form>
+                        </div>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div [ngClass]="{'Ocultar':  mostrar != 'Productos'}">
+            <div class="Cuerpo">
+                <form class="col font-weight-normal">
+                    <div class="text-center"style="margin-top: 1rem;">
+                        <h5>Productos</h5>
+                    </div>
+                    <hr>
+                    <button class="btn btn-outline-danger" style="width: 10%; margin-left: .5rem;"
+                        (click)="mostrar = 'Principal'">
+                        <span class="icon-arrow-left1"></span>Volver
+                    </button>
+                    <div class="table-responsive">
+                        <table class="table table-responsive-sm" *ngIf='listaProductos && listaProductos.length'>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">codigo</th>
+                                    <th scope="col">categoria </th>
+                                    <th scope="col">nombre </th>
+                                    <th scope="col">cantidad</th>
+                                    <th scope="col">Valor</th>
+                                    <th scope="col">opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of listaProductos; index as i">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ producto.codigo }} </td>
+                                    <td>{{ producto.categoria }}</td>
+                                    <td>{{ producto.nombre }}</td>
+                                    <td>{{ producto.cantidad }}</td>
+                                    <td>{{ producto.valor }}</td>
+                                    <td><button class="btn btn-outline-dark">Ver</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div [ngClass]="{'Ocultar':  mostrar != 'Cliente'}">
+            <div class="Cuerpo ">
+                <form  style="min-width: 700px;">
+                    <div class="text-center" style="margin-top: 1rem;" >
+                        <h5 >Cliente: {{clienteConsuta.nombres}} {{clienteConsuta.apellidos}}, {{clienteConsuta.identificacion}}</h5>
+                    </div>
+                    <hr>
+                    <div class="info">
+                        <h5>Informacion de contacto.</h5>
+                        <div class="row">
+                            <div class="col">
+                                <label for="LblTelefono">Telefono fijo o movil: </label>
+                            </div>
+                            <div class="col">
+                                <p>
+                                    {{clienteConsuta.telefono}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="LblWhatsapp">Whatsapp: </label>
+                            </div>
+                            <div class="col">
+                                <p>
+                                    {{clienteConsuta.whatsapp}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col d-flex justify-content-center">
+                            <button class="btn btn-outline-dark" (click)="mostrarDescuentosCliente()">
+                                <span class="fas fa-sync-alt"></span>Descuentos
+                            </button>
+                        </div>
+
+                        <div class="col d-flex justify-content-center">
+                            <button class="btn btn-outline-dark" >
+                                <span class="fas fa-sync-alt"></span>Pedidos
+                            </button>
+                        </div>
+                        
+                        <div class="col d-flex justify-content-center">
+                            <button class="btn btn-outline-danger" >
+                                <span class="icon-arrow-left1"></span> Eliminar
+                            </button>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <button class="btn btn-outline-danger" 
+                                (click)="mostrar = 'Clientes'">
+                                <span class="icon-arrow-left1"></span> Volver
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div [ngClass]="{'Ocultar':  mostrar != 'DescuentosCliente'}">
+            <div class="Cuerpo" >
+                <form style="width: 98%;">
+                    <div class="text-center" style="margin-top: 1rem;" >
+                        <h5 >Cliente: {{clienteConsuta.nombres}} {{clienteConsuta.apellidos}}, {{clienteConsuta.identificacion}}</h5>
+                    </div>
+                    <hr>
+                    <div class="row ">
+                        <div class="col table-responsive">
+                            <div class="text-center" style="margin-top: 1rem;" >
+                                <h6>Descuentos registrados.</h6>
                             </div>
                             <hr>
-                        </form>
-                    </div>
-                    <!--<form  class="col " >
-                        <h1 class="font-weight-normal text-center">Historial de pedidos.</h1>
-                        <div class="justify-content-center">
-                            <table style="width:100%; margin: auto;" class="table table-responsive-sm">
-                                <thead>
-                                  <tr>
-                                    <th>Codigo Del pedido</th>
-                                    <th>Fecha del pedido</th>
-                                    <th>Valor</th>
-                                    <th>Estado</th>
-                                  </tr>
-                                </thead>
-                                <tbody id="tdPedidos" >
-                                    <tr scope="row"> 
-                                        <td>1029</td>
-                                        <td>10/10/2020</td>
-                                        <td>120000</td>
-                                        <td>Entregado</td>
+                            <table class="table table-responsive-sm" *ngIf='listaDescuentos && listaDescuentos.length'>
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Referencia P.</th>
+                                        <th scope="col">%Descuento</th>
                                     </tr>
-                                    <tr scope="row"> 
-                                        <td>1030</td>
-                                        <td>20/10/2020</td>
-                                        <td>129000</td>
-                                        <td>En camino</td>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let descuento of listaDescuentos|filtroCliente:filtroClientes; index as i">
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td>{{ descuento.codProducto }} </td>
+                                        <td>{{ descuento.porcentaje }}</td>
+                                        
                                     </tr>
                                 </tbody>
-                            </table >
+                            </table>
                         </div>
-                    </form>-->
-                </div>
+                        <div class="col table-responsive">
+                            <div class="text-center" style="margin-top: 1rem;" >
+                                <h6>Productos sin descuentos.</h6>
+                            </div>
+                            <hr>
+                            <table class="table table-responsive-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Referencia </th>
+                                        <th scope="col">Nombre </th>
+                                        <th scope="col">Valor</th>
+                                        <th scope="col">%Descuento</th>
+                                    </tr>
+                                </thead>
+                                <!-- <tbody>
+                                    <tr *ngFor="let cliente of listaClientes|filtroCliente:filtroClientes; index as i">
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td>{{ cliente.identificacion }} </td>
+                                        <td>{{ cliente.nombres }}</td>
+                                        <td>{{ cliente.apellidos }}</td>
+                                        <td>{{ cliente.telefono }}</td>
+                                        <td>{{ cliente.whatsapp }}</td>
+                                        <td>{{ cliente.direccion }}</td>
+                                        <td>{{ cliente.horaio }}</td>
+                                        <td>{{ cliente.tipoCliente }}</td>
+                                        <td><button class="btn btn-outline-dark" (click)="vercliente(cliente)">Ver</button>
+                                        </td>
+                                    </tr>
+                                </tbody>-->
+                            </table>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -20,7 +20,10 @@ namespace Logica
         {
             try
             {
-                context.Productos.Add(GenerarCodigo(producto));
+                if(!ValidarCodigo(producto.Codigo)){
+                    return new ProductoResponse("Producto Existente");    
+                }
+                context.Productos.Add(producto);
                 context.SaveChanges();
                 return new ProductoResponse(producto);
             }
@@ -30,19 +33,20 @@ namespace Logica
             }
         }
 
-        private Producto GenerarCodigo(Producto producto)
-        {
-            var random = new Random();
-            string codigo = random.Next().ToString(); 
-            if(ValidarCodigo(codigo))
-            {
-                producto.Codigo = codigo;
-                return producto;
+        private Boolean ActualizarProducto(Producto producto){
+            List<Producto> productoEncontrado = context.Productos.Where<Producto>(p => p.Nombre == producto.Nombre).ToList();
+            if(productoEncontrado.Count == 0){
+                return false;
+            }else{
+                productoEncontrado[0].Cantidad += producto.Cantidad;
+                if(producto.Descripcion != "No cambiar"){
+                    productoEncontrado[0].Descripcion = producto.Descripcion;
+                }
+                context.Update(productoEncontrado[0]);
+                return true;
             }
-            GenerarCodigo(producto);
-            return null;
         }
-
+        
         public bool ValidarCodigo(string codigo)
         {
             Producto producto = context.Productos.Find(codigo);

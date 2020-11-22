@@ -1,6 +1,35 @@
+/*.Cuerpo{
+    border-bottom-style: solid;
+    border-bottom-width: .1rem;
+    border-bottom-color:  rgb(250, 81, 81);
+}*/
+a{
+    border-radius: 18px;
+}
+a:hover{
+    text-decoration: none;
+    background-color: rgb(250, 81, 81);
+    transition: all 0.3s;
+}
+
 .Ocultar{
     display: none;
 }
 .Mostrar{
     display: block;
+}
+.logo{
+    width: 255px;
+    border-right-style: solid ;
+    border-right: 1rem;
+    border-right-color: red ;
+    justify-self: center;
+}
+*{
+    font-family: 'Poppins';
+}
+
+
+span{
+    margin-right: .5rem;
 }

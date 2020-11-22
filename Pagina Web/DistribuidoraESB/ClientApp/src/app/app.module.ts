@@ -17,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from './@base/alert-modal/alert-modal.component';
 import { FiltroPersonaPipe } from './pipe/filtro-persona.pipe';
 import { FiltroClientePipe } from './pipe/filtro-cliente.pipe';
+import { ModalDecicionComponent } from './@base/modal-decicion/modal-decicion.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FiltroClientePipe } from './pipe/filtro-cliente.pipe';
     FooterComponent,
     AlertModalComponent,
     FiltroPersonaPipe,
-    FiltroClientePipe
+    FiltroClientePipe,
+    ModalDecicionComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -43,7 +45,7 @@ import { FiltroClientePipe } from './pipe/filtro-cliente.pipe';
     AppRoutingModule,
     NgbModule
   ],
-  entryComponents:[AlertModalComponent],
+  entryComponents:[AlertModalComponent,ModalDecicionComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

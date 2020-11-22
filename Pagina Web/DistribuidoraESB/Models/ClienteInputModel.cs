@@ -9,6 +9,7 @@ namespace DistribuidoraESB.Models
         public string Direccion { get; set; }
         public string Horaio { get; set; }
         public string TipoCliente { get; set; }
+        public List<Descuento> Descuentos { get; set; }
     }
 
     public class ClienteViewModel: ClienteInputModel
@@ -27,6 +28,7 @@ namespace DistribuidoraESB.Models
             Direccion = cliente.Direccion;
             Horaio = cliente.Horaio;
             TipoCliente = cliente.TipoCliente;
+            Descuentos = cliente.Descuentos;
         }
     }
 }

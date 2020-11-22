@@ -14,8 +14,12 @@ namespace Entity
         public string Categoria { get; set; }
         [Column(TypeName = "nvarchar(20)")]
         public string Nombre { get; set; }
+        [Column(TypeName = "real")]
+        public decimal Cantidad { get; set; }
+        [Column(TypeName = "real")]
+        public decimal CantidadMinima { get; set; }
         [Column(TypeName = "int")]
-        public int Cantidad { get; set; }
+        public int Valor { get; set; }
         [Column(TypeName = "nvarchar(100)")]
         public string Descripcion { get; set; }
     }

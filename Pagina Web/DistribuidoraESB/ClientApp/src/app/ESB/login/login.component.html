@@ -1,4 +1,4 @@
-<div class="row  container-fliud justify-content-center ">
+<div class="row  container-fluid justify-content-center ">
     <form class="form-signin col-md-4 frmLogin " [formGroup]="formularioinicioSesion">
         <div class="d-flex justify-content-center divLogo">
             <img class="mb-4" src="assets/LogoNombreBlanco.png" alt="" width="300" height="300">
@@ -22,8 +22,9 @@
         <hr>
         <div class="d-flex justify-content-center">
             <button class="btn btn-outline-dark" (click)="onSubmit()" 
-            [disabled]="formularioinicioSesion.invalid">Inicia sesión</button>
+            [disabled]="formularioinicioSesion.invalid"><span class="fas fa-sign-in-alt"></span> Inicia sesión</button>
         </div>
+        
         <hr class="lineaFinal">
     </form>
 </div>

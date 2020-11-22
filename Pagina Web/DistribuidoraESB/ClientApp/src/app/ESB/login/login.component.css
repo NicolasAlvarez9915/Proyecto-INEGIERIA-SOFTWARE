@@ -1,5 +1,5 @@
 *{
-    font-size: 0.7cm;
+    font-size: 0.6cm;
 }
 
 .frmLogin{
@@ -21,7 +21,6 @@
 }
 
 button{
-    box-shadow: 0px 0px 5px 2px rgba(52, 58, 64, 0.75); 
     border-radius: 18px; 
     width: 50%; 
     font-size: .7cm;
@@ -31,6 +30,13 @@ button{
     visibility: hidden;
 }
 
+span{
+    margin-right: .5rem;
+}
+
+hr{
+    background-color: rgb(250, 81, 81);
+}
 @media (max-width: 768px){
     
 }

@@ -4,4 +4,6 @@ export class Producto {
   nombre: string;
   cantidad: number;
   descripcion: string;
+  valor: number;
+  cantidadMinima: number;
 }

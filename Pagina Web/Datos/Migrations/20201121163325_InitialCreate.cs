@@ -41,27 +41,15 @@ namespace Datos.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Descuentos",
-                columns: table => new
-                {
-                    Codigo = table.Column<string>(type: "nvarchar(11)", nullable: false),
-                    Porcentaje = table.Column<string>(type: "nvarchar(11)", nullable: false),
-                    CodProducto = table.Column<string>(type: "nvarchar(11)", nullable: true),
-                    IdPersona = table.Column<string>(type: "nvarchar(11)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Descuentos", x => x.Codigo);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Productos",
                 columns: table => new
                 {
                     Codigo = table.Column<string>(type: "nvarchar(11)", nullable: false),
                     Categoria = table.Column<string>(type: "nvarchar(20)", nullable: true),
                     Nombre = table.Column<string>(type: "nvarchar(20)", nullable: true),
-                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    Cantidad = table.Column<float>(type: "real", nullable: false),
+                    CantidadMinima = table.Column<float>(type: "real", nullable: false),
+                    Valor = table.Column<int>(type: "int", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(100)", nullable: true)
                 },
                 constraints: table =>
@@ -82,15 +70,49 @@ namespace Datos.Migrations
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.Correo);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Descuentos",
+                columns: table => new
+                {
+                    Codigo = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    Porcentaje = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    CodProducto = table.Column<string>(type: "nvarchar(11)", nullable: true),
+                    IdPersona = table.Column<string>(type: "nvarchar(11)", nullable: true),
+                    ClienteIdentificacion = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Descuentos", x => x.Codigo);
+                    table.ForeignKey(
+                        name: "FK_Descuentos_Clientes_ClienteIdentificacion",
+                        column: x => x.ClienteIdentificacion,
+                        principalTable: "Clientes",
+                        principalColumn: "Identificacion",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Descuentos_Clientes_IdPersona",
+                        column: x => x.IdPersona,
+                        principalTable: "Clientes",
+                        principalColumn: "Identificacion",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Descuentos_ClienteIdentificacion",
+                table: "Descuentos",
+                column: "ClienteIdentificacion");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Descuentos_IdPersona",
+                table: "Descuentos",
+                column: "IdPersona");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Administradores");
-
-            migrationBuilder.DropTable(
-                name: "Clientes");
 
             migrationBuilder.DropTable(
                 name: "Descuentos");
@@ -100,6 +122,9 @@ namespace Datos.Migrations
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "Clientes");
         }
     }
 }

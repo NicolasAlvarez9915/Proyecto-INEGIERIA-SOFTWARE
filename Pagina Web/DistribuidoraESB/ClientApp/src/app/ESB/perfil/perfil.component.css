@@ -1,146 +1,146 @@
-.contenedor{
-    display: flex;
-    align-items: stretch;
+*{
+    font-family: 'Poppins';
 }
 
-.btnBarraProducto{
-    width: 200px;
+span{
+    margin-right: .5rem;
+}
+
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+#sidebar {
+    min-width: 220px;
+    max-width: 220px;
+    background-color: rgb(233, 236, 239);
+    color: rgb(0, 0, 0);
+    transition: all 0.5s;
+}
+
+#sidebar.active {
+    margin-left: -220px;
 }
 
 .TituloBarra{
-    margin-top: 1rem; 
-    background-color: brown; 
-    border-top-right-radius: 17px;
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+    display: flex;
+    justify-content: center;
 }
 
-.divProductos{
-    border-radius: 20px;
-    margin-bottom: 1rem;
+.btnbarra{
+    height: 2rem;
+    color: rgb(0, 0, 0);
+    font-size: .4cm;
+    background: transparent;
+    border: none;
 }
 
-.divOpciones{
-    background-image: url("../../../assets/PicsArt_10-14-12.14.04.jpg");
+
+.btnbarra:hover{
+    color: black;
+    background-color: rgb(250, 81, 81);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+.btnbarra:focus {
+    outline: none; 
+}
+
+
+
+
+
+
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+#content {
+    padding-left: 15px;
+    transition: all 0.5s;
+    width: 100%;
+}
+
+.info{
+    margin-top: 2rem;
+    margin-left: 1.5rem;
+}
+
+.contenedor{
+    background-color: white;
+    min-height: 70vh;
+    width: 98%;
+}
+.cuadroNotificacion{
+    margin-top: 2rem;
+    width: 100%;
+    min-width: 200px;
+    min-height: 50px;
     border-radius: 20px;
 }
 
 .btn{
-    box-shadow: 0px 0px 5px 2px rgba(133, 133, 133, 0.75); 
     border-radius: 18px; 
-    width: 100px; 
-    font-size: .7cm;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-.btnbarra{
-    border-radius: 17px;
-    border: none;
-    outline: none;
-    background-color:  rgb(52, 58, 64);
-}
-.btnbarraOps{
-    border-radius: 17px;
-    border: none;
-    outline: none;
-    background-color:  rgb(50, 51, 53);
-}
-
-*{
-    font-size: .7cm;
 }
 
 hr{
-    border-color: rgb(253, 52, 52);
+    background-color: rgb(250, 81, 81);
 }
-h1{
-    font-size: 1cm;
+
+.btnMenu{
+    margin-top: .5rem;
+    margin-bottom: .5rem;
 }
-#Logo{
-    background-image: url("../../../assets/PicsArt_10-14-12.14.04.jpg");
-    background-repeat: no-repeat; 
-    background-size: cover; 
-    background-position: center;
-    background-attachment: fixed;
-    border-radius: 20px;
-    margin-top: 1rem;
+
+.barraTituloContenido{
+    color: black;
+    background-color: white;
+    border-bottom-style: solid;
+    border-bottom-width: .1rem;
+    border-bottom-color:  rgb(250, 81, 81);
+    width: 100%;
+}
+
+.CuerpoCard{
+    min-width: 300px;
+    max-width: 300px;
+    background-color: rgb(233, 236, 239);
+    margin-left: 2rem;
+    margin-top: 2rem;
+    border-radius: 5px;
+    box-shadow: 10px 10px 5px 0px rgba(133,133,133,1);
+}
+
+.iconoCard{
+    background-color: rgb(250, 81, 81); 
+    max-width: 30%;
+    margin-top: -2rem;
     margin-bottom: 1rem;
-    height: 610px;
-    max-width: 610px;
+    border-radius: 5px;
+    box-shadow: 10px 10px 5px 0px rgba(133,133,133,1);
 }
-
-.OpsMenu{
-    background-color:  rgb(50, 51, 53);
-}
-
-.barraLateral{
-    position: relative;
-    min-width: 250px;
-    max-width: 250px;
-    background-color: rgb(52, 58, 64);
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 20px;
-    margin-top: 1rem;
-    box-shadow: 0px 0px 5px 2px rgba(153, 152, 152, 0.75);
-    transition: all 400ms linear;
-}
-
-.BarraActiva {
-    left: 0px;
-}
-
-
-.BarraActivaContenido{
-    left: 260px;
-}
-.contenido{
-    left: 0px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 20px;
-    margin-bottom: 0rem;
-    margin-top: 1rem;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-    box-shadow: 0px 0px 5px 2px rgba(153, 152, 152, 0.75); 
-}
-
-
 
 .Ocultar{
     display: none;
 }
-.Mostrar{
-    display: block;
-}
-@media (max-width: 768px){
-    .barraLateral{
-        min-width: 150px;
-        max-width: 150px;
-        min-height: 50vh;
-    }
-    .btn{
-        box-shadow: 0px 0px 5px 2px rgba(133, 133, 133, 0.75); 
-    border-radius: 18px; 
-    width: 100px; 
-    font-size: .7cm;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    }
-    .contenido{
-        background-color: rgb(255, 255, 255);
-        border-radius: 20px;
-        margin: 0cm;
-        margin-top: 1rem;
-        box-shadow: 0px 0px 5px 2px rgba(153, 152, 152, 0.75); 
-    }
-    #collapsePersonal{
-        min-width: 500px;
-        justify-content: center;
-        margin-left: -100px;
-    }
 
-    #collapseDomicilio{
-        min-width: 500px;
-        justify-content: center;
-        margin-left: -100px;
+.Cuerpo{
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px){
+    #sidebar {
+        
+        margin-left: -220px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #content {
+        padding-right: 0px;
     }
 }
+

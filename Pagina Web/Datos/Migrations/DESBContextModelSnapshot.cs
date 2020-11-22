@@ -79,6 +79,9 @@ namespace Datos.Migrations
                     b.Property<string>("Codigo")
                         .HasColumnType("nvarchar(11)");
 
+                    b.Property<string>("ClienteIdentificacion")
+                        .HasColumnType("nvarchar(11)");
+
                     b.Property<string>("CodProducto")
                         .HasColumnType("nvarchar(11)");
 
@@ -91,6 +94,10 @@ namespace Datos.Migrations
 
                     b.HasKey("Codigo");
 
+                    b.HasIndex("ClienteIdentificacion");
+
+                    b.HasIndex("IdPersona");
+
                     b.ToTable("Descuentos");
                 });
 
@@ -99,8 +106,11 @@ namespace Datos.Migrations
                     b.Property<string>("Codigo")
                         .HasColumnType("nvarchar(11)");
 
-                    b.Property<int>("Cantidad")
-                        .HasColumnType("int");
+                    b.Property<float>("Cantidad")
+                        .HasColumnType("real");
+
+                    b.Property<float>("CantidadMinima")
+                        .HasColumnType("real");
 
                     b.Property<string>("Categoria")
                         .HasColumnType("nvarchar(20)");
@@ -110,6 +120,9 @@ namespace Datos.Migrations
 
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("Valor")
+                        .HasColumnType("int");
 
                     b.HasKey("Codigo");
 
@@ -133,6 +146,17 @@ namespace Datos.Migrations
                     b.HasKey("Correo");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Entity.Descuento", b =>
+                {
+                    b.HasOne("Entity.Cliente", null)
+                        .WithMany("Descuentos")
+                        .HasForeignKey("ClienteIdentificacion");
+
+                    b.HasOne("Entity.Cliente", null)
+                        .WithMany()
+                        .HasForeignKey("IdPersona");
                 });
 #pragma warning restore 612, 618
         }
