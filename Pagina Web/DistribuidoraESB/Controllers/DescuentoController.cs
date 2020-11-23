@@ -21,10 +21,10 @@ namespace DistribuidoraESB.Controllers
 
         [HttpPost]
 
-        public ActionResult<DescuentoViewModel> Post(DescuentoInputModel descuentoInput)
+        public ActionResult<DescuentoViewModel> Post(List<DescuentoInputModel> descuentosInput)
         {
-            Descuento descuento = MapearDescuento(descuentoInput);
-            var response = service.Guardar(descuento);
+            List<Descuento> descuentos = descuentosInput.Select(p => MapearDescuento(p)).ToList();
+            var response = service.Guardar(descuentos);
             return Ok(response.descuento);
         }
 
@@ -32,6 +32,12 @@ namespace DistribuidoraESB.Controllers
         public IEnumerable<DescuentoViewModel> get(string Identificacion)
         {
             return service.DescuentosCliente(Identificacion).Select(p => new DescuentoViewModel(p));
+        }
+
+        [HttpGet("string/{identificacion}")]
+        public IEnumerable<ProductoViewModel> Get(string identificacion)
+        {
+            return service.ProductosSinDescuento(identificacion).Select(p => new ProductoViewModel(p));
         }
         private Descuento MapearDescuento(DescuentoInputModel descuentoInput)
         {

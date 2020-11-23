@@ -39,6 +39,11 @@ export class PerfilComponent implements OnInit {
   listaProductos: Producto[];
   totalProductos: number;
   listaDescuentos: Descuento[];
+  listaProductosSinDescuento: Producto[];
+  listaDescuentosNuevos: Descuento[];
+  listaDescuentosARegistrar: Descuento[];
+  descuentoNuevo: Descuento;
+  descuentoParaTodos: number = 0;
   filtroClientes: string;
   i: number;
   existe: Boolean;
@@ -62,6 +67,8 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.administrador = new Administrador();
+    this.listaDescuentosNuevos = [];
+    this.listaDescuentosARegistrar = [];
     this.validarSesion();
     this.buildForm();
     this.pedirInforAdministrador();
@@ -71,14 +78,50 @@ export class PerfilComponent implements OnInit {
     this.mostrarInterno = 'Principal';
   }
 
-  mostrarDescuentosCliente(){
-    this.mostrar = 'DescuentosCliente';
-    this.descuentoService.DescuentosPorCliente(this.clienteConsuta.identificacion).subscribe( r =>{
-      this.listaDescuentos = r;
+  aplicarATodosUnDescuento() {
+    this.listaDescuentosNuevos.forEach(descuento => {
+      descuento.porcentaje = this.descuentoParaTodos;
     });
   }
 
-  alternarBarra(){
+  registrarDescuentos(){
+    this.listaDescuentosARegistrar = [];
+    this.listaDescuentosNuevos.forEach(descuento => {
+      if(descuento.porcentaje > 0){
+        this.listaDescuentosARegistrar.push(descuento);
+      }
+    });
+    this.descuentoService.registrarDescuentos(this.listaDescuentosARegistrar).subscribe(r => {
+      if(r != null){
+        
+        const messageBox = this.modalService.open(AlertModalComponent)
+        messageBox.componentInstance.title = "BIEN HECHO.";
+        messageBox.componentInstance.message = "Descuentos registrados correctamente.";
+        this.mostrarDescuentosCliente();
+      }
+    })
+  }
+
+  mostrarDescuentosCliente() {
+    this.mostrar = 'DescuentosCliente';
+    this.descuentoService.DescuentosPorCliente(this.clienteConsuta.identificacion).subscribe(r => {
+      this.listaDescuentos = r;
+    });
+    this.descuentoService.ProductosSinDescuento(this.clienteConsuta.identificacion).subscribe(r => {
+      this.listaProductosSinDescuento = r;
+      this.listaDescuentosNuevos = [];
+      this.listaProductosSinDescuento.forEach(producto => {
+        this.descuentoNuevo = new Descuento();
+        this.descuentoNuevo.codProducto = producto.codigo;
+        this.descuentoNuevo.idPersona = this.clienteConsuta.identificacion;
+        this.descuentoNuevo.porcentaje = 0;
+        this.descuentoNuevo.codigo = '123';
+        this.listaDescuentosNuevos.push(this.descuentoNuevo);
+      });
+    })
+  }
+
+  alternarBarra() {
     this.activa = !this.activa;
   }
 
@@ -93,8 +136,7 @@ export class PerfilComponent implements OnInit {
     this.Rol = this.usuario.rol;
   }
 
-  productos()
-  {
+  productos() {
     this.productoService.todos().subscribe(
       r => {
         this.listaProductos = r;
@@ -180,30 +222,26 @@ export class PerfilComponent implements OnInit {
     this.registrarProducto(categoria);
   }
 
-  registrarProducto(categoria: number){
+  registrarProducto(categoria: number) {
     this.producto = this.formularioregistroProducto.value;
-    if(categoria == 1)
-    {
+    if (categoria == 1) {
       this.producto.categoria = "Carne de res";
     }
-    if(categoria == 2)
-    {
+    if (categoria == 2) {
       this.producto.categoria = "Pollo";
     }
-    if(categoria == 3)
-    {
+    if (categoria == 3) {
       this.producto.categoria = "Carne de cerdo";
     }
     this.productoService.registrar(this.producto).subscribe(
       r => {
-        if(r != null)
-        {
+        if (r != null) {
           const messageBox = this.modalService.open(AlertModalComponent)
           messageBox.componentInstance.title = "BIEN HECHO.";
           messageBox.componentInstance.message = "Producto registrado correctamente.";
           this.productos();
-        }else{
-          
+        } else {
+
           const messageBox = this.modalService.open(AlertModalComponent)
           messageBox.componentInstance.title = "ALERTA.";
           messageBox.componentInstance.message = "Producto existente.";
