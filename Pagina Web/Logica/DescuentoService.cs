@@ -19,7 +19,6 @@ namespace Logica
         {
             try
             {
-
                 foreach (Descuento descuento in descuentos)
                 {
                     context.Descuentos.Add(GenerarCodigo(descuento));
