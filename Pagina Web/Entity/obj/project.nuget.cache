@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "QkXD7QMsqlZVDEDiN15FBTggy3X0PpFZhAfAh67GenTn+UKwaB+bui19Ukmy/vePsHzWB5qFAcGixrGjD9MSzA==",
+  "dgSpecHash": "6skin+lJ812AwFfIj7xSUAKlVouhFopIAKJrf48RH+ORtHIMp6t3KUBW3ygaSY5UI8JNPwFgFdzOCPVx59eD7Q==",
   "success": true,
-  "projectFilePath": "C:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj",
+  "projectFilePath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\I E Parodi\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
+    "C:\\Users\\nicoa\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

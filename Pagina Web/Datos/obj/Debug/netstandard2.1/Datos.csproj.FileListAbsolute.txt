@@ -10,3 +10,15 @@ C:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Debug\netstandard2.1\Datos.c
 C:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Debug\netstandard2.1\Datos.csproj.CopyComplete
 C:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Debug\netstandard2.1\Datos.dll
 C:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Debug\netstandard2.1\Datos.pdb
+F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\bin\Debug\netstandard2.1\Datos.deps.json
+F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\bin\Debug\netstandard2.1\Datos.dll
+F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\bin\Debug\netstandard2.1\Datos.pdb
+F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\bin\Debug\netstandard2.1\Entity.dll
+F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\bin\Debug\netstandard2.1\Entity.pdb
+F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Debug\netstandard2.1\Datos.csprojAssemblyReference.cache
+F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Debug\netstandard2.1\Datos.AssemblyInfoInputs.cache
+F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Debug\netstandard2.1\Datos.AssemblyInfo.cs
+F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Debug\netstandard2.1\Datos.csproj.CoreCompileInputs.cache
+F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Debug\netstandard2.1\Datos.csproj.CopyComplete
+F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Debug\netstandard2.1\Datos.dll
+F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Debug\netstandard2.1\Datos.pdb

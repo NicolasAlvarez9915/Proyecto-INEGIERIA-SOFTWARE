@@ -6910,36 +6910,35 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\I E Parodi\\.nuget\\packages\\": {}
+    "C:\\Users\\nicoa\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Logica\\Logica.csproj",
+      "projectUniqueName": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Logica\\Logica.csproj",
       "projectName": "Logica",
-      "projectPath": "C:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Logica\\Logica.csproj",
-      "packagesPath": "C:\\Users\\I E Parodi\\.nuget\\packages\\",
-      "outputPath": "C:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Logica\\obj\\",
+      "projectPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Logica\\Logica.csproj",
+      "packagesPath": "C:\\Users\\nicoa\\.nuget\\packages\\",
+      "outputPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Logica\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\I E Parodi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\nicoa\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
           "projectReferences": {
-            "C:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Datos\\Datos.csproj": {
-              "projectPath": "C:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Datos\\Datos.csproj"
+            "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Datos\\Datos.csproj": {
+              "projectPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Datos\\Datos.csproj"
             },
-            "C:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj": {
-              "projectPath": "C:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj"
+            "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj": {
+              "projectPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj"
             }
           }
         }
@@ -6952,6 +6951,7 @@
     },
     "frameworks": {
       "netstandard2.1": {
+        "targetAlias": "netstandard2.1",
         "imports": [
           "net461",
           "net462",
@@ -6967,7 +6967,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
