@@ -9,7 +9,7 @@ namespace Entity
         [Key]
         [Column(TypeName = "nvarchar(11)")]
         public string Codigo { get; set; }
-        [Column(TypeName = "nvarchar(11)")]
+        [Column(TypeName = "real")]
         public int Porcentaje { get; set; }
         [Column(TypeName = "nvarchar(11)")]
         public string CodProducto { get; set; }

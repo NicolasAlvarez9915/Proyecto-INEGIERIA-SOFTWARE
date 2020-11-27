@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Datos.Migrations
 {
@@ -41,6 +42,24 @@ namespace Datos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Pedidos",
+                columns: table => new
+                {
+                    Codigo = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    IdPersona = table.Column<string>(type: "nvarchar(11)", nullable: true),
+                    Fecha = table.Column<DateTime>(type: "Date", nullable: false),
+                    SubTotal = table.Column<float>(type: "real", nullable: false),
+                    Iva = table.Column<int>(type: "int", nullable: false),
+                    TotalIva = table.Column<float>(type: "real", nullable: false),
+                    Total = table.Column<float>(type: "real", nullable: false),
+                    Descuento = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pedidos", x => x.Codigo);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Productos",
                 columns: table => new
                 {
@@ -76,7 +95,7 @@ namespace Datos.Migrations
                 columns: table => new
                 {
                     Codigo = table.Column<string>(type: "nvarchar(11)", nullable: false),
-                    Porcentaje = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    Porcentaje = table.Column<float>(type: "real", nullable: false),
                     CodProducto = table.Column<string>(type: "nvarchar(11)", nullable: true),
                     IdPersona = table.Column<string>(type: "nvarchar(11)", nullable: true),
                     ClienteIdentificacion = table.Column<string>(nullable: true)
@@ -98,6 +117,40 @@ namespace Datos.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "DetalleDePedidos",
+                columns: table => new
+                {
+                    Codigo = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    CodPedido = table.Column<string>(type: "nvarchar(11)", nullable: true),
+                    Descripcion = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    CodProducto = table.Column<string>(type: "nvarchar(11)", nullable: true),
+                    Descuento = table.Column<int>(type: "int", nullable: false),
+                    Cantidad = table.Column<float>(type: "real", nullable: false),
+                    ValorUnitario = table.Column<float>(type: "real", nullable: false),
+                    TotalDescuento = table.Column<float>(type: "real", nullable: false),
+                    SubTotal = table.Column<float>(type: "real", nullable: false),
+                    TotalConDescuento = table.Column<float>(type: "real", nullable: false),
+                    total = table.Column<float>(type: "real", nullable: false),
+                    PedidoCodigo = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetalleDePedidos", x => x.Codigo);
+                    table.ForeignKey(
+                        name: "FK_DetalleDePedidos_Pedidos_CodPedido",
+                        column: x => x.CodPedido,
+                        principalTable: "Pedidos",
+                        principalColumn: "Codigo",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DetalleDePedidos_Pedidos_PedidoCodigo",
+                        column: x => x.PedidoCodigo,
+                        principalTable: "Pedidos",
+                        principalColumn: "Codigo",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Descuentos_ClienteIdentificacion",
                 table: "Descuentos",
@@ -107,6 +160,16 @@ namespace Datos.Migrations
                 name: "IX_Descuentos_IdPersona",
                 table: "Descuentos",
                 column: "IdPersona");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetalleDePedidos_CodPedido",
+                table: "DetalleDePedidos",
+                column: "CodPedido");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetalleDePedidos_PedidoCodigo",
+                table: "DetalleDePedidos",
+                column: "PedidoCodigo");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -118,6 +181,9 @@ namespace Datos.Migrations
                 name: "Descuentos");
 
             migrationBuilder.DropTable(
+                name: "DetalleDePedidos");
+
+            migrationBuilder.DropTable(
                 name: "Productos");
 
             migrationBuilder.DropTable(
@@ -125,6 +191,9 @@ namespace Datos.Migrations
 
             migrationBuilder.DropTable(
                 name: "Clientes");
+
+            migrationBuilder.DropTable(
+                name: "Pedidos");
         }
     }
 }

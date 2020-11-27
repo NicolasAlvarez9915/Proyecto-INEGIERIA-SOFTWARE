@@ -1,12 +1,32 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entity
 {
     public class Pedido
     {
-        public List<DetalleDePedido> DetallesDePedidos { get; set; }
+        [Key]
+        [Column(TypeName = "nvarchar(11)")]
         public string Codigo { get; set; }
-        public int MyProperty { get; set; }
+        
+        [Column(TypeName = "nvarchar(11)")]
+        public string IdPersona { get; set; }
+        [Column(TypeName = "Date")]
+        public DateTime Fecha { get; set; }
+        [Column(TypeName = "real")]
+        public double SubTotal { get; set; }
+        public List<DetalleDePedido> DetallesDePedidos { get; set; }
+        [Column(TypeName = "int")]
+        public double Iva { get; set; }
+        
+        [Column(TypeName = "real")]
+        public double TotalIva { get; set; }
+        [Column(TypeName = "real")]
+        public double Total { get; set; }
+        
+        [Column(TypeName = "real")]
+        public double Descuento { get; set; }
     }
 }

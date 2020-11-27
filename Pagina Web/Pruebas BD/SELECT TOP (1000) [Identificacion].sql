@@ -20,6 +20,10 @@ DROP TABLE [dbo].[Usuarios]
 GO
 DROP TABLE [dbo].[Administradores]
 GO
+DROP TABLE [dbo].[DetalleDePedidos]
+GO
+DROP TABLE [dbo].[Pedidos]
+GO
 
 
 SELECT TOP (1000) [Identificacion]

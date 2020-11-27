@@ -12,7 +12,9 @@ namespace DistribuidoraESB.Models
         
         public string Nombre { get; set; }
         
-        public decimal Cantidad { get; set; }
+        public double Cantidad { get; set; }
+
+        public decimal CantidadMinima { get; set; }
         
         public string Descripcion { get; set; }
         
@@ -34,6 +36,7 @@ namespace DistribuidoraESB.Models
             Cantidad = producto.Cantidad;
             Descripcion = producto.Descripcion;
             Valor = producto.Valor;
+            CantidadMinima = producto.CantidadMinima;
         }
     }
 }
