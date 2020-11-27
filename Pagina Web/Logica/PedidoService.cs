@@ -15,6 +15,67 @@ namespace Logica
             this.context = context;
         }
 
+        public PedidoResponse Guardar(Pedido pedido)
+        {
+            try
+            {
+                context.Pedidos.Add(InicializarCodigos(pedido));
+                context.SaveChanges();
+                return new PedidoResponse(pedido);
+            }
+            catch (Exception e)
+            {
+                return new PedidoResponse($"Error de la aplicacion: {e.Message}");
+            }
+        }
+        
+
+        public Pedido InicializarCodigos(Pedido pedido)
+        {
+            GenerarCodigoPedido(pedido);
+            GenerarCodigosDetallesPedido(pedido);
+            return pedido;
+        }
+
+        public Pedido GenerarCodigosDetallesPedido(Pedido pedido)
+        {
+            int cantidadPedidosRegistrados =  context.DetalleDePedidos.Count();
+            bool Parar = true;
+            while (Parar)
+            {
+                DetalleDePedido detalleDePedido = context.DetalleDePedidos.Find(cantidadPedidosRegistrados.ToString());
+                if (detalleDePedido == null)
+                {
+                    Parar = false;
+                    foreach (DetalleDePedido detalle in pedido.DetallesDePedidos)
+                    {
+                        detalle.Codigo = cantidadPedidosRegistrados.ToString();
+                        detalle.CodPedido = pedido.Codigo;
+                        cantidadPedidosRegistrados++;
+                    }
+                }
+                cantidadPedidosRegistrados++;
+            }
+            return pedido;
+        }
+
+        public Pedido GenerarCodigoPedido(Pedido pedido)
+        {
+            int cantidadPedidosRegistrados =  context.Pedidos.Count();
+            bool Parar = true;
+            while (Parar)
+            {
+                Pedido pedidoEncontrado = context.Pedidos.Find(cantidadPedidosRegistrados.ToString());
+                if (pedidoEncontrado == null)
+                {
+                    Parar = false;
+                    pedido.Codigo = cantidadPedidosRegistrados.ToString();
+                }
+                cantidadPedidosRegistrados++;
+            }
+            return pedido;
+        }
+
         public Pedido GenerarPedido(List<Producto> Productos, Cliente Cliente, DateTime Fecha){
             
             List<Descuento> Descuentos = context.Descuentos.Where(Descuentos => Descuentos.IdPersona == Cliente.Identificacion).ToList();
@@ -78,4 +139,22 @@ namespace Logica
             return detalleDePedido;
         }
     }
+
+    public class PedidoResponse 
+    {
+        public PedidoResponse(Pedido pedido )
+        {
+            Error = false;
+            this.pedido  = pedido;
+        }
+        public PedidoResponse(string mensaje)
+        {
+            Error = true;
+            this.Mensaje = mensaje;
+        }
+        public string Mensaje { get; set; }
+        public bool Error { get; set; }
+        public Pedido pedido { get; set; }
+    }
+    
 }

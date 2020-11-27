@@ -30,9 +30,27 @@ namespace DistribuidoraESB.Controllers
         }
 
         [HttpPost("Registrar/")]
-        public ActionResult<string> PostPedido(PedidoInputModel pedidoInputModel)
+        public ActionResult<PedidoViewModel> PostPedido(PedidoInputModel pedidoInputModel)
         {
-            return "Funcionando";
+            var response = service.Guardar(MapearPedido(pedidoInputModel));
+            return Ok(response.pedido);
+        }
+
+        private Pedido MapearPedido(PedidoInputModel pedidoInput)
+        {
+            var pedido = new Pedido
+            {
+                Codigo = pedidoInput.Codigo,
+                Descuento = pedidoInput.Descuento,
+                DetallesDePedidos = pedidoInput.DetallesDePedidos,
+                Fecha = pedidoInput.Fecha,
+                IdPersona = pedidoInput.IdPersona,
+                Iva = pedidoInput.Iva,
+                SubTotal = pedidoInput.SubTotal,
+                Total = pedidoInput.Total,
+                TotalIva = pedidoInput.TotalIva
+            };
+            return pedido;
         }
 
         private Producto MapearProducto(ProductoInputModel productoInput)
