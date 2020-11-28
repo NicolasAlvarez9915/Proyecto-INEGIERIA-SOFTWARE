@@ -27,6 +27,15 @@ export class ProductoService {
     
   }
 
+  buscar(codigo: string): Observable<Producto>
+  {
+    return this.http.get<Producto>(this.baseUrl+'api/Producto/Busar/'+codigo)
+    .pipe(
+      tap(_ => this.handleErrorService.log('Resgitrado')),
+      catchError(this.handleErrorService.handleError<Producto>('Buscar Producto', null))
+    )
+  }
+
   todos():Observable<Producto[]>
   {
     return  this.http.get<Producto[]>(this.baseUrl+'api/Producto')

@@ -7,6 +7,5 @@ namespace DistribuidoraESB.Models
     {
         public List<ProductoInputModel> productos { get; set; }
         public ClienteInputModel Cliente { get; set; }
-        public DateTime Fecha { get; set; }
     }
 }

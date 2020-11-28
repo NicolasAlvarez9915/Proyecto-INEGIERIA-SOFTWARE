@@ -15,6 +15,11 @@ namespace Logica
             this.context = context;
         }
 
+        public List<Pedido> Pedidos()
+        {
+            return context.Pedidos.ToList();
+        }
+        
         public PedidoResponse Guardar(Pedido pedido)
         {
             try
@@ -76,12 +81,12 @@ namespace Logica
             return pedido;
         }
 
-        public Pedido GenerarPedido(List<Producto> Productos, Cliente Cliente, DateTime Fecha){
+        public Pedido GenerarPedido(List<Producto> Productos, Cliente Cliente){
             
             List<Descuento> Descuentos = context.Descuentos.Where(Descuentos => Descuentos.IdPersona == Cliente.Identificacion).ToList();
             List<DetalleDePedido> detalleDePedidos = GenerarDetallesPedido(Productos, Descuentos);
             Pedido pedido = CalcularPedido(detalleDePedidos);
-            pedido.Fecha = Fecha;
+            pedido.Fecha = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
             pedido.IdPersona = Cliente.Identificacion;
             return pedido;
         }
@@ -133,7 +138,7 @@ namespace Logica
             }
             detalleDePedido.SubTotal = detalleDePedido.ValorUnitario * detalleDePedido.Cantidad;
             detalleDePedido.TotalDescuento = detalleDePedido.SubTotal * (detalleDePedido.Descuento/100);
-            detalleDePedido.TotalConDescuento = detalleDePedido.SubTotal - detalleDePedido.TotalConDescuento;
+            detalleDePedido.TotalConDescuento = detalleDePedido.SubTotal - detalleDePedido.TotalDescuento;
             detalleDePedido.total = detalleDePedido.SubTotal-detalleDePedido.TotalDescuento;
             detalleDePedido.Codigo = null;
             return detalleDePedido;

@@ -20,6 +20,18 @@ namespace DistribuidoraESB.Controllers
             service = new ProductoService(context);
         }
 
+        [HttpGet("Busar/{codigo}")]
+        public ActionResult<ProductoViewModel> GetProducto(string codigo)
+        {
+            var response = service.BuscarProducto(codigo);
+            if(response.Error)
+            {
+                return BadRequest(response.Mensaje);
+            }
+            return Ok(response.producto);
+        }
+
+
         [HttpPost]
         public ActionResult<ProductoViewModel> Post(ProductoInputModel productoInput)
         {

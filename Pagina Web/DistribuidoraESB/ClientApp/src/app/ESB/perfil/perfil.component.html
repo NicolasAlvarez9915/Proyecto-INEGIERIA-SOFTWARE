@@ -47,6 +47,26 @@
             </button>
             <hr>
         </div>
+        <p>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos">
+                <span class="fas fa-suitcase-rolling"></span>Pedidos
+            </button>
+        </p>
+        <div class="collapse OpsMenu" id="collapseOpsPedidos">
+            <hr style="background-color: rgb(250, 81, 81);">
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
+                (click)="mostrar ='RegistrarPedido'">
+                <span class="fas fa-suitcase-rolling"></span>Registrar
+            </button>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
+                (click)="mostrar = 'Pedidos'">
+                <span class="fas fa-suitcase-rolling"></span>Lista
+            </button>
+            <hr>
+        </div>
     </div>
     <div id="content">
         <div class="row barraTituloContenido">
@@ -908,6 +928,264 @@
                             </table>
                         </div>
                     </div>
+                </form>
+            </div>
+        </div>
+        <div [ngClass]="{'Ocultar':  mostrar != 'Pedidos'}">
+            <div class="Cuerpo">
+                <form class="col font-weight-normal">
+                    <div class="text-center" style="margin-top: 1rem;">
+                        <h5>Pedidos</h5>
+                    </div>
+                    <hr>
+                    <button class="btn btn-outline-danger" style="width: 10%; margin-left: .5rem;"
+                        (click)="mostrar = 'Principal'">
+                        <span class="icon-arrow-left1"></span>Volver
+                    </button>
+                    <div class="table-responsive">
+                        <table class="table table-responsive-sm" *ngIf='listaPedidos && listaPedidos.length'>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">codigo</th>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">fecha</th>
+                                    <th scope="col">subTotal</th>
+                                    <th scope="col">Iva</th>
+                                    <th scope="col">Descuento</th>
+                                    <th scope="col">total</th>
+                                    <th scope="col">opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pedido of listaPedidos; index as i">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ pedido.codigo }} </td>
+                                    <td>{{ pedido.idPersona }}</td>
+                                    <td>{{ pedido.fecha }}</td>
+                                    <td>{{ pedido.subTotal }}</td>
+                                    <td>{{ pedido.iva }}</td>
+                                    <td>{{ pedido.descuento }}</td>
+                                    <td>{{ pedido.total }}</td>
+                                    <td><button class="btn btn-outline-dark">Ver</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div [ngClass]="{'Ocultar':  mostrar != 'RegistrarPedido'}">
+            <div class="Cuerpo">
+                <form class="col font-weight-normal">
+                    <div class="text-center" style="margin-top: 1rem;">
+                        <h5>Selecionar cliente</h5>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <label>Filtro por identificacion.</label>
+                            <input class="form-control col-5" type="text" placeholder="Identificacion"
+                                [(ngModel)]="filtroClientes" [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <div class="col">
+                            <hr style="visibility: hidden;">
+                            <button class="btn btn-outline-danger" style=" margin-left: .5rem;" type="reset"
+                                (click)="mostrar = 'Principal'">
+                                <span class="icon-arrow-left1"></span>Volver
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="visibility: hidden;">
+
+                    <div class="table-responsive">
+                        <table class="table table-responsive-sm" *ngIf='listaClientes && listaClientes.length'>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Identificación</th>
+                                    <th scope="col">Nombres </th>
+                                    <th scope="col">Apellidos </th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Whatsapp</th>
+                                    <th scope="col">Direccion</th>
+                                    <th scope="col">Horario</th>
+                                    <th scope="col">Tipo Cliente</th>
+                                    <th scope="col">Opcion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cliente of listaClientes|filtroCliente:filtroClientes; index as i">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ cliente.identificacion }} </td>
+                                    <td>{{ cliente.nombres }}</td>
+                                    <td>{{ cliente.apellidos }}</td>
+                                    <td>{{ cliente.telefono }}</td>
+                                    <td>{{ cliente.whatsapp }}</td>
+                                    <td>{{ cliente.direccion }}</td>
+                                    <td>{{ cliente.horaio }}</td>
+                                    <td>{{ cliente.tipoCliente }}</td>
+                                    <td><button class="btn btn-outline-dark" (click)="SelccionarProductosPedido(cliente)">Ver</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div [ngClass]="{'Ocultar':  mostrar != 'SelccionarProductosPedido'}">
+            <div class="Cuerpo">
+                <form class="font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;">
+                    <div class="text-center">
+                        <h5>Seleccionar productos del pedido para {{clienteConsuta.identificacion}}</h5>
+                    </div>
+                    <hr>
+
+                    <div class="">
+                        <label for="">Referencia del producto</label>
+                        <input type="text"  name="identificacion" style="width: 20%" placeholder="identificacion" class="form-control" [(ngModel)]="codigoProducto"/>
+                        <button class="btn btn-outline-dark" style="width: 20%" (click)="BuscarProducto()">
+                            <span class="fas fa-search"></span> Buscar
+                        </button>
+                    </div>
+                    <div class=" row">
+                        <div class="col">
+                            <p>
+                                Referencia: {{productoSeleccionado.codigo}}
+                            </p>
+                        </div>
+                        <div class="col">
+                            <p>
+                                Categoria: {{productoSeleccionado.categoria}}
+                            </p>
+                        </div>
+                        <div class="col">
+                            <p>
+                                Nombre: {{productoSeleccionado.nombre}}
+                            </p>
+                        </div>
+                        <div class="col">
+                            <p>
+                                Cantidad: {{productoSeleccionado.cantidad}}
+                            </p>
+                        </div>
+                        <div class="col">
+                            <input type="number"  name="cantidad" [(ngModel)]="cantidadProducto" class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-outline-dark" style="width: 100%" (click)="AgregarProducto()" >
+                                <span class="fas fa-search"></span> Agreagar al pedido
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table table-responsive-sm" *ngIf='listaProductoPedido && listaProductoPedido.length'>
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">codigo</th>
+                                        <th scope="col">categoria </th>
+                                        <th scope="col">nombre </th>
+                                        <th scope="col">cantidad</th>
+                                        <th scope="col">Valor</th>
+                                        <th scope="col">opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let productoLista of listaProductoPedido; index as i">
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td>{{ productoLista.codigo }} </td>
+                                        <td>{{ productoLista.categoria }}</td>
+                                        <td>{{ productoLista.nombre }}</td>
+                                        <td>{{ productoLista.cantidad }}</td>
+                                        <td>{{ productoLista.valor}}</td>
+                                        <td><button class="btn btn-outline-dark">Eliminar</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <hr>
+                    <div [ngClass]="{'Ocultar':  listaProductoPedido.length < 1}">
+                        <div class="text-center">
+                            <h5>Pedido generado</h5>
+                        </div>
+                        <hr>
+                        <div class=" row">
+                            <div class="col">
+                                <p>
+                                    Cliente: {{pedidoGenrado.idPersona}}
+                                </p>
+                            </div>
+                            <div class="col">
+                                <p>
+                                    Fecha: {{pedidoGenrado.fecha}}
+                                </p>
+                            </div>
+                            <div class="col">
+                                <p>
+                                    Iva: {{pedidoGenrado.iva}}
+                                </p>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-dark" style="width: 100%" (click)="registrarPedido()" >
+                                    <span class="fas fa-search"></span> Registrar pedido
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-responsive-sm" *ngIf='pedidoGenrado.detallesDePedidos && pedidoGenrado.detallesDePedidos.length'>
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">codigo Producto</th>
+                                        <th scope="col">cantidad</th>
+                                        <th scope="col">Valor por unidad</th>
+                                        <th scope="col">Descuento</th>
+                                        <th scope="col">Sub total</th>
+                                        <th scope="col">total sin iva</th>
+                                        <th scope="col">total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let detalle of pedidoGenrado.detallesDePedidos; index as i">
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td>{{ detalle.codProducto }} </td>
+                                        <td>{{ detalle.cantidad }}</td>
+                                        <td>{{ detalle.valorUnitario }}</td>
+                                        <td>{{ detalle.totalDescuento }}</td>
+                                        <td>{{ detalle.subTotal}}</td>
+                                        <td>{{ detalle.total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>total</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>{{pedidoGenrado.descuento}}</th>
+                                        <th>{{pedidoGenrado.subTotal}}</th>
+                                        <th>{{pedidoGenrado.total - pedidoGenrado.totalIva}}</th>
+                                        <th>{{pedidoGenrado.total}}</th>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col d-flex justify-content-star">
+                            <button class="btn btn-outline-danger" style="width: 50%" type="reset"
+                                (click)="mostrar = 'RegistrarPedido'">
+                                <span class="icon-arrow-left1"></span>Volver
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="visibility: hidden;">
                 </form>
             </div>
         </div>

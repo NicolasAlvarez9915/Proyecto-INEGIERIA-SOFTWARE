@@ -16,6 +16,16 @@ namespace Logica
             this.context = context;
         }
 
+        public ProductoResponse BuscarProducto(string codigo)
+        {
+            Producto producto = context.Productos.Find(codigo);
+            if(producto == null)
+            {
+                return new ProductoResponse("No existe");
+            }
+            return new ProductoResponse(producto);
+        }
+
         public ProductoResponse Guardar(Producto producto)
         {
             try

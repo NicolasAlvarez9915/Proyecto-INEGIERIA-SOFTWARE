@@ -9,12 +9,15 @@ import { AlertModalComponent } from 'src/app/@base/alert-modal/alert-modal.compo
 import { AdministradorService } from 'src/app/services/administrador.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { DescuentoService } from 'src/app/services/descuento.service';
+import { PedidoService } from 'src/app/services/pedido.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Administrador } from '../Models/administrador';
 import { Cliente } from '../Models/cliente';
 import { Descuento } from '../Models/descuento';
+import { Pedido } from '../Models/pedido';
 import { Producto } from '../Models/producto';
+import { SolicitudDePedido } from '../Models/solicitud-de-pedido';
 import { Usuario } from '../Models/usuario';
 
 @Component({
@@ -34,6 +37,11 @@ export class PerfilComponent implements OnInit {
   clienteRegistrar: Cliente;
   clienteConsuta: Cliente = new Cliente();
   usuarioRegistrar: Usuario;
+  codigoProducto: string;
+  productoSeleccionado: Producto = new Producto();
+  productoAAgregar: Producto = new Producto();
+  cantidadProducto: number;
+
   listaClientes: Cliente[];
   totalClientes: number;
   listaProductos: Producto[];
@@ -42,6 +50,12 @@ export class PerfilComponent implements OnInit {
   listaProductosSinDescuento: Producto[];
   listaDescuentosNuevos: Descuento[];
   listaDescuentosARegistrar: Descuento[];
+  listaPedidos: Pedido[];
+  listaProductoPedido: Array<Producto> = [];
+  solicitudPedido: SolicitudDePedido;
+  pedidoGenrado: Pedido = new Pedido();
+
+
   descuentoNuevo: Descuento;
   descuentoParaTodos: number = 0;
   filtroClientes: string;
@@ -55,6 +69,7 @@ export class PerfilComponent implements OnInit {
   constructor(
     private router: Router,
     private usuarioService: UsuarioService,
+    private pedidoService: PedidoService,
     private clienteService: ClienteService,
     private administradorService: AdministradorService,
     private modalService: NgbModal,
@@ -74,8 +89,67 @@ export class PerfilComponent implements OnInit {
     this.pedirInforAdministrador();
     this.clientes();
     this.productos();
+    this.pedidos();
     this.mostrar = 'Principal';
     this.mostrarInterno = 'Principal';
+    this.resetearProductoSeleccionado();
+  }
+
+  AgregarProducto(){
+    this.productoSeleccionado.cantidad = this.cantidadProducto;
+    this.listaProductoPedido.unshift(this.productoSeleccionado);
+    this.generarPedido();
+    this.resetearProductoSeleccionado();
+  }
+
+  registrarPedido(){
+    this.pedidoService.registrarPedido(this.pedidoGenrado).subscribe(r =>{
+      if(r != null)
+      {
+        const messageBox = this.modalService.open(AlertModalComponent)
+        messageBox.componentInstance.title = "BIEN HECHO.";
+        messageBox.componentInstance.message = "Pedido registrado correctamente.";
+        this.pedidoGenrado = new Pedido();
+        this.listaProductoPedido = [];
+        this.productoSeleccionado = new Producto();
+        this.pedidos();
+      }
+    })
+
+  }
+
+  generarPedido(){
+    this.pedidoService.generarPedido(this.clienteConsuta, this.listaProductoPedido).subscribe( r =>{
+      this.pedidoGenrado = r;
+    })
+  }
+
+  resetearProductoSeleccionado(){
+    this.productoSeleccionado = new Producto();
+  }
+
+  BuscarProducto(){
+    this.productoService.buscar(this.codigoProducto).subscribe(r =>{
+      if(r != null){
+        this.productoSeleccionado = r;
+      }else{
+        const messageBox = this.modalService.open(AlertModalComponent)
+          messageBox.componentInstance.title = "ALERTA.";
+          messageBox.componentInstance.message = "Producto inexistente.";
+      }
+    })
+  }
+
+  pedidos(){
+    this.pedidoService.todos().subscribe(r => {
+      this.listaPedidos = r;
+    });
+  }
+
+  SelccionarProductosPedido(cliente: Cliente){
+    this.clienteConsuta = cliente;
+    this.mostrar = 'SelccionarProductosPedido';
+
   }
 
   aplicarATodosUnDescuento() {

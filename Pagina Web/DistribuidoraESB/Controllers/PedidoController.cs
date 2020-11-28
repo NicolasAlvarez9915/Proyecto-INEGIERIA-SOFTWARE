@@ -20,13 +20,20 @@ namespace DistribuidoraESB.Controllers
             service = new PedidoService(context);
         }
 
+        [HttpGet]
+
+        public IEnumerable<PedidoViewModel> Get()
+        {
+            return service.Pedidos().Select(p => new PedidoViewModel(p));
+        }
+
         [HttpPost]
         public ActionResult<PedidoViewModel> Post(SolicituDePedidoInputModel solicituDePedidoInputModel)
         {
 
             ClienteInputModel clienteInput = solicituDePedidoInputModel.Cliente;
             List<ProductoInputModel> productoInputs = solicituDePedidoInputModel.productos;
-            return new PedidoViewModel(service.GenerarPedido(productoInputs.Select(p => MapearProducto(p)).ToList(), MapearCliente(clienteInput), solicituDePedidoInputModel.Fecha));
+            return new PedidoViewModel(service.GenerarPedido(productoInputs.Select(p => MapearProducto(p)).ToList(), MapearCliente(clienteInput)));
         }
 
         [HttpPost("Registrar/")]
