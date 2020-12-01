@@ -42,6 +42,18 @@ namespace Datos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ImagenProductos",
+                columns: table => new
+                {
+                    CodProducto = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    Imagen = table.Column<byte[]>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImagenProductos", x => x.CodProducto);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pedidos",
                 columns: table => new
                 {
@@ -97,6 +109,7 @@ namespace Datos.Migrations
                     Codigo = table.Column<string>(type: "nvarchar(11)", nullable: false),
                     Porcentaje = table.Column<float>(type: "real", nullable: false),
                     CodProducto = table.Column<string>(type: "nvarchar(11)", nullable: true),
+                    NombreProducto = table.Column<string>(type: "nvarchar(20)", nullable: true),
                     IdPersona = table.Column<string>(type: "nvarchar(11)", nullable: true),
                     ClienteIdentificacion = table.Column<string>(nullable: true)
                 },
@@ -182,6 +195,9 @@ namespace Datos.Migrations
 
             migrationBuilder.DropTable(
                 name: "DetalleDePedidos");
+
+            migrationBuilder.DropTable(
+                name: "ImagenProductos");
 
             migrationBuilder.DropTable(
                 name: "Productos");

@@ -9,12 +9,15 @@ import { AlertModalComponent } from 'src/app/@base/alert-modal/alert-modal.compo
 import { AdministradorService } from 'src/app/services/administrador.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { DescuentoService } from 'src/app/services/descuento.service';
+import { ImagenProductoService } from 'src/app/services/imagen-producto.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Administrador } from '../Models/administrador';
 import { Cliente } from '../Models/cliente';
 import { Descuento } from '../Models/descuento';
+import { ImagenProducto } from '../Models/imagen-producto';
+import { ImagenproductoView } from '../Models/imagenproducto-view';
 import { Pedido } from '../Models/pedido';
 import { Producto } from '../Models/producto';
 import { SolicitudDePedido } from '../Models/solicitud-de-pedido';
@@ -56,6 +59,7 @@ export class PerfilComponent implements OnInit {
   pedidoGenrado: Pedido = new Pedido();
 
 
+
   descuentoNuevo: Descuento;
   descuentoParaTodos: number = 0;
   filtroClientes: string;
@@ -65,7 +69,13 @@ export class PerfilComponent implements OnInit {
   producto: Producto;
   mostrar: string;
   mostrarInterno: string;
+  mostrarOpsInterno: string;
   activa: boolean = false;
+
+  selectedFile: string | ArrayBuffer;
+  imagenProducto: ImagenProducto = new ImagenProducto();
+  imagenProductoView: ImagenproductoView = new ImagenproductoView();
+
   constructor(
     private router: Router,
     private usuarioService: UsuarioService,
@@ -75,7 +85,8 @@ export class PerfilComponent implements OnInit {
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
     private productoService: ProductoService,
-    private descuentoService: DescuentoService
+    private descuentoService: DescuentoService,
+    private imagenProductoService: ImagenProductoService
   ) {
     this.administradorActualizar = new Administrador();
   }
@@ -95,17 +106,38 @@ export class PerfilComponent implements OnInit {
     this.resetearProductoSeleccionado();
   }
 
-  AgregarProducto(){
+  onPhotoSelected(event: { target: { files: File[]; }; }): void {
+    console.log(event);
+    if (event.target.files && event.target.files[0]) {
+
+      this.imagenProducto.imagen = <File>event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => this.selectedFile = reader.result;
+      reader.readAsDataURL(this.imagenProducto.imagen);
+
+    }
+    console.log(this.selectedFile);
+    console.log(this.imagenProducto.imagen);
+    
+
+  }
+
+  consultarImagen() {
+    this.imagenProductoService.get("1234").subscribe(result => {
+      this.imagenProductoView = result;
+    });
+  }
+
+  AgregarProducto() {
     this.productoSeleccionado.cantidad = this.cantidadProducto;
     this.listaProductoPedido.unshift(this.productoSeleccionado);
     this.generarPedido();
     this.resetearProductoSeleccionado();
   }
 
-  registrarPedido(){
-    this.pedidoService.registrarPedido(this.pedidoGenrado).subscribe(r =>{
-      if(r != null)
-      {
+  registrarPedido() {
+    this.pedidoService.registrarPedido(this.pedidoGenrado).subscribe(r => {
+      if (r != null) {
         const messageBox = this.modalService.open(AlertModalComponent)
         messageBox.componentInstance.title = "BIEN HECHO.";
         messageBox.componentInstance.message = "Pedido registrado correctamente.";
@@ -118,35 +150,35 @@ export class PerfilComponent implements OnInit {
 
   }
 
-  generarPedido(){
-    this.pedidoService.generarPedido(this.clienteConsuta, this.listaProductoPedido).subscribe( r =>{
+  generarPedido() {
+    this.pedidoService.generarPedido(this.clienteConsuta, this.listaProductoPedido).subscribe(r => {
       this.pedidoGenrado = r;
     })
   }
 
-  resetearProductoSeleccionado(){
+  resetearProductoSeleccionado() {
     this.productoSeleccionado = new Producto();
   }
 
-  BuscarProducto(){
-    this.productoService.buscar(this.codigoProducto).subscribe(r =>{
-      if(r != null){
+  BuscarProducto() {
+    this.productoService.buscar(this.codigoProducto).subscribe(r => {
+      if (r != null) {
         this.productoSeleccionado = r;
-      }else{
+      } else {
         const messageBox = this.modalService.open(AlertModalComponent)
-          messageBox.componentInstance.title = "ALERTA.";
-          messageBox.componentInstance.message = "Producto inexistente.";
+        messageBox.componentInstance.title = "ALERTA.";
+        messageBox.componentInstance.message = "Producto inexistente.";
       }
     })
   }
 
-  pedidos(){
+  pedidos() {
     this.pedidoService.todos().subscribe(r => {
       this.listaPedidos = r;
     });
   }
 
-  SelccionarProductosPedido(cliente: Cliente){
+  SelccionarProductosPedido(cliente: Cliente) {
     this.clienteConsuta = cliente;
     this.mostrar = 'SelccionarProductosPedido';
 
@@ -158,35 +190,41 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-  registrarDescuentos(){
+  registrarDescuentos() {
     this.listaDescuentosARegistrar = [];
     this.listaDescuentosNuevos.forEach(descuento => {
-      if(descuento.porcentaje > 0){
+      if (descuento.porcentaje > 0) {
         this.listaDescuentosARegistrar.push(descuento);
       }
     });
     this.descuentoService.registrarDescuentos(this.listaDescuentosARegistrar).subscribe(r => {
-      if(r != null){
-        
+      if (r != null) {
+
         const messageBox = this.modalService.open(AlertModalComponent)
         messageBox.componentInstance.title = "BIEN HECHO.";
         messageBox.componentInstance.message = "Descuentos registrados correctamente.";
-        this.mostrarDescuentosCliente();
+        this.productosSindescuento();
       }
     })
   }
 
+
   mostrarDescuentosCliente() {
-    this.mostrar = 'DescuentosCliente';
     this.descuentoService.DescuentosPorCliente(this.clienteConsuta.identificacion).subscribe(r => {
       this.listaDescuentos = r;
     });
+  }
+
+  productosSindescuento(){
+    this.descuentoParaTodos = 0;
+    
     this.descuentoService.ProductosSinDescuento(this.clienteConsuta.identificacion).subscribe(r => {
       this.listaProductosSinDescuento = r;
       this.listaDescuentosNuevos = [];
       this.listaProductosSinDescuento.forEach(producto => {
         this.descuentoNuevo = new Descuento();
         this.descuentoNuevo.codProducto = producto.codigo;
+        this.descuentoNuevo.nombreProducto = producto.nombre;
         this.descuentoNuevo.idPersona = this.clienteConsuta.identificacion;
         this.descuentoNuevo.porcentaje = 0;
         this.descuentoNuevo.codigo = '123';
@@ -247,6 +285,8 @@ export class PerfilComponent implements OnInit {
     this.producto.descripcion = '';
     this.producto.codigo = '';
     this.producto.cantidadMinima = 1;
+    this.producto.categoria = '';
+
 
     this.formularioRegistroCliente = this.formBuilder.group({
       identificacion: [this.clienteRegistrar.identificacion, Validators.required],
@@ -264,7 +304,8 @@ export class PerfilComponent implements OnInit {
       valor: [this.producto.valor, Validators.required],
       descripcion: [this.producto.descripcion, Validators.required],
       codigo: [this.producto.codigo, Validators.required],
-      cantidadMinima: [this.producto.cantidadMinima, Validators.required]
+      cantidadMinima: [this.producto.cantidadMinima, Validators.required],
+      categoria: [this.producto.categoria, Validators.required]
     });
   }
 
@@ -279,7 +320,14 @@ export class PerfilComponent implements OnInit {
 
   vercliente(cliente: Cliente) {
     this.clienteConsuta = cliente;
-    this.mostrar = 'Cliente';
+    switch (this.mostrarInterno) {
+      case "Cliente":
+        this.mostrar = 'Cliente';
+      break;
+      case "Descuentos":
+        this.mostrar = 'DescuentosCliente';
+      break;
+    }
   }
 
   onSubmit() {
@@ -289,39 +337,38 @@ export class PerfilComponent implements OnInit {
     this.registrarCliente();
   }
 
-  onSubmitProducto(categoria: number) {
+  onSubmitProducto() {
     if (this.formularioregistroProducto.invalid) {
       return;
     }
-    this.registrarProducto(categoria);
+    this.registrarProducto();
   }
 
-  registrarProducto(categoria: number) {
-    this.producto = this.formularioregistroProducto.value;
-    if (categoria == 1) {
-      this.producto.categoria = "Carne de res";
-    }
-    if (categoria == 2) {
-      this.producto.categoria = "Pollo";
-    }
-    if (categoria == 3) {
-      this.producto.categoria = "Carne de cerdo";
-    }
-    this.productoService.registrar(this.producto).subscribe(
-      r => {
-        if (r != null) {
-          const messageBox = this.modalService.open(AlertModalComponent)
-          messageBox.componentInstance.title = "BIEN HECHO.";
-          messageBox.componentInstance.message = "Producto registrado correctamente.";
-          this.productos();
-        } else {
+  registrarProducto() {
+    if (this.selectedFile != null) {
+      this.producto = this.formularioregistroProducto.value;
+      this.productoService.registrar(this.producto).subscribe(
+        r => {
+          if (r != null) {
+            const messageBox = this.modalService.open(AlertModalComponent)
+            messageBox.componentInstance.title = "BIEN HECHO.";
+            messageBox.componentInstance.message = "Producto registrado correctamente.";
+            this.imagenProducto.codProducto = this.producto.codigo;
+            this.imagenProductoService.post(this.imagenProducto).subscribe(res => console.log(res), err => console.log(err));
+            this.productos();
+          } else {
 
-          const messageBox = this.modalService.open(AlertModalComponent)
-          messageBox.componentInstance.title = "ALERTA.";
-          messageBox.componentInstance.message = "Producto existente.";
+            const messageBox = this.modalService.open(AlertModalComponent)
+            messageBox.componentInstance.title = "ALERTA.";
+            messageBox.componentInstance.message = "Producto existente.";
+          }
         }
-      }
-    );
+      );
+    } else {
+      const messageBox = this.modalService.open(AlertModalComponent)
+      messageBox.componentInstance.title = "ALERTA.";
+      messageBox.componentInstance.message = "Debe selecionar una imagen.";
+    }
   }
   registrarCliente() {
     this.clienteRegistrar = this.formularioRegistroCliente.value;

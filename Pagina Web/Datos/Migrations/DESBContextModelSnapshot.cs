@@ -89,6 +89,9 @@ namespace Datos.Migrations
                     b.Property<string>("IdPersona")
                         .HasColumnType("nvarchar(11)");
 
+                    b.Property<string>("NombreProducto")
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<float>("Porcentaje")
                         .HasColumnType("real");
 
@@ -146,6 +149,19 @@ namespace Datos.Migrations
                     b.HasIndex("PedidoCodigo");
 
                     b.ToTable("DetalleDePedidos");
+                });
+
+            modelBuilder.Entity("Entity.ImagenProducto", b =>
+                {
+                    b.Property<string>("CodProducto")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<byte[]>("Imagen")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("CodProducto");
+
+                    b.ToTable("ImagenProductos");
                 });
 
             modelBuilder.Entity("Entity.Pedido", b =>

@@ -46,7 +46,8 @@ namespace DistribuidoraESB.Controllers
                 Codigo = descuentoInput.Codigo,
                 Porcentaje = descuentoInput.Porcentaje,
                 CodProducto = descuentoInput.CodProducto,
-                IdPersona = descuentoInput.IdPersona
+                IdPersona = descuentoInput.IdPersona,
+                NombreProducto = descuentoInput.NombreProducto
             };
             return descuento;
         }

@@ -20,12 +20,17 @@
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
                 (click)="mostrar ='RegistrarCliente'">
-                <span class="fas fa-user-plus"></span>R. cliente
+                <span class="fas fa-user-plus"></span>Registrar
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
-                (click)="mostrar = 'Clientes'">
-                <span class="fas fa-users"></span>L. Clientes
+                (click)="mostrar = 'Clientes';mostrarInterno='Cliente'">
+                <span class="fas fa-users"></span>Lista
+            </button>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
+                (click)="mostrar = 'Clientes'; mostrarInterno='Descuentos'">
+                <span class="fas fa-percentage"></span>Descuentos
             </button>
             <hr>
         </div>
@@ -38,7 +43,7 @@
         <div class="collapse OpsMenu" id="collapseOpsProductos">
             <hr>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
-                data-target="#collapseOpsProductos" (click)="mostrar ='RegistrarPrdocuto'">
+                data-target="#collapseOpsProductos" (click)="mostrar ='RegistrarPrdocuto'; selectedFile = null">
                 <span class="fas fa-tag"></span> R. Producto
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
@@ -72,7 +77,7 @@
         <div class="row barraTituloContenido">
             <div class="col" style="max-width: 50px;">
                 <button type="button" id="sidebarCollapse" class="btn btn-outline-danger btnMenu"
-                    style="border-radius: 50%;" (click)="alternarBarra()">
+                    style="border-radius: 50%;" (click)="activa = !activa">
                     <span class="fas fa-bars" style="margin-right: 0rem;"></span>
                 </button>
             </div>
@@ -445,315 +450,97 @@
         </div>
         <div [ngClass]="{'Ocultar':  mostrar != 'RegistrarPrdocuto'}">
             <div class="Cuerpo contenedor">
-                <form>
+                <form [formGroup]="formularioregistroProducto">
                     <div class="text-center" style="margin-top: 1rem;">
                         <h5>Registrar producto</h5>
                     </div>
                     <hr>
-                    <div>
-                        <div class="col divOpciones">
-                            <div class="row">
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark" type="button" style="width: 200px;"
-                                        (click)="mostrarInterno = 'Carne de res'">
-                                        Carne de res
-                                    </button>
+                    <div class="row">
+                        <div class="col">
+                            <input type="file" class="d-none" (change)="onPhotoSelected($event)" #photoInput>
+                            <img [src]="selectedFile || 'assets/images.png'" class="img-fluid" width="300px"
+                                height="300px" alt="no imagen" (click)="photoInput.click()">
+                        </div>
+
+                        <div class="col">
+                            <label for="">Categoria</label>
+                            <select class="form-control " formControlName="categoria"
+                                 [ngClass]="{'is-invalid':  controlProducto.categoria.touched && controlProducto.categoria.errors}">
+                                <option value="Carne de res">Carne de res</option>
+                                <option value="Pollo">Pollo</option>
+                                <option value="Carne de cerdo">Carne de cerdo</option>
+                            </select>
+                            <div *ngIf="controlProducto.categoria.errors" class="invalid-feedback">
+                                <div *ngIf="controlProducto.categoria.errors.required">
+                                    Se require que seleccione la categoria del producto
                                 </div>
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark " style="width: 200px;"
-                                        (click)="mostrarInterno ='Pollo'">
-                                        Pollo
-                                    </button>
+                            </div>
+                            <label>Referencia</label>
+                            <input type="text" class="form-control" formControlName="codigo"
+                                 [ngClass]="{'is-invalid':  controlProducto.codigo.touched && controlProducto.codigo.errors}" />
+                            <div *ngIf="controlProducto.codigo.errors" class="invalid-feedback">
+                                <div *ngIf="controlProducto.codigo.errors.required">Se requiere una
+                                    referencia</div>
+                            </div>
+
+                            <label for="">Nombre</label>
+                            <input type="text" class="form-control " formControlName="nombre"
+                                [ngClass]="{'is-invalid':  controlProducto.nombre.touched && controlProducto.nombre.errors}" />
+                            <div *ngIf="controlProducto.nombre.errors" class="invalid-feedback">
+                                <div *ngIf="controlProducto.nombre.errors.required">
+                                    Se require que ingrese el nombre del producto
                                 </div>
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-dark " style="width: 200px;"
-                                        (click)="mostrarInterno = 'Carne de cerdo' ">
-                                        Cane de cerdo
-                                    </button>
-                                </div>
-                                <div class="col d-flex justify-content-center">
-                                    <button class="btn btn-outline-danger" style="width: 200px; "
-                                        (click)="mostrar = 'Principal'">
-                                        <span class="icon-arrow-left1"></span>Volver
-                                    </button>
-                                </div>
+                            </div>
+
+                            <label>Cantidad (Kg)</label>
+                            <input type="number" class="form-control" formControlName="cantidad"
+                                 [ngClass]="{'is-invalid':  controlProducto.cantidad.touched && controlProducto.cantidad.errors}" />
+                            <div *ngIf="controlProducto.cantidad.errors" class="invalid-feedback">
+                                <div *ngIf="controlProducto.cantidad.errors.required">Se require la
+                                    cantidad</div>
                             </div>
                         </div>
-                        <div [ngClass]="{'Ocultar':  mostrarInterno != 'Principal'}" style="min-height: 100vh;">
-                            <div class="row ">
-                                <div class=" col d-flex justify-content-center">
-                                    <img class="mb-2" src="assets/Despiece-vaca.png" alt="" width="400" height="300">
-                                </div>
-                                <div class=" col d-flex justify-content-center">
-                                    <img class="mb-2" src="assets/Despiece-pollo.png" alt="" width="400" height="300">
-                                </div>
-                                <div class=" col d-flex justify-content-center">
-                                    <img class="mb-2" src="assets/Despiece-cerdo.png" alt="" width="400" height="300">
-                                </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Cantidad Minima (Kg)</label>
+                            <input type="number" class="form-control" formControlName="cantidadMinima"
+                                 [ngClass]="{'is-invalid':  controlProducto.cantidadMinima.touched && controlProducto.cantidadMinima.errors}" />
+                            <div *ngIf="controlProducto.cantidadMinima.errors" class="invalid-feedback">
+                                <div *ngIf="controlProducto.cantidadMinima.errors.required">Se require la
+                                    cantidad minima</div>
                             </div>
                         </div>
-                        <div [ngClass]="{'Ocultar':  mostrarInterno != 'Carne de res'}">
-                            <div class="d-flex justify-content-center">
-                                <img class="mb-4" src="assets/Despiece-vaca.png" alt="" width="600" height="500">
+                        <div class="col">
+                            <label>Precio por kilo</label>
+                            <input type="number" class="form-control" formControlName="valor"
+                                 [ngClass]="{'is-invalid':  controlProducto.valor.touched && controlProducto.valor.errors}" />
+                            <div *ngIf="controlProducto.valor.errors" class="invalid-feedback">
+                                <div *ngIf="controlProducto.valor.errors.required">Se require el valor</div>
                             </div>
-                            <form class="font-weight-normal" id="formularioRgistrarProducto" style="margin-top: 1rem;"
-                                [formGroup]="formularioregistroProducto">
-                                <hr>
-                                <label>Si el producto existe, la cantidad que ingrese se sumara al actual; Si en la
-                                    descripción coloca 'No cambiar' se dejara la descripción actual
-                                </label>
-                                <hr>
-                                <div class="col row">
-                                    <div class="col">
-                                        <label>Referencia del producto</label>
-                                        <input type="text" class="form-control" formControlName="codigo"
-                                             [ngClass]="{'is-invalid':  controlProducto.codigo.touched && controlProducto.codigo.errors}" />
-                                        <div *ngIf="controlProducto.codigo.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.codigo.errors.required">Se requiere una
-                                                referencia</div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="">Nombre del producto</label>
-                                        <select class="form-control " formControlName="nombre"
-                                             [ngClass]="{'is-invalid':  controlProducto.nombre.touched && controlProducto.nombre.errors}">
-                                            <option value="Morrillo">Morrillo</option>
-                                            <option value="Pescuezo">Pescuezo</option>
-                                            <option value="Aguja">Aguja</option>
-                                            <option value="Pez">Pez</option>
-                                            <option value="Espaldilla">Espaldilla</option>
-                                            <option value="Llana">Llana</option>
-                                            <option value="Pecho">Pecho</option>
-                                            <option value="Morcillo">Morcillo</option>
-                                            <option value="Brazuela">Brazuela</option>
-                                            <option value="Costillar">Costillar</option>
-                                            <option value="Lomo alto">Lomo alto</option>
-                                            <option value="Lomo bajo">Lomo bajo</option>
-                                            <option value="Solomillo">Solomilo</option>
-                                            <option value="Cadera">Cadera</option>
-                                            <option value="Falda">Falda</option>
-                                            <option value="Tapa">Tapa</option>
-                                            <option value="Redondo">Redondo</option>
-                                            <option value="Contra">Contra</option>
-                                            <option value="Babilla">Babilla</option>
-                                            <option value="Culata de contra">Culata de contra</option>
-                                        </select>
-                                        <div *ngIf="controlProducto.nombre.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.nombre.errors.required">
-                                                Se require que ingrese el nombre del producto
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>Cantidad (Kg)</label>
-                                        <input type="number" class="form-control" formControlName="cantidad"
-                                             [ngClass]="{'is-invalid':  controlProducto.cantidad.touched && controlProducto.cantidad.errors}" />
-                                        <div *ngIf="controlProducto.cantidad.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.cantidad.errors.required">Se require la
-                                                cantidad</div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>Cantidad Minima (Kg)</label>
-                                        <input type="number" class="form-control" formControlName="cantidadMinima"
-                                             [ngClass]="{'is-invalid':  controlProducto.cantidadMinima.touched && controlProducto.cantidadMinima.errors}" />
-                                        <div *ngIf="controlProducto.cantidadMinima.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.cantidadMinima.errors.required">Se require la
-                                                cantidad minima</div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>Precio por kilo</label>
-                                        <input type="number" class="form-control" formControlName="valor"
-                                             [ngClass]="{'is-invalid':  controlProducto.valor.touched && controlProducto.valor.errors}" />
-                                        <div *ngIf="controlProducto.valor.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.valor.errors.required">Se require el valor</div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>Descripción</label>
-                                        <input type="text" class="form-control" formControlName="descripcion"
-                                             [ngClass]="{'is-invalid':  controlProducto.descripcion.touched && controlProducto.descripcion.errors}" />
-                                        <div *ngIf="controlProducto.descripcion.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.descripcion.errors.required">Se requiere una
-                                                breve descripción</div>
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="col ">
-                                        <hr style="visibility: hidden;">
-                                        <div class="d-flex justify-content-end">
-                                            <button class="btn btn-outline-dark"
-                                                style="width: 50%; margin-right: .5rem;" type="submit"
-                                                (click)="onSubmitProducto(1)"  
-                                                [disabled]="formularioregistroProducto.invalid">Registrar
-                                            </button>
-                                            <button class="btn btn-outline-danger"
-                                                style="width: 50%; margin-left: .5rem;" type="reset"
-                                                (click)="mostrarInterno = 'Principal'">
-                                                <span class="icon-arrow-left1"></span>Volver
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr style="visibility: hidden;">
-                            </form>
                         </div>
-                        <div [ngClass]="{'Ocultar':  mostrarInterno != 'Pollo'}">
-                            <div class="d-flex justify-content-center">
-                                <img class="mb-4" src="assets/Despiece-pollo.png" alt="" width="600" height="500">
-                            </div>
-                            <form class="font-weight-normal" id="formularioRgistrarProducto" style="margin-top: 1rem;"
-                                [formGroup]="formularioregistroProducto">
-                                <hr>
-                                <label>Si el producto existe, la cantidad que ingrese se sumara al actual; Si en la
-                                    descripción coloca 'No cambiar' se dejara la descripción actual
-                                </label>
-                                <hr>
-                                <div class="col row">
-                                    <div class="col">
-                                        <label for="">Nombre del producto</label>
-                                        <select class="form-control " formControlName="nombre"
-                                             [ngClass]="{'is-invalid':  controlProducto.nombre.touched && controlProducto.nombre.errors}">
-                                            <option value="Rabadilla">Rabadilla</option>
-                                            <option value="Espinazo">Espinazo</option>
-                                            <option value="Ala">Ala</option>
-                                            <option value="Pescuezo">Pescuezo</option>
-                                            <option value="Contramuslo">Contramuslo</option>
-                                            <option value="Muslo">Muslo</option>
-                                            <option value="Pechuga">Pechuga</option>
+                    </div>
 
-                                        </select>
-                                        <div *ngIf="controlProducto.nombre.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.nombre.errors.required">
-                                                Se require que ingrese el nombre del producto
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>Cantidad (Kg)</label>
-                                        <input type="number" class="form-control" formControlName="cantidad"
-                                             [ngClass]="{'is-invalid':  controlProducto.cantidad.touched && controlProducto.cantidad.errors}" />
-                                        <div *ngIf="controlProducto.cantidad.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.cantidad.errors.required">Se require la
-                                                cantidad</div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>Precio por kilo</label>
-                                        <input type="number" class="form-control" formControlName="valor"
-                                             [ngClass]="{'is-invalid':  controlProducto.valor.touched && controlProducto.valor.errors}" />
-                                        <div *ngIf="controlProducto.valor.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.valor.errors.required">Se require el valor</div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>Descripción</label>
-                                        <input type="text" class="form-control" formControlName="descripcion"
-                                             [ngClass]="{'is-invalid':  controlProducto.descripcion.touched && controlProducto.descripcion.errors}" />
-                                        <div *ngIf="controlProducto.descripcion.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.descripcion.errors.required">Se requiere una
-                                                breve descripción</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col ">
-                                        <hr style="visibility: hidden;">
-                                        <div class="d-flex justify-content-end">
-                                            <button class="btn btn-outline-dark"
-                                                style="width: 50%; margin-right: .5rem;" type="submit"
-                                                (click)="onSubmitProducto(2)"  
-                                                [disabled]="formularioregistroProducto.invalid">Registrar
-                                            </button>
-                                            <button class="btn btn-outline-danger"
-                                                style="width: 50%; margin-left: .5rem;" type="reset"
-                                                (click)="mostrarInterno = 'Principal'">
-                                                <span class="icon-arrow-left1"></span>Volver
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr style="visibility: hidden;">
-                            </form>
+                    <div class="">
+                        <label>Descripción</label>
+                        <textarea type="text" class="form-control" formControlName="descripcion"
+                             [ngClass]="{'is-invalid':  controlProducto.descripcion.touched && controlProducto.descripcion.errors}"></textarea>
+                        <div *ngIf="controlProducto.descripcion.errors" class="invalid-feedback">
+                            <div *ngIf="controlProducto.descripcion.errors.required">Se requiere una
+                                breve descripción</div>
                         </div>
-                        <div [ngClass]="{'Ocultar':  mostrarInterno != 'Carne de cerdo'}">
-                            <div class="d-flex justify-content-center">
-                                <img class="mb-4" src="assets/Despiece-cerdo.png" alt="" width="600" height="500">
-                            </div>
-                            <form class="font-weight-normal" id="formularioRgistrarProducto" style="margin-top: 1rem;"
-                                [formGroup]="formularioregistroProducto">
-                                <hr>
-                                <label>Si el producto existe, la cantidad que ingrese se sumara al actual; Si en la
-                                    descripción coloca 'No cambiar' se dejara la descripción actual
-                                </label>
-                                <hr>
-                                <div class="col row">
-                                    <div class="col">
-                                        <label for="">Nombre del producto</label>
-                                        <select class="form-control " formControlName="nombre"
-                                             [ngClass]="{'is-invalid':  controlProducto.nombre.touched && controlProducto.nombre.errors}">
-                                            <option value="Jamon">Jamon</option>
-                                            <option value="Lomo">Lomo</option>
-                                            <option value="Solomillo">Solomillo</option>
-                                            <option value="Chuleta">Chuleta</option>
-                                            <option value="Panceta">Panceta</option>
-                                            <option value="Paletilla">Paletilla</option>
-                                            <option value="Manitas">Manitas</option>
-                                            <option value="Aguja">Aguja</option>
-                                        </select>
-                                        <div *ngIf="controlProducto.nombre.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.nombre.errors.required">
-                                                Se require que ingrese el nombre del producto
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>Cantidad (Kg)</label>
-                                        <input type="number" class="form-control" formControlName="cantidad"
-                                             [ngClass]="{'is-invalid':  controlProducto.cantidad.touched && controlProducto.cantidad.errors}" />
-                                        <div *ngIf="controlProducto.cantidad.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.cantidad.errors.required">Se require la
-                                                cantidad</div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>Precio por kilo</label>
-                                        <input type="number" class="form-control" formControlName="valor"
-                                             [ngClass]="{'is-invalid':  controlProducto.valor.touched && controlProducto.valor.errors}" />
-                                        <div *ngIf="controlProducto.valor.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.valor.errors.required">Se require el valor</div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>Descripción</label>
-                                        <input type="text" class="form-control" formControlName="descripcion"
-                                             [ngClass]="{'is-invalid':  controlProducto.descripcion.touched && controlProducto.descripcion.errors}" />
-                                        <div *ngIf="controlProducto.descripcion.errors" class="invalid-feedback">
-                                            <div *ngIf="controlProducto.descripcion.errors.required">Se requiere una
-                                                breve descripción</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col ">
-                                        <hr style="visibility: hidden;">
-                                        <div class="d-flex justify-content-end">
-                                            <button class="btn btn-outline-dark"
-                                                style="width: 50%; margin-right: .5rem;" type="submit"
-                                                (click)="onSubmitProducto(3)"  
-                                                [disabled]="formularioregistroProducto.invalid">Registrar
-                                            </button>
-                                            <button class="btn btn-outline-danger"
-                                                style="width: 50%; margin-left: .5rem;" type="reset"
-                                                (click)=" mostrarInterno = 'Principal'">
-                                                <span class="icon-arrow-left1"></span>Volver
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr style="visibility: hidden;">
-                            </form>
+                    </div>
+                    <div class="col ">
+                        <hr style="visibility: hidden;">
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-outline-dark" style="width: 50%; margin-right: .5rem;" type="submit"
+                                (click)="onSubmitProducto()"   [disabled]="formularioregistroProducto.invalid">Registrar
+                            </button>
+                            <button class="btn btn-outline-danger" style="width: 50%; margin-left: .5rem;" type="reset"
+                                (click)="mostrar = 'Principal'">
+                                <span class="icon-arrow-left1"></span>Volver
+                            </button>
                         </div>
                     </div>
                     <hr>
@@ -832,30 +619,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row d-flex justify-content-center">
-                        <div class="col d-flex justify-content-center">
-                            <button class="btn btn-outline-dark" (click)="mostrarDescuentosCliente()">
-                                <span class="fas fa-sync-alt"></span>Descuentos
-                            </button>
-                        </div>
-
-                        <div class="col d-flex justify-content-center">
-                            <button class="btn btn-outline-dark">
-                                <span class="fas fa-sync-alt"></span>Pedidos
-                            </button>
-                        </div>
-
-                        <div class="col d-flex justify-content-center">
-                            <button class="btn btn-outline-danger">
-                                <span class="icon-arrow-left1"></span> Eliminar
-                            </button>
-                        </div>
-                        <div class="col d-flex justify-content-center">
-                            <button class="btn btn-outline-danger" (click)="mostrar = 'Clientes'">
-                                <span class="icon-arrow-left1"></span> Volver
-                            </button>
-                        </div>
-                    </div>
                     <hr>
                 </form>
             </div>
@@ -868,65 +631,98 @@
                             {{clienteConsuta.identificacion}}</h5>
                     </div>
                     <hr>
-                    <div class="row ">
-                        <div class="col table-responsive">
-                            <div class="text-center" style="margin-top: 1rem;">
-                                <h6>Descuentos registrados.</h6>
-                            </div>
-                            <hr>
-                            <table class="table table-responsive-sm" *ngIf='listaDescuentos && listaDescuentos.length'>
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Referencia P.</th>
-                                        <th scope="col">%Descuento</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        *ngFor="let descuento of listaDescuentos|filtroCliente:filtroClientes; index as i">
-                                        <th scope="row">{{ i + 1 }}</th>
-                                        <td>{{ descuento.codProducto }} </td>
-                                        <td>{{ descuento.porcentaje }}</td>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col d-flex justify-content-center">
+                            <button class="btn btn-outline-dark"
+                                (click)="mostrarDescuentosCliente(); mostrarOpsInterno = 'DescuentosRegistrados'">
+                                <span class="fas fa-sync-alt"></span>Descuentos
+                            </button>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <button class="btn btn-outline-dark"
+                                (click)="productosSindescuento(); mostrarOpsInterno = 'ProductosSinDescuento'">
+                                <span class="fas fa-sync-alt"></span>Productos sin Descuentos
+                            </button>
+                        </div>
 
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="col d-flex justify-content-center">
+                            <button class="btn btn-outline-danger" style=" width: 50%"
+                                (click)="mostrar = 'Clientes'; mostrarInterno = 'Descuentos'; mostrarOpsInterno = ''">
+                                <span class="icon-arrow-left1"></span> Volver
+                            </button>
                         </div>
-                        <div class="col table-responsive">
-                            <div class="text-center" style="margin-top: 1rem;">
-                                <h6>Productos sin descuentos.</h6>
+                    </div>
+                    <div class="col table-responsive"
+                        [ngClass]="{'Ocultar':  mostrarOpsInterno != 'DescuentosRegistrados'}">
+                        <div class="text-center" style="margin-top: 1rem;">
+                            <h6>Descuentos registrados.</h6>
+                        </div>
+                        <hr>
+                        <table class="table table-responsive-sm" *ngIf='listaDescuentos && listaDescuentos.length'>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Referencia P.</th>
+                                    <th scope="col">Nombre P.</th>
+                                    <th scope="col">%Descuento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let descuento of listaDescuentos|filtroCliente:filtroClientes; index as i">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ descuento.codProducto }} </td>
+                                    <th>{{ descuento.nombreProducto }}</th>
+                                    <td>{{ descuento.porcentaje }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col table-responsive"
+                        [ngClass]="{'Ocultar':  mostrarOpsInterno != 'ProductosSinDescuento'}">
+                        <div class="text-center" style="margin-top: 1rem;">
+                            <h6>Productos sin descuentos.</h6>
+                        </div>
+                        <hr>
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <div class="col " >
+                                <input type="number" class="form-control" 
+                                    [(ngModel)]="descuentoParaTodos" name="porcentajeTodos" />
                             </div>
-                            <hr>
-                            <input type="number" class="form-control" style="width: 50%;" [(ngModel)]="descuentoParaTodos"
-                                name="porcentajeTodos" />
-                            <button class="btn btn-outline-dark" 
-                                (click)="aplicarATodosUnDescuento()" style="margin: .5rem;margin-left: 0rem;">Todos por igual</button>
-                            <button class="btn btn-outline-dark" (click)="registrarDescuentos()">Aplicar
-                                descuentos</button>
-                            <table class="table table-responsive-sm">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Referencia </th>
-                                        <th scope="col">Nombre </th>
-                                        <th scope="col">Valor</th>
-                                        <th scope="col">%Descuento</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let producto of listaProductosSinDescuento; index as i">
-                                        <th scope="row">{{ i + 1 }}</th>
-                                        <td>{{ producto.codigo }} </td>
-                                        <td>{{ producto.nombre }}</td>
-                                        <td>{{ producto.valor }}</td>
-                                        <td><input type="number" class="form-control"
-                                                [(ngModel)]="listaDescuentosNuevos[i].porcentaje" name="porcentaje" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+
+                            <div class="col ">
+                                <button class="btn btn-outline-dark" (click)="aplicarATodosUnDescuento()">
+                                    Todos por igual
+                                </button>
+                            </div>
+                            <div class="col ">
+                                <button class="btn btn-outline-dark" (click)="registrarDescuentos()">Aplicar
+                                    descuentos
+                                </button>
+                            </div>
                         </div>
+                        <table class="table table-responsive-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Referencia </th>
+                                    <th scope="col">Nombre </th>
+                                    <th scope="col">Valor</th>
+                                    <th scope="col">%Descuento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of listaProductosSinDescuento; index as i">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ producto.codigo }} </td>
+                                    <td>{{ producto.nombre }}</td>
+                                    <td>{{ producto.valor }}</td>
+                                    <td>
+                                        <input type="number" class="form-control"
+                                            [(ngModel)]="listaDescuentosNuevos[i].porcentaje" name="porcentaje" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </form>
             </div>
@@ -1026,7 +822,8 @@
                                     <td>{{ cliente.direccion }}</td>
                                     <td>{{ cliente.horaio }}</td>
                                     <td>{{ cliente.tipoCliente }}</td>
-                                    <td><button class="btn btn-outline-dark" (click)="SelccionarProductosPedido(cliente)">Ver</button>
+                                    <td><button class="btn btn-outline-dark"
+                                            (click)="SelccionarProductosPedido(cliente)">Ver</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -1046,7 +843,8 @@
 
                     <div class="">
                         <label for="">Referencia del producto</label>
-                        <input type="text"  name="identificacion" style="width: 20%" placeholder="identificacion" class="form-control" [(ngModel)]="codigoProducto"/>
+                        <input type="text"  name="identificacion" style="width: 20%" placeholder="identificacion"
+                            class="form-control" [(ngModel)]="codigoProducto" />
                         <button class="btn btn-outline-dark" style="width: 20%" (click)="BuscarProducto()">
                             <span class="fas fa-search"></span> Buscar
                         </button>
@@ -1073,10 +871,10 @@
                             </p>
                         </div>
                         <div class="col">
-                            <input type="number"  name="cantidad" [(ngModel)]="cantidadProducto" class="form-control"/>
+                            <input type="number"  name="cantidad" [(ngModel)]="cantidadProducto" class="form-control" />
                         </div>
                         <div class="col">
-                            <button class="btn btn-outline-dark" style="width: 100%" (click)="AgregarProducto()" >
+                            <button class="btn btn-outline-dark" style="width: 100%" (click)="AgregarProducto()">
                                 <span class="fas fa-search"></span> Agreagar al pedido
                             </button>
                         </div>
@@ -1084,7 +882,8 @@
 
                     <div class="col">
                         <div class="table-responsive">
-                            <table class="table table-responsive-sm" *ngIf='listaProductoPedido && listaProductoPedido.length'>
+                            <table class="table table-responsive-sm"
+                                *ngIf='listaProductoPedido && listaProductoPedido.length'>
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">#</th>
@@ -1133,13 +932,14 @@
                                 </p>
                             </div>
                             <div class="col">
-                                <button class="btn btn-outline-dark" style="width: 100%" (click)="registrarPedido()" >
+                                <button class="btn btn-outline-dark" style="width: 100%" (click)="registrarPedido()">
                                     <span class="fas fa-search"></span> Registrar pedido
                                 </button>
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-responsive-sm" *ngIf='pedidoGenrado.detallesDePedidos && pedidoGenrado.detallesDePedidos.length'>
+                            <table class="table table-responsive-sm"
+                                *ngIf='pedidoGenrado.detallesDePedidos && pedidoGenrado.detallesDePedidos.length'>
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">#</th>
@@ -1189,5 +989,7 @@
                 </form>
             </div>
         </div>
+
     </div>
+    <!-- <img [src]="imagenProductoView.imagen" alt="imagen" class="img-card-top w-100"> -->
 </div>

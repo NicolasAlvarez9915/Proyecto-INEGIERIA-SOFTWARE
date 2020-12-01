@@ -8,6 +8,7 @@ namespace DistribuidoraESB.Models
         public string Codigo { get; set; }
         public int Porcentaje { get; set; }
         public string CodProducto { get; set; }
+        public string NombreProducto { get; set; }
         public string IdPersona { get; set; }
     }
 
@@ -24,6 +25,7 @@ namespace DistribuidoraESB.Models
             Porcentaje = descuento.Porcentaje;
             CodProducto = descuento.CodProducto;
             IdPersona = descuento.IdPersona;
+            NombreProducto = descuento.NombreProducto;
         }
     }
 }

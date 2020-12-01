@@ -24,6 +24,10 @@ DROP TABLE [dbo].[DetalleDePedidos]
 GO
 DROP TABLE [dbo].[Pedidos]
 GO
+DROP TABLE [dbo].[ImagenProductos]
+GO
+
+
 
 
 SELECT TOP (1000) [Identificacion]

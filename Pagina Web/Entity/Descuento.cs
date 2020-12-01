@@ -13,6 +13,8 @@ namespace Entity
         public int Porcentaje { get; set; }
         [Column(TypeName = "nvarchar(11)")]
         public string CodProducto { get; set; }
+        [Column(TypeName = "nvarchar(20)")]
+        public string NombreProducto { get; set; }
         [Column(TypeName = "nvarchar(11)")]
         public string IdPersona { get; set; }
     }
