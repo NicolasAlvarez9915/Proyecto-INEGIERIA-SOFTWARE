@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datos.Migrations
 {
     [DbContext(typeof(DESBContext))]
-    [Migration("20201201083021_InitialCreate")]
+    [Migration("20201201122106_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -173,6 +173,9 @@ namespace Datos.Migrations
 
                     b.Property<float>("Descuento")
                         .HasColumnType("real");
+
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("Date");

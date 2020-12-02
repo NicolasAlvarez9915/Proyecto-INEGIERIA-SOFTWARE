@@ -10,4 +10,5 @@ export class Pedido {
     total: number;
     descuento: number;
     totalIva: number;
+    estado: string;
 }

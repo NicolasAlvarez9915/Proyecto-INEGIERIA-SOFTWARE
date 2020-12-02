@@ -15,6 +15,7 @@ namespace DistribuidoraESB.Models
         public double Total { get; set; }
         public double Descuento { get; set; }
         public double TotalIva { get; set; }
+        public string Estado { get; set; }
     }
 
     public class PedidoViewModel: PedidoInputModel
@@ -34,6 +35,7 @@ namespace DistribuidoraESB.Models
             Descuento = pedido.Descuento;
             IdPersona = pedido.IdPersona;
             TotalIva = pedido.TotalIva;
+            Estado = pedido.Estado;
         }
     }
 }

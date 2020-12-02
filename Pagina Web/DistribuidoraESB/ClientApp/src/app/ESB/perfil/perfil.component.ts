@@ -16,6 +16,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { Administrador } from '../Models/administrador';
 import { Cliente } from '../Models/cliente';
 import { Descuento } from '../Models/descuento';
+import { DetalleDePedido } from '../Models/detalle-de-pedido';
 import { ImagenProducto } from '../Models/imagen-producto';
 import { ImagenproductoView } from '../Models/imagenproducto-view';
 import { Pedido } from '../Models/pedido';
@@ -58,11 +59,12 @@ export class PerfilComponent implements OnInit {
   solicitudPedido: SolicitudDePedido;
   pedidoGenrado: Pedido = new Pedido();
 
-
+  productoConsulta: Producto = new Producto;
 
   descuentoNuevo: Descuento;
   descuentoParaTodos: number = 0;
   filtroClientes: string;
+  filtroProductos: string;
   i: number;
   existe: Boolean;
   Rol: string;
@@ -122,17 +124,32 @@ export class PerfilComponent implements OnInit {
 
   }
 
-  consultarImagen() {
-    this.imagenProductoService.get("1234").subscribe(result => {
+  consultarImagen(codigo: string) {
+    this.imagenProductoService.get(codigo).subscribe(result => {
       this.imagenProductoView = result;
     });
   }
+
+
 
   AgregarProducto() {
     this.productoSeleccionado.cantidad = this.cantidadProducto;
     this.listaProductoPedido.unshift(this.productoSeleccionado);
     this.generarPedido();
     this.resetearProductoSeleccionado();
+  }
+
+  EliminarProducto(detalle: DetalleDePedido){
+    for (let index = 0; index < this.listaProductoPedido.length; index++) {
+      const element = this.listaProductoPedido[index];
+      if(element.codigo === detalle.codProducto){
+        let producto = this.listaProductoPedido.indexOf(element);
+        if (producto !== -1){
+          this.listaProductoPedido.splice(producto, 1);
+        }
+      }
+    }
+    this.generarPedido();
   }
 
   registrarPedido() {
@@ -318,6 +335,12 @@ export class PerfilComponent implements OnInit {
   }
 
 
+  verProducto(producto: Producto){
+    this.productoConsulta = producto;
+    this.mostrar = "Producto";
+    this.consultarImagen(producto.codigo);
+  }
+
   vercliente(cliente: Cliente) {
     this.clienteConsuta = cliente;
     switch (this.mostrarInterno) {
@@ -326,6 +349,9 @@ export class PerfilComponent implements OnInit {
       break;
       case "Descuentos":
         this.mostrar = 'DescuentosCliente';
+      break;
+      case "RegistrarPedido":
+        this.mostrar = "SelccionarProductosPedido";
       break;
     }
   }

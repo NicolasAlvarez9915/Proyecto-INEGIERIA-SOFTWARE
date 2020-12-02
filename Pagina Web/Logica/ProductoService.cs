@@ -43,17 +43,15 @@ namespace Logica
             }
         }
 
-        private Boolean ActualizarProducto(Producto producto){
-            List<Producto> productoEncontrado = context.Productos.Where<Producto>(p => p.Nombre == producto.Nombre).ToList();
-            if(productoEncontrado.Count == 0){
-                return false;
-            }else{
-                productoEncontrado[0].Cantidad += producto.Cantidad;
-                if(producto.Descripcion != "No cambiar"){
-                    productoEncontrado[0].Descripcion = producto.Descripcion;
-                }
-                context.Update(productoEncontrado[0]);
-                return true;
+        public void ActualizarCantidadProductos(Pedido pedido){
+            
+
+            foreach (DetalleDePedido detalleDePedido in pedido.DetallesDePedidos)
+            {
+                Producto productoEncontrado = context.Productos.Find(detalleDePedido.CodProducto);
+                productoEncontrado.Cantidad -= detalleDePedido.Cantidad;
+                context.Productos.Update(productoEncontrado);
+                context.SaveChanges();
             }
         }
         

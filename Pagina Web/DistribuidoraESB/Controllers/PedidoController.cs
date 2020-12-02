@@ -14,10 +14,12 @@ namespace DistribuidoraESB.Controllers
     public class PedidoController : ControllerBase
     {
         private readonly PedidoService service;
+        private readonly ProductoService productoService;
 
         public PedidoController(DESBContext context)
         {
             service = new PedidoService(context);
+            productoService = new ProductoService(context);
         }
 
         [HttpGet]
@@ -33,12 +35,15 @@ namespace DistribuidoraESB.Controllers
 
             ClienteInputModel clienteInput = solicituDePedidoInputModel.Cliente;
             List<ProductoInputModel> productoInputs = solicituDePedidoInputModel.productos;
-            return new PedidoViewModel(service.GenerarPedido(productoInputs.Select(p => MapearProducto(p)).ToList(), MapearCliente(clienteInput)));
+            List<Producto> productos = productoInputs.Select(p => MapearProducto(p)).ToList();
+            return new PedidoViewModel(service.GenerarPedido(productos, MapearCliente(clienteInput)));
         }
 
         [HttpPost("Registrar/")]
         public ActionResult<PedidoViewModel> PostPedido(PedidoInputModel pedidoInputModel)
         {
+            
+            productoService.ActualizarCantidadProductos(MapearPedido(pedidoInputModel));
             var response = service.Guardar(MapearPedido(pedidoInputModel));
             return Ok(response.pedido);
         }
@@ -55,7 +60,8 @@ namespace DistribuidoraESB.Controllers
                 Iva = pedidoInput.Iva,
                 SubTotal = pedidoInput.SubTotal,
                 Total = pedidoInput.Total,
-                TotalIva = pedidoInput.TotalIva
+                TotalIva = pedidoInput.TotalIva,
+                Estado = pedidoInput.Estado
             };
             return pedido;
         }

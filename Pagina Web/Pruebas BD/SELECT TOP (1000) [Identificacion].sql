@@ -8,6 +8,10 @@ insert into Clientes (Identificacion, Nombres,Apellidos, Telefono,Whatsapp, Dire
 
 select * from Clientes
 
+delete Pedidos;
+delete DetalleDePedidos;
+delete Descuentos;
+delete Productos;
 
 
 DROP TABLE [dbo].[Clientes]

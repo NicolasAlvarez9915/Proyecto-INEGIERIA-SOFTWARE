@@ -172,6 +172,9 @@ namespace Datos.Migrations
                     b.Property<float>("Descuento")
                         .HasColumnType("real");
 
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(11)");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("Date");
 

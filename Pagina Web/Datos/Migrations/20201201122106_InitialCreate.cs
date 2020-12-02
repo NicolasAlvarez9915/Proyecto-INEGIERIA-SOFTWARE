@@ -64,7 +64,8 @@ namespace Datos.Migrations
                     Iva = table.Column<int>(type: "int", nullable: false),
                     TotalIva = table.Column<float>(type: "real", nullable: false),
                     Total = table.Column<float>(type: "real", nullable: false),
-                    Descuento = table.Column<float>(type: "real", nullable: false)
+                    Descuento = table.Column<float>(type: "real", nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(11)", nullable: true)
                 },
                 constraints: table =>
                 {

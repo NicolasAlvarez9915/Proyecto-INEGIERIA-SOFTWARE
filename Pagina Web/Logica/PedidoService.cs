@@ -24,6 +24,7 @@ namespace Logica
         {
             try
             {
+                pedido.Estado = "Bodega";
                 context.Pedidos.Add(InicializarCodigos(pedido));
                 context.SaveChanges();
                 return new PedidoResponse(pedido);

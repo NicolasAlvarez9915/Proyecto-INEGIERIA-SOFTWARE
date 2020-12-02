@@ -24,7 +24,7 @@
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
-                (click)="mostrar = 'Clientes';mostrarInterno='Cliente'">
+                (click)="mostrar = 'Clientes';mostrarInterno='Cliente';clientes()">
                 <span class="fas fa-users"></span>Lista
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
@@ -44,11 +44,11 @@
             <hr>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsProductos" (click)="mostrar ='RegistrarPrdocuto'; selectedFile = null">
-                <span class="fas fa-tag"></span> R. Producto
+                <span class="fas fa-tag"></span> Registrar
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
-                data-target="#collapseOpsProductos" (click)="mostrar = 'Productos'">
-                <span class="fas fa-tags"></span> L. Productos
+                data-target="#collapseOpsProductos" (click)="mostrar = 'Productos'; productos()">
+                <span class="fas fa-tags"></span> Lista
             </button>
             <hr>
         </div>
@@ -62,12 +62,12 @@
             <hr style="background-color: rgb(250, 81, 81);">
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
-                (click)="mostrar ='RegistrarPedido'">
+                (click)="mostrar ='Clientes';mostrarInterno='RegistrarPedido'">
                 <span class="fas fa-suitcase-rolling"></span>Registrar
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
-                (click)="mostrar = 'Pedidos'">
+                (click)="mostrar = 'Pedidos';pedidos()">
                 <span class="fas fa-suitcase-rolling"></span>Lista
             </button>
             <hr>
@@ -397,17 +397,17 @@
                     <div class="row">
                         <div class="col">
                             <label>Filtro por identificacion.</label>
-                            <input class="form-control col-5" type="text" placeholder="Identificacion"
+                            <input class="form-control col-5" type="text" style="width: 200px;" placeholder="Identificacion"
                                 [(ngModel)]="filtroClientes" [ngModelOptions]="{standalone: true}">
                         </div>
-                        <div class="col">
-                            <hr style="visibility: hidden;">
-                            <button class="btn btn-outline-danger" style=" margin-left: .5rem;" type="reset"
+                        <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
+                            <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
                                 (click)="mostrar = 'Principal'">
-                                <span class="icon-arrow-left1"></span>Volver
+                                <span class="icon-arrow-left1"></span> Volver
                             </button>
                         </div>
                     </div>
+                    
                     <hr style="visibility: hidden;">
 
 
@@ -448,7 +448,7 @@
                 </form>
             </div>
         </div>
-        <div [ngClass]="{'Ocultar':  mostrar != 'RegistrarPrdocuto'}">
+        <div *ngIf="mostrar == 'RegistrarPrdocuto'">
             <div class="Cuerpo contenedor">
                 <form [formGroup]="formularioregistroProducto">
                     <div class="text-center" style="margin-top: 1rem;">
@@ -547,23 +547,34 @@
                 </form>
             </div>
         </div>
-        <div [ngClass]="{'Ocultar':  mostrar != 'Productos'}">
+        <div *ngIf="mostrar == 'Productos'">
             <div class="Cuerpo">
                 <form class="col font-weight-normal">
                     <div class="text-center" style="margin-top: 1rem;">
                         <h5>Productos</h5>
                     </div>
                     <hr>
-                    <button class="btn btn-outline-danger" style="width: 10%; margin-left: .5rem;"
-                        (click)="mostrar = 'Principal'">
-                        <span class="icon-arrow-left1"></span>Volver
-                    </button>
+                    <div class="row">
+                        <div class="col">
+                            <label>Filtro por referencia.</label>
+                            <input class="form-control col-5" type="text" style="width: 200px;" placeholder="Referencia"
+                                [(ngModel)]="filtroProductos" [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
+                            <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
+                                (click)="mostrar = 'Principal'">
+                                <span class="icon-arrow-left1"></span> Volver
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <hr style="visibility: hidden;">
                     <div class="table-responsive">
                         <table class="table table-responsive-sm" *ngIf='listaProductos && listaProductos.length'>
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">codigo</th>
+                                    <th scope="col">Referencia</th>
                                     <th scope="col">categoria </th>
                                     <th scope="col">nombre </th>
                                     <th scope="col">cantidad</th>
@@ -572,14 +583,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let producto of listaProductos; index as i">
+                                <tr *ngFor="let producto of listaProductos|filtroProducto:filtroProductos; index as i">
                                     <th scope="row">{{ i + 1 }}</th>
                                     <td>{{ producto.codigo }} </td>
                                     <td>{{ producto.categoria }}</td>
                                     <td>{{ producto.nombre }}</td>
                                     <td>{{ producto.cantidad }}</td>
                                     <td>{{ producto.valor}}</td>
-                                    <td><button class="btn btn-outline-dark">Ver</button></td>
+                                    <td><button class="btn btn-outline-dark" (click)="verProducto(producto)">Ver</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -588,8 +599,85 @@
                 </form>
             </div>
         </div>
+        <div [ngClass]="{'Ocultar': mostrar != 'Producto'}">
+            <div class="Cuerpo">
+                <form style="min-width: 700px;">
+                    <div class="text-center" style="margin-top: 1rem;">
+                        <h5>Producto: {{productoConsulta.codigo}} {{productoConsulta.nombre}}</h5>
+                    </div>
+                    <hr>
+                    <div class="info">
+                        
+                        <div class="row">
+                            <div class="col">
+                                <img [src]="imagenProductoView.imagen" alt="imagen" class="img-card-top w-100">
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <label >Categoria: </label>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            {{productoConsulta.categoria}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label >Cantidad: </label>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            {{productoConsulta.cantidad}} Kg
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label >Cantidad minima: </label>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            {{productoConsulta.cantidadMinima}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label >Valor unitario: </label>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            {{productoConsulta.valor}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label >Descripción: </label>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            {{productoConsulta.descripcion}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                            <button class="btn btn-outline-danger" style=" width: 150px"
+                                (click)="mostrar = 'Productos'">
+                                <span class="icon-arrow-left1"></span> Volver
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
         <div [ngClass]="{'Ocultar':  mostrar != 'Cliente'}">
-            <div class="Cuerpo ">
+            <div class="Cuerpo">
                 <form style="min-width: 700px;">
                     <div class="text-center" style="margin-top: 1rem;">
                         <h5>Cliente: {{clienteConsuta.nombres}} {{clienteConsuta.apellidos}},
@@ -618,6 +706,12 @@
                                 </p>
                             </div>
                         </div>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <button class="btn btn-outline-danger" style=" width: 150px"
+                            (click)="mostrar = 'Clientes'">
+                            <span class="icon-arrow-left1"></span> Volver
+                        </button>
                     </div>
                     <hr>
                 </form>
@@ -684,9 +778,9 @@
                         </div>
                         <hr>
                         <div class="row" style="margin-bottom: 1rem;">
-                            <div class="col " >
-                                <input type="number" class="form-control" 
-                                    [(ngModel)]="descuentoParaTodos" name="porcentajeTodos" />
+                            <div class="col ">
+                                <input type="number" class="form-control" [(ngModel)]="descuentoParaTodos"
+                                    name="porcentajeTodos" />
                             </div>
 
                             <div class="col ">
@@ -750,6 +844,7 @@
                                     <th scope="col">Iva</th>
                                     <th scope="col">Descuento</th>
                                     <th scope="col">total</th>
+                                    <th scope="col">Estado</th>
                                     <th scope="col">opciones</th>
                                 </tr>
                             </thead>
@@ -763,68 +858,8 @@
                                     <td>{{ pedido.iva }}</td>
                                     <td>{{ pedido.descuento }}</td>
                                     <td>{{ pedido.total }}</td>
+                                    <th>{{ pedido.estado }}</th>
                                     <td><button class="btn btn-outline-dark">Ver</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <hr>
-                </form>
-            </div>
-        </div>
-        <div [ngClass]="{'Ocultar':  mostrar != 'RegistrarPedido'}">
-            <div class="Cuerpo">
-                <form class="col font-weight-normal">
-                    <div class="text-center" style="margin-top: 1rem;">
-                        <h5>Selecionar cliente</h5>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col">
-                            <label>Filtro por identificacion.</label>
-                            <input class="form-control col-5" type="text" placeholder="Identificacion"
-                                [(ngModel)]="filtroClientes" [ngModelOptions]="{standalone: true}">
-                        </div>
-                        <div class="col">
-                            <hr style="visibility: hidden;">
-                            <button class="btn btn-outline-danger" style=" margin-left: .5rem;" type="reset"
-                                (click)="mostrar = 'Principal'">
-                                <span class="icon-arrow-left1"></span>Volver
-                            </button>
-                        </div>
-                    </div>
-                    <hr style="visibility: hidden;">
-
-                    <div class="table-responsive">
-                        <table class="table table-responsive-sm" *ngIf='listaClientes && listaClientes.length'>
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Identificación</th>
-                                    <th scope="col">Nombres </th>
-                                    <th scope="col">Apellidos </th>
-                                    <th scope="col">Telefono</th>
-                                    <th scope="col">Whatsapp</th>
-                                    <th scope="col">Direccion</th>
-                                    <th scope="col">Horario</th>
-                                    <th scope="col">Tipo Cliente</th>
-                                    <th scope="col">Opcion</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let cliente of listaClientes|filtroCliente:filtroClientes; index as i">
-                                    <th scope="row">{{ i + 1 }}</th>
-                                    <td>{{ cliente.identificacion }} </td>
-                                    <td>{{ cliente.nombres }}</td>
-                                    <td>{{ cliente.apellidos }}</td>
-                                    <td>{{ cliente.telefono }}</td>
-                                    <td>{{ cliente.whatsapp }}</td>
-                                    <td>{{ cliente.direccion }}</td>
-                                    <td>{{ cliente.horaio }}</td>
-                                    <td>{{ cliente.tipoCliente }}</td>
-                                    <td><button class="btn btn-outline-dark"
-                                            (click)="SelccionarProductosPedido(cliente)">Ver</button>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -836,107 +871,178 @@
         <div [ngClass]="{'Ocultar':  mostrar != 'SelccionarProductosPedido'}">
             <div class="Cuerpo">
                 <form class="font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;">
-                    <div class="text-center">
-                        <h5>Seleccionar productos del pedido para {{clienteConsuta.identificacion}}</h5>
-                    </div>
-                    <hr>
+                    <div>
+                        <div class=" row" style="padding-right: 2rem;">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title"><span class="fas fa-user"></span>Cliente.</h5>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>
+                                                            Identificacion:
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>
+                                                            {{clienteConsuta.identificacion}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>
+                                                            Nombres:
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>
+                                                            {{clienteConsuta.nombres}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>
+                                                            Apellidos:
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>
+                                                            {{clienteConsuta.apellidos}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <h5 class="card-title"><span class="fas fa-calendar-alt"></span>Fecha.
+                                                </h5>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>
+                                                            Fecha:
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>
+                                                            {{pedidoGenrado.fecha}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <h5 class="card-title"><span
+                                                        class="fas fa-truck-loading"></span>Entrega.</h5>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>
+                                                            Dirección:
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>
+                                                            {{clienteConsuta.direccion}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <hr style="visibility: hidden;">
 
-                    <div class="">
-                        <label for="">Referencia del producto</label>
-                        <input type="text"  name="identificacion" style="width: 20%" placeholder="identificacion"
-                            class="form-control" [(ngModel)]="codigoProducto" />
-                        <button class="btn btn-outline-dark" style="width: 20%" (click)="BuscarProducto()">
-                            <span class="fas fa-search"></span> Buscar
-                        </button>
-                    </div>
-                    <div class=" row">
-                        <div class="col">
-                            <p>
-                                Referencia: {{productoSeleccionado.codigo}}
-                            </p>
-                        </div>
-                        <div class="col">
-                            <p>
-                                Categoria: {{productoSeleccionado.categoria}}
-                            </p>
-                        </div>
-                        <div class="col">
-                            <p>
-                                Nombre: {{productoSeleccionado.nombre}}
-                            </p>
-                        </div>
-                        <div class="col">
-                            <p>
-                                Cantidad: {{productoSeleccionado.cantidad}}
-                            </p>
-                        </div>
-                        <div class="col">
-                            <input type="number"  name="cantidad" [(ngModel)]="cantidadProducto" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-outline-dark" style="width: 100%" (click)="AgregarProducto()">
-                                <span class="fas fa-search"></span> Agreagar al pedido
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="table-responsive">
-                            <table class="table table-responsive-sm"
-                                *ngIf='listaProductoPedido && listaProductoPedido.length'>
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">codigo</th>
-                                        <th scope="col">categoria </th>
-                                        <th scope="col">nombre </th>
-                                        <th scope="col">cantidad</th>
-                                        <th scope="col">Valor</th>
-                                        <th scope="col">opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let productoLista of listaProductoPedido; index as i">
-                                        <th scope="row">{{ i + 1 }}</th>
-                                        <td>{{ productoLista.codigo }} </td>
-                                        <td>{{ productoLista.categoria }}</td>
-                                        <td>{{ productoLista.nombre }}</td>
-                                        <td>{{ productoLista.cantidad }}</td>
-                                        <td>{{ productoLista.valor}}</td>
-                                        <td><button class="btn btn-outline-dark">Eliminar</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <hr>
-                    <div [ngClass]="{'Ocultar':  listaProductoPedido.length < 1}">
-                        <div class="text-center">
-                            <h5>Pedido generado</h5>
-                        </div>
-                        <hr>
-                        <div class=" row">
+                        <div class="row d-flex justify-content-center">
                             <div class="col">
-                                <p>
-                                    Cliente: {{pedidoGenrado.idPersona}}
-                                </p>
+                                <button class="btn btn-outline-dark" data-toggle="collapse"
+                                    data-target="#AñadirProductoPedido" aria-expanded="false"
+                                    aria-controls="AñadirProductoPedido">
+                                    <span class="fas fa-search"></span> Añadir producto
+                                </button>
                             </div>
                             <div class="col">
-                                <p>
-                                    Fecha: {{pedidoGenrado.fecha}}
-                                </p>
-                            </div>
-                            <div class="col">
-                                <p>
-                                    Iva: {{pedidoGenrado.iva}}
-                                </p>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-outline-dark" style="width: 100%" (click)="registrarPedido()">
+                                <button class="btn btn-outline-dark" (click)="registrarPedido()">
                                     <span class="fas fa-search"></span> Registrar pedido
                                 </button>
                             </div>
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-outline-danger" style="width: 50%" type="reset"
+                                    (click)="mostrar = 'Clientes'">
+                                    <span class="icon-arrow-left1"></span>Volver
+                                </button>
+                            </div>
                         </div>
+
+                        <div class="collapse" id="AñadirProductoPedido">
+                            <hr style="visibility: hidden;">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><span class="fas fa-plus"></span>Producto.</h5>
+                                        <hr>
+                                        <div style="margin-bottom: .5rem; font-size: .4cm;">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label>Referencia:</label>
+                                                    <input type="number"  name="BuscarProducto"
+                                                        [(ngModel)]="codigoProducto" class="form-control" />
+                                                </div>
+                                                <div class="col">
+                                                    <hr style="visibility: hidden;">
+                                                    <button class="btn btn-outline-dark" (click)="BuscarProducto()">
+                                                        <span class="fas fa-search" style="margin-right: 0rem;"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label>Nombre:</label>
+                                                </div>
+                                                <div class="col">
+                                                    {{productoSeleccionado.nombre}}
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label>Cantidad Actual:</label>
+                                                </div>
+                                                <div class="col">
+                                                    {{productoSeleccionado.cantidad}}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label>Cantidad a añadir:</label>
+                                                    <input type="number"  name="cantidad" [(ngModel)]="cantidadProducto"
+                                                        class="form-control" />
+                                                </div>
+                                                <div class="col">
+                                                    <hr style="visibility: hidden;">
+                                                    <hr style="visibility: hidden;">
+                                                    <button class="btn btn-outline-dark" (click)="AgregarProducto()"
+                                                        data-toggle="collapse" data-target="#AñadirProductoPedido"
+                                                        aria-expanded="false" aria-controls="AñadirProductoPedido">
+                                                        <span class="fas fa-plus" style="margin-right: 0rem;"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <hr style="visibility: hidden;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="visibility: hidden;">
                         <div class="table-responsive">
                             <table class="table table-responsive-sm"
                                 *ngIf='pedidoGenrado.detallesDePedidos && pedidoGenrado.detallesDePedidos.length'>
@@ -945,11 +1051,10 @@
                                         <th scope="col">#</th>
                                         <th scope="col">codigo Producto</th>
                                         <th scope="col">cantidad</th>
-                                        <th scope="col">Valor por unidad</th>
+                                        <th scope="col">Valor unitario</th>
                                         <th scope="col">Descuento</th>
                                         <th scope="col">Sub total</th>
-                                        <th scope="col">total sin iva</th>
-                                        <th scope="col">total</th>
+                                        <th scope="col">opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -960,36 +1065,77 @@
                                         <td>{{ detalle.valorUnitario }}</td>
                                         <td>{{ detalle.totalDescuento }}</td>
                                         <td>{{ detalle.subTotal}}</td>
-                                        <td>{{ detalle.total}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>total</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th>{{pedidoGenrado.descuento}}</th>
-                                        <th>{{pedidoGenrado.subTotal}}</th>
-                                        <th>{{pedidoGenrado.total - pedidoGenrado.totalIva}}</th>
-                                        <th>{{pedidoGenrado.total}}</th>
+                                        <td>
+                                            <button class="btn btn-outline-dark"
+                                                (click)="EliminarProducto(detalle)">
+                                                <span class="far fa-trash-alt"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
-                    <div class="row d-flex justify-content-center">
-                        <div class="col d-flex justify-content-star">
-                            <button class="btn btn-outline-danger" style="width: 50%" type="reset"
-                                (click)="mostrar = 'RegistrarPedido'">
-                                <span class="icon-arrow-left1"></span>Volver
-                            </button>
+                    <hr style="visibility: hidden;">
+                    <div class="col-sm-6 d-flex justify-content-end">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="fas fa-poll-h"></span>Totales.</h5>
+                                <hr>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>
+                                            Total:
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            {{pedidoGenrado.total}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>
+                                            Sub Total:
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            {{pedidoGenrado.subTotal}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>
+                                            Porcentaje iva:
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            {{pedidoGenrado.iva}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>
+                                            Total iva:
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            {{pedidoGenrado.totalIva}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <hr style="visibility: hidden;">
+
                 </form>
             </div>
         </div>
-
     </div>
-    <!-- <img [src]="imagenProductoView.imagen" alt="imagen" class="img-card-top w-100"> -->
 </div>

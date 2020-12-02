@@ -28,5 +28,7 @@ namespace Entity
         
         [Column(TypeName = "real")]
         public double Descuento { get; set; }
+        [Column(TypeName = "nvarchar(11)")]
+        public string Estado { get; set; }
     }
 }
