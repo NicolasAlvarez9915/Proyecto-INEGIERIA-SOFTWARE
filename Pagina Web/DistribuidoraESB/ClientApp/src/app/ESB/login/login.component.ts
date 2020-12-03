@@ -15,15 +15,15 @@ import { Usuario } from '../Models/usuario';
 export class LoginComponent implements OnInit {
 
   usuario: User;
-  
+
   formularioinicioSesion: FormGroup
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private service: UsuarioService,
     private modalService: NgbModal,
     private formBuilder: FormBuilder
-    ) {}
+  ) { }
 
   ngOnInit(): void {
     this.usuario = new User;
@@ -31,53 +31,53 @@ export class LoginComponent implements OnInit {
     this.buildForm();
   }
 
-  private buildForm()
-  {
+  private buildForm() {
     this.usuario = new User();
     this.usuario.contrasena = '';
     this.usuario.correo = '';
     this.formularioinicioSesion = this.formBuilder.group({
-      contrasena: [this.usuario.contrasena, Validators.required],
-      correo: [this.usuario.correo, Validators.required]
+      contrasena: [this.usuario.contrasena, Validators.required],
+      correo: [this.usuario.correo, Validators.required]
     });
   }
 
-  get control() 
-  {
+  get control() {
     return this.formularioinicioSesion.controls;
   }
 
-  onSubmit() {
-     if (this.formularioinicioSesion.invalid) {
-      return;
-     }
+  onSubmit() {
+    if (this.formularioinicioSesion.invalid) {
+      return;
+    }
     this.iniciarSession();
   }
-  BotonLogin(){
+  BotonLogin() {
     this.service.EliminarUsuarioSesion();
     document.getElementById("BtnLogin").innerHTML = "lOG";
     document.getElementById("BtnRegistrar").classList.add("Mostrar");
     document.getElementById("BtnRegistrar").classList.remove("Ocultar");
   }
-  iniciarSession(){
+  iniciarSession() {
     this.usuario = this.formularioinicioSesion.value;
     this.service.validarSession(this.usuario.correo).subscribe(usuarioRespuesta => {
-      if (usuarioRespuesta == null )
-      {
+      if (usuarioRespuesta == null) {
         const messageBox = this.modalService.open(AlertModalComponent)
         messageBox.componentInstance.title = "ALERTA";
         messageBox.componentInstance.message = "No existe un usuario con este correo";
-      }else
-      {
-        if(usuarioRespuesta.contraseña == this.usuario.contrasena)
-        {
+      } else {
+        if (usuarioRespuesta.contraseña == this.usuario.contrasena) {
           usuarioRespuesta.contraseña = null;
           this.service.GuardarUsuarioSesion(usuarioRespuesta);
           document.getElementById("BtnLogin").innerHTML = "lOG OUT";
-          this.router.navigate(['/Perfil']);
-        }else
-        {
-          
+          if (usuarioRespuesta.rol == "Administrador") {
+            this.router.navigate(['/Perfil']);
+          } else {
+            const messageBox = this.modalService.open(AlertModalComponent)
+            messageBox.componentInstance.title = "ALERTA";
+            messageBox.componentInstance.message = "El perfil del usuario que intenta ingresar esta en desarrollo";
+          }
+        } else {
+
           const messageBox = this.modalService.open(AlertModalComponent)
           messageBox.componentInstance.title = "ALERTA";
           messageBox.componentInstance.message = 'Contraseña incorrecta';

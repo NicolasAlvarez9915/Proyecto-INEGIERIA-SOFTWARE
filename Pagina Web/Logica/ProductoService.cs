@@ -16,6 +16,15 @@ namespace Logica
             this.context = context;
         }
 
+        public ProductoResponse Abastecer(Producto producto)
+        {
+            Producto productoEncontrado = BuscarProducto(producto.Codigo).producto;
+            productoEncontrado.Cantidad += producto.Cantidad;
+            context.Productos.Update(productoEncontrado);
+            context.SaveChanges();
+            return new ProductoResponse(productoEncontrado);
+        }
+
         public ProductoResponse BuscarProducto(string codigo)
         {
             Producto producto = context.Productos.Find(codigo);

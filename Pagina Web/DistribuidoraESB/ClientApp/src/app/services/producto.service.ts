@@ -17,8 +17,18 @@ export class ProductoService {
     this.baseUrl = baseUrl;
   }
 
+  Abastecer(producto: Producto): Observable<Producto>
+  {
+    return this.http.put<Producto>(this.baseUrl+'api/Producto',producto)
+    .pipe(
+      tap(_ => this.handleErrorService.log('Actualizado')),
+      catchError(this.handleErrorService.handleError<Producto>('Actualizar Producto', null))
+    )
+  }
+
   registrar(producto: Producto): Observable<Producto>
   {
+    alert(producto.cantidadMinima);
     return  this.http.post<Producto>(this.baseUrl+'api/Producto',producto)
     .pipe(
       tap(_ => this.handleErrorService.log('Resgitrado')),

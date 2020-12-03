@@ -22,6 +22,18 @@ namespace DistribuidoraESB.Controllers
             productoService = new ProductoService(context);
         }
 
+        [HttpGet("{codigo}")]
+
+        public ActionResult<PedidoViewModel> GetPedido(string codigo)
+        {
+            var response = service.buscarPedido(codigo);
+            if (response.Error){
+                return BadRequest(response.Error);
+            }
+            return new PedidoViewModel(response.pedido);
+        }
+
+
         [HttpGet]
 
         public IEnumerable<PedidoViewModel> Get()

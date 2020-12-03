@@ -41,6 +41,14 @@ export class PedidoService {
     )
   }
 
+  BuscarPedido(codigo: string): Observable<Pedido>{
+    return this.http.get<Pedido>(this.baseUrl+'api/Pedido/'+codigo)
+    .pipe(
+      tap(_ => this.handleErrorService.log('Buscando pedido bien')),
+      catchError(this.handleErrorService.handleError<Pedido>('Buscando pedido', null))
+    )
+  }
+
   todos(): Observable<Pedido[]>{
     return this.http.get<Pedido[]>(this.baseUrl+'api/Pedido')
     .pipe(

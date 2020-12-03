@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Datos;
 using Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Logica
 {
@@ -19,6 +20,15 @@ namespace Logica
         {
             return context.Pedidos.ToList();
         }
+
+        public PedidoResponse buscarPedido(string codigo)
+        {
+            Pedido pedido = context.Pedidos.Where(s => s.Codigo == codigo).Include(s => s.DetallesDePedidos).FirstOrDefault();
+            if(pedido == null){
+                return new PedidoResponse("No encontrado");
+            }
+            return new PedidoResponse(pedido);
+        } 
         
         public PedidoResponse Guardar(Pedido pedido)
         {

@@ -130,7 +130,10 @@ export class RegistroComponent implements OnInit {
                               messageBox.componentInstance.title = "BIEN HECHO.";
                               messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
                               this.usuarioService.GuardarUsuarioSesion(this.usuario);
-                              this.router.navigate(['/Perfil']);
+                              //this.router.navigate(['/Perfil']);
+                              const messageBox1 = this.modalService.open(AlertModalComponent)
+                              messageBox1.componentInstance.title = "ALERTA.";
+                              messageBox1.componentInstance.message = "El perfil del usuario que intenta ingresar esta en desarrollo.";
                             }
                           }
                         );

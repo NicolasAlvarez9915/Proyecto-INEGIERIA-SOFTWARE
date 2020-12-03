@@ -50,6 +50,10 @@
                 data-target="#collapseOpsProductos" (click)="mostrar = 'Productos'; productos()">
                 <span class="fas fa-tags"></span> Lista
             </button>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsProductos" (click)="mostrar = 'Abastecer'">
+                <span class="fas fa-parachute-box"></span> Abastecer
+            </button>
             <hr>
         </div>
         <p>
@@ -676,6 +680,72 @@
                 </form>
             </div>
         </div>
+        <div *ngIf="mostrar == 'Abastecer'">
+            <div class="Cuerpo">
+                <div class="col-sm-6">
+                    <div class="card" style="border-style: none;">
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><span class="fas fa-parachute-box"></span>Abastecer producto.</h5>
+                            <hr>
+                            <div style="margin-bottom: .5rem; font-size: .4cm;">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Referencia:</label>
+                                        <input type="number"  name="BuscarProducto"
+                                            [(ngModel)]="codigoProducto" class="form-control" />
+                                    </div>
+                                    <div class="col">
+                                        <hr style="visibility: hidden;">
+                                        <button class="btn btn-outline-dark" (click)="BuscarProducto()">
+                                            <span class="fas fa-search" style="margin-right: 0rem;"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr style="visibility: hidden;">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Nombre:</label>
+                                    </div>
+                                    <div class="col">
+                                        {{productoSeleccionado.nombre}}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Cantidad Actual:</label>
+                                    </div>
+                                    <div class="col">
+                                        {{productoSeleccionado.cantidad}}
+                                    </div>
+                                </div>
+                                <hr style="visibility: hidden;">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Cantidad a añadir:</label>
+                                        <input type="number"  name="cantidad" [(ngModel)]="cantidadProducto"
+                                            class="form-control" />
+                                    </div>
+                                    <div class="col">
+                                        <hr style="visibility: hidden;">
+                                        <button class="btn btn-outline-dark" (click)="abastecer()">
+                                            <span class="fas fa-plus" style="margin-right: 0rem;"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
+                                        (click)="mostrar = 'Principal'">
+                                        <span class="icon-arrow-left1"></span> Volver
+                                    </button>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div [ngClass]="{'Ocultar':  mostrar != 'Cliente'}">
             <div class="Cuerpo">
                 <form style="min-width: 700px;">
@@ -859,7 +929,7 @@
                                     <td>{{ pedido.descuento }}</td>
                                     <td>{{ pedido.total }}</td>
                                     <th>{{ pedido.estado }}</th>
-                                    <td><button class="btn btn-outline-dark">Ver</button></td>
+                                    <td><button class="btn btn-outline-dark" (click)="buscarPedido(pedido.codigo);mostrar = 'Pedido'">Ver</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -872,7 +942,7 @@
             <div class="Cuerpo">
                 <form class="font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;">
                     <div>
-                        <div class=" row" style="padding-right: 2rem;">
+                        <div class=" row" style="padding-right: 1rem;">
                             <div class="col">
                                 <div class="card">
                                     <div class="card-body">
@@ -1077,63 +1147,262 @@
                         </div>
                     </div>
                     <hr style="visibility: hidden;">
-                    <div class="col-sm-6 d-flex justify-content-end">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title"><span class="fas fa-poll-h"></span>Totales.</h5>
-                                <hr>
-                                <div class="row">
-                                    <div class="col">
-                                        <p>
-                                            Total:
-                                        </p>
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-sm-6 ">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><span class="fas fa-poll-h"></span>Totales.</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>
+                                                Total:
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p>
+                                                {{pedidoGenrado.total}}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <p>
-                                            {{pedidoGenrado.total}}
-                                        </p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>
+                                                Sub Total:
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p>
+                                                {{pedidoGenrado.subTotal}}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <p>
-                                            Sub Total:
-                                        </p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>
+                                                Porcentaje iva:
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p>
+                                                {{pedidoGenrado.iva}}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <p>
-                                            {{pedidoGenrado.subTotal}}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <p>
-                                            Porcentaje iva:
-                                        </p>
-                                    </div>
-                                    <div class="col">
-                                        <p>
-                                            {{pedidoGenrado.iva}}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <p>
-                                            Total iva:
-                                        </p>
-                                    </div>
-                                    <div class="col">
-                                        <p>
-                                            {{pedidoGenrado.totalIva}}
-                                        </p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>
+                                                Total iva:
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p>
+                                                {{pedidoGenrado.totalIva}}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div *ngIf="mostrar == 'Pedido'" >
+            <div class="Cuerpo">
+                <form class="font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;">
+                    <div>
+                        <div class=" row" >
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title"><span class="fas fa-user"></span>Cliente.</h5>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>
+                                                            Identificacion:
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>
+                                                            {{clienteConsuta.identificacion}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>
+                                                            Nombres:
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>
+                                                            {{clienteConsuta.nombres}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>
+                                                            Apellidos:
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>
+                                                            {{clienteConsuta.apellidos}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <h5 class="card-title"><span class="fas fa-calendar-alt"></span>Fecha.
+                                                </h5>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>
+                                                            Fecha:
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>
+                                                            {{pedidoSeleccionado.fecha}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <h5 class="card-title"><span
+                                                        class="fas fa-truck-loading"></span>Entrega.</h5>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>
+                                                            Dirección:
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>
+                                                            {{clienteConsuta.direccion}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <hr style="visibility: hidden;">
 
+                        <div class="row d-flex justify-content-center">
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-outline-danger" style="width: 150px" type="reset"
+                                    (click)="mostrar = 'Pedidos'">
+                                    <span class="icon-arrow-left1"></span>Volver
+                                </button>
+                            </div>
+                        </div>
+                        <hr style="visibility: hidden;">
+                        <div class="table-responsive">
+                            <table class="table table-responsive-sm"
+                                *ngIf='pedidoSeleccionado.detallesDePedidos && pedidoSeleccionado.detallesDePedidos.length'>
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">codigo Producto</th>
+                                        <th scope="col">cantidad</th>
+                                        <th scope="col">Valor unitario</th>
+                                        <th scope="col">Descuento</th>
+                                        <th scope="col">Sub total</th>
+                                        <th scope="col">opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let detalle of pedidoSeleccionado.detallesDePedidos; index as i">
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td>{{ detalle.codProducto }} </td>
+                                        <td>{{ detalle.cantidad }}</td>
+                                        <td>{{ detalle.valorUnitario }}</td>
+                                        <td>{{ detalle.totalDescuento }}</td>
+                                        <td>{{ detalle.subTotal}}</td>
+                                        <td>
+                                            <button class="btn btn-outline-dark"
+                                                (click)="EliminarProducto(detalle)">
+                                                <span class="far fa-trash-alt"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <hr style="visibility: hidden;">
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-sm-6 ">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><span class="fas fa-poll-h"></span>Totales.</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>
+                                                Total:
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p>
+                                                {{pedidoSeleccionado.total}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>
+                                                Sub Total:
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p>
+                                                {{pedidoSeleccionado.subTotal}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>
+                                                Porcentaje iva:
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p>
+                                                {{pedidoSeleccionado.iva}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>
+                                                Total iva:
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p>
+                                                {{pedidoSeleccionado.totalIva}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr>
                 </form>
             </div>
         </div>

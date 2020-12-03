@@ -20,6 +20,13 @@ namespace DistribuidoraESB.Controllers
             service = new ProductoService(context);
         }
 
+        [HttpPut]
+        public ActionResult<ProductoViewModel> Put(ProductoInputModel productoInput)
+        {
+            var response = service.Abastecer(MapearProducto(productoInput));
+            return Ok(response.producto);
+        }
+
         [HttpGet("Busar/{codigo}")]
         public ActionResult<ProductoViewModel> GetProducto(string codigo)
         {
@@ -54,8 +61,8 @@ namespace DistribuidoraESB.Controllers
                 Descripcion = productoInput.Descripcion,
                 Categoria = productoInput.Categoria,
                 Nombre = productoInput.Nombre,
-                Valor = productoInput.Valor
-                
+                Valor = productoInput.Valor,
+                CantidadMinima = productoInput.CantidadMinima
             };
             return producto;
         }

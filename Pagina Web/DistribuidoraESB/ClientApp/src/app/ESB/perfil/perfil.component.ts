@@ -74,6 +74,8 @@ export class PerfilComponent implements OnInit {
   mostrarOpsInterno: string;
   activa: boolean = false;
 
+  pedidoSeleccionado: Pedido = new Pedido;
+
   selectedFile: string | ArrayBuffer;
   imagenProducto: ImagenProducto = new ImagenProducto();
   imagenProductoView: ImagenproductoView = new ImagenproductoView();
@@ -108,6 +110,15 @@ export class PerfilComponent implements OnInit {
     this.resetearProductoSeleccionado();
   }
 
+  buscarPedido(codigo: string){
+    this.pedidoService.BuscarPedido(codigo).subscribe(r => {
+      this.pedidoSeleccionado = r;
+      this.clienteService.buscar(this.pedidoSeleccionado.idPersona).subscribe(r => {
+        this.clienteConsuta = r;
+      })
+    })
+  }
+
   onPhotoSelected(event: { target: { files: File[]; }; }): void {
     console.log(event);
     if (event.target.files && event.target.files[0]) {
@@ -130,7 +141,14 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-
+  abastecer(){
+    this.productoSeleccionado.cantidad = this.cantidadProducto;
+    this.productoService.Abastecer(this.productoSeleccionado).subscribe(
+      r => {
+        this.productoSeleccionado = r;
+      }
+    )
+  }
 
   AgregarProducto() {
     this.productoSeleccionado.cantidad = this.cantidadProducto;
