@@ -165,6 +165,43 @@ namespace Datos.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Vehiculos",
+                columns: table => new
+                {
+                    Placa = table.Column<string>(type: "nvarchar(8)", nullable: false),
+                    IdDomiciliario = table.Column<string>(type: "nvarchar(11)", nullable: true),
+                    FechaSoat = table.Column<DateTime>(type: "Date", nullable: false),
+                    FechaTecnoMecanica = table.Column<DateTime>(type: "Date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vehiculos", x => x.Placa);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Domiciliarios",
+                columns: table => new
+                {
+                    Identificacion = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    Nombres = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    Apellidos = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    Telefono = table.Column<string>(type: "nvarchar(15)", nullable: true),
+                    Whatsapp = table.Column<string>(type: "nvarchar(15)", nullable: true),
+                    FechaPermisoConduccion = table.Column<DateTime>(type: "Date", nullable: false),
+                    MotoPlaca = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Domiciliarios", x => x.Identificacion);
+                    table.ForeignKey(
+                        name: "FK_Domiciliarios_Vehiculos_MotoPlaca",
+                        column: x => x.MotoPlaca,
+                        principalTable: "Vehiculos",
+                        principalColumn: "Placa",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Descuentos_ClienteIdentificacion",
                 table: "Descuentos",
@@ -184,10 +221,32 @@ namespace Datos.Migrations
                 name: "IX_DetalleDePedidos_PedidoCodigo",
                 table: "DetalleDePedidos",
                 column: "PedidoCodigo");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Domiciliarios_MotoPlaca",
+                table: "Domiciliarios",
+                column: "MotoPlaca");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehiculos_IdDomiciliario",
+                table: "Vehiculos",
+                column: "IdDomiciliario");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Vehiculos_Domiciliarios_IdDomiciliario",
+                table: "Vehiculos",
+                column: "IdDomiciliario",
+                principalTable: "Domiciliarios",
+                principalColumn: "Identificacion",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Domiciliarios_Vehiculos_MotoPlaca",
+                table: "Domiciliarios");
+
             migrationBuilder.DropTable(
                 name: "Administradores");
 
@@ -211,6 +270,12 @@ namespace Datos.Migrations
 
             migrationBuilder.DropTable(
                 name: "Pedidos");
+
+            migrationBuilder.DropTable(
+                name: "Vehiculos");
+
+            migrationBuilder.DropTable(
+                name: "Domiciliarios");
         }
     }
 }

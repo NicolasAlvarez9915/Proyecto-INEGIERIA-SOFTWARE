@@ -35,6 +35,7 @@ span{
     font-size: .4cm;
     background: transparent;
     border: none;
+    text-align: start;
 }
 
 
@@ -46,6 +47,10 @@ span{
 }
 .btnbarra:focus {
     outline: none; 
+}
+
+.spanBarra{
+    padding-left: 2rem;
 }
 
 
@@ -70,7 +75,7 @@ span{
 
 .contenedor{
     background-color: white;
-    min-height: 70vh;
+    min-height: 20vh;
     width: 98%;
 }
 .cuadroNotificacion{

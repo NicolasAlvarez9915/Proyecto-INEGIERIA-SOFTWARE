@@ -56,4 +56,13 @@ export class PedidoService {
       catchError(this.handleErrorService.handleError<Pedido[]>('Consultar pedidos', null))
     )
   }
+
+  Actualizar(pedido: Pedido, estado: string): Observable<string>
+  {
+    return this.http.put<string>(this.baseUrl+'api/Pedido/'+estado,pedido)
+    .pipe(
+      tap(_ => this.handleErrorService.log('Encontrado')),
+      catchError(this.handleErrorService.handleError<string>('Actualizar estado', null))
+    );
+  }
 }

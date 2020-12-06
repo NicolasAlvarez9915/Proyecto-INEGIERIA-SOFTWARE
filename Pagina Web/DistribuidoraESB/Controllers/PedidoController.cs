@@ -22,6 +22,13 @@ namespace DistribuidoraESB.Controllers
             productoService = new ProductoService(context);
         }
 
+        [HttpPut("{Estado}")]
+        public ActionResult<String> Put(string Estado, PedidoInputModel pedidoInputModel)
+        {
+            service.ActualizarEstado(pedidoInputModel.Codigo, Estado);
+            return Ok("Correcto");
+        }
+
         [HttpGet("{codigo}")]
 
         public ActionResult<PedidoViewModel> GetPedido(string codigo)

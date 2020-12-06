@@ -9,6 +9,7 @@ import { AlertModalComponent } from 'src/app/@base/alert-modal/alert-modal.compo
 import { AdministradorService } from 'src/app/services/administrador.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { DescuentoService } from 'src/app/services/descuento.service';
+import { DomiciliarioService } from 'src/app/services/domiciliario.service';
 import { ImagenProductoService } from 'src/app/services/imagen-producto.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -17,12 +18,14 @@ import { Administrador } from '../Models/administrador';
 import { Cliente } from '../Models/cliente';
 import { Descuento } from '../Models/descuento';
 import { DetalleDePedido } from '../Models/detalle-de-pedido';
+import { Domiciliario } from '../Models/domiciliario';
 import { ImagenProducto } from '../Models/imagen-producto';
 import { ImagenproductoView } from '../Models/imagenproducto-view';
 import { Pedido } from '../Models/pedido';
 import { Producto } from '../Models/producto';
 import { SolicitudDePedido } from '../Models/solicitud-de-pedido';
 import { Usuario } from '../Models/usuario';
+import { Vehiculo } from '../Models/vehiculo';
 
 @Component({
   selector: 'app-perfil',
@@ -32,6 +35,7 @@ import { Usuario } from '../Models/usuario';
 export class PerfilComponent implements OnInit {
   formularioRegistroCliente: FormGroup;
   formularioregistroProducto: FormGroup;
+  formularioregistroDomiciliario: FormGroup;
 
   usuario: Usuario;
   administrador: Administrador;
@@ -45,6 +49,9 @@ export class PerfilComponent implements OnInit {
   productoSeleccionado: Producto = new Producto();
   productoAAgregar: Producto = new Producto();
   cantidadProducto: number;
+  estadoPedido: string;
+  domiciliario: Domiciliario;
+  vehiculo: Vehiculo;
 
   listaClientes: Cliente[];
   totalClientes: number;
@@ -60,6 +67,8 @@ export class PerfilComponent implements OnInit {
   pedidoGenrado: Pedido = new Pedido();
 
   productoConsulta: Producto = new Producto;
+
+  opcionTabbla: string = "ver";
 
   descuentoNuevo: Descuento;
   descuentoParaTodos: number = 0;
@@ -90,7 +99,8 @@ export class PerfilComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productoService: ProductoService,
     private descuentoService: DescuentoService,
-    private imagenProductoService: ImagenProductoService
+    private imagenProductoService: ImagenProductoService,
+    private domiciliarioService: DomiciliarioService
   ) {
     this.administradorActualizar = new Administrador();
   }
@@ -108,9 +118,121 @@ export class PerfilComponent implements OnInit {
     this.mostrar = 'Principal';
     this.mostrarInterno = 'Principal';
     this.resetearProductoSeleccionado();
+    this.buildFormDomiciliario();
   }
 
-  buscarPedido(codigo: string){
+  private buildFormDomiciliario() {
+    this.domiciliario = new Domiciliario();
+    this.domiciliario.moto = new Vehiculo();
+    this.usuarioRegistrar = new Usuario();
+
+    this.domiciliario.apellidos = '';
+    this.domiciliario.fechaPermisoConduccion = new Date();
+    this.domiciliario.identificacion = '';
+    this.domiciliario.nombres = '';
+    this.domiciliario.telefono = '';
+    this.domiciliario.whatsapp = '';
+
+    this.domiciliario.moto.fechaSoat = new Date();
+    this.domiciliario.moto.fechaTecnoMecanica = new Date();
+    this.domiciliario.moto.placa = '';
+
+    this.usuarioRegistrar.correo = '';
+    this.contrasenaActualizar = '';
+    this.contrasenaconfirmar = '';
+
+    this.formularioregistroDomiciliario = this.formBuilder.group({
+      apellido: [this.domiciliario.apellidos, Validators.required],
+      fechaPermisoConduccion: [this.domiciliario.fechaPermisoConduccion, Validators.required],
+      identificacion: [this.domiciliario.identificacion, Validators.required],
+      nombres: [this.domiciliario.nombres, Validators.required],
+      telefono: [this.domiciliario.telefono, Validators.required],
+      Whatsapp: [this.domiciliario.whatsapp, Validators.required],
+      fechaSoat: [this.domiciliario.moto.fechaSoat, Validators.required],
+      fechaTecnoMecanica: [this.domiciliario.moto.fechaTecnoMecanica, Validators.required],
+      placa: [this.domiciliario.moto.placa, Validators.required],
+      correo: [this.usuarioRegistrar.correo, Validators.required],
+      contrasena: [this.contrasenaActualizar, Validators.required],
+      contrasenaConfirmar: [this.contrasenaconfirmar, Validators.required]
+    });
+  }
+
+  get controlDomiciliario() {
+    return this.formularioregistroDomiciliario.controls
+  }
+
+  onSubmitDomiciliario() {
+    if (this.formularioregistroDomiciliario.invalid) {
+      return;
+    }
+    this.registrarDomiciliario();
+  }
+
+  registrarDomiciliario() {
+    this.llenarObjetos();
+    if (this.contrasenaconfirmar != this.contrasenaActualizar) {
+      const messageBox = this.modalService.open(AlertModalComponent)
+      messageBox.componentInstance.title = "ALERTA";
+      messageBox.componentInstance.message = "Las contraseñas no coninciden";
+    } else {
+      this.domiciliarioService.validarExistenciaDomiciliario(this.domiciliario.identificacion).subscribe(r => {
+        if (r == null) {
+          this.domiciliarioService.validarExistenciaVehiculo(this.domiciliario.moto.placa).subscribe(s => {
+            if (s == null) {
+              this.usuarioService.validarSession(this.usuarioRegistrar.correo).subscribe(a => {
+                if (a == null) {
+                  this.domiciliarioService.registrar(this.domiciliario).subscribe(d => {
+                    this.usuarioService.post(this.usuarioRegistrar).subscribe(f => {
+                      const messageBox = this.modalService.open(AlertModalComponent)
+                      messageBox.componentInstance.title = "BIEN HECHO";
+                      messageBox.componentInstance.message = "Domiciliario Registrado correctamente.";
+                    })
+                  })
+                } else {
+
+                  const messageBox = this.modalService.open(AlertModalComponent)
+                  messageBox.componentInstance.title = "ALERTA";
+                  messageBox.componentInstance.message = "Existee un usuario con este correo registrado.";
+                }
+              });
+            } else {
+
+              const messageBox = this.modalService.open(AlertModalComponent)
+              messageBox.componentInstance.title = "ALERTA";
+              messageBox.componentInstance.message = "Vehiculo existente.";
+            }
+          });
+        } else {
+
+          const messageBox = this.modalService.open(AlertModalComponent)
+          messageBox.componentInstance.title = "ALERTA";
+          messageBox.componentInstance.message = "Domiciliario existente.";
+        }
+      });
+    }
+  }
+
+  llenarObjetos() {
+    this.domiciliario = this.formularioregistroDomiciliario.value;
+    this.vehiculo = new Vehiculo();
+    this.vehiculo.fechaSoat = this.formularioregistroDomiciliario.value.fechaSoat;
+    this.vehiculo.fechaTecnoMecanica = this.formularioregistroDomiciliario.value.fechaTecnoMecanica;
+    this.vehiculo.placa = this.formularioregistroDomiciliario.value.placa;
+    this.vehiculo.idDomiciliario = this.domiciliario.identificacion;
+    this.domiciliario.moto = this.vehiculo;
+    this.usuarioRegistrar = new Usuario();
+    this.usuarioRegistrar.contraseña = this.formularioregistroDomiciliario.value.contrasenaActualizar;
+    this.usuarioRegistrar.correo = this.formularioregistroDomiciliario.value.correo;
+    this.usuarioRegistrar.idPersona = this.domiciliario.identificacion;
+    this.usuarioRegistrar.rol = "Domiciliario";
+  }
+
+  actualizarPedido() {
+    this.pedidoService.Actualizar(this.pedidoSeleccionado, this.estadoPedido).subscribe(r => {
+      this.buscarPedido(this.pedidoSeleccionado.codigo);
+    });
+  }
+  buscarPedido(codigo: string) {
     this.pedidoService.BuscarPedido(codigo).subscribe(r => {
       this.pedidoSeleccionado = r;
       this.clienteService.buscar(this.pedidoSeleccionado.idPersona).subscribe(r => {
@@ -131,7 +253,7 @@ export class PerfilComponent implements OnInit {
     }
     console.log(this.selectedFile);
     console.log(this.imagenProducto.imagen);
-    
+
 
   }
 
@@ -141,7 +263,7 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-  abastecer(){
+  abastecer() {
     this.productoSeleccionado.cantidad = this.cantidadProducto;
     this.productoService.Abastecer(this.productoSeleccionado).subscribe(
       r => {
@@ -157,12 +279,12 @@ export class PerfilComponent implements OnInit {
     this.resetearProductoSeleccionado();
   }
 
-  EliminarProducto(detalle: DetalleDePedido){
+  EliminarProducto(detalle: DetalleDePedido) {
     for (let index = 0; index < this.listaProductoPedido.length; index++) {
       const element = this.listaProductoPedido[index];
-      if(element.codigo === detalle.codProducto){
+      if (element.codigo === detalle.codProducto) {
         let producto = this.listaProductoPedido.indexOf(element);
-        if (producto !== -1){
+        if (producto !== -1) {
           this.listaProductoPedido.splice(producto, 1);
         }
       }
@@ -176,13 +298,11 @@ export class PerfilComponent implements OnInit {
         const messageBox = this.modalService.open(AlertModalComponent)
         messageBox.componentInstance.title = "BIEN HECHO.";
         messageBox.componentInstance.message = "Pedido registrado correctamente.";
-        this.pedidoGenrado = new Pedido();
         this.listaProductoPedido = [];
         this.productoSeleccionado = new Producto();
         this.pedidos();
       }
     })
-
   }
 
   generarPedido() {
@@ -250,9 +370,9 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-  productosSindescuento(){
+  productosSindescuento() {
     this.descuentoParaTodos = 0;
-    
+
     this.descuentoService.ProductosSinDescuento(this.clienteConsuta.identificacion).subscribe(r => {
       this.listaProductosSinDescuento = r;
       this.listaDescuentosNuevos = [];
@@ -322,7 +442,6 @@ export class PerfilComponent implements OnInit {
     this.producto.cantidadMinima = 1;
     this.producto.categoria = '';
 
-
     this.formularioRegistroCliente = this.formBuilder.group({
       identificacion: [this.clienteRegistrar.identificacion, Validators.required],
       nombres: [this.clienteRegistrar.nombres, Validators.required],
@@ -353,7 +472,7 @@ export class PerfilComponent implements OnInit {
   }
 
 
-  verProducto(producto: Producto){
+  verProducto(producto: Producto) {
     this.productoConsulta = producto;
     this.mostrar = "Producto";
     this.consultarImagen(producto.codigo);
@@ -364,13 +483,13 @@ export class PerfilComponent implements OnInit {
     switch (this.mostrarInterno) {
       case "Cliente":
         this.mostrar = 'Cliente';
-      break;
+        break;
       case "Descuentos":
         this.mostrar = 'DescuentosCliente';
-      break;
+        break;
       case "RegistrarPedido":
         this.mostrar = "SelccionarProductosPedido";
-      break;
+        break;
     }
   }
 

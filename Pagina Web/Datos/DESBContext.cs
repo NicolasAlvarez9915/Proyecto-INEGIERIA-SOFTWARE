@@ -17,7 +17,8 @@ namespace Datos
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<DetalleDePedido> DetalleDePedidos { get; set; }
         public DbSet<ImagenProducto> ImagenProductos { get; set; }
-
+        public DbSet<Domiciliario> Domiciliarios { get; set; }
+        public DbSet<Vehiculo> Vehiculos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Descuento>()
@@ -29,6 +30,11 @@ namespace Datos
             .HasOne<Pedido>()
             .WithMany()
             .HasForeignKey(p => p.CodPedido);
+
+            modelBuilder.Entity<Vehiculo>()
+            .HasOne<Domiciliario>()
+            .WithMany()
+            .HasForeignKey(p => p.IdDomiciliario);
         }
     }
 }

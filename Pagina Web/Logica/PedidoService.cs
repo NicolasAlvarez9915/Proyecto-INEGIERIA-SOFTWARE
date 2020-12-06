@@ -154,6 +154,14 @@ namespace Logica
             detalleDePedido.Codigo = null;
             return detalleDePedido;
         }
+
+        public void ActualizarEstado(string Codigo, string Estado)
+        {
+            Pedido pedidoEncontrado = context.Pedidos.Find(Codigo);
+            pedidoEncontrado.Estado = Estado;
+            context.Pedidos.Update(pedidoEncontrado);
+            context.SaveChanges();
+        }
     }
 
     public class PedidoResponse 

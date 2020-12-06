@@ -42,8 +42,8 @@ import { FiltroProductoPipe } from './pipe/filtro-producto.pipe';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: PrincipalComponent, pathMatch: 'full' }
-    ]),
+    { path: '', component: PrincipalComponent, pathMatch: 'full' }
+], { relativeLinkResolution: 'legacy' }),
     AppRoutingModule,
     NgbModule
   ],

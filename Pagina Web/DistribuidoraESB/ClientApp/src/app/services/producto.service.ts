@@ -28,7 +28,6 @@ export class ProductoService {
 
   registrar(producto: Producto): Observable<Producto>
   {
-    alert(producto.cantidadMinima);
     return  this.http.post<Producto>(this.baseUrl+'api/Producto',producto)
     .pipe(
       tap(_ => this.handleErrorService.log('Resgitrado')),

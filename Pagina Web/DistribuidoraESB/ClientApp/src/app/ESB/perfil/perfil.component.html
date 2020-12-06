@@ -6,74 +6,75 @@
         <hr>
         <p>
             <button class="btnbarra" style="width: 100%; " type="bootton" (click)="mostrar = 'EditarInfo'">
-                <span class="far fa-edit"></span> Editar info
+                <span class="far fa-edit spanBarra"></span> Editar info
             </button>
         </p>
         <p>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes">
-                <span class="fas fa-users"></span>Clientes
+                <span class="fas fa-users spanBarra"></span>Clientes
             </button>
         </p>
-        <div class="collapse OpsMenu" id="collapseOpsClientes">
+        <div class=" collapse OpsMenu" id="collapseOpsClientes">
             <hr style="background-color: rgb(250, 81, 81);">
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
                 (click)="mostrar ='RegistrarCliente'">
-                <span class="fas fa-user-plus"></span>Registrar
+                <span class="fas fa-user-plus spanBarra"></span>Registrar
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
                 (click)="mostrar = 'Clientes';mostrarInterno='Cliente';clientes()">
-                <span class="fas fa-users"></span>Lista
+                <span class="fas fa-users spanBarra"></span>Lista
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
                 (click)="mostrar = 'Clientes'; mostrarInterno='Descuentos'">
-                <span class="fas fa-percentage"></span>Descuentos
+                <span class="fas fa-percentage spanBarra"></span>Descuentos
             </button>
             <hr>
         </div>
         <p>
             <button class=" btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsProductos" aria-expanded="false" aria-controls="collapseOpsProductos">
-                <span class="fas fa-tags"></span>Productos
+                <span class="fas fa-tags spanBarra"></span>Productos
             </button>
         </p>
         <div class="collapse OpsMenu" id="collapseOpsProductos">
             <hr>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsProductos" (click)="mostrar ='RegistrarPrdocuto'; selectedFile = null">
-                <span class="fas fa-tag"></span> Registrar
+                <span class="fas fa-tag spanBarra"></span> Registrar
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsProductos" (click)="mostrar = 'Productos'; productos()">
-                <span class="fas fa-tags"></span> Lista
+                <span class="fas fa-tags spanBarra"></span> Lista
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsProductos" (click)="mostrar = 'Abastecer'">
-                <span class="fas fa-parachute-box"></span> Abastecer
+                <span class="fas fa-parachute-box spanBarra"></span> Abastecer
             </button>
             <hr>
         </div>
         <p>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos">
-                <span class="fas fa-suitcase-rolling"></span>Pedidos
+                <span class="fas fa-suitcase-rolling spanBarra"></span>Pedidos
             </button>
         </p>
         <div class="collapse OpsMenu" id="collapseOpsPedidos">
             <hr style="background-color: rgb(250, 81, 81);">
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
-                (click)="mostrar ='Clientes';mostrarInterno='RegistrarPedido'">
-                <span class="fas fa-suitcase-rolling"></span>Registrar
+                (click)="mostrar ='Clientes';mostrarInterno='RegistrarPedido'; opcionTabbla = 'Registrar'">
+                <span class="fas fa-suitcase-rolling spanBarra"></span>Registrar
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
-                (click)="mostrar = 'Pedidos';pedidos()">
-                <span class="fas fa-suitcase-rolling"></span>Lista
+                (click)="mostrar = 'Pedidos';pedidos(); opcionTabbla = 'ver'">
+                <span class="fas fa-suitcase-rolling spanBarra"></span>Lista
             </button>
+
             <hr>
         </div>
     </div>
@@ -401,8 +402,9 @@
                     <div class="row">
                         <div class="col">
                             <label>Filtro por identificacion.</label>
-                            <input class="form-control col-5" type="text" style="width: 200px;" placeholder="Identificacion"
-                                [(ngModel)]="filtroClientes" [ngModelOptions]="{standalone: true}">
+                            <input class="form-control col-5" type="text" style="width: 200px;"
+                                placeholder="Identificacion" [(ngModel)]="filtroClientes"
+                                [ngModelOptions]="{standalone: true}">
                         </div>
                         <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
                             <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
@@ -411,7 +413,7 @@
                             </button>
                         </div>
                     </div>
-                    
+
                     <hr style="visibility: hidden;">
 
 
@@ -442,7 +444,8 @@
                                     <td>{{ cliente.direccion }}</td>
                                     <td>{{ cliente.horaio }}</td>
                                     <td>{{ cliente.tipoCliente }}</td>
-                                    <td><button class="btn btn-outline-dark" (click)="vercliente(cliente)">Ver</button>
+                                    <td><button class="btn btn-outline-dark"
+                                            (click)="vercliente(cliente)">{{opcionTabbla}}</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -571,7 +574,7 @@
                             </button>
                         </div>
                     </div>
-                    
+
                     <hr style="visibility: hidden;">
                     <div class="table-responsive">
                         <table class="table table-responsive-sm" *ngIf='listaProductos && listaProductos.length'>
@@ -594,7 +597,8 @@
                                     <td>{{ producto.nombre }}</td>
                                     <td>{{ producto.cantidad }}</td>
                                     <td>{{ producto.valor}}</td>
-                                    <td><button class="btn btn-outline-dark" (click)="verProducto(producto)">Ver</button></td>
+                                    <td><button class="btn btn-outline-dark"
+                                            (click)="verProducto(producto)">Ver</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -611,7 +615,7 @@
                     </div>
                     <hr>
                     <div class="info">
-                        
+
                         <div class="row">
                             <div class="col">
                                 <img [src]="imagenProductoView.imagen" alt="imagen" class="img-card-top w-100">
@@ -619,7 +623,7 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col">
-                                        <label >Categoria: </label>
+                                        <label>Categoria: </label>
                                     </div>
                                     <div class="col">
                                         <p>
@@ -629,7 +633,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <label >Cantidad: </label>
+                                        <label>Cantidad: </label>
                                     </div>
                                     <div class="col">
                                         <p>
@@ -639,7 +643,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <label >Cantidad minima: </label>
+                                        <label>Cantidad minima: </label>
                                     </div>
                                     <div class="col">
                                         <p>
@@ -649,7 +653,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <label >Valor unitario: </label>
+                                        <label>Valor unitario: </label>
                                     </div>
                                     <div class="col">
                                         <p>
@@ -659,7 +663,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <label >Descripción: </label>
+                                        <label>Descripción: </label>
                                     </div>
                                     <div class="col">
                                         <p>
@@ -685,14 +689,15 @@
                 <div class="col-sm-6">
                     <div class="card" style="border-style: none;">
                         <div class="card-body">
-                            <h5 class="card-title text-center"><span class="fas fa-parachute-box"></span>Abastecer producto.</h5>
+                            <h5 class="card-title text-center"><span class="fas fa-parachute-box"></span>Abastecer
+                                producto.</h5>
                             <hr>
                             <div style="margin-bottom: .5rem; font-size: .4cm;">
                                 <div class="row">
                                     <div class="col">
                                         <label>Referencia:</label>
-                                        <input type="number"  name="BuscarProducto"
-                                            [(ngModel)]="codigoProducto" class="form-control" />
+                                        <input type="number"  name="BuscarProducto" [(ngModel)]="codigoProducto"
+                                            class="form-control" />
                                     </div>
                                     <div class="col">
                                         <hr style="visibility: hidden;">
@@ -778,8 +783,7 @@
                         </div>
                     </div>
                     <div class="col d-flex justify-content-end">
-                        <button class="btn btn-outline-danger" style=" width: 150px"
-                            (click)="mostrar = 'Clientes'">
+                        <button class="btn btn-outline-danger" style=" width: 150px" (click)="mostrar = 'Clientes'">
                             <span class="icon-arrow-left1"></span> Volver
                         </button>
                     </div>
@@ -929,7 +933,9 @@
                                     <td>{{ pedido.descuento }}</td>
                                     <td>{{ pedido.total }}</td>
                                     <th>{{ pedido.estado }}</th>
-                                    <td><button class="btn btn-outline-dark" (click)="buscarPedido(pedido.codigo);mostrar = 'Pedido'">Ver</button></td>
+                                    <td><button class="btn btn-outline-dark"
+                                            (click)="buscarPedido(pedido.codigo);mostrar = 'Pedido'">{{opcionTabbla}}</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1025,7 +1031,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <hr style="visibility: hidden;">
 
@@ -1136,8 +1142,7 @@
                                         <td>{{ detalle.totalDescuento }}</td>
                                         <td>{{ detalle.subTotal}}</td>
                                         <td>
-                                            <button class="btn btn-outline-dark"
-                                                (click)="EliminarProducto(detalle)">
+                                            <button class="btn btn-outline-dark" (click)="EliminarProducto(detalle)">
                                                 <span class="far fa-trash-alt"></span>
                                             </button>
                                         </td>
@@ -1209,11 +1214,11 @@
                 </form>
             </div>
         </div>
-        <div *ngIf="mostrar == 'Pedido'" >
+        <div *ngIf="mostrar == 'Pedido'">
             <div class="Cuerpo">
                 <form class="font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;">
                     <div>
-                        <div class=" row" >
+                        <div class=" row">
                             <div class="col">
                                 <div class="card">
                                     <div class="card-body">
@@ -1291,19 +1296,40 @@
                                                         </p>
                                                     </div>
                                                 </div>
+                                                <div class="row" >
+                                                    <div class="col">
+                                                        <p>
+                                                            Estado:
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>
+                                                            {{pedidoSeleccionado.estado}}
+                                                            
+                                                        </p>
+                                                        <div *ngIf="pedidoSeleccionado.estado != 'Entregado'">
+                                                            <select class="form-control " name= "Estado" [(ngModel)]="estadoPedido">
+                                                                <option value="En camino" *ngIf="pedidoSeleccionado.estado != 'En camino'">En camino</option>
+                                                                <option value="Entregado">Entregado</option>
+                                                            </select>
+                                                            <button class="btn btn-outline-dark" style="padding-top: 1rem;" (click)="actualizarPedido()"><span
+                                                                    class="fa fa-sync-alt" style="padding-right: 0rem;"></span></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <hr style="visibility: hidden;">
 
                         <div class="row d-flex justify-content-center">
                             <div class="col d-flex justify-content-end">
                                 <button class="btn btn-outline-danger" style="width: 150px" type="reset"
-                                    (click)="mostrar = 'Pedidos'">
+                                    (click)="mostrar = 'Pedidos'; pedidos()">
                                     <span class="icon-arrow-left1"></span>Volver
                                 </button>
                             </div>
@@ -1320,7 +1346,6 @@
                                         <th scope="col">Valor unitario</th>
                                         <th scope="col">Descuento</th>
                                         <th scope="col">Sub total</th>
-                                        <th scope="col">opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1331,12 +1356,6 @@
                                         <td>{{ detalle.valorUnitario }}</td>
                                         <td>{{ detalle.totalDescuento }}</td>
                                         <td>{{ detalle.subTotal}}</td>
-                                        <td>
-                                            <button class="btn btn-outline-dark"
-                                                (click)="EliminarProducto(detalle)">
-                                                <span class="far fa-trash-alt"></span>
-                                            </button>
-                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1401,10 +1420,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <hr>
                 </form>
             </div>
         </div>
+        
     </div>
 </div>

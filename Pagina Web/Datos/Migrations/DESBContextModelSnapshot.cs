@@ -151,6 +151,36 @@ namespace Datos.Migrations
                     b.ToTable("DetalleDePedidos");
                 });
 
+            modelBuilder.Entity("Entity.Domiciliario", b =>
+                {
+                    b.Property<string>("Identificacion")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("Apellidos")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("FechaPermisoConduccion")
+                        .HasColumnType("Date");
+
+                    b.Property<string>("MotoPlaca")
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<string>("Nombres")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Whatsapp")
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Identificacion");
+
+                    b.HasIndex("MotoPlaca");
+
+                    b.ToTable("Domiciliarios");
+                });
+
             modelBuilder.Entity("Entity.ImagenProducto", b =>
                 {
                     b.Property<string>("CodProducto")
@@ -245,6 +275,27 @@ namespace Datos.Migrations
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("Entity.Vehiculo", b =>
+                {
+                    b.Property<string>("Placa")
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<DateTime>("FechaSoat")
+                        .HasColumnType("Date");
+
+                    b.Property<DateTime>("FechaTecnoMecanica")
+                        .HasColumnType("Date");
+
+                    b.Property<string>("IdDomiciliario")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.HasKey("Placa");
+
+                    b.HasIndex("IdDomiciliario");
+
+                    b.ToTable("Vehiculos");
+                });
+
             modelBuilder.Entity("Entity.Descuento", b =>
                 {
                     b.HasOne("Entity.Cliente", null)
@@ -265,6 +316,20 @@ namespace Datos.Migrations
                     b.HasOne("Entity.Pedido", null)
                         .WithMany("DetallesDePedidos")
                         .HasForeignKey("PedidoCodigo");
+                });
+
+            modelBuilder.Entity("Entity.Domiciliario", b =>
+                {
+                    b.HasOne("Entity.Vehiculo", "Moto")
+                        .WithMany()
+                        .HasForeignKey("MotoPlaca");
+                });
+
+            modelBuilder.Entity("Entity.Vehiculo", b =>
+                {
+                    b.HasOne("Entity.Domiciliario", null)
+                        .WithMany()
+                        .HasForeignKey("IdDomiciliario");
                 });
 #pragma warning restore 612, 618
         }
