@@ -181,6 +181,7 @@ export class PerfilComponent implements OnInit {
             if (s == null) {
               this.usuarioService.validarSession(this.usuarioRegistrar.correo).subscribe(a => {
                 if (a == null) {
+                  
                   this.domiciliarioService.registrar(this.domiciliario).subscribe(d => {
                     this.usuarioService.post(this.usuarioRegistrar).subscribe(f => {
                       const messageBox = this.modalService.open(AlertModalComponent)
