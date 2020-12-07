@@ -1327,6 +1327,18 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <p>
+                                                            Ruta:
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>
+                                                            {{pedidoSeleccionado.codRuta}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>
                                                             Estado:
                                                         </p>
                                                     </div>
@@ -1751,6 +1763,9 @@
                     <hr>
                 </form>
             </div>
+        </div>
+        <div *ngIf="mostrar == 'RegistrarRuta'">
+            
         </div>
     </div>
 </div>

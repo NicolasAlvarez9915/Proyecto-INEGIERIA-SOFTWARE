@@ -64,6 +64,21 @@ namespace Logica
         {
             return context.Domiciliarios.ToList();
         }
+
+        public List<Domiciliario> DomiciliariosSinRuta()
+        {
+            List<Domiciliario> domiciliarios = Todos();
+            List<Ruta> rutas = context.Rutas.ToList();
+            List<Domiciliario> domiciliariosSinRuta = new List<Domiciliario>();
+            foreach (Domiciliario domiciliario in domiciliarios)
+            {
+                if(!rutas.Any(c => c.CodDomiciliario == domiciliario.Identificacion))
+                {
+                    domiciliariosSinRuta.Add(domiciliario);
+                }
+            }
+            return domiciliariosSinRuta;
+        }
     }
 
     public class VehiculoResponse 

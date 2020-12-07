@@ -1,0 +1,7 @@
+git branch test
+git checkout test
+git branch -D nombre-rama
+git checkout master
+git merge test
+
+https://github.com/AnyaMiyeth/Factura

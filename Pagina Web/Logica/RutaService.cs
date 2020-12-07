@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Datos;
 using Entity;
@@ -19,6 +20,8 @@ namespace Logica
         {
             try
             {
+                AsigarPedidosAUnaRuta(ruta.Pedidos, false);
+                ruta.Pedidos = null;
                 context.Rutas.Add(ruta);
                 context.SaveChanges();
                 return new RutaResponse(ruta);
@@ -37,6 +40,32 @@ namespace Logica
                 return new RutaResponse("No existe");
             }
             return new RutaResponse(ruta);
+        }
+
+        public List<Ruta> Rutas()
+        {
+            return context.Rutas.ToList();
+        }
+
+        public void AsigarPedidosAUnaRuta(List<Pedido> pedidos, bool Guardar)
+        {
+            foreach (var pedido in pedidos)
+            {
+                Pedido pedidoEncontrado = context.Pedidos.Find(pedido.Codigo);
+                pedidoEncontrado.CodRuta = pedido.CodRuta;
+                context.Pedidos.Update(pedidoEncontrado);
+                if (Guardar){
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public void AsigarRutaAUnDomiciliario(Ruta ruta)
+        {
+            Ruta RutaEncontrada = context.Rutas.Find(ruta.Codigo);
+            RutaEncontrada.CodDomiciliario = ruta.CodDomiciliario;
+            context.Rutas.Update(RutaEncontrada);
+            context.SaveChanges();
         }
     }
 

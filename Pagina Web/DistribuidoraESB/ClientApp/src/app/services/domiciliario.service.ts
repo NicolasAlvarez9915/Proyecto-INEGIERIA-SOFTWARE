@@ -57,4 +57,12 @@ export class DomiciliarioService {
       catchError(this.handleErrorService.handleError<Vehiculo>('Buscar Moto', null))
     );
   }
+
+  sinRuta(): Observable<Domiciliario[]>{
+    return this.http.get<Domiciliario[]>(this.baseUrl+'api/Domiciliario/SinRuta')
+    .pipe(
+      tap(_ => this.handleErrorService.log('Encontrado')),
+      catchError(this.handleErrorService.handleError<Domiciliario[]>('Buscar todos', null))
+    );
+  }
 }

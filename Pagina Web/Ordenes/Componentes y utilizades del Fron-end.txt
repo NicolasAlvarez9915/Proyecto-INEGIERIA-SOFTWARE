@@ -1,0 +1,245 @@
+Componentes y utilizades del Fron-end.
+
+1- Servicios.
+
+ng g service --skipTests=true services/"Nombre del servicio"
+
+2- Componentes.
+
+ng g c --skipTests=true "Nombre de la carpeta donde se creara"/"Nombre del componente" --module app 
+
+3- Archivo para enrutar.
+
+ng generate module app-routing --flat --module=app
+
+4- Modelos.
+
+ng g class --skipTests=true "Nombre de la carpeta donde se creara"/models/"Nombre del modelo"
+
+5- Handlersn error:
+
+ng generate service @base/handleHttpError.
+
+6- Implementacion de Swagger.
+
+Instalar en la capa de presentacion.
+
+dotnet add package Swashbuckle.AspNetCore.Swagger --version 5.6.3
+
+dotnet add "Nombre capa presentacion".csproj package Swashbuckle.AspNetCore -v 5.6.3
+
+startup.cs 
+
+dentro del metodo configure:
+
+//start swagger
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+});
+//end swagger
+
+dentro del metodo configureServices:
+
+//Agregar OpenApi Swagger
+services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "School API",
+        Description = "School API - ASP.NET Core Web API",
+        TermsOfService = new Uri("https://cla.dotnetfoundation.org/"),
+        Contact = new OpenApiContact
+        {
+            Name = "Unicesar",
+            Email = string.Empty,
+            Url = new Uri("https://github.com/borisgr04/CrudNgDotNetCore3"),
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Licencia dotnet foundation",
+            Url = new Uri("https://www.byasystems.co/license"),
+        }
+    });
+});
+
+Verificar version:
+https://www.nuget.org/packages/Swashbuckle.AspNetCore.Swagger/
+
+6- Instalar nGBootstrap
+
+ng add @ng-bootstrap/ng-Bootstrap
+
+Importar en el app.nodulo.ts
+
+
+import: [
+	NgbModule
+],
+
+7- Creacion de Modal.
+
+ng g c @base/alertModal --module=app
+
+Html del modal:
+<div class="modal-header">
+    <h4 class="modal-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <span [innerHTML]="message"></span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cerrar</button>
+  </div>
+
+
+Componente ts del Modal.
+
+constructor(public activeModal: NgbActiveModal) { }
+  @Input() title;
+  @Input() message;
+  ngOnInit(): void {
+  }
+
+Definir al modal para crealo en tiempo de ejecucion.
+
+import: [
+	NgbModule
+],
+entryComponents:[AlertModalComponent],
+
+Ejemplo para llamarlo:
+
+ts del componente que llamara al modal.
+
+
+constructor(private modalService: NgbModal) { }
+
+
+const messageBox = this.modalService.open(AlertModalComponent)
+messageBox.componentInstance.title = "Resultado Operación";
+messageBox.componentInstance.message = 'Persona creada!!! :-)';
+this.persona = p;
+
+
+8- Implementacion de Pipe.
+
+ng generate pipe pipe\filtroPersona --module app
+
+transform(persona: Persona[], searchText: string): any {
+  if (searchText == null) return persona;
+	return persona.filter(p =>
+	p.nombre.toLowerCase()
+	.indexOf(searchText.toLowerCase()) !== -1);
+}
+
+
+<tbody>
+    <tr *ngFor="let persona of personas|filtroPersona:searchText;index as i ">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ persona.identificacion }} </td>
+      <td>{{ persona.nombre }}</td>
+      <td>{{persona.sexo  }}</td>
+      <td>{{ persona.edad  }}</td>
+      <td>{{ persona.pulsacion  }}</td>
+      <td> <a routerLink='/personaEdicion/{{persona.identificacion}}'>  ver </a></td>
+    </tr>
+  </tbody>
+
+9- Implementacion de formulario reactivo.
+
+Importar en el app.nodulo.ts
+
+
+import: [
+	ReactiveFormsModule
+],
+
+En el ts del componente que necesite el formulario reactivo.
+
+ formGroup: FormGroup;
+ 
+  constructor(private formBuilder: FormBuilder) { }
+	ngOnInit() {
+      this.buildForm();
+    }
+	private buildForm() {
+      this.formGroup = this.formBuilder.group({ });
+  }
+
+
+private buildForm() {
+    this.persona = new Persona();
+    this.persona.identificacion = '';
+    this.persona.nombre = '';
+    this.persona.edad = 0;
+    this.persona.pulsacion = 0;
+    this.persona.sexo = ‘’;
+
+    this.formGroup = this.formBuilder.group({
+      identificacion: [this.persona.identificacion, Validators.required],
+      nombre: [this.persona.nombre, Validators.required],
+      sexo: [this.persona.sexo, [Validators.required, this.validaSexo]],
+      edad: [this.persona.edad, [Validators.required, Validators.min(1)]]
+    });
+  }
+
+private ValidaSexo(control: AbstractControl) {
+ const sexo = control.value;
+ if (sexo.toLocaleUpperCase() !== 'M' && sexo.toLocaleUpperCase() !== 'F') {
+  return { validSexo: true, messageSexo: 'Sexo No Valido’ 	};
+ }
+  return null;
+}
+
+
+get control() { 
+return this.formGroup.controls;
+ }
+
+
+onSubmit() {
+    if (this.formGroup.invalid) {
+      return;
+    }
+    this.add();
+  }
+
+add() {
+    this.persona = this.formGroup.value;
+    this.personaService.post(this.persona).subscribe(p => {
+      if (p != null) {
+        alert('Persona creada!');
+        this.persona = p;
+      }
+    });
+
+En el html del componente.
+
+<form [formGroup]="formGroup">
+	<div class="form-group">
+	<label for="identificacion" >Identificacion</label>
+	<input name="identificacion" type="text" formControlName="identificacion" 
+        class="form-control" [ngClass]="{ 'is-invalid':  control.sexo.errors}/>
+		<div *ngIf="control.nombre.errors" class="invalid-feedback">
+			<div *ngIf="control.nombre.errors.required">Se require el nombre</div>
+		</div>
+
+<div class="text-center">
+	<button class="btn btn-primary mr-1" 
+		 (click)="onSubmit()" 
+		[disabled]="formGroup.invalid">Registrar
+	</button>
+	<button class="btn btn-secondary" type="reset">Cancel</button>
+</div>
+
+
+
+https://www.templatemonster.com/help/es/css-understanding-border-margin-and-padding-properties.html
+
+https://medium.com/angular-chile/comunicaci%C3%B3n-entre-componentes-explicado-con-dragon-ball-z-angular-7-parte-1-f1c67f745515

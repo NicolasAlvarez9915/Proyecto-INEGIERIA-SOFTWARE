@@ -70,25 +70,6 @@ namespace Datos.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pedidos",
-                columns: table => new
-                {
-                    Codigo = table.Column<string>(type: "nvarchar(11)", nullable: false),
-                    IdPersona = table.Column<string>(type: "nvarchar(11)", nullable: true),
-                    Fecha = table.Column<DateTime>(type: "Date", nullable: false),
-                    SubTotal = table.Column<float>(type: "real", nullable: false),
-                    Iva = table.Column<int>(type: "int", nullable: false),
-                    TotalIva = table.Column<float>(type: "real", nullable: false),
-                    Total = table.Column<float>(type: "real", nullable: false),
-                    Descuento = table.Column<float>(type: "real", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(11)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pedidos", x => x.Codigo);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Productos",
                 columns: table => new
                 {
@@ -103,6 +84,18 @@ namespace Datos.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Productos", x => x.Codigo);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rutas",
+                columns: table => new
+                {
+                    Codigo = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    CodDomiciliario = table.Column<string>(type: "nvarchar(11)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rutas", x => x.Codigo);
                 });
 
             migrationBuilder.CreateTable(
@@ -155,6 +148,32 @@ namespace Datos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Pedidos",
+                columns: table => new
+                {
+                    Codigo = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    CodRuta = table.Column<string>(type: "nvarchar(11)", nullable: true),
+                    IdPersona = table.Column<string>(type: "nvarchar(11)", nullable: true),
+                    Fecha = table.Column<DateTime>(type: "Date", nullable: false),
+                    SubTotal = table.Column<float>(type: "real", nullable: false),
+                    Iva = table.Column<int>(type: "int", nullable: false),
+                    TotalIva = table.Column<float>(type: "real", nullable: false),
+                    Total = table.Column<float>(type: "real", nullable: false),
+                    Descuento = table.Column<float>(type: "real", nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(11)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pedidos", x => x.Codigo);
+                    table.ForeignKey(
+                        name: "FK_Pedidos_Rutas_CodRuta",
+                        column: x => x.CodRuta,
+                        principalTable: "Rutas",
+                        principalColumn: "Codigo",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DetalleDePedidos",
                 columns: table => new
                 {
@@ -168,15 +187,14 @@ namespace Datos.Migrations
                     TotalDescuento = table.Column<float>(type: "real", nullable: false),
                     SubTotal = table.Column<float>(type: "real", nullable: false),
                     TotalConDescuento = table.Column<float>(type: "real", nullable: false),
-                    total = table.Column<float>(type: "real", nullable: false),
-                    CondPedido = table.Column<string>(nullable: true)
+                    total = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DetalleDePedidos", x => x.Codigo);
                     table.ForeignKey(
-                        name: "FK_DetalleDePedidos_Pedidos_CondPedido",
-                        column: x => x.CondPedido,
+                        name: "FK_DetalleDePedidos_Pedidos_CodPedido",
+                        column: x => x.CodPedido,
                         principalTable: "Pedidos",
                         principalColumn: "Codigo",
                         onDelete: ReferentialAction.Restrict);
@@ -188,9 +206,14 @@ namespace Datos.Migrations
                 column: "IdPersona");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetalleDePedidos_CondPedido",
+                name: "IX_DetalleDePedidos_CodPedido",
                 table: "DetalleDePedidos",
-                column: "CondPedido");
+                column: "CodPedido");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pedidos_CodRuta",
+                table: "Pedidos",
+                column: "CodRuta");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -224,6 +247,9 @@ namespace Datos.Migrations
 
             migrationBuilder.DropTable(
                 name: "Pedidos");
+
+            migrationBuilder.DropTable(
+                name: "Rutas");
         }
     }
 }

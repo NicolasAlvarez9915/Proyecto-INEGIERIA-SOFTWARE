@@ -1,0 +1,31 @@
+1- CREACION DEL PROYECTO NODE, ANGULAR 8,
+
+
+dotnet new angular -o "Nombre del proyecto"
+
+2- ACTUALIZAR A ANGULAR 10.
+
+En ClientApp.
+
+ 
+npm install
+ng update @angular/core@9 @angular/cli@9
+ng add @angular/localize
+ng update @angular/cli@^10 @angular/core@^10 --force
+dotnet publish -c Release -o ./publish
+
+Hasta ahora no se ha arreglado el error de la actualizacion a angular 11.
+
+
+3- ERRORES FRECUENTES AL CREAR Y ACTUALIZAR EL PROYECTO.
+
+Eliminar la ultima linea de codigo en el archivo main.ts
+
+Arreglo de errores al iniciar el proyecto.
+
+package.json
+"start": "echo Starting... && ng serve"
+
+angular.json
+"progress": true,
+

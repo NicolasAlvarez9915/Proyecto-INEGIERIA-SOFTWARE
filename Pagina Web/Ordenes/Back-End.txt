@@ -1,0 +1,184 @@
+Back-End.
+
+1-Creasion de las capas.
+
+dotnet new sln
+
+dotnet sln add "Nombre de solucion"/"Proyecto Capa Presentacion.csproj"
+
+dotnet new classlib -o Datos
+
+dotnet sln add Datos/Datos.csproj
+
+dotnet new classlib -o Logica
+
+dotnet sln add Logica/Logica.csproj
+
+dotnet new classlib -o Entity
+
+dotnet sln add Entity/Entity.csproj
+
+2- Ado.Net.
+
+dotnet add package System.Collections --version 4.3.0 
+
+dotnet add package System.Data.SqlClient --version 4.8.2
+
+
+Verificar versiones en los siguientes link: 
+
+https://www.nuget.org/packages/System.Data.SqlClient/
+
+https://www.nuget.org/packages/System.Collections/
+
+3- ORM.
+
+1- Entity.
+
+Entity.csproj
+
+netstandard2.1
+
+dotnet add package System.ComponentModel.Annotations --version 4.7.0
+
+dotnet restore
+
+Clases de entity que seran tablas en la base de datos---------
+public class Persona
+{
+	[Key]
+    [Column(TypeName = "nvarchar(11)")]
+    public string Identificacion { get; set; }
+        
+    [Column(TypeName = "nvarchar(50)")]
+    public string Nombres { get; set; }
+}
+
+Verificar version en:
+
+https://www.nuget.org/packages/System.ComponentModel.Annotations/
+
+2- Datos
+
+netstandard2.1
+
+dotnet add package Microsoft.EntityFrameworkCore --version 3.1.9
+
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.1.9
+
+dotnet add package System.Collections --version 4.3.0 
+
+dotnet restore
+
+Verificar versiones en los siguientes links:
+
+https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/3.1.9
+
+https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.1.9
+
+https://www.nuget.org/packages/System.Collections/
+
+CLase DbContext
+
+public class "Nombre de la clase"Context : DbContext
+{
+    public "Nombre de la clase"Context(DbContextOptions options) : base(options)
+    {
+    }
+    public DbSet<"Nombre de la clase de entity"> "Nombre de la clase de entity" { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+    	modelBuilder.Entity<"Nombre de la clase que tendra la foranea">()
+    	.HasOne<"Nombre de la clase que tiene la llave primaria">()
+    	.WithMany()
+    	.HasForeignKey(p => p."nombre del atributo llave foranea");
+	}
+}
+
+3- Logica
+
+netstandard2.1
+
+dotnet restore
+
+Clase service
+
+public class "Nombre de la clase de Entity"Service
+{
+    private readonly "Nombre de la clase Context en Datos"Context _context;
+    public "Nombre de la clase de Entity"Service("Nombre de la clase Context en Datos"Context context)
+    {
+        _context=context;
+    }
+}
+
+El tratamiento de los datos se hacen pidiendo en la clase _context la lista de objetos que necesita y tratarlo como una lista normal.
+Se aconseja usar exporesiones Lamda para facilitar el uso de los datos.
+
+Guardar: _context.Personas.Add(persona);
+_context.SaveChanges();
+
+Consultar: List<Persona> personas = _context.Personas.ToList();
+Buscar var persona = _context.Personas.Find(identificacion); 	
+
+Eliminar: _context.Personas.Remove(persona);
+_context.SaveChanges();
+
+Modificar: _context.Personas.Update(personaNueva);
+_context.SaveChanges();
+
+Siempre utilizar el .SaveChanges(); para que se completen los cambios en la base de datos.
+
+4- Parte del back-End en presentacion
+
+dotnet add package Microsoft.EntityFrameworkCore.Tools --version 3.1.9
+
+startup.cs
+
+En configureServices.
+// Configurar cadena de Conexion con EF
+var connectionString=Configuration.GetConnectionString("DefaultConnection");
+services.AddDbContext<PulsacionesContext>(p=>p.UseSqlServer(connectionString));
+
+Recuerda que la Cadena de conexion se toma del archivo
+appsetting.json
+,
+"ConnectionStrings": {
+"DefaultConnection": "server=(Local) ; database="Nombre de la base de datos" ; integrated security = true"
+}
+
+Los controller
+
+[Route("api/[controller]")]
+[ApiController]
+public class "Nombre del controller"Controller : ControllerBase
+{
+    private readonly "Nombre de la clase en entity"Service _Service;
+    public "Nombre del controller"Controller(PulsacionesContext context)
+    {
+    _Service = new "Nombre del controller"Service(context);
+}
+
+Verificar version en:
+
+https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/3.1.9
+
+5-Migraciones
+
+En Datos.
+
+dotnet tool install --global dotnet-ef
+
+dotnet tool update --global dotnet-ef
+
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.1.9
+
+dotnet ef migrations add InitialCreate -s "Ruta de la capa de presentacion"
+
+dotnet ef database update -s "Ruta de la capa presentacion"
+
+Verificar version en:
+
+https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Design/3.1.9
+

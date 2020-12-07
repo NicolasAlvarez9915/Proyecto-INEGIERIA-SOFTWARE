@@ -113,9 +113,6 @@ namespace Datos.Migrations
                     b.Property<string>("CodProducto")
                         .HasColumnType("nvarchar(11)");
 
-                    b.Property<string>("CondPedido")
-                        .HasColumnType("nvarchar(11)");
-
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(100)");
 
@@ -139,7 +136,7 @@ namespace Datos.Migrations
 
                     b.HasKey("Codigo");
 
-                    b.HasIndex("CondPedido");
+                    b.HasIndex("CodPedido");
 
                     b.ToTable("DetalleDePedidos");
                 });
@@ -187,6 +184,9 @@ namespace Datos.Migrations
                     b.Property<string>("Codigo")
                         .HasColumnType("nvarchar(11)");
 
+                    b.Property<string>("CodRuta")
+                        .HasColumnType("nvarchar(11)");
+
                     b.Property<float>("Descuento")
                         .HasColumnType("real");
 
@@ -212,6 +212,8 @@ namespace Datos.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Codigo");
+
+                    b.HasIndex("CodRuta");
 
                     b.ToTable("Pedidos");
                 });
@@ -242,6 +244,19 @@ namespace Datos.Migrations
                     b.HasKey("Codigo");
 
                     b.ToTable("Productos");
+                });
+
+            modelBuilder.Entity("Entity.Ruta", b =>
+                {
+                    b.Property<string>("Codigo")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("CodDomiciliario")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.HasKey("Codigo");
+
+                    b.ToTable("Rutas");
                 });
 
             modelBuilder.Entity("Entity.Usuario", b =>
@@ -293,7 +308,14 @@ namespace Datos.Migrations
                 {
                     b.HasOne("Entity.Pedido", null)
                         .WithMany("DetallesDePedidos")
-                        .HasForeignKey("CondPedido");
+                        .HasForeignKey("CodPedido");
+                });
+
+            modelBuilder.Entity("Entity.Pedido", b =>
+                {
+                    b.HasOne("Entity.Ruta", null)
+                        .WithMany("Pedidos")
+                        .HasForeignKey("CodRuta");
                 });
 #pragma warning restore 612, 618
         }

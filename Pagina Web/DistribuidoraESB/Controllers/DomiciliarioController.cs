@@ -78,5 +78,11 @@ namespace DistribuidoraESB.Controllers
         {
             return service.Todos().Select(p => new DomiciliarioViewModel(p));
         }
+
+        [HttpGet("SinRuta")]
+        public IEnumerable<DomiciliarioViewModel> GetSinRuta()
+        {
+            return service.DomiciliariosSinRuta().Select(p => new DomiciliarioViewModel(p));
+        }
     }
 }
