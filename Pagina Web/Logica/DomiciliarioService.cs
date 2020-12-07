@@ -15,11 +15,12 @@ namespace Logica
             this.context = context;
         }
 
-        public DomiciliarioResponse Guardar(Domiciliario domiciliario)
+        public DomiciliarioResponse Guardar(Domiciliario domiciliario, Vehiculo vehiculo)
         {
             try
             {
                 context.Domiciliarios.Add(domiciliario);
+                context.Vehiculos.Add(vehiculo);
                 context.SaveChanges();
                 return new DomiciliarioResponse(domiciliario);
             }
@@ -29,9 +30,9 @@ namespace Logica
             }
         }
 
-        public DomiciliarioResponse ValidarExistenciaDomicilio(string Codigo)
+        public DomiciliarioResponse ValidarExistenciaDomicilio(string Identificacion)
         {
-            Domiciliario domiciliario = context.Domiciliarios.Find(Codigo);
+            Domiciliario domiciliario = context.Domiciliarios.Find(Identificacion);
             if( domiciliario == null)
             {
                 return new DomiciliarioResponse("No existe");
@@ -49,6 +50,16 @@ namespace Logica
             return  new VehiculoResponse(vehiculo);
         }
 
+        public VehiculoResponse BuscarVehiculo(string Identificacion)
+        {
+            List<Vehiculo> vehiculos = context.Vehiculos.Where(p => p.IdDomiciliario == Identificacion).ToList();
+            if( vehiculos.Count == 0)
+            {
+                return new VehiculoResponse("No existe");
+            }
+            return  new VehiculoResponse(vehiculos[0]);
+        }
+
         public List<Domiciliario> Todos()
         {
             return context.Domiciliarios.ToList();
@@ -57,7 +68,7 @@ namespace Logica
 
     public class VehiculoResponse 
     {
-        public VehiculoResponse(Vehiculo vehiculo )
+        public VehiculoResponse(Vehiculo vehiculo)
         {
             Error = false;
             Vehiculo  = vehiculo;

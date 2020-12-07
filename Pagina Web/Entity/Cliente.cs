@@ -12,6 +12,7 @@ namespace Entity
         public string Horaio { get; set; }
         [Column(TypeName = "nvarchar(20)")]
         public string TipoCliente { get; set; }
+        [ForeignKey("IdPersona")]
         public List<Descuento> Descuentos { get; set; }
     }
 }

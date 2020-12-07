@@ -6,7 +6,7 @@ insert into Administradores (Identificacion, Nombres,Apellidos, Telefono,Whatsap
 
 insert into Clientes (Identificacion, Nombres,Apellidos, Telefono,Whatsapp, Direccion, Horaio, TipoCliente ) values('1120754743','Naac', 'Alvarez', '333333', '3333', '1111', '1111', 'Tiene negocio')
 
-select * from Clientes
+select * from Vehiculos
 
 delete Pedidos;
 delete DetalleDePedidos;
@@ -14,9 +14,10 @@ delete Descuentos;
 delete Productos;
 
 
-DROP TABLE [dbo].[Clientes]
-GO
+
 DROP TABLE [dbo].[Descuentos]
+GO
+DROP TABLE [dbo].[Clientes]
 GO
 DROP TABLE [dbo].[Productos]
 GO
@@ -30,6 +31,15 @@ DROP TABLE [dbo].[Pedidos]
 GO
 DROP TABLE [dbo].[ImagenProductos]
 GO
+DROP TABLE [dbo].[Vehiculos]
+GO
+DROP TABLE [dbo].[Domiciliarios]
+GO
+
+
+ALTER TABLE dbo.Domiciliarios  
+DROP CONSTRAINT FK_Domiciliarios_Vehiculos_MotoPlaca;   
+GO  
 
 
 

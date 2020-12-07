@@ -23,7 +23,6 @@ namespace DistribuidoraESB.Models
             Telefono = domiciliario.Telefono;
             Whatsapp = domiciliario.Whatsapp;
             FechaPermisoConduccion = domiciliario.FechaPermisoConduccion;
-            Moto = domiciliario.Moto;
         }
     }
 }

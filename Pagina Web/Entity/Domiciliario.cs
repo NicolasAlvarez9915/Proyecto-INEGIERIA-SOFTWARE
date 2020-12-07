@@ -7,6 +7,6 @@ namespace Entity
     {
         [Column(TypeName = "Date")]
         public DateTime FechaPermisoConduccion { get; set; }
-        public Vehiculo Moto { get; set; }
     }
 }
+

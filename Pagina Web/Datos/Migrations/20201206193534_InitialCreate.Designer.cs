@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datos.Migrations
 {
     [DbContext(typeof(DESBContext))]
-    [Migration("20201206014256_InitialCreate")]
+    [Migration("20201206193534_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,9 +82,6 @@ namespace Datos.Migrations
                     b.Property<string>("Codigo")
                         .HasColumnType("nvarchar(11)");
 
-                    b.Property<string>("ClienteIdentificacion")
-                        .HasColumnType("nvarchar(11)");
-
                     b.Property<string>("CodProducto")
                         .HasColumnType("nvarchar(11)");
 
@@ -98,8 +95,6 @@ namespace Datos.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Codigo");
-
-                    b.HasIndex("ClienteIdentificacion");
 
                     b.HasIndex("IdPersona");
 
@@ -120,14 +115,14 @@ namespace Datos.Migrations
                     b.Property<string>("CodProducto")
                         .HasColumnType("nvarchar(11)");
 
+                    b.Property<string>("CondPedido")
+                        .HasColumnType("nvarchar(11)");
+
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("Descuento")
                         .HasColumnType("int");
-
-                    b.Property<string>("PedidoCodigo")
-                        .HasColumnType("nvarchar(11)");
 
                     b.Property<float>("SubTotal")
                         .HasColumnType("real");
@@ -146,9 +141,7 @@ namespace Datos.Migrations
 
                     b.HasKey("Codigo");
 
-                    b.HasIndex("CodPedido");
-
-                    b.HasIndex("PedidoCodigo");
+                    b.HasIndex("CondPedido");
 
                     b.ToTable("DetalleDePedidos");
                 });
@@ -164,9 +157,6 @@ namespace Datos.Migrations
                     b.Property<DateTime>("FechaPermisoConduccion")
                         .HasColumnType("Date");
 
-                    b.Property<string>("MotoPlaca")
-                        .HasColumnType("nvarchar(8)");
-
                     b.Property<string>("Nombres")
                         .HasColumnType("nvarchar(50)");
 
@@ -177,8 +167,6 @@ namespace Datos.Migrations
                         .HasColumnType("nvarchar(15)");
 
                     b.HasKey("Identificacion");
-
-                    b.HasIndex("MotoPlaca");
 
                     b.ToTable("Domiciliarios");
                 });
@@ -293,8 +281,6 @@ namespace Datos.Migrations
 
                     b.HasKey("Placa");
 
-                    b.HasIndex("IdDomiciliario");
-
                     b.ToTable("Vehiculos");
                 });
 
@@ -302,36 +288,14 @@ namespace Datos.Migrations
                 {
                     b.HasOne("Entity.Cliente", null)
                         .WithMany("Descuentos")
-                        .HasForeignKey("ClienteIdentificacion");
-
-                    b.HasOne("Entity.Cliente", null)
-                        .WithMany()
                         .HasForeignKey("IdPersona");
                 });
 
             modelBuilder.Entity("Entity.DetalleDePedido", b =>
                 {
                     b.HasOne("Entity.Pedido", null)
-                        .WithMany()
-                        .HasForeignKey("CodPedido");
-
-                    b.HasOne("Entity.Pedido", null)
                         .WithMany("DetallesDePedidos")
-                        .HasForeignKey("PedidoCodigo");
-                });
-
-            modelBuilder.Entity("Entity.Domiciliario", b =>
-                {
-                    b.HasOne("Entity.Vehiculo", "Moto")
-                        .WithMany()
-                        .HasForeignKey("MotoPlaca");
-                });
-
-            modelBuilder.Entity("Entity.Vehiculo", b =>
-                {
-                    b.HasOne("Entity.Domiciliario", null)
-                        .WithMany()
-                        .HasForeignKey("IdDomiciliario");
+                        .HasForeignKey("CondPedido");
                 });
 #pragma warning restore 612, 618
         }

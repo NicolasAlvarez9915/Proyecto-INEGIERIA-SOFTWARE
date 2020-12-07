@@ -63,6 +63,7 @@ export class PerfilComponent implements OnInit {
   listaDescuentosARegistrar: Descuento[];
   listaPedidos: Pedido[];
   listaProductoPedido: Array<Producto> = [];
+  LsitaDomiciliarios: Domiciliario[] = [];
   solicitudPedido: SolicitudDePedido;
   pedidoGenrado: Pedido = new Pedido();
 
@@ -74,6 +75,7 @@ export class PerfilComponent implements OnInit {
   descuentoParaTodos: number = 0;
   filtroClientes: string;
   filtroProductos: string;
+  filtroPedidos: string;
   i: number;
   existe: Boolean;
   Rol: string;
@@ -82,6 +84,10 @@ export class PerfilComponent implements OnInit {
   mostrarInterno: string;
   mostrarOpsInterno: string;
   activa: boolean = false;
+  vehiculoEncontrado: Vehiculo = new Vehiculo();
+  domiciliarioSeleccionado: Domiciliario = new Domiciliario();
+
+  opcionTabblaDomiciliarios: string; 
 
   pedidoSeleccionado: Pedido = new Pedido;
 
@@ -119,6 +125,7 @@ export class PerfilComponent implements OnInit {
     this.mostrarInterno = 'Principal';
     this.resetearProductoSeleccionado();
     this.buildFormDomiciliario();
+    this.domiciliarios();
   }
 
   private buildFormDomiciliario() {
@@ -142,18 +149,30 @@ export class PerfilComponent implements OnInit {
     this.contrasenaconfirmar = '';
 
     this.formularioregistroDomiciliario = this.formBuilder.group({
-      apellido: [this.domiciliario.apellidos, Validators.required],
+      apellidos: [this.domiciliario.apellidos, Validators.required],
       fechaPermisoConduccion: [this.domiciliario.fechaPermisoConduccion, Validators.required],
       identificacion: [this.domiciliario.identificacion, Validators.required],
       nombres: [this.domiciliario.nombres, Validators.required],
       telefono: [this.domiciliario.telefono, Validators.required],
-      Whatsapp: [this.domiciliario.whatsapp, Validators.required],
+      whatsapp: [this.domiciliario.whatsapp, Validators.required],
       fechaSoat: [this.domiciliario.moto.fechaSoat, Validators.required],
       fechaTecnoMecanica: [this.domiciliario.moto.fechaTecnoMecanica, Validators.required],
       placa: [this.domiciliario.moto.placa, Validators.required],
       correo: [this.usuarioRegistrar.correo, Validators.required],
       contrasena: [this.contrasenaActualizar, Validators.required],
       contrasenaConfirmar: [this.contrasenaconfirmar, Validators.required]
+    });
+  }
+
+  buscarMoto(){
+    this.domiciliarioService.buscarVehiculo(this.domiciliarioSeleccionado.identificacion).subscribe(r =>{
+      this.domiciliarioSeleccionado.moto = r;
+    });
+  }
+
+  domiciliarios(){
+    this.domiciliarioService.Todos().subscribe(r => {
+      this.LsitaDomiciliarios = r;
     });
   }
 
@@ -181,7 +200,6 @@ export class PerfilComponent implements OnInit {
             if (s == null) {
               this.usuarioService.validarSession(this.usuarioRegistrar.correo).subscribe(a => {
                 if (a == null) {
-                  
                   this.domiciliarioService.registrar(this.domiciliario).subscribe(d => {
                     this.usuarioService.post(this.usuarioRegistrar).subscribe(f => {
                       const messageBox = this.modalService.open(AlertModalComponent)
@@ -193,7 +211,7 @@ export class PerfilComponent implements OnInit {
 
                   const messageBox = this.modalService.open(AlertModalComponent)
                   messageBox.componentInstance.title = "ALERTA";
-                  messageBox.componentInstance.message = "Existee un usuario con este correo registrado.";
+                  messageBox.componentInstance.message = "Existe un usuario con este correo registrado.";
                 }
               });
             } else {

@@ -49,4 +49,12 @@ export class DomiciliarioService {
       catchError(this.handleErrorService.handleError<Domiciliario[]>('Buscar todos', null))
     );
   }
+
+  buscarVehiculo(idDomiciliario: string): Observable<Vehiculo>{
+    return this.http.get<Vehiculo>(this.baseUrl+'api/Domiciliario/BuscarVehiculo/'+idDomiciliario)
+    .pipe(
+      tap(_ => this.handleErrorService.log('Encontrado')),
+      catchError(this.handleErrorService.handleError<Vehiculo>('Buscar Moto', null))
+    );
+  }
 }

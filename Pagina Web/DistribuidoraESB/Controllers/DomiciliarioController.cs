@@ -24,7 +24,7 @@ namespace DistribuidoraESB.Controllers
         public ActionResult<DomiciliarioViewModel> post(DomiciliarioInputModel domiciliarioInput)
         {
             Domiciliario domiciliario = MapearDomiciliario(domiciliarioInput);
-            var response = service.Guardar(domiciliario);
+            var response = service.Guardar(domiciliario, domiciliarioInput.Moto);
             return Ok(response.Domiciliario);
         }
 
@@ -37,8 +37,7 @@ namespace DistribuidoraESB.Controllers
                 Apellidos = domiciliarioInput.Apellidos,
                 Telefono = domiciliarioInput.Telefono,
                 Whatsapp = domiciliarioInput.Whatsapp,
-                FechaPermisoConduccion = domiciliarioInput.FechaPermisoConduccion,
-                Moto = domiciliarioInput.Moto
+                FechaPermisoConduccion = domiciliarioInput.FechaPermisoConduccion
             };
             return domiciliario;
         }
@@ -49,7 +48,7 @@ namespace DistribuidoraESB.Controllers
         {
             var response = service.ValidarExistenciaDomicilio(identificacion);
             if (response.Error){
-                return BadRequest(response.Error);
+                return BadRequest(response.Mensaje);
             }
             return new DomiciliarioViewModel(response.Domiciliario);
         }
@@ -59,7 +58,17 @@ namespace DistribuidoraESB.Controllers
         {
             var response = service.ValidarExistenciaVehiculo(Placa);
             if (response.Error){
-                return BadRequest(response.Error);
+                return BadRequest(response.Mensaje);
+            }
+            return new VehiculoViewModel(response.Vehiculo);
+        }
+
+        [HttpGet("BuscarVehiculo/{Identificacion}")]
+        public ActionResult<VehiculoViewModel> GetBuscarVehiculo(string Identificacion)
+        {
+            var response = service.BuscarVehiculo(Identificacion);
+            if (response.Error){
+                return BadRequest(response.Mensaje);
             }
             return new VehiculoViewModel(response.Vehiculo);
         }

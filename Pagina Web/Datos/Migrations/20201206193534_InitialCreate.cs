@@ -42,6 +42,22 @@ namespace Datos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Domiciliarios",
+                columns: table => new
+                {
+                    Identificacion = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    Nombres = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    Apellidos = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    Telefono = table.Column<string>(type: "nvarchar(15)", nullable: true),
+                    Whatsapp = table.Column<string>(type: "nvarchar(15)", nullable: true),
+                    FechaPermisoConduccion = table.Column<DateTime>(type: "Date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Domiciliarios", x => x.Identificacion);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ImagenProductos",
                 columns: table => new
                 {
@@ -104,6 +120,20 @@ namespace Datos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Vehiculos",
+                columns: table => new
+                {
+                    Placa = table.Column<string>(type: "nvarchar(8)", nullable: false),
+                    IdDomiciliario = table.Column<string>(type: "nvarchar(11)", nullable: true),
+                    FechaSoat = table.Column<DateTime>(type: "Date", nullable: false),
+                    FechaTecnoMecanica = table.Column<DateTime>(type: "Date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vehiculos", x => x.Placa);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Descuentos",
                 columns: table => new
                 {
@@ -111,18 +141,11 @@ namespace Datos.Migrations
                     Porcentaje = table.Column<float>(type: "real", nullable: false),
                     CodProducto = table.Column<string>(type: "nvarchar(11)", nullable: true),
                     NombreProducto = table.Column<string>(type: "nvarchar(20)", nullable: true),
-                    IdPersona = table.Column<string>(type: "nvarchar(11)", nullable: true),
-                    ClienteIdentificacion = table.Column<string>(nullable: true)
+                    IdPersona = table.Column<string>(type: "nvarchar(11)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Descuentos", x => x.Codigo);
-                    table.ForeignKey(
-                        name: "FK_Descuentos_Clientes_ClienteIdentificacion",
-                        column: x => x.ClienteIdentificacion,
-                        principalTable: "Clientes",
-                        principalColumn: "Identificacion",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Descuentos_Clientes_IdPersona",
                         column: x => x.IdPersona,
@@ -146,66 +169,18 @@ namespace Datos.Migrations
                     SubTotal = table.Column<float>(type: "real", nullable: false),
                     TotalConDescuento = table.Column<float>(type: "real", nullable: false),
                     total = table.Column<float>(type: "real", nullable: false),
-                    PedidoCodigo = table.Column<string>(nullable: true)
+                    CondPedido = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DetalleDePedidos", x => x.Codigo);
                     table.ForeignKey(
-                        name: "FK_DetalleDePedidos_Pedidos_CodPedido",
-                        column: x => x.CodPedido,
-                        principalTable: "Pedidos",
-                        principalColumn: "Codigo",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_DetalleDePedidos_Pedidos_PedidoCodigo",
-                        column: x => x.PedidoCodigo,
+                        name: "FK_DetalleDePedidos_Pedidos_CondPedido",
+                        column: x => x.CondPedido,
                         principalTable: "Pedidos",
                         principalColumn: "Codigo",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Vehiculos",
-                columns: table => new
-                {
-                    Placa = table.Column<string>(type: "nvarchar(8)", nullable: false),
-                    IdDomiciliario = table.Column<string>(type: "nvarchar(11)", nullable: true),
-                    FechaSoat = table.Column<DateTime>(type: "Date", nullable: false),
-                    FechaTecnoMecanica = table.Column<DateTime>(type: "Date", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Vehiculos", x => x.Placa);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Domiciliarios",
-                columns: table => new
-                {
-                    Identificacion = table.Column<string>(type: "nvarchar(11)", nullable: false),
-                    Nombres = table.Column<string>(type: "nvarchar(50)", nullable: true),
-                    Apellidos = table.Column<string>(type: "nvarchar(50)", nullable: true),
-                    Telefono = table.Column<string>(type: "nvarchar(15)", nullable: true),
-                    Whatsapp = table.Column<string>(type: "nvarchar(15)", nullable: true),
-                    FechaPermisoConduccion = table.Column<DateTime>(type: "Date", nullable: false),
-                    MotoPlaca = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Domiciliarios", x => x.Identificacion);
-                    table.ForeignKey(
-                        name: "FK_Domiciliarios_Vehiculos_MotoPlaca",
-                        column: x => x.MotoPlaca,
-                        principalTable: "Vehiculos",
-                        principalColumn: "Placa",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Descuentos_ClienteIdentificacion",
-                table: "Descuentos",
-                column: "ClienteIdentificacion");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Descuentos_IdPersona",
@@ -213,40 +188,13 @@ namespace Datos.Migrations
                 column: "IdPersona");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetalleDePedidos_CodPedido",
+                name: "IX_DetalleDePedidos_CondPedido",
                 table: "DetalleDePedidos",
-                column: "CodPedido");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DetalleDePedidos_PedidoCodigo",
-                table: "DetalleDePedidos",
-                column: "PedidoCodigo");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Domiciliarios_MotoPlaca",
-                table: "Domiciliarios",
-                column: "MotoPlaca");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Vehiculos_IdDomiciliario",
-                table: "Vehiculos",
-                column: "IdDomiciliario");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Vehiculos_Domiciliarios_IdDomiciliario",
-                table: "Vehiculos",
-                column: "IdDomiciliario",
-                principalTable: "Domiciliarios",
-                principalColumn: "Identificacion",
-                onDelete: ReferentialAction.Restrict);
+                column: "CondPedido");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Domiciliarios_Vehiculos_MotoPlaca",
-                table: "Domiciliarios");
-
             migrationBuilder.DropTable(
                 name: "Administradores");
 
@@ -255,6 +203,9 @@ namespace Datos.Migrations
 
             migrationBuilder.DropTable(
                 name: "DetalleDePedidos");
+
+            migrationBuilder.DropTable(
+                name: "Domiciliarios");
 
             migrationBuilder.DropTable(
                 name: "ImagenProductos");
@@ -266,16 +217,13 @@ namespace Datos.Migrations
                 name: "Usuarios");
 
             migrationBuilder.DropTable(
+                name: "Vehiculos");
+
+            migrationBuilder.DropTable(
                 name: "Clientes");
 
             migrationBuilder.DropTable(
                 name: "Pedidos");
-
-            migrationBuilder.DropTable(
-                name: "Vehiculos");
-
-            migrationBuilder.DropTable(
-                name: "Domiciliarios");
         }
     }
 }

@@ -74,7 +74,26 @@
                 (click)="mostrar = 'Pedidos';pedidos(); opcionTabbla = 'ver'">
                 <span class="fas fa-suitcase-rolling spanBarra"></span>Lista
             </button>
-
+            <hr>
+        </div>
+        <p>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios">
+                <span class="fas fa-truck-loading"></span>Domiciliarios
+            </button>
+        </p>
+        <div class="collapse OpsMenu" id="collapseOpsDomiciliarios">
+            <hr style="background-color: rgb(250, 81, 81);">
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios"
+                (click)="mostrar ='RegistrarDomiciliario';mostrarInterno='RegistrarDomiciliario'; opcionTabbla = 'Registrar'">
+                <span class="fas fa-truck-loading"></span>Registrar
+            </button>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios"
+                (click)="mostrar ='Domiciliarios'; opcionTabblaDomiciliarios = 'Ver'">
+                <span class="fas fa-truck-loading"></span>Lista
+            </button>
             <hr>
         </div>
     </div>
@@ -902,10 +921,19 @@
                         <h5>Pedidos</h5>
                     </div>
                     <hr>
-                    <button class="btn btn-outline-danger" style="width: 10%; margin-left: .5rem;"
-                        (click)="mostrar = 'Principal'">
-                        <span class="icon-arrow-left1"></span>Volver
-                    </button>
+                    <div class="row">
+                        <div class="col">
+                            <label>Filtro por codigo.</label>
+                            <input class="form-control col-5" type="text" style="width: 200px;" placeholder="Referencia"
+                                [(ngModel)]="filtroPedidos" [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
+                            <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
+                                (click)="mostrar = 'Principal'">
+                                <span class="icon-arrow-left1"></span> Volver
+                            </button>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-responsive-sm" *ngIf='listaPedidos && listaPedidos.length'>
                             <thead class="thead-light">
@@ -923,7 +951,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let pedido of listaPedidos; index as i">
+                                <tr *ngFor="let pedido of listaPedidos|filtroPedido:filtroPedidos; index as i">
                                     <th scope="row">{{ i + 1 }}</th>
                                     <td>{{ pedido.codigo }} </td>
                                     <td>{{ pedido.idPersona }}</td>
@@ -1296,7 +1324,7 @@
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div class="row" >
+                                                <div class="row">
                                                     <div class="col">
                                                         <p>
                                                             Estado:
@@ -1305,15 +1333,21 @@
                                                     <div class="col">
                                                         <p>
                                                             {{pedidoSeleccionado.estado}}
-                                                            
+
                                                         </p>
                                                         <div *ngIf="pedidoSeleccionado.estado != 'Entregado'">
-                                                            <select class="form-control " name= "Estado" [(ngModel)]="estadoPedido">
-                                                                <option value="En camino" *ngIf="pedidoSeleccionado.estado != 'En camino'">En camino</option>
+                                                            <select class="form-control " name="Estado"
+                                                                [(ngModel)]="estadoPedido">
+                                                                <option value="En camino"
+                                                                    *ngIf="pedidoSeleccionado.estado != 'En camino'">En
+                                                                    camino</option>
                                                                 <option value="Entregado">Entregado</option>
                                                             </select>
-                                                            <button class="btn btn-outline-dark" style="padding-top: 1rem;" (click)="actualizarPedido()"><span
-                                                                    class="fa fa-sync-alt" style="padding-right: 0rem;"></span></button>
+                                                            <button class="btn btn-outline-dark"
+                                                                style="padding-top: 1rem;"
+                                                                (click)="actualizarPedido()"><span
+                                                                    class="fa fa-sync-alt"
+                                                                    style="padding-right: 0rem;"></span></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1425,6 +1459,298 @@
                 </form>
             </div>
         </div>
-        
+        <div *ngIf="mostrar == 'RegistrarDomiciliario'">
+            <div class="Cuerpo contenedor">
+                <form [formGroup]="formularioregistroDomiciliario">
+                    <div class="text-center" style="margin-top: 1rem;">
+                        <h5>Registrar Domiciliario</h5>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <div class="text-center" style="margin-top: 1rem;">
+                                <h5>Domiciliario</h5>
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Identificacion</label>
+                                <input type="text" class="form-control" formControlName="identificacion"
+                                     [ngClass]="{'is-invalid':  controlDomiciliario.identificacion.touched && controlDomiciliario.identificacion.errors}" />
+                                <div *ngIf="controlDomiciliario.identificacion.errors" class="invalid-feedback">
+                                    <div *ngIf="controlDomiciliario.identificacion.errors.required">
+                                        Se requiere la identificación
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label>Nombres</label>
+                                    <input type="text" class="form-control" formControlName="nombres"
+                                         [ngClass]="{'is-invalid':  controlDomiciliario.nombres.touched && controlDomiciliario.nombres.errors}" />
+                                    <div *ngIf="controlDomiciliario.nombres.errors" class="invalid-feedback">
+                                        <div *ngIf="controlDomiciliario.nombres.errors.required">
+                                            Se requieren los nombres
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label>Apellidos</label>
+                                    <input type="text" class="form-control" formControlName="apellidos"
+                                        [ngClass]="{'is-invalid':  controlDomiciliario.apellidos.touched && controlDomiciliario.apellidos.errors}" />
+                                    <div *ngIf="controlDomiciliario.apellidos.errors" class="invalid-feedback">
+                                        <div *ngIf="controlDomiciliario.apellidos.errors.required">
+                                            Se requieren los apellidos
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Fecha de expiracion del permiso de conducción</label>
+                                <input type="date" class="form-control" formControlName="fechaPermisoConduccion"
+                                    [ngClass]="{'is-invalid':  controlDomiciliario.fechaPermisoConduccion.touched && controlDomiciliario.fechaPermisoConduccion.errors}" />
+                                <div *ngIf="controlDomiciliario.fechaPermisoConduccion.errors" class="invalid-feedback">
+                                    <div *ngIf="controlDomiciliario.fechaPermisoConduccion.errors.required">
+                                        Se requiere la fecha de expiración de permiso de conducción.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="text-center" style="margin-top: 1rem;">
+                                <h5>Vehiculo</h5>
+                                <hr>
+                            </div>
+                            <div>
+                                <label>Placa</label>
+                                <input type="text" class="form-control" formControlName="placa"
+                                    [ngClass]="{'is-invalid':  controlDomiciliario.placa.touched && controlDomiciliario.placa.errors}" />
+                                <div *ngIf="controlDomiciliario.placa.errors" class="invalid-feedback">
+                                    <div *ngIf="controlDomiciliario.placa.errors.required">
+                                        Se requiere la placa
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Fecha de expiracion del Soat</label>
+                                <input type="date" class="form-control" formControlName="fechaSoat"
+                                    [ngClass]="{'is-invalid':  controlDomiciliario.fechaSoat.touched && controlDomiciliario.fechaSoat.errors}" />
+                                <div *ngIf="controlDomiciliario.fechaSoat.errors" class="invalid-feedback">
+                                    <div *ngIf="controlDomiciliario.fechaSoat.errors.required">
+                                        Se requiere la fecha de expiración del Soat.
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Fecha de expiracion de la tecno Mecanica</label>
+                                <input type="date" class="form-control" formControlName="fechaTecnoMecanica"
+                                    [ngClass]="{'is-invalid':  controlDomiciliario.fechaTecnoMecanica.touched && controlDomiciliario.fechaTecnoMecanica.errors}" />
+                                <div *ngIf="controlDomiciliario.fechaTecnoMecanica.errors" class="invalid-feedback">
+                                    <div *ngIf="controlDomiciliario.fechaTecnoMecanica.errors.required">
+                                        Se requiere la fecha de expiración de la tecno Mecanica.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="text-center" style="margin-top: 1rem;">
+                                <h5>Contacto</h5>
+                                <hr>
+                            </div>
+                            <div>
+                                <label>Telefono</label>
+                                <input type="text" class="form-control" formControlName="telefono"
+                                    [ngClass]="{'is-invalid':  controlDomiciliario.telefono.touched && controlDomiciliario.telefono.errors}" />
+                                <div *ngIf="controlDomiciliario.telefono.errors" class="invalid-feedback">
+                                    <div *ngIf="controlDomiciliario.telefono.errors.required">
+                                        Se requiere el telefono.
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Whatsapp</label>
+                                <input type="text" class="form-control" formControlName="whatsapp"
+                                    [ngClass]="{'is-invalid':  controlDomiciliario.whatsapp.touched && controlDomiciliario.whatsapp.errors}" />
+                                <div *ngIf="controlDomiciliario.whatsapp.errors" class="invalid-feedback">
+                                    <div *ngIf="controlDomiciliario.whatsapp.errors.required">
+                                        Se requiere el whatsapp
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Correo</label>
+                                <input type="text" class="form-control" formControlName="correo"
+                                    [ngClass]="{'is-invalid':  controlDomiciliario.correo.touched && controlDomiciliario.correo.errors}" />
+                                <div *ngIf="controlDomiciliario.correo.errors" class="invalid-feedback">
+                                    <div *ngIf="controlDomiciliario.correo.errors.required">
+                                        Se requiere el correo
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label>Contraseña</label>
+                                    <input type="text" class="form-control" formControlName="contrasena"
+                                        [ngClass]="{'is-invalid':  controlDomiciliario.contrasena.touched && controlDomiciliario.contrasena.errors}" />
+                                    <div *ngIf="controlDomiciliario.contrasena.errors" class="invalid-feedback">
+                                        <div *ngIf="controlDomiciliario.contrasena.errors.required">
+                                            Se requiere la contraseña.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label>C. de contraseña.</label>
+                                    <input type="text" class="form-control" formControlName="contrasenaConfirmar"
+                                        [ngClass]="{'is-invalid':  controlDomiciliario.contrasenaConfirmar.touched && controlDomiciliario.contrasenaConfirmar.errors}" />
+                                    <div *ngIf="controlDomiciliario.contrasenaConfirmar.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="controlDomiciliario.contrasenaConfirmar.errors.required">
+                                            Se requiere la confirmacion de la contraseña.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col d-flex justify-content-end">
+                            <button class="btn btn-outline-dark" style="width: 50%" type="submit"
+                                (click)="onSubmitDomiciliario()"   [disabled]="formularioregistroDomiciliario.invalid">
+                                <span class="fas fa-user-plus"></span> Registrar
+                            </button>
+                        </div>
+                        <div class="col d-flex justify-content-star">
+                            <button class="btn btn-outline-danger" style="width: 50%" type="reset"
+                                (click)="mostrar = 'Principal'">
+                                <span class="icon-arrow-left1"></span>Volver
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="visibility: hidden;">
+                </form>
+            </div>
+        </div>
+        <div *ngIf="mostrar == 'Domiciliarios'">
+            <div class="Cuerpo">
+                <form class="col font-weight-normal">
+                    <div class="text-center" style="margin-top: 1rem;">
+                        <h5>Pedidos</h5>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <!--<div class="col">
+                            <label>Filtro por codigo.</label>
+                            <input class="form-control col-5" type="text" style="width: 200px;" placeholder="Referencia"
+                                [(ngModel)]="filtroPedidos" [ngModelOptions]="{standalone: true}">
+                        </div>-->
+                        <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
+                            <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
+                                (click)="mostrar = 'Principal'">
+                                <span class="icon-arrow-left1"></span> Volver
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-responsive-sm"
+                            *ngIf='LsitaDomiciliarios && LsitaDomiciliarios.length'>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Identificación</th>
+                                    <th scope="col">Nombres</th>
+                                    <th scope="col">Apellidos</th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Whatsapp</th>
+                                    <th scope="col">Fecha Permiso</th>
+                                    <th scope="col">opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let domiciliario of LsitaDomiciliarios; index as i">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ domiciliario.identificacion }} </td>
+                                    <td>{{ domiciliario.nombres }}</td>
+                                    <td>{{ domiciliario.apellidos }}</td>
+                                    <td>{{ domiciliario.telefono }}</td>
+                                    <td>{{ domiciliario.whatsapp }}</td>
+                                    <td>{{ domiciliario.fechaPermisoConduccion }}</td>
+                                    <td><button class="btn btn-outline-dark"
+                                            (click)="domiciliarioSeleccionado = domiciliario;mostrar = 'Domiciliario';buscarMoto()">{{opcionTabblaDomiciliarios}}</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div *ngIf="mostrar == 'Domiciliario'">
+            <div class="Cuerpo">
+                <form>
+                    <div class="text-center" style="margin-top: 1rem;">
+                        <h5>Domiciliario: {{domiciliarioSeleccionado.nombres}} {{domiciliarioSeleccionado.apellidos}},
+                            {{domiciliarioSeleccionado.identificacion}}</h5>
+                    </div>
+                    <hr>
+                    <div class="info">
+                        <div class="row">
+                            <div class="col">
+                                <h5>Telefono:</h5>
+                            </div>
+                            <div class="col">
+                                {{domiciliarioSeleccionado.telefono}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h5>Whatsapp:</h5>
+                            </div>
+                            <div class="col">
+                                {{domiciliarioSeleccionado.whatsapp}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h5>Fecha permiso de conducción:</h5>
+                            </div>
+                            <div class="col">
+                                {{domiciliarioSeleccionado.fechaPermisoConduccion}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h5>Placa del Vehiculo:</h5>
+                            </div>
+                            <div class="col">
+                                {{domiciliarioSeleccionado.moto.placa}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h5>Fecha Soat:</h5>
+                            </div>
+                            <div class="col">
+                                {{domiciliarioSeleccionado.moto.fechaSoat}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h5>Fecha Tecnomecánica:</h5>
+                            </div>
+                            <div class="col">
+                                {{domiciliarioSeleccionado.moto.fechaTecnoMecanica}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <button class="btn btn-outline-danger" style=" width: 150px" (click)="mostrar = 'Domiciliarios'">
+                            <span class="icon-arrow-left1"></span> Volver
+                        </button>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

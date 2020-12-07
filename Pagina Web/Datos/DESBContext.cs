@@ -6,9 +6,7 @@ namespace Datos
 {
     public class DESBContext: DbContext
     {
-        public DESBContext (DbContextOptions options): base (options)
-        {
-        }
+        public DESBContext (DbContextOptions options): base (options){}
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Administrador> Administradores { get; set; }
         public DbSet<Cliente> Clientes { get; set;}
@@ -19,22 +17,6 @@ namespace Datos
         public DbSet<ImagenProducto> ImagenProductos { get; set; }
         public DbSet<Domiciliario> Domiciliarios { get; set; }
         public DbSet<Vehiculo> Vehiculos { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Descuento>()
-            .HasOne<Cliente>()
-            .WithMany()
-            .HasForeignKey(p => p.IdPersona);
-
-            modelBuilder.Entity<DetalleDePedido>()
-            .HasOne<Pedido>()
-            .WithMany()
-            .HasForeignKey(p => p.CodPedido);
-
-            modelBuilder.Entity<Vehiculo>()
-            .HasOne<Domiciliario>()
-            .WithMany()
-            .HasForeignKey(p => p.IdDomiciliario);
-        }
+        public DbSet<Ruta> Rutas { get; set; }
     }
 }

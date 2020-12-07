@@ -11,11 +11,14 @@ namespace Entity
         [Column(TypeName = "nvarchar(11)")]
         public string Codigo { get; set; }
         [Column(TypeName = "nvarchar(11)")]
+        public string CodRuta { get; set; }
+        [Column(TypeName = "nvarchar(11)")]
         public string IdPersona { get; set; }
         [Column(TypeName = "Date")]
         public DateTime Fecha { get; set; }
         [Column(TypeName = "real")]
         public double SubTotal { get; set; }
+        [ForeignKey("CodPedido")]
         public List<DetalleDePedido> DetallesDePedidos { get; set; }
         [Column(TypeName = "int")]
         public double Iva { get; set; }
