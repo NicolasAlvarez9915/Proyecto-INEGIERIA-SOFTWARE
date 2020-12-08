@@ -20,9 +20,16 @@ namespace Logica
         {
             try
             {
-                AsigarPedidosAUnaRuta(ruta.Pedidos, false);
+                List<Ruta> rutas = context.Rutas.Where(p => p.CodDomiciliario == ruta.CodDomiciliario).ToList();
+                if (rutas.Count == 0)
+                {
+                    ruta = GenerarCodigo(ruta);
+                    context.Rutas.Add(ruta);
+                }else{
+                    ruta.Codigo = rutas[0].Codigo;
+                }
+                AsigarPedidosAUnaRuta(ruta, false);
                 ruta.Pedidos = null;
-                context.Rutas.Add(ruta);
                 context.SaveChanges();
                 return new RutaResponse(ruta);
             }
@@ -32,6 +39,21 @@ namespace Logica
             }
         }
 
+        public Ruta GenerarCodigo(Ruta ruta)
+        {
+            int  codigoGenerico = context.Rutas.Count();
+            foreach (Ruta rutaIterador in context.Rutas.ToList())
+            {
+                Ruta rutaEncontrada = context.Rutas.Find(codigoGenerico.ToString());
+                if(rutaEncontrada == null)
+                {
+                    ruta.Codigo = codigoGenerico.ToString();
+                    return ruta;
+                }
+                codigoGenerico++;
+            }
+            return null;
+        }
         public RutaResponse BuscarRuta(string Codigo)
         {
             Ruta ruta  = context.Rutas.Where(s => s.Codigo == Codigo).Include(s => s.Pedidos).FirstOrDefault();
@@ -47,12 +69,12 @@ namespace Logica
             return context.Rutas.ToList();
         }
 
-        public void AsigarPedidosAUnaRuta(List<Pedido> pedidos, bool Guardar)
+        public void AsigarPedidosAUnaRuta(Ruta ruta, bool Guardar)
         {
-            foreach (var pedido in pedidos)
+            foreach (var pedido in ruta.Pedidos)
             {
                 Pedido pedidoEncontrado = context.Pedidos.Find(pedido.Codigo);
-                pedidoEncontrado.CodRuta = pedido.CodRuta;
+                pedidoEncontrado.CodRuta = ruta.Codigo;
                 context.Pedidos.Update(pedidoEncontrado);
                 if (Guardar){
                     context.SaveChanges();

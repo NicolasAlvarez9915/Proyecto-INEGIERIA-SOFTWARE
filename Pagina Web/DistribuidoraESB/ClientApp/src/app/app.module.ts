@@ -20,6 +20,7 @@ import { FiltroClientePipe } from './pipe/filtro-cliente.pipe';
 import { ModalDecicionComponent } from './@base/modal-decicion/modal-decicion.component';
 import { FiltroProductoPipe } from './pipe/filtro-producto.pipe';
 import { FiltroPedidoPipe } from './pipe/filtro-pedido.pipe';
+import { PerfilClienteComponent } from './ESB/perfil-cliente/perfil-cliente.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FiltroPedidoPipe } from './pipe/filtro-pedido.pipe';
     FiltroClientePipe,
     ModalDecicionComponent,
     FiltroProductoPipe,
-    FiltroPedidoPipe
+    FiltroPedidoPipe,
+    PerfilClienteComponent
   ],
   imports: [
     ReactiveFormsModule,

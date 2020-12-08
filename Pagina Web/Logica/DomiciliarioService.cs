@@ -75,9 +75,17 @@ namespace Logica
                 if(!rutas.Any(c => c.CodDomiciliario == domiciliario.Identificacion))
                 {
                     domiciliariosSinRuta.Add(domiciliario);
+                }else if (domiciliarioConMenosDeTresPedidos(rutas.Where(r => r.CodDomiciliario == domiciliario.Identificacion ).ToList())){
+                    domiciliariosSinRuta.Add(domiciliario);
                 }
             }
             return domiciliariosSinRuta;
+        }
+
+        public bool domiciliarioConMenosDeTresPedidos(List<Ruta> rutas){
+            List<Pedido> pedidos = context.Pedidos.Where(p => p.CodRuta == rutas[0].Codigo && p.Estado != "Entregado").ToList();
+            if (pedidos.Count <= 3) return true;
+            return false;
         }
     }
 

@@ -57,6 +57,14 @@ export class PedidoService {
     )
   }
 
+  SinRuta(): Observable<Pedido[]>{
+    return this.http.get<Pedido[]>(this.baseUrl+'api/Pedido/SinRuta')
+    .pipe(
+      tap(_ => this.handleErrorService.log('Resgitrado')),
+      catchError(this.handleErrorService.handleError<Pedido[]>('Consultar pedidos sin ruta', null))
+    )
+  }
+
   Actualizar(pedido: Pedido, estado: string): Observable<string>
   {
     return this.http.put<string>(this.baseUrl+'api/Pedido/'+estado,pedido)

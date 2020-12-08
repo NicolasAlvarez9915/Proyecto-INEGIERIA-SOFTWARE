@@ -13,6 +13,7 @@ import { DomiciliarioService } from 'src/app/services/domiciliario.service';
 import { ImagenProductoService } from 'src/app/services/imagen-producto.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ProductoService } from 'src/app/services/producto.service';
+import { RutaService } from 'src/app/services/ruta.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Administrador } from '../Models/administrador';
 import { Cliente } from '../Models/cliente';
@@ -23,6 +24,7 @@ import { ImagenProducto } from '../Models/imagen-producto';
 import { ImagenproductoView } from '../Models/imagenproducto-view';
 import { Pedido } from '../Models/pedido';
 import { Producto } from '../Models/producto';
+import { Ruta } from '../Models/ruta';
 import { SolicitudDePedido } from '../Models/solicitud-de-pedido';
 import { Usuario } from '../Models/usuario';
 import { Vehiculo } from '../Models/vehiculo';
@@ -33,6 +35,7 @@ import { Vehiculo } from '../Models/vehiculo';
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
+
   formularioRegistroCliente: FormGroup;
   formularioregistroProducto: FormGroup;
   formularioregistroDomiciliario: FormGroup;
@@ -53,19 +56,22 @@ export class PerfilComponent implements OnInit {
   domiciliario: Domiciliario;
   vehiculo: Vehiculo;
 
-  listaClientes: Cliente[];
+  listaClientes: Cliente[] = [];
   totalClientes: number;
-  listaProductos: Producto[];
+  listaProductos: Producto[] = [];
   totalProductos: number;
-  listaDescuentos: Descuento[];
-  listaProductosSinDescuento: Producto[];
-  listaDescuentosNuevos: Descuento[];
-  listaDescuentosARegistrar: Descuento[];
-  listaPedidos: Pedido[];
+  listaDescuentos: Descuento[] = [];
+  listaProductosSinDescuento: Producto[] = [];
+  listaDescuentosNuevos: Descuento[] = [];
+  listaDescuentosARegistrar: Descuento[] = [];
+  listaPedidos: Pedido[] = [];
   listaProductoPedido: Array<Producto> = [];
   LsitaDomiciliarios: Domiciliario[] = [];
+  ListaDomiciliariosSinRuta: Domiciliario[] = [];
+  ListaPedidosSinruta: Pedido[] = [];
   solicitudPedido: SolicitudDePedido;
   pedidoGenrado: Pedido = new Pedido();
+
 
   productoConsulta: Producto = new Producto;
 
@@ -76,6 +82,7 @@ export class PerfilComponent implements OnInit {
   filtroClientes: string;
   filtroProductos: string;
   filtroPedidos: string;
+  filtroPedidosSinRuta: string;
   i: number;
   existe: Boolean;
   Rol: string;
@@ -87,7 +94,9 @@ export class PerfilComponent implements OnInit {
   vehiculoEncontrado: Vehiculo = new Vehiculo();
   domiciliarioSeleccionado: Domiciliario = new Domiciliario();
 
-  opcionTabblaDomiciliarios: string; 
+  opcionTabblaDomiciliarios: string;
+
+  check: boolean[] = [];
 
   pedidoSeleccionado: Pedido = new Pedido;
 
@@ -106,7 +115,8 @@ export class PerfilComponent implements OnInit {
     private productoService: ProductoService,
     private descuentoService: DescuentoService,
     private imagenProductoService: ImagenProductoService,
-    private domiciliarioService: DomiciliarioService
+    private domiciliarioService: DomiciliarioService,
+    private rutaService: RutaService
   ) {
     this.administradorActualizar = new Administrador();
   }
@@ -126,6 +136,46 @@ export class PerfilComponent implements OnInit {
     this.resetearProductoSeleccionado();
     this.buildFormDomiciliario();
     this.domiciliarios();
+    this.pedidosSinRuta();
+  }
+
+  registrarRuta(domiciliario: Domiciliario) {
+    let ListaPedidosAAsignarRuta: Pedido[] = [];
+    for (let i = 0; i < this.ListaPedidosSinruta.length; i++) {
+      if (this.check[i]) {
+        ListaPedidosAAsignarRuta.push(this.ListaPedidosSinruta[i]);
+      }
+    }
+    let ruta: Ruta = new Ruta;
+    ruta.codDomiciliario = domiciliario.identificacion;
+    ruta.pedidos = ListaPedidosAAsignarRuta;
+    this.rutaService.registrar(ruta).subscribe(r => {
+      if (r != null) {
+        this.pedidosSinRuta();
+        this.pedidos();
+        this.domiciliariosSinrRuta();
+        this.domiciliarios();
+        const messageBox = this.modalService.open(AlertModalComponent)
+        messageBox.componentInstance.title = "BIEN HECHO.";
+        messageBox.componentInstance.message = "Pedidos asignador correctamente.";
+        this.mostrar = "RegistrarRuta";
+      }
+    });
+  }
+
+  domiciliariosSinrRuta() {
+    this.domiciliarioService.sinRuta().subscribe(r => {
+      this.ListaDomiciliariosSinRuta = r;
+    });
+  }
+
+  pedidosSinRuta() {
+    this.pedidoService.SinRuta().subscribe(r => {
+      this.ListaPedidosSinruta = r;
+      this.ListaPedidosSinruta.forEach(element => {
+        this.check.push(element == null);
+      });
+    });
   }
 
   private buildFormDomiciliario() {
@@ -164,13 +214,13 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-  buscarMoto(){
-    this.domiciliarioService.buscarVehiculo(this.domiciliarioSeleccionado.identificacion).subscribe(r =>{
+  buscarMoto() {
+    this.domiciliarioService.buscarVehiculo(this.domiciliarioSeleccionado.identificacion).subscribe(r => {
       this.domiciliarioSeleccionado.moto = r;
     });
   }
 
-  domiciliarios(){
+  domiciliarios() {
     this.domiciliarioService.Todos().subscribe(r => {
       this.LsitaDomiciliarios = r;
     });
@@ -283,19 +333,32 @@ export class PerfilComponent implements OnInit {
   }
 
   abastecer() {
-    this.productoSeleccionado.cantidad = this.cantidadProducto;
-    this.productoService.Abastecer(this.productoSeleccionado).subscribe(
-      r => {
-        this.productoSeleccionado = r;
-      }
-    )
+    if (this.productoSeleccionado.cantidad == undefined) {
+      const messageBox = this.modalService.open(AlertModalComponent)
+      messageBox.componentInstance.title = "ALERTA.";
+      messageBox.componentInstance.message = "Debe buscar un producto.";
+    } else {
+      this.productoSeleccionado.cantidad = this.cantidadProducto;
+      this.productoService.Abastecer(this.productoSeleccionado).subscribe(
+        r => {
+          this.productoSeleccionado = r;
+        }
+      )
+      this.resetearProductoSeleccionado();
+    }
   }
 
   AgregarProducto() {
-    this.productoSeleccionado.cantidad = this.cantidadProducto;
-    this.listaProductoPedido.unshift(this.productoSeleccionado);
-    this.generarPedido();
-    this.resetearProductoSeleccionado();
+    if (this.productoSeleccionado.cantidad == undefined) {
+      const messageBox = this.modalService.open(AlertModalComponent)
+      messageBox.componentInstance.title = "ALERTA.";
+      messageBox.componentInstance.message = "Debe buscar un producto.";
+    } else {
+      this.productoSeleccionado.cantidad = this.cantidadProducto;
+      this.listaProductoPedido.unshift(this.productoSeleccionado);
+      this.generarPedido();
+      this.resetearProductoSeleccionado();
+    }
   }
 
   EliminarProducto(detalle: DetalleDePedido) {
@@ -311,17 +374,27 @@ export class PerfilComponent implements OnInit {
     this.generarPedido();
   }
 
+  resetProductoSeleccionado() {
+    this.productoSeleccionado = new Producto();
+    this.codigoProducto = '';
+  }
   registrarPedido() {
-    this.pedidoService.registrarPedido(this.pedidoGenrado).subscribe(r => {
-      if (r != null) {
-        const messageBox = this.modalService.open(AlertModalComponent)
-        messageBox.componentInstance.title = "BIEN HECHO.";
-        messageBox.componentInstance.message = "Pedido registrado correctamente.";
-        this.listaProductoPedido = [];
-        this.productoSeleccionado = new Producto();
-        this.pedidos();
-      }
-    })
+    if (this.pedidoGenrado.detallesDePedidos == null) {
+      const messageBox = this.modalService.open(AlertModalComponent)
+      messageBox.componentInstance.title = "ALERTA.";
+      messageBox.componentInstance.message = "Debe ingresar productos a la factura.";
+    } else {
+      this.pedidoService.registrarPedido(this.pedidoGenrado).subscribe(r => {
+        if (r != null) {
+          const messageBox = this.modalService.open(AlertModalComponent)
+          messageBox.componentInstance.title = "BIEN HECHO.";
+          messageBox.componentInstance.message = "Pedido registrado correctamente.";
+          this.listaProductoPedido = [];
+          this.productoSeleccionado = new Producto();
+          this.pedidos();
+        }
+      })
+    }
   }
 
   generarPedido() {
@@ -332,6 +405,8 @@ export class PerfilComponent implements OnInit {
 
   resetearProductoSeleccionado() {
     this.productoSeleccionado = new Producto();
+    this.codigoProducto = '';
+    this.cantidadProducto = 1;
   }
 
   BuscarProducto() {

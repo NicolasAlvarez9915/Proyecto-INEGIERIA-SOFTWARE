@@ -16,6 +16,10 @@ namespace Logica
             this.context = context;
         }
 
+        public List<Pedido> SinRuta(){
+            return context.Pedidos.Where(p => p.CodRuta == null).ToList();
+        }
+
         public List<Pedido> Pedidos()
         {
             return context.Pedidos.ToList();

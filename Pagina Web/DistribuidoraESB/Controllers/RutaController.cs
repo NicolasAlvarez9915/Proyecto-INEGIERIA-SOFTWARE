@@ -27,13 +27,6 @@ namespace DistribuidoraESB.Controllers
             var response = service.Guardar(MapearRuta(rutaInput));
             return Ok(response.ruta);
         }
-
-        [HttpPost("AsignarPedidos")]
-        public ActionResult<PedidoViewModel> PostPedidos(List<PedidoInputModel> pedidoInputs)
-        {
-            service.AsigarPedidosAUnaRuta(pedidoInputs.Select(p => MapearPedido(p)).ToList(), true);
-            return Ok(new PedidoViewModel(MapearPedido(pedidoInputs[0])));
-        }
         private Pedido MapearPedido(PedidoInputModel pedidoInput)
         {
             var pedido = new Pedido

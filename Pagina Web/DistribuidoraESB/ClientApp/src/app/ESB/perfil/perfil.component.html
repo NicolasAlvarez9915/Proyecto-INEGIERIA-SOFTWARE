@@ -51,7 +51,7 @@
                 <span class="fas fa-tags spanBarra"></span> Lista
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
-                data-target="#collapseOpsProductos" (click)="mostrar = 'Abastecer'">
+                data-target="#collapseOpsProductos" (click)="mostrar = 'Abastecer'; resetearProductoSeleccionado()">
                 <span class="fas fa-parachute-box spanBarra"></span> Abastecer
             </button>
             <hr>
@@ -74,12 +74,17 @@
                 (click)="mostrar = 'Pedidos';pedidos(); opcionTabbla = 'ver'">
                 <span class="fas fa-suitcase-rolling spanBarra"></span>Lista
             </button>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
+                (click)="mostrar = 'RegistrarRuta';pedidosSinRuta()">
+                <span class="fas fa-suitcase-rolling spanBarra"></span>Sin Ruta
+            </button>
             <hr>
         </div>
         <p>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios">
-                <span class="fas fa-truck-loading"></span>Domiciliarios
+                <span class="fas fa-truck-loading spanBarra"></span>Domiciliarios
             </button>
         </p>
         <div class="collapse OpsMenu" id="collapseOpsDomiciliarios">
@@ -87,12 +92,12 @@
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios"
                 (click)="mostrar ='RegistrarDomiciliario';mostrarInterno='RegistrarDomiciliario'; opcionTabbla = 'Registrar'">
-                <span class="fas fa-truck-loading"></span>Registrar
+                <span class="fas fa-truck-loading spanBarra"></span>Registrar
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios"
                 (click)="mostrar ='Domiciliarios'; opcionTabblaDomiciliarios = 'Ver'">
-                <span class="fas fa-truck-loading"></span>Lista
+                <span class="fas fa-truck-loading spanBarra"></span>Lista
             </button>
             <hr>
         </div>
@@ -435,7 +440,9 @@
 
                     <hr style="visibility: hidden;">
 
-
+                    <div class="text-center" *ngIf="listaClientes.length == 0">
+                        <h4>¡NO HAY CLIENTES REGISTRADOS!</h4>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-responsive-sm" *ngIf='listaClientes && listaClientes.length'>
                             <thead class="thead-light">
@@ -595,6 +602,9 @@
                     </div>
 
                     <hr style="visibility: hidden;">
+                    <div class="text-center" *ngIf="listaProductos.length == 0">
+                        <h4>¡NO HAY PRODUCTOS REGISTRADOS!</h4>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-responsive-sm" *ngIf='listaProductos && listaProductos.length'>
                             <thead class="thead-light">
@@ -720,7 +730,7 @@
                                     </div>
                                     <div class="col">
                                         <hr style="visibility: hidden;">
-                                        <button class="btn btn-outline-dark" (click)="BuscarProducto()">
+                                        <button class="btn btn-outline-dark" (click)="BuscarProducto();">
                                             <span class="fas fa-search" style="margin-right: 0rem;"></span>
                                         </button>
                                     </div>
@@ -752,7 +762,7 @@
                                     </div>
                                     <div class="col">
                                         <hr style="visibility: hidden;">
-                                        <button class="btn btn-outline-dark" (click)="abastecer()">
+                                        <button class="btn btn-outline-dark" (click)="abastecer();resetearProductoSeleccionado()">
                                             <span class="fas fa-plus" style="margin-right: 0rem;"></span>
                                         </button>
                                     </div>
@@ -845,6 +855,9 @@
                             <h6>Descuentos registrados.</h6>
                         </div>
                         <hr>
+                        <div class="text-center" *ngIf="listaDescuentos.length == 0">
+                            <h4>¡NO HAY DESCUENTOS REGISTRADOS PARA ESTE CLIENTE!</h4>
+                        </div>
                         <table class="table table-responsive-sm" *ngIf='listaDescuentos && listaDescuentos.length'>
                             <thead class="thead-light">
                                 <tr>
@@ -870,6 +883,7 @@
                             <h6>Productos sin descuentos.</h6>
                         </div>
                         <hr>
+
                         <div class="row" style="margin-bottom: 1rem;">
                             <div class="col ">
                                 <input type="number" class="form-control" [(ngModel)]="descuentoParaTodos"
@@ -886,6 +900,9 @@
                                     descuentos
                                 </button>
                             </div>
+                        </div>
+                        <div class="text-center" *ngIf="listaProductosSinDescuento.length == 0">
+                            <h4>¡NO HAY PRODUCTOS SIN DESCUENTOS PARA ESTE CLIENTE!</h4>
                         </div>
                         <table class="table table-responsive-sm">
                             <thead class="thead-light">
@@ -934,6 +951,10 @@
                             </button>
                         </div>
                     </div>
+                    <hr style="visibility: hidden;">
+                    <div class="text-center" *ngIf="listaPedidos.length == 0">
+                        <h1>¡NO HAY PEDIDOS REGISTRADOS!</h1>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-responsive-sm" *ngIf='listaPedidos && listaPedidos.length'>
                             <thead class="thead-light">
@@ -974,8 +995,8 @@
         </div>
         <div [ngClass]="{'Ocultar':  mostrar != 'SelccionarProductosPedido'}">
             <div class="Cuerpo">
-                <form class="font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;">
-                    <div>
+                <form class="font-weight-normal col-lg-10" id="formularioRgistrarCliente" style="margin-top: 1rem;">
+                    <div  >
                         <div class=" row" style="padding-right: 1rem;">
                             <div class="col">
                                 <div class="card">
@@ -1063,11 +1084,11 @@
                         </div>
                         <hr style="visibility: hidden;">
 
-                        <div class="row d-flex justify-content-center">
+                        <div class="row d-flex justify-content-center" >
                             <div class="col">
                                 <button class="btn btn-outline-dark" data-toggle="collapse"
                                     data-target="#AñadirProductoPedido" aria-expanded="false"
-                                    aria-controls="AñadirProductoPedido">
+                                    aria-controls="AñadirProductoPedido" (click)="resetearProductoSeleccionado()">
                                     <span class="fas fa-search"></span> Añadir producto
                                 </button>
                             </div>
@@ -1133,7 +1154,7 @@
                                                 <div class="col">
                                                     <hr style="visibility: hidden;">
                                                     <hr style="visibility: hidden;">
-                                                    <button class="btn btn-outline-dark" (click)="AgregarProducto()"
+                                                    <button class="btn btn-outline-dark" (click)="AgregarProducto(); resetearProductoSeleccionado()"
                                                         data-toggle="collapse" data-target="#AñadirProductoPedido"
                                                         aria-expanded="false" aria-controls="AñadirProductoPedido">
                                                         <span class="fas fa-plus" style="margin-right: 0rem;"></span>
@@ -1147,6 +1168,9 @@
                             </div>
                         </div>
                         <hr style="visibility: hidden;">
+                        <div class="text-center" *ngIf="pedidoGenrado.detallesDePedidos == null">
+                            <h4>¡NO HA SELECCIONADO PRODUCTOS!</h4>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-responsive-sm"
                                 *ngIf='pedidoGenrado.detallesDePedidos && pedidoGenrado.detallesDePedidos.length'>
@@ -1244,7 +1268,7 @@
         </div>
         <div *ngIf="mostrar == 'Pedido'">
             <div class="Cuerpo">
-                <form class="font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;">
+                <form class="font-weight-normal col-lg-10" id="formularioRgistrarCliente" style="margin-top: 1rem;">
                     <div>
                         <div class=" row">
                             <div class="col">
@@ -1601,7 +1625,7 @@
                             <div class="row">
                                 <div class="col">
                                     <label>Contraseña</label>
-                                    <input type="text" class="form-control" formControlName="contrasena"
+                                    <input type="password" class="form-control" formControlName="contrasena"
                                         [ngClass]="{'is-invalid':  controlDomiciliario.contrasena.touched && controlDomiciliario.contrasena.errors}" />
                                     <div *ngIf="controlDomiciliario.contrasena.errors" class="invalid-feedback">
                                         <div *ngIf="controlDomiciliario.contrasena.errors.required">
@@ -1611,7 +1635,7 @@
                                 </div>
                                 <div class="col">
                                     <label>C. de contraseña.</label>
-                                    <input type="text" class="form-control" formControlName="contrasenaConfirmar"
+                                    <input type="password" class="form-control" formControlName="contrasenaConfirmar"
                                         [ngClass]="{'is-invalid':  controlDomiciliario.contrasenaConfirmar.touched && controlDomiciliario.contrasenaConfirmar.errors}" />
                                     <div *ngIf="controlDomiciliario.contrasenaConfirmar.errors"
                                         class="invalid-feedback">
@@ -1646,7 +1670,7 @@
             <div class="Cuerpo">
                 <form class="col font-weight-normal">
                     <div class="text-center" style="margin-top: 1rem;">
-                        <h5>Pedidos</h5>
+                        <h5>Domiciliarios</h5>
                     </div>
                     <hr>
                     <div class="row">
@@ -1661,6 +1685,10 @@
                                 <span class="icon-arrow-left1"></span> Volver
                             </button>
                         </div>
+                    </div>
+                    <hr style="visibility: hidden;">
+                    <div class="text-center" *ngIf="LsitaDomiciliarios.length == 0">
+                        <h4>¡NO HAY DOMICILIARIOS REGISTRADO!</h4>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-responsive-sm"
@@ -1756,7 +1784,8 @@
                         </div>
                     </div>
                     <div class="col d-flex justify-content-end">
-                        <button class="btn btn-outline-danger" style=" width: 150px" (click)="mostrar = 'Domiciliarios'">
+                        <button class="btn btn-outline-danger" style=" width: 150px"
+                            (click)="mostrar = 'Domiciliarios'">
                             <span class="icon-arrow-left1"></span> Volver
                         </button>
                     </div>
@@ -1765,7 +1794,137 @@
             </div>
         </div>
         <div *ngIf="mostrar == 'RegistrarRuta'">
-            
+            <div class="Cuerpo">
+                <form class="col font-weight-normal">
+                    <div class="text-center" style="margin-top: 1rem;">
+                        <h5>Pedidos sin ruta</h5>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <label>Filtro por codigo.</label>
+                            <input class="form-control col-5" type="text" style="width: 200px;" placeholder="Referencia"
+                                [(ngModel)]="filtroPedidosSinRuta" [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
+                            <div class="row" style="padding-right: 2rem;">
+                                <div class="col">
+                                    <button class="btn btn-outline-dark" style=" width: 150px;height: 40px;"
+                                        (click)="mostrar = 'DomiciliariosSinRuta'; domiciliariosSinrRuta()">
+                                        <span class="fa fa-plus"></span> Asignar
+                                    </button>
+                                </div>
+                                <div>
+                                    <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
+                                        (click)="mostrar = 'Principal'">
+                                        <span class="icon-arrow-left1"></span> Volver
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <hr style="visibility: hidden;">
+                    
+                    <div class="text-center" *ngIf="ListaPedidosSinruta.length == 0">
+                        <h4>¡NO HAY PEDIDOS SIN RUTA ASIGANA!</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-responsive-sm"
+                            *ngIf='ListaPedidosSinruta && ListaPedidosSinruta.length'>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Seleccionar</th>
+                                    <th scope="col">codigo</th>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">fecha</th>
+                                    <th scope="col">subTotal</th>
+                                    <th scope="col">Iva</th>
+                                    <th scope="col">Descuento</th>
+                                    <th scope="col">total</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let pedido of ListaPedidosSinruta|filtroPedido:filtroPedidosSinRuta; index as i">
+                                    <th scope="row"><input type="checkbox" name="cb-matematicas" [(ngModel)]="check[i]"
+                                            value="likes" checked></th>
+                                    <td>{{ pedido.codigo }} </td>
+                                    <td>{{ pedido.idPersona }}</td>
+                                    <td>{{ pedido.fecha }}</td>
+                                    <td>{{ pedido.subTotal }}</td>
+                                    <td>{{ pedido.iva }}</td>
+                                    <td>{{ pedido.descuento }}</td>
+                                    <td>{{ pedido.total }}</td>
+                                    <th>{{ pedido.estado }}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div *ngIf="mostrar == 'DomiciliariosSinRuta'">
+            <div class="Cuerpo">
+                <form class="col font-weight-normal">
+                    <div class="text-center" style="margin-top: 1rem;">
+                        <h5>Domiciliarios sin ruta</h5>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <!--<div class="col">
+                            <label>Filtro por codigo.</label>
+                            <input class="form-control col-5" type="text" style="width: 200px;" placeholder="Referencia"
+                                [(ngModel)]="filtroPedidos" [ngModelOptions]="{standalone: true}">
+                        </div>-->
+                        <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
+                            <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
+                                (click)="mostrar = 'RegistrarRuta'">
+                                <span class="icon-arrow-left1"></span> Volver
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="visibility: hidden;">
+                    <div class="text-center" *ngIf="ListaDomiciliariosSinRuta.length == 0">
+                        <h4>¡NO HAY DOMICILIARIOS DISPONIBLES!</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-responsive-sm"
+                            *ngIf='ListaDomiciliariosSinRuta && ListaDomiciliariosSinRuta.length'>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Identificación</th>
+                                    <th scope="col">Nombres</th>
+                                    <th scope="col">Apellidos</th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Whatsapp</th>
+                                    <th scope="col">Fecha Permiso</th>
+                                    <th scope="col">opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let domiciliario of ListaDomiciliariosSinRuta; index as i">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ domiciliario.identificacion }} </td>
+                                    <td>{{ domiciliario.nombres }}</td>
+                                    <td>{{ domiciliario.apellidos }}</td>
+                                    <td>{{ domiciliario.telefono }}</td>
+                                    <td>{{ domiciliario.whatsapp }}</td>
+                                    <td>{{ domiciliario.fechaPermisoConduccion }}</td>
+                                    <td><button class="btn btn-outline-dark"
+                                            (click)="registrarRuta(domiciliario)">seleccionar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                </form>
+            </div>
         </div>
     </div>
 </div>
