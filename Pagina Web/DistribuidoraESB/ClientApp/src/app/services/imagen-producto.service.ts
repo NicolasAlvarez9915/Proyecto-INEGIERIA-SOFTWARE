@@ -38,4 +38,11 @@ export class ImagenProductoService {
         tap(_=> this.handleErrorService.handleError<ImagenproductoView>('Consulta de imagenes',null))  
       );
     }
+    Todos(): Observable<ImagenproductoView[]>
+    {
+      return this.http.get<ImagenproductoView[]>(this.baseUrl + 'api/ImagenProducto')
+      .pipe(
+        tap(_=> this.handleErrorService.handleError<ImagenproductoView[]>('Consulta de imagenes',null))  
+      );
+    }
 }

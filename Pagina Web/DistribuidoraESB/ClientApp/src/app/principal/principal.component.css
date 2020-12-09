@@ -1,3 +1,25 @@
+*{
+    font-size: .6cm;
+    font-family: 'Poppins';
+}
+
 .carrusel{
     height: 16cm;
+}
+.LetreloCarrusel{
+    border-radius: 20px;
+    color:  rgb(0, 0, 0);
+}
+.btn{
+    border-radius: 18px; 
+}
+
+.producto:hover{
+    width: 310;
+    transition: all 0.5s;
+}
+
+#img:hover{
+    margin-top: -20px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.49);
 }

@@ -17,7 +17,7 @@
           <a class="nav-link text-white" id="Prueba" [routerLink]="['/']"><span class="fas fa-home"></span> INICIO</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" [routerLink]="['/']"> <span class="fas fa-hat-cowboy-side"></span>QUIENES SOMOS</a>
+          <a class="nav-link text-white" href="#QuienesSomos"> <span class="fas fa-hat-cowboy-side"></span>QUIENES SOMOS</a>
         </li>
         <li class="nav-item ">
           <a class="nav-link text-white" [routerLink]="['/']"> <span class="far fa-comments"></span>CONTACTANOS</a>
@@ -27,13 +27,13 @@
         <li class="nav-item text-white">
           <a class="nav-link text-white" [routerLink]="['/Carrito']"><span class="fas fa-shopping-cart"></span>CARRITO</a>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link text-white" [routerLink]="['/Perfil']"><span class="fas fa-user-circle"></span>PERFIL</a>
+        <li class="nav-item text-white">
+          <a class="nav-link text-white" (click)="RedirigirPerfil()"><span class="fas fa-user-circle"></span>PERFIL</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item text-white">
           <a class="nav-link text-white" id="BtnRegistrar" [routerLink]="['/Registro']"><span class="far fa-user-circle"></span>REGISTRAR</a>
         </li>
-        <li class="nav-item" >
+        <li class="nav-item text-white" >
           <a class="nav-link text-white" id="BtnLogin"[routerLink]="['/Login']">LOG</a>
         </li>
       </ul>

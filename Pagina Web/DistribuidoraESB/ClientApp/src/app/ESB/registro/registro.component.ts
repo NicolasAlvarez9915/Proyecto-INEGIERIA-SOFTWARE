@@ -19,6 +19,7 @@ export class RegistroComponent implements OnInit {
 
   cliente: Cliente;
   usuario: Usuario;
+  check: Boolean;
 
   formularioRegistro: FormGroup;
 
@@ -49,6 +50,7 @@ export class RegistroComponent implements OnInit {
     var contrasena: string = '';
     var contrasenaConfirmar: string = '';
     var correo: string = '';
+    this.check  = false;
     this.formularioRegistro = this.formBuilder.group({
       apellidos: [this.cliente.apellidos, Validators.required],
       nombres: [this.cliente.nombres, Validators.required],
@@ -60,7 +62,8 @@ export class RegistroComponent implements OnInit {
       tipoCliente: [this.cliente.tipoCliente, Validators.required],
       contrasena: [contrasena, Validators.required],
       contrasenaConfirmar: [contrasenaConfirmar, Validators.required],
-      correo: [correo, Validators.required]
+      correo: [correo, Validators.required],
+      check: [this.check, Validators.required]
     });
   }
 
@@ -86,8 +89,7 @@ export class RegistroComponent implements OnInit {
     this.usuario.idPersona = this.cliente.identificacion;
     this.usuario.rol = 'Cliente';
     this.cliente.horaio = this.formularioRegistro.value.horario;
-    alert(this.cliente.identificacion +" "+ this.cliente.nombres+" "+this.cliente.apellidos+" "+this.cliente.direccion+" "+this.cliente.horaio+" "+this.cliente.telefono+" "+this.cliente.tipoCliente+" "+this.cliente.whatsapp);
-    alert(this.usuario.idPersona+ " "+ this.usuario.rol +" "+ this.usuario.correo+ " "+ this.usuario.contraseña );
+    
     
     if(this.formularioRegistro.value.contrasenaConfirmar != this.formularioRegistro.value.contrasena )
     {
@@ -130,10 +132,8 @@ export class RegistroComponent implements OnInit {
                               messageBox.componentInstance.title = "BIEN HECHO.";
                               messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
                               this.usuarioService.GuardarUsuarioSesion(this.usuario);
-                              //this.router.navigate(['/Perfil']);
-                              const messageBox1 = this.modalService.open(AlertModalComponent)
-                              messageBox1.componentInstance.title = "ALERTA.";
-                              messageBox1.componentInstance.message = "El perfil del usuario que intenta ingresar esta en desarrollo.";
+                              this.router.navigate(['/PerfilCliente']);
+                              
                             }
                           }
                         );

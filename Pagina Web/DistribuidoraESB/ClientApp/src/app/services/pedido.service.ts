@@ -73,4 +73,48 @@ export class PedidoService {
       catchError(this.handleErrorService.handleError<string>('Actualizar estado', null))
     );
   }
+
+  obtenerCarrito(){
+    let productos: Producto[] = [];
+    productos = JSON.parse(localStorage.getItem('Carrito'));
+    return productos;
+  }
+  AnadirProductoAlCarro(producto: Producto){
+    let productos: Producto[] = [];
+    let encontrado: Boolean = false;
+    if (this.obtenerCarrito() != null) {
+      productos = this.obtenerCarrito();
+    }
+    if (productos != null){
+      productos.forEach(p =>{
+        if(p.codigo == producto.codigo){
+          p.cantidad += producto.cantidad;
+          encontrado = true;
+        }
+      });
+    } 
+    if (!encontrado){
+      productos.push(producto); 
+    }
+    localStorage.setItem('Carrito', JSON.stringify(productos));
+  }
+  EliminarProductoDelCarrito(codigo: string){
+    let productos: Producto[] = [];
+    let productosR: Producto[] = [];
+    
+    productos = this.obtenerCarrito();
+    if (productos != null){
+      productos.forEach(p =>{
+        if(p.codigo != codigo){
+          productosR.push(p);
+        }
+      });
+      localStorage.setItem('Carrito', JSON.stringify(productosR));
+    }
+  }  
+
+  EliminarCarrito(){
+    let productos: Producto[] = [];
+    localStorage.setItem('Carrito', JSON.stringify(productos));
+  }
 }

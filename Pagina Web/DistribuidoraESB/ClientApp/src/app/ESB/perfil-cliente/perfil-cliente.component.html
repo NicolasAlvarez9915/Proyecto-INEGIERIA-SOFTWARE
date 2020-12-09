@@ -1,1 +1,24 @@
-<p>perfil-cliente works!</p>
+<div class="wrapper">
+    <div id="sidebar" [ngClass]="{'active':  activa}">
+        <div class="TituloBarra">
+            <h5><span class="fas fa-user-cog"></span>Cliente</h5>
+        </div>
+        <hr>
+    </div>
+    <div id="content">
+        <div class="row barraTituloContenido">
+            <div class="col" style="max-width: 50px;">
+                <button type="button" id="sidebarCollapse" class="btn btn-outline-danger btnMenu"
+                    style="border-radius: 50%;" (click)="activa = !activa">
+                    <span class="fas fa-bars" style="margin-right: 0rem;"></span>
+                </button>
+            </div>
+            <div class="col text-center" style="margin-top: 1rem;">
+                <!--<h4>{{administrador.puesto}} {{administrador.nombres}} {{administrador.apellidos}}</h4>--> hola
+            </div>
+        </div>
+        <div class="contenedor">
+            HOla
+        </div>
+    </div>
+</div>

@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
   }
   BotonLogin() {
     this.service.EliminarUsuarioSesion();
-    document.getElementById("BtnLogin").innerHTML = "lOG";
+    document.getElementById("BtnLogin").innerHTML = "LOG";
     document.getElementById("BtnRegistrar").classList.add("Mostrar");
     document.getElementById("BtnRegistrar").classList.remove("Ocultar");
   }
@@ -72,9 +72,7 @@ export class LoginComponent implements OnInit {
           if (usuarioRespuesta.rol == "Administrador") {
             this.router.navigate(['/Perfil']);
           } else {
-            const messageBox = this.modalService.open(AlertModalComponent)
-            messageBox.componentInstance.title = "ALERTA";
-            messageBox.componentInstance.message = "El perfil del usuario que intenta ingresar esta en desarrollo";
+            this.router.navigate(['/PerfilCliente']);
           }
         } else {
 

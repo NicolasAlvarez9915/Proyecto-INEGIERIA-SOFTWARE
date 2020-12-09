@@ -491,7 +491,7 @@ export class PerfilComponent implements OnInit {
     if (this.usuario == null) {
       this.router.navigate(['/Login']);
     }
-    document.getElementById("BtnLogin").innerHTML = "lOG OUT";
+    document.getElementById("BtnLogin").innerHTML = "LOG OUT";
     document.getElementById("BtnRegistrar").classList.add("Ocultar");
     document.getElementById("BtnRegistrar").classList.remove("Mostrar");
     this.Rol = this.usuario.rol;

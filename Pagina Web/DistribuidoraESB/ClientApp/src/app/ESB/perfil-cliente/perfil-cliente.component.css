@@ -1,0 +1,123 @@
+*{
+    font-family: 'Poppins';
+}
+span{
+    margin-right: .5rem;
+}
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+#sidebar {
+    min-width: 220px;
+    max-width: 220px;
+    background-color: rgb(233, 236, 239);
+    color: rgb(0, 0, 0);
+    transition: all 0.5s;
+}
+
+#sidebar.active {
+    margin-left: -220px;
+}
+
+.TituloBarra{
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.btnbarra{
+    height: 2rem;
+    color: rgb(0, 0, 0);
+    font-size: .4cm;
+    background: transparent;
+    border: none;
+    text-align: start;
+}
+
+
+.btnbarra:hover{
+    color: black;
+    background-color: rgb(250, 81, 81);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+.btnbarra:focus {
+    outline: none; 
+}
+
+.spanBarra{
+    padding-left: 2rem;
+}
+
+
+#content {
+    padding-left: 15px;
+    transition: all 0.5s;
+    width: 100%;
+}
+
+.info{
+    margin-top: 2rem;
+    margin-left: 1.5rem;
+}
+
+.contenedor{
+    background-color: white;
+    min-height: 20vh;
+    margin-left: -1rem;
+}
+.cuadroNotificacion{
+    margin-top: 2rem;
+    width: 100%;
+    min-width: 200px;
+    min-height: 50px;
+    border-radius: 20px;
+}
+
+.btn{
+    border-radius: 18px; 
+}
+
+hr{
+    background-color: rgb(250, 81, 81);
+}
+
+.btnMenu{
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+.barraTituloContenido{
+    color: black;
+    background-color: white;
+    border-bottom-style: solid;
+    border-bottom-width: .1rem;
+    border-bottom-color:  rgb(250, 81, 81);
+    margin: 0cm;
+    margin-left: -1rem;
+}
+
+.Ocultar{
+    display: none;
+}
+
+.Cuerpo{
+    display: flex;
+    justify-content: center;
+}
+
+
+@media (max-width: 768px){
+    #sidebar {
+        
+        margin-left: -220px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #content {
+        padding-right: 0px;
+    }
+}

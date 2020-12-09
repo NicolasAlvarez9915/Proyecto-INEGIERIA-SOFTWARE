@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Datos;
 using DistribuidoraESB.Models;
 using Entity;
@@ -64,6 +66,12 @@ namespace DistribuidoraESB.Controllers
         public ActionResult<ImagenProductoViewModel> Gets(string codigo)
         {
             return Ok(new ImagenProductoViewModel(service.BuscarImagen(codigo)));
+        }
+
+        [HttpGet]
+        public IEnumerable<ImagenProductoViewModel> GetTodas(string codigo)
+        {
+            return service.Todas().Select(p => new ImagenProductoViewModel(p));
         }
     }
 }

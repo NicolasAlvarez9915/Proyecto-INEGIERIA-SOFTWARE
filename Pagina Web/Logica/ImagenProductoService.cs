@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Datos;
 using Entity;
 
@@ -31,7 +33,12 @@ namespace Logica
         {
             ImagenProducto imagenProducto = context.ImagenProductos.Find(codigo);
             return imagenProducto;
-        }        
+        }   
+
+        public List<ImagenProducto> Todas()
+        {
+            return context.ImagenProductos.ToList();
+        }     
     }
     public class ImagenProductoResponse 
     {

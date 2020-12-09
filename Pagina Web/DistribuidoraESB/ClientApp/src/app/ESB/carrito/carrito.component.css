@@ -4,3 +4,11 @@
 .Mostrar{
     display: block
 }
+.Cuerpo{
+    display: flex;
+    justify-content: center;
+}
+
+hr{
+    background-color: rgb(250, 81, 81);
+}
