@@ -12,3 +12,10 @@
 hr{
     background-color: rgb(250, 81, 81);
 }
+
+.btn{
+    border-radius: 18px; 
+}
+span{
+    margin-right: .5rem;
+}

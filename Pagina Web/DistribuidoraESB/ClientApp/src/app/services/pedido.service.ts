@@ -65,6 +65,22 @@ export class PedidoService {
     )
   }
 
+  PedidosEntregadosCliente(identificacion: string): Observable<Pedido[]>{
+    return this.http.get<Pedido[]>(this.baseUrl+'api/Pedido/Entregados/'+identificacion)
+    .pipe(
+      tap(_ => this.handleErrorService.log('Resgitrado')),
+      catchError(this.handleErrorService.handleError<Pedido[]>('Consultar pedidos', null))
+    )
+  }
+
+  PedidosEnProcesoCliente(identificacion: string): Observable<Pedido[]>{
+    return this.http.get<Pedido[]>(this.baseUrl+'api/Pedido/EnProceso/'+identificacion)
+    .pipe(
+      tap(_ => this.handleErrorService.log('Resgitrado')),
+      catchError(this.handleErrorService.handleError<Pedido[]>('Consultar pedidos', null))
+    )
+  }
+
   Actualizar(pedido: Pedido, estado: string): Observable<string>
   {
     return this.http.put<string>(this.baseUrl+'api/Pedido/'+estado,pedido)

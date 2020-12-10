@@ -20,6 +20,13 @@ namespace Logica
             return context.Pedidos.Where(p => p.CodRuta == null).ToList();
         }
 
+        public List<Pedido> PedidosEntregadosCliente(string Identificacion){
+            List<Pedido> pedidos =context.Pedidos.Where(p => p.IdPersona == Identificacion && p.Estado == "Entregado").ToList();
+            return pedidos;
+        }
+        public List<Pedido> PedidosEnProcesoCliente(string Identificacion){
+            return context.Pedidos.Where(p => p.IdPersona == Identificacion && p.Estado != "Entregado").ToList();
+        }
         public List<Pedido> Pedidos()
         {
             return context.Pedidos.ToList();
@@ -48,6 +55,7 @@ namespace Logica
                 return new PedidoResponse($"Error de la aplicacion: {e.Message}");
             }
         }
+        
         
 
         public Pedido InicializarCodigos(Pedido pedido)

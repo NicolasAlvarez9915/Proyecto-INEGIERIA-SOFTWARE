@@ -29,6 +29,21 @@ namespace DistribuidoraESB.Controllers
             return service.SinRuta().Select(p => new PedidoViewModel(p));
         }
 
+        [HttpGet("Entregados/{Identificacion}")]
+
+        public IEnumerable<PedidoViewModel> GetEntregados(string Identificacion)
+        {
+            return service.PedidosEntregadosCliente(Identificacion).Select(p => new PedidoViewModel(p));
+        }
+
+        
+        [HttpGet("EnProceso/{Identificacion}")]
+
+        public IEnumerable<PedidoViewModel> GetEnProceso(string Identificacion)
+        {
+            return service.PedidosEnProcesoCliente(Identificacion).Select(p => new PedidoViewModel(p));
+        }
+
         [HttpPut("{Estado}")]
         public ActionResult<String> Put(string Estado, PedidoInputModel pedidoInputModel)
         {
