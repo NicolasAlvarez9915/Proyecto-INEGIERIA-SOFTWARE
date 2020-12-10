@@ -60,8 +60,9 @@
                     </div>
                     <hr style="visibility: hidden;">
                     <div class="text-center" *ngIf="listaPedidosEntregados.length == 0">
-                        <h1>¡NO HAY PEDIDOS ENTREGADOS REGISTRADOS!</h1>
+                        <h4>¡NO HAY PEDIDOS ENTREGADOS REGISTRADOS!</h4>
                     </div>
+                        
                     <div class="table-responsive">
                         <table class="table table-responsive-sm" *ngIf='listaPedidosEntregados && listaPedidosEntregados.length'>
                             <thead class="thead-light">
@@ -122,7 +123,7 @@
                     </div>
                     <hr style="visibility: hidden;">
                     <div class="text-center" *ngIf="lsitaPedidosEnProceso.length == 0">
-                        <h1>¡NO HAY PEDIDOS EN PROCESO REGISTRADOS!</h1>
+                        <h4>¡NO HAY PEDIDOS EN PROCESO REGISTRADOS!</h4>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-responsive-sm" *ngIf='lsitaPedidosEnProceso && lsitaPedidosEnProceso.length'>

@@ -243,3 +243,46 @@ En el html del componente.
 https://www.templatemonster.com/help/es/css-understanding-border-margin-and-padding-properties.html
 
 https://medium.com/angular-chile/comunicaci%C3%B3n-entre-componentes-explicado-con-dragon-ball-z-angular-7-parte-1-f1c67f745515
+
+
+
+
+services.AddSignalR();
+UseEndpoints(endpoints => { endpoints.MapControllerRoute( name: "default", pattern: "{controller}/{action=Index}/{id?}");
+DIEGO MANDON ARENGAS8:15
+UseEndpoints(endpoints => { endpoints.MapControllerRoute( name: "default", pattern: "{controller}/{action=Index}/{id?}"); endpoints.MapHub<SignalHub>("/signalHub"); });
+DIEGO MANDON ARENGAS8:20
+npm install @aspnet/signalr --save
+
+await _hubContext.Clients.All.SendAsync("PersonaRegistrada", response.Elemento);
+
+
+public class ResponseBusqueda<G>
+    {
+        public G Elemento { get; set; }
+        public string Mensaje { get; set; }
+        public bool Error { get; set; }
+        public ResponseBusqueda(G elemento, string mensaje, bool error)
+        {
+            Elemento = elemento;
+            Error = error;
+            Mensaje = mensaje;
+        }
+        public ResponseBusqueda(G elemento) {
+            Elemento = elemento;
+        }
+        public ResponseBusqueda() { }
+    }
+public class ResponseConsulta<G>
+    {
+        public IList<G> ListaDeElementos { get; set; }
+        public string Mensaje { get; set; }
+        public bool Error { get; set; }
+        public ResponseConsulta(List<G> listaDeElementos, string mensaje, bool error)
+        {
+            ListaDeElementos = listaDeElementos;
+            Error = error;
+            Mensaje = mensaje;
+        }
+        public ResponseConsulta() { }
+    }

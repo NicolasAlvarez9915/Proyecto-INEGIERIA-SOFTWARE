@@ -78,6 +78,10 @@ namespace Logica
         {
             return context.Productos.ToList();
         }
+        public int TodosPocasCantidades()
+        {
+            return context.Productos.Where(p => p.Cantidad <=  p.CantidadMinima).ToList().Count;
+        }
     }
     public class ProductoResponse
     {

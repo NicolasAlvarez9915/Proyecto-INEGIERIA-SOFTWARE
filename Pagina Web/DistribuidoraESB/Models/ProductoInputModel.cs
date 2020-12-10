@@ -14,7 +14,7 @@ namespace DistribuidoraESB.Models
         
         public double Cantidad { get; set; }
 
-        public decimal CantidadMinima { get; set; }
+        public double CantidadMinima { get; set; }
         
         public string Descripcion { get; set; }
         

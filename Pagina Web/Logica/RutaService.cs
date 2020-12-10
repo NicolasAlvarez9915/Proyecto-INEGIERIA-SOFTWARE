@@ -48,11 +48,11 @@ namespace Logica
                 if(rutaEncontrada == null)
                 {
                     ruta.Codigo = codigoGenerico.ToString();
-                    return ruta;
                 }
                 codigoGenerico++;
             }
-            return null;
+            ruta.Codigo = codigoGenerico.ToString();
+            return ruta;
         }
         public RutaResponse BuscarRuta(string Codigo)
         {

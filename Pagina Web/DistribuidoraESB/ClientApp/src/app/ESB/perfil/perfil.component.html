@@ -118,7 +118,7 @@
             <div class="row">
                 <div class="Cuerpo ">
                     <div class="row d-flex justify-content-center" style="width: 98%;">
-                        <div class="col CuerpoCard">
+                        <div class="col CuerpoCard Card" (click)="mostrar = 'Clientes';mostrarInterno='Cliente';clientes()">
                             <div class="row" style="margin: 1rem;">
                                 <div class="col iconoCard">
                                     <div style="font-size: 2rem;">
@@ -134,23 +134,23 @@
                                 Clientes registrados: {{totalClientes}}
                             </div>
                         </div>
-                        <div class="col CuerpoCard">
+                        <div class="col CuerpoCard Card" (click)="mostrar='RegistrarRuta'" >
                             <div class="row" style="margin: 1rem;">
                                 <div class="col iconoCard">
                                     <div style="font-size: 2rem;">
-                                        <span class="fas fa-users"></span>
+                                        <span class="fas fa-suitcase-rolling"></span>
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-end">
-                                    <h5>Clientes.</h5>
+                                    <h5>Pedidos.</h5>
                                 </div>
                             </div>
                             <hr>
                             <div style="margin-bottom: .5rem;font-size: .4cm">
-                                Clientes nuevos: {{totalClientes}}
+                                Pedidos sin ruta: {{ListaPedidosSinruta.length}}
                             </div>
                         </div>
-                        <div class="col CuerpoCard">
+                        <div class="col CuerpoCard Card">
                             <div class="row" style="margin: 1rem;">
                                 <div class="col iconoCard">
                                     <div style="font-size: 2rem;">
@@ -166,7 +166,7 @@
                                 Domiciliarios registrados: 10
                             </div>
                         </div>
-                        <div class="col CuerpoCard">
+                        <div class="col CuerpoCard Card">
                             <div class="row" style="margin: 1rem;">
                                 <div class="col iconoCard">
                                     <div style="font-size: 2rem;">
@@ -183,7 +183,7 @@
                             </div>
                         </div>
 
-                        <div class="col CuerpoCard">
+                        <div class="col CuerpoCard Card">
                             <div class="row" style="margin: 1rem;">
                                 <div class="col iconoCard">
                                     <div style="font-size: 2rem;">
@@ -199,7 +199,7 @@
                                 Veiculos con papeles en proxima expiración: 1
                             </div>
                         </div>
-                        <div class="col CuerpoCard">
+                        <div class="col CuerpoCard Card">
                             <div class="row" style="margin: 1rem;">
                                 <div class="col iconoCard">
                                     <div style="font-size: 2rem;">
@@ -215,7 +215,7 @@
                                 Productos registrados: {{totalProductos}}
                             </div>
                         </div>
-                        <div class="col CuerpoCard">
+                        <div class="col CuerpoCard Card" (click)="mostrar = 'Abastecer'; resetearProductoSeleccionado()">
                             <div class="row" style="margin: 1rem;">
                                 <div class="col iconoCard">
                                     <div style="font-size: 2rem;">
@@ -228,7 +228,7 @@
                             </div>
                             <hr>
                             <div style="margin-bottom: .5rem;font-size: .4cm">
-                                Productos con pocas cantidades: {{totalProductos}}
+                                Productos con pocas cantidades: {{pocasCantidades}}
                             </div>
                         </div>
                     </div>
@@ -769,7 +769,7 @@
                                 </div>
                                 <div class="col d-flex justify-content-end">
                                     <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
-                                        (click)="mostrar = 'Principal'">
+                                        (click)="mostrar = 'Principal';productosPocasCAntidades()">
                                         <span class="icon-arrow-left1"></span> Volver
                                     </button>
                                 </div>

@@ -53,4 +53,13 @@ export class ProductoService {
       catchError(this.handleErrorService.handleError<Producto[]>('Registrar Producto', null))
     )
   }
+
+  PocasCantidades():Observable<number>
+  {
+    return  this.http.get<number>(this.baseUrl+'api/Producto/PocasCantidades')
+    .pipe(
+      tap(_ => this.handleErrorService.log('Resgitrado')),
+      catchError(this.handleErrorService.handleError<number>('Registrar Producto', null))
+    )
+  }
 }

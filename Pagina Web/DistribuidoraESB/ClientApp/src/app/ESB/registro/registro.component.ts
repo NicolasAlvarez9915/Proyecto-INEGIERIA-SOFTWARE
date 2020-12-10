@@ -121,7 +121,6 @@ export class RegistroComponent implements OnInit {
                   (
                     r =>
                     {
-                      alert(r == null);
                       if(r!=null)
                       {
                         this.usuarioService.post(this.usuario).subscribe(

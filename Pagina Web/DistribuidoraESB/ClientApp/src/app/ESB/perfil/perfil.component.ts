@@ -104,6 +104,8 @@ export class PerfilComponent implements OnInit {
   imagenProducto: ImagenProducto = new ImagenProducto();
   imagenProductoView: ImagenproductoView = new ImagenproductoView();
 
+  pocasCantidades: number = 0;
+
   constructor(
     private router: Router,
     private usuarioService: UsuarioService,
@@ -137,6 +139,14 @@ export class PerfilComponent implements OnInit {
     this.buildFormDomiciliario();
     this.domiciliarios();
     this.pedidosSinRuta();
+    this.productosPocasCAntidades();
+  }
+
+
+  productosPocasCAntidades(){
+    this.productoService.PocasCantidades().subscribe(r =>{
+      this.pocasCantidades = r;
+    });
   }
 
   registrarRuta(domiciliario: Domiciliario) {

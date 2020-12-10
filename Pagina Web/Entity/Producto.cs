@@ -17,7 +17,7 @@ namespace Entity
         [Column(TypeName = "real")]
         public double Cantidad { get; set; }
         [Column(TypeName = "real")]
-        public decimal CantidadMinima { get; set; }
+        public double CantidadMinima { get; set; }
         [Column(TypeName = "int")]
         public int Valor { get; set; }
         [Column(TypeName = "nvarchar(100)")]

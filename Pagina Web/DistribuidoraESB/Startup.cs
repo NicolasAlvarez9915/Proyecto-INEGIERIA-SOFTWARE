@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using Datos;
 using DistribuidoraESB.Config;
+using DistribuidoraESB.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,8 +30,8 @@ namespace DistribuidoraESB
         public void ConfigureServices(IServiceCollection services)
         {
             // Configurar cadena de Conexion con EF
-            var connectionString=Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<DESBContext>(p=>p.UseSqlServer(connectionString));
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<DESBContext>(p => p.UseSqlServer(connectionString));
 
             services.AddControllersWithViews();
 
@@ -84,6 +85,7 @@ namespace DistribuidoraESB
                 });
             });
             // In production, the Angular files will be served from this directory
+            services.AddSignalR();
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -122,12 +124,12 @@ namespace DistribuidoraESB
             app.UseAuthentication();
             app.UseAuthorization();
             #endregion
-        
+
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+            { endpoints.MapControllerRoute(
+                name: "default", 
+                pattern: "{controller}/{action=Index}/{id?}"
+                ); endpoints.MapHub<SignalHub>("/signalHub"); 
             });
 
             //start swagger

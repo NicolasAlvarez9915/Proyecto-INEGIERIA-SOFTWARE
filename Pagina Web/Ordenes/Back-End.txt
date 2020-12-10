@@ -174,9 +174,9 @@ dotnet tool update --global dotnet-ef
 
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.1.9
 
-dotnet ef migrations add InitialCreate -s "Ruta de la capa de presentacion"
+dotnet ef migrations add InitialCreate -s ../DistribuidoraESB
 
-dotnet ef database update -s "Ruta de la capa presentacion"
+dotnet ef database update -s ../DistribuidoraESB
 
 Verificar version en:
 

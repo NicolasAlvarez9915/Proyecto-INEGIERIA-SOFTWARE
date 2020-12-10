@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Datos;
+using DistribuidoraESB.Hubs;
 using DistribuidoraESB.Models;
 using Entity;
 using Logica;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace DistribuidoraESB.Controllers
 {
@@ -14,9 +17,10 @@ namespace DistribuidoraESB.Controllers
     public class ProductoController: ControllerBase
     {
         private readonly ProductoService service;
-
-        public ProductoController(DESBContext context)
+        private readonly IHubContext<SignalHub> _hubContext;
+        public ProductoController(DESBContext context, IHubContext<SignalHub> hubContext)
         {
+            _hubContext = hubContext;
             service = new ProductoService(context);
         }
 
@@ -40,9 +44,10 @@ namespace DistribuidoraESB.Controllers
 
 
         [HttpPost]
-        public ActionResult<ProductoViewModel> Post(ProductoInputModel productoInput)
+        public async Task<ActionResult<ProductoViewModel>> Post(ProductoInputModel productoInput)
         {
             var response = service.Guardar(MapearProducto(productoInput));
+            await _hubContext.Clients.All.SendAsync("RegistrarProducto", response.producto);
             return Ok(response.producto);
         }
 
@@ -50,6 +55,13 @@ namespace DistribuidoraESB.Controllers
         public IEnumerable<ProductoViewModel> Get()
         {
             return service.Todos().Select(p => new ProductoViewModel(p));
+        }
+
+        
+        [HttpGet("PocasCantidades")]
+        public ActionResult<int> GetPocasCAntidades()
+        {
+            return service.TodosPocasCantidades();
         }
 
         private Producto MapearProducto(ProductoInputModel productoInput)

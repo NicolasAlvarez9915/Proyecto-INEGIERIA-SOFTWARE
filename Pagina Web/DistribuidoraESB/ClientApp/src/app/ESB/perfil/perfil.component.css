@@ -6,6 +6,12 @@ span{
     margin-right: .5rem;
 }
 
+.Card:hover{
+    margin-top: 1rem;
+    box-shadow: 10px 10px 5px 0px rgba(133,133,133,1);
+    transition: all 0.5s;
+}
+
 .wrapper {
     display: flex;
     min-height: 100vh;
@@ -116,7 +122,6 @@ hr{
     margin-left: 2rem;
     margin-top: 2rem;
     border-radius: 5px;
-    box-shadow: 10px 10px 5px 0px rgba(133,133,133,1);
 }
 
 .iconoCard{
