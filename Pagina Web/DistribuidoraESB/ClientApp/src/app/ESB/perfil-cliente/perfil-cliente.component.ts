@@ -25,8 +25,9 @@ export class PerfilClienteComponent implements OnInit {
   filtroPedidos: string;
   listaPedidosEntregados: Pedido[] = [];
   lsitaPedidosEnProceso: Pedido[] = [];
-  
+
   listaDescuentos: Descuento[] = [];
+
   pedidoSeleccionado: Pedido = new Pedido();
   constructor(
     private usuarioService: UsuarioService,
@@ -39,9 +40,9 @@ export class PerfilClienteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.validarSesion(); 
+    this.validarSesion();
     this.signalRService.pedidoReceived.subscribe((pedido: Pedido) => {
-      if(pedido.idPersona == this.cliente.identificacion){
+      if (pedido.idPersona == this.cliente.identificacion) {
         this.lsitaPedidosEnProceso.push(pedido);
       }
     });
@@ -57,16 +58,19 @@ export class PerfilClienteComponent implements OnInit {
     this.clienteService.buscar(this.usuario.idPersona).subscribe(
       r => {
         this.cliente = r;
+        this.mostrarDescuentosCliente();
+        this.PedidosEnProcesoCliente();
+        this.PedidosEntregadosCliente();
       }
     )
   }
 
   validarSesion() {
-    this.authenticationService.currentUser.subscribe(x =>{
+    this.authenticationService.currentUser.subscribe(x => {
       this.usuario = x;
       if (this.usuario == null) {
         this.router.navigate(['/Login']);
-      }else{
+      } else {
         this.pedirInforCliente();
       }
     });
@@ -78,16 +82,16 @@ export class PerfilClienteComponent implements OnInit {
     })
   }
 
-  PedidosEntregadosCliente(){
-    this.pedidoService.PedidosEntregadosCliente(this.cliente.identificacion).subscribe(r  =>{
+  PedidosEntregadosCliente() {
+    this.pedidoService.PedidosEntregadosCliente(this.cliente.identificacion).subscribe(r => {
       this.listaPedidosEntregados = r;
     });
   }
 
-  PedidosEnProcesoCliente(){
-    this.pedidoService.PedidosEnProcesoCliente(this.cliente.identificacion).subscribe(r  =>{
+  PedidosEnProcesoCliente() {
+    this.pedidoService.PedidosEnProcesoCliente(this.cliente.identificacion).subscribe(r => {
       this.lsitaPedidosEnProceso = r;
     });
   }
-  
+
 }

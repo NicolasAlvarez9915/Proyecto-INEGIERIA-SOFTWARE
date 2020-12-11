@@ -109,6 +109,30 @@ hr{
 }
 
 
+.CuerpoCard{
+    min-width: 300px;
+    max-width: 300px;
+    background-color: rgb(233, 236, 239);
+    margin-left: 2rem;
+    margin-top: 2rem;
+    border-radius: 5px;
+}
+
+.iconoCard{
+    background-color: rgb(250, 81, 81); 
+    max-width: 30%;
+    margin-top: -2rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    box-shadow: 10px 10px 5px 0px rgba(133,133,133,1);
+}
+
+.Card:hover{
+    margin-top: 1rem;
+    box-shadow: 10px 10px 5px 0px rgba(133,133,133,1);
+    transition: all 0.5s;
+}
+
 @media (max-width: 768px){
     #sidebar {
         

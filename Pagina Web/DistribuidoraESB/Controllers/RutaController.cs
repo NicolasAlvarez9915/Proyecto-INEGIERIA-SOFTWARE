@@ -58,7 +58,7 @@ namespace DistribuidoraESB.Controllers
         {
             var respose = service.BuscarRuta(Identificacion);
             if (respose.Error){
-                BadRequest(respose.Mensaje);
+                return BadRequest(respose.Mensaje);
             }
             return Ok(respose.ruta);
         }

@@ -66,10 +66,12 @@ export class LoginComponent implements OnInit {
     .subscribe(
       data => {
         this.authenticationService.currentUser.subscribe(x => {
-          if (x.rol == "Administrador") {
-            this.router.navigate(['/Perfil']);
-          } else {
-            this.router.navigate(['/PerfilCliente']);
+          if(x != null){
+            if (x.rol == "Administrador") {
+              this.router.navigate(['/Perfil']);
+            } else {
+              this.router.navigate(['/PerfilCliente']);
+            }
           }
         });
       },

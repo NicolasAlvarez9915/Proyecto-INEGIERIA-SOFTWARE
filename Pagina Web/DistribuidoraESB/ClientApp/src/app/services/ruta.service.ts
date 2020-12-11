@@ -44,11 +44,11 @@ export class RutaService {
     )
   }
 
-  rutaDomiciliario(idDomiciliario: string): Observable<Ruta[]>{
-    return this.http.get<Ruta[]>(this.baseUrl+'api/Ruta'+idDomiciliario)
+  rutaDomiciliario(idDomiciliario: string): Observable<Ruta>{
+    return this.http.get<Ruta>(this.baseUrl+'api/Ruta/'+idDomiciliario)
     .pipe(
       tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Ruta[]>('Buscar Ruta[]', null))
+      catchError(this.handleErrorService.handleError<Ruta>('Buscar Ruta[]', null))
     )
   }
 }

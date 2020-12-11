@@ -19,7 +19,7 @@
             <hr style="background-color: rgb(250, 81, 81);">
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
-                (click)="mostrar ='RegistrarCliente'">
+                (click)="mostrar ='RegistrarCliente';reiniciarFormularios();">
                 <span class="fas fa-user-plus spanBarra"></span>Registrar
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
@@ -43,7 +43,7 @@
         <div class="collapse OpsMenu" id="collapseOpsProductos">
             <hr>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
-                data-target="#collapseOpsProductos" (click)="mostrar ='RegistrarPrdocuto'; selectedFile = null">
+                data-target="#collapseOpsProductos" (click)="mostrar ='RegistrarPrdocuto';reiniciarFormularios(); selectedFile = null">
                 <span class="fas fa-tag spanBarra"></span> Registrar
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
@@ -54,12 +54,16 @@
                 data-target="#collapseOpsProductos" (click)="mostrar = 'Abastecer'; resetearProductoSeleccionado()">
                 <span class="fas fa-parachute-box spanBarra"></span> Abastecer
             </button>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsProductos" (click)="mostrar = 'ProductosStovkMinimo'; productosPocasCAntidades()">
+                <span class="fas fa-sort-amount-down spanBarra"></span>En stock minimo
+            </button>
             <hr>
         </div>
         <p>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos">
-                <span class="fas fa-suitcase-rolling spanBarra"></span>Pedidos
+                <span class="fas fa-luggage-cart spanBarra"></span>Pedidos
             </button>
         </p>
         <div class="collapse OpsMenu" id="collapseOpsPedidos">
@@ -67,17 +71,17 @@
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
                 (click)="mostrar ='Clientes';mostrarInterno='RegistrarPedido'; opcionTabbla = 'Registrar'">
-                <span class="fas fa-suitcase-rolling spanBarra"></span>Registrar
+                <span class="fas fa-luggage-cart spanBarra"></span>Registrar
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
                 (click)="mostrar = 'Pedidos';pedidos(); opcionTabbla = 'ver'">
-                <span class="fas fa-suitcase-rolling spanBarra"></span>Lista
+                <span class="fas fa-luggage-cart spanBarra"></span>Lista
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
                 (click)="mostrar = 'RegistrarRuta';pedidosSinRuta()">
-                <span class="fas fa-suitcase-rolling spanBarra"></span>Sin Ruta
+                <span class="fas fa-route spanBarra"></span>Sin Ruta
             </button>
             <hr>
         </div>
@@ -91,13 +95,18 @@
             <hr style="background-color: rgb(250, 81, 81);">
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios"
-                (click)="mostrar ='RegistrarDomiciliario';mostrarInterno='RegistrarDomiciliario'; opcionTabbla = 'Registrar'">
+                (click)="mostrar ='RegistrarDomiciliario';mostrarInterno='RegistrarDomiciliario';reiniciarFormularios(); opcionTabbla = 'Registrar'">
                 <span class="fas fa-truck-loading spanBarra"></span>Registrar
             </button>
             <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
                 data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios"
                 (click)="mostrar ='Domiciliarios'; opcionTabblaDomiciliarios = 'Ver'">
                 <span class="fas fa-truck-loading spanBarra"></span>Lista
+            </button>
+            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+                data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios"
+                (click)="mostrar ='DomiciliariosSinRutaLista'; opcionTabblaDomiciliarios = 'Ver'">
+                <span class="fas fa-truck-loading spanBarra"></span>Disponibles
             </button>
             <hr>
         </div>
@@ -138,7 +147,7 @@
                             <div class="row" style="margin: 1rem;">
                                 <div class="col iconoCard">
                                     <div style="font-size: 2rem;">
-                                        <span class="fas fa-suitcase-rolling"></span>
+                                        <span class="fas fa-luggage-cart"></span>
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-end">
@@ -150,7 +159,7 @@
                                 Pedidos sin ruta: {{ListaPedidosSinruta.length}}
                             </div>
                         </div>
-                        <div class="col CuerpoCard Card">
+                        <div class="col CuerpoCard Card" (click)="mostrar ='DomiciliariosSinRutaLista'; opcionTabblaDomiciliarios = 'Ver'">
                             <div class="row" style="margin: 1rem;">
                                 <div class="col iconoCard">
                                     <div style="font-size: 2rem;">
@@ -163,43 +172,10 @@
                             </div>
                             <hr>
                             <div style="margin-bottom: .5rem; font-size: .4cm">
-                                Domiciliarios registrados: 10
+                                Domiciliarios disponibles: {{ListaDomiciliariosSinRuta.length}}
                             </div>
                         </div>
-                        <div class="col CuerpoCard Card">
-                            <div class="row" style="margin: 1rem;">
-                                <div class="col iconoCard">
-                                    <div style="font-size: 2rem;">
-                                        <span class="fas fa-users"></span>
-                                    </div>
-                                </div>
-                                <div class="col d-flex justify-content-end">
-                                    <h5>Domiciliarios.</h5>
-                                </div>
-                            </div>
-                            <hr>
-                            <div style="margin-bottom: .5rem; font-size: .4cm">
-                                Domiciliarios con papeles en proxima expiración: 1
-                            </div>
-                        </div>
-
-                        <div class="col CuerpoCard Card">
-                            <div class="row" style="margin: 1rem;">
-                                <div class="col iconoCard">
-                                    <div style="font-size: 2rem;">
-                                        <span class="icon-motorcycle"></span>
-                                    </div>
-                                </div>
-                                <div class="col d-flex justify-content-end">
-                                    <h5>Vehiculos.</h5>
-                                </div>
-                            </div>
-                            <hr>
-                            <div style="margin-bottom: .5rem;font-size: .4cm">
-                                Veiculos con papeles en proxima expiración: 1
-                            </div>
-                        </div>
-                        <div class="col CuerpoCard Card">
+                        <div class="col CuerpoCard Card" (click)="mostrar = 'ProductosStovkMinimo';productosPocasCAntidades()">
                             <div class="row" style="margin: 1rem;">
                                 <div class="col iconoCard">
                                     <div style="font-size: 2rem;">
@@ -212,23 +188,7 @@
                             </div>
                             <hr>
                             <div style="margin-bottom: .5rem;font-size: .4cm">
-                                Productos registrados: {{totalProductos}}
-                            </div>
-                        </div>
-                        <div class="col CuerpoCard Card" (click)="mostrar = 'Abastecer'; resetearProductoSeleccionado()">
-                            <div class="row" style="margin: 1rem;">
-                                <div class="col iconoCard">
-                                    <div style="font-size: 2rem;">
-                                        <span class="fas fa-tags"></span>
-                                    </div>
-                                </div>
-                                <div class="col d-flex justify-content-end">
-                                    <h5>Productos.</h5>
-                                </div>
-                            </div>
-                            <hr>
-                            <div style="margin-bottom: .5rem;font-size: .4cm">
-                                Productos con pocas cantidades: {{pocasCantidades}}
+                                Con stock minimo: {{pocasCantidades.length}}
                             </div>
                         </div>
                     </div>
@@ -1715,7 +1675,7 @@
                                     <td>{{ domiciliario.whatsapp }}</td>
                                     <td>{{ domiciliario.fechaPermisoConduccion }}</td>
                                     <td><button class="btn btn-outline-dark"
-                                            (click)="domiciliarioSeleccionado = domiciliario;mostrar = 'Domiciliario';buscarMoto()">{{opcionTabblaDomiciliarios}}</button>
+                                            (click)="domiciliarioSeleccionado = domiciliario;mostrar = 'Domiciliario';buscarMoto(); buscarRuta()">{{opcionTabblaDomiciliarios}}</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -1789,7 +1749,42 @@
                             <span class="icon-arrow-left1"></span> Volver
                         </button>
                     </div>
+                    <hr style="visibility: hidden;">
+                    <div class="text-center" *ngIf="rutaSeleccionada.pedidos.length == 0">
+                        <h4>¡NO TIENE RUTA ASIGNADA!</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-responsive-sm" *ngIf='rutaSeleccionada.pedidos && rutaSeleccionada.pedidos.length'>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">codigo</th>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">fecha</th>
+                                    <th scope="col">subTotal</th>
+                                    <th scope="col">Iva</th>
+                                    <th scope="col">Descuento</th>
+                                    <th scope="col">total</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pedido of rutaSeleccionada.pedidos|filtroPedido:filtroPedidos; index as i">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ pedido.codigo }} </td>
+                                    <td>{{ pedido.idPersona }}</td>
+                                    <td>{{ pedido.fecha }}</td>
+                                    <td>{{ pedido.subTotal }}</td>
+                                    <td>{{ pedido.iva }}</td>
+                                    <td>{{ pedido.descuento }}</td>
+                                    <td>{{ pedido.total }}</td>
+                                    <th>{{ pedido.estado }}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <hr>
+
                 </form>
             </div>
         </div>
@@ -1917,6 +1912,110 @@
                                     <td><button class="btn btn-outline-dark"
                                             (click)="registrarRuta(domiciliario)">seleccionar</button>
                                     </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div *ngIf="mostrar == 'DomiciliariosSinRutaLista'">
+            <div class="Cuerpo">
+                <form class="col font-weight-normal">
+                    <div class="text-center" style="margin-top: 1rem;">
+                        <h5>Domiciliarios sin ruta</h5>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <!--<div class="col">
+                            <label>Filtro por codigo.</label>
+                            <input class="form-control col-5" type="text" style="width: 200px;" placeholder="Referencia"
+                                [(ngModel)]="filtroPedidos" [ngModelOptions]="{standalone: true}">
+                        </div>-->
+                        <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
+                            <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
+                                (click)="mostrar = 'Principal'">
+                                <span class="icon-arrow-left1"></span> Volver
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="visibility: hidden;">
+                    <div class="text-center" *ngIf="ListaDomiciliariosSinRuta.length == 0">
+                        <h4>¡NO HAY DOMICILIARIOS CON MENOS DE TRES PEDIDOS REGISTRADOS!</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-responsive-sm"
+                            *ngIf='ListaDomiciliariosSinRuta && ListaDomiciliariosSinRuta.length'>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Identificación</th>
+                                    <th scope="col">Nombres</th>
+                                    <th scope="col">Apellidos</th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Whatsapp</th>
+                                    <th scope="col">Fecha Permiso</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let domiciliario of ListaDomiciliariosSinRuta; index as i">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ domiciliario.identificacion }} </td>
+                                    <td>{{ domiciliario.nombres }}</td>
+                                    <td>{{ domiciliario.apellidos }}</td>
+                                    <td>{{ domiciliario.telefono }}</td>
+                                    <td>{{ domiciliario.whatsapp }}</td>
+                                    <td>{{ domiciliario.fechaPermisoConduccion }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div *ngIf="mostrar == 'ProductosStovkMinimo'">
+            <div class="Cuerpo">
+                <form class="col font-weight-normal">
+                    <div class="text-center" style="margin-top: 1rem;">
+                        <h5>Productos</h5>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
+                            <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
+                                (click)="mostrar = 'Principal'">
+                                <span class="icon-arrow-left1"></span> Volver
+                            </button>
+                        </div>
+                    </div>
+
+                    <hr style="visibility: hidden;">
+                    <div class="text-center" *ngIf="pocasCantidades.length == 0">
+                        <h4>¡NO HAY PRODUCTOS REGISTRADOS!</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-responsive-sm" *ngIf='pocasCantidades && pocasCantidades.length'>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Referencia</th>
+                                    <th scope="col">categoria </th>
+                                    <th scope="col">nombre </th>
+                                    <th scope="col">cantidad</th>
+                                    <th scope="col">Valor</th>
+                                    <th scope="col">opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of pocasCantidades; index as i">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ producto.codigo }} </td>
+                                    <td>{{ producto.categoria }}</td>
+                                    <td>{{ producto.nombre }}</td>
+                                    <td>{{ producto.cantidad }}</td>
+                                    <td>{{ producto.valor}}</td>
                                 </tr>
                             </tbody>
                         </table>

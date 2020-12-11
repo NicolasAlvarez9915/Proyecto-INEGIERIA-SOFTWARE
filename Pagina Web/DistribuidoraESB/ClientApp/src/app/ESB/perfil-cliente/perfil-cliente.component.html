@@ -12,14 +12,14 @@
         <p>
             <button class="btnbarra" style="width: 100%; " type="bootton"
                 (click)="mostrar = 'Pedidos';PedidosEntregadosCliente()">
-                <span class="fas fa-suitcase-rolling spanBarra"></span>Pedidos entregados
+                <span class="fas fas fa-luggage-cart spanBarra"></span>Pedidos recibidos
             </button>
         </p>
 
         <p>
             <button class="btnbarra" style="width: 100%; " type="bootton"
                 (click)="mostrar = 'PedidosEnProceso';PedidosEnProcesoCliente()">
-                <span class="fas fa-suitcase-rolling spanBarra"></span>Pedidos en proceso
+                <span class="fas fas fa-luggage-cart spanBarra"></span>Pedidos en espera
             </button>
         </p>
         <p>
@@ -38,14 +38,64 @@
                 </button>
             </div>
             <div class="col text-center" style="margin-top: 1rem;">
-                <h4>{{cliente.nombres}} {{cliente.apellidos}}</h4>
+                <h4>Cliente: {{cliente.nombres}} {{cliente.apellidos}}</h4>
             </div>
         </div>
         <div class="contenedor" [ngClass]="{'Ocultar':  mostrar != 'Principal'}">
             <div class="Cuerpo">
-                HOla
+                <div class="row d-flex justify-content-center" style="width: 98%;">
+                    <div class="col CuerpoCard Card" (click)="mostrar ='Pedidos';">
+                        <div class="row" style="margin: 1rem;">
+                            <div class="col iconoCard">
+                                <div style="font-size: 2rem;">
+                                    <span class="fas fa-luggage-cart"></span>
+                                </div>
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                                <h5>Pedidos.</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div style="margin-bottom: .5rem; font-size: .4cm">
+                            Pedidos recibidos: {{listaPedidosEntregados.length}}
+                        </div>
+                    </div>
+                    <div class="col CuerpoCard Card" (click)="mostrar = 'PedidosEnProceso';">
+                        <div class="row" style="margin: 1rem;">
+                            <div class="col iconoCard">
+                                <div style="font-size: 2rem;">
+                                    <span class="fas fa-luggage-cart"></span>
+                                </div>
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                                <h5>Pedidos.</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div style="margin-bottom: .5rem;font-size: .4cm">
+                            Pedidos en espera: {{lsitaPedidosEnProceso.length}}
+                        </div>
+                    </div>
+                    <div class="col CuerpoCard Card" (click)="mostrar='DescuentosRegistrados';mostrarDescuentosCliente()">
+                        <div class="row" style="margin: 1rem;">
+                            <div class="col iconoCard">
+                                <div style="font-size: 2rem;">
+                                    <span class="fas fa-percent"></span>
+                                </div>
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                                <h5>Descuentos.</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div style="margin-bottom: .5rem;font-size: .4cm">
+                            Descuentos adquiridos: {{listaDescuentos.length}}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
         <div *ngIf="mostrar == 'Pedidos'">
             <div class="Cuerpo">
                 <form class="col font-weight-normal">
@@ -69,7 +119,7 @@
                     </div>
                     <hr style="visibility: hidden;">
                     <div class="text-center" *ngIf="listaPedidosEntregados.length == 0">
-                        <h4>¡NO HAY PEDIDOS ENTREGADOS REGISTRADOS!</h4>
+                        <h4>¡NO HAY PEDIDOS RECIBIDOS REGISTRADOS!</h4>
                     </div>
 
                     <div class="table-responsive">
@@ -134,7 +184,7 @@
                     </div>
                     <hr style="visibility: hidden;">
                     <div class="text-center" *ngIf="lsitaPedidosEnProceso.length == 0">
-                        <h4>¡NO HAY PEDIDOS EN PROCESO REGISTRADOS!</h4>
+                        <h4>¡NO HAY PEDIDOS EN ESPERA REGISTRADOS!</h4>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-responsive-sm"
@@ -405,7 +455,7 @@
                     </div>
                     <hr style="visibility: hidden;">
                     <div class="text-center" *ngIf="listaDescuentos.length == 0">
-                        <h4>¡NO HAY DESCUENTOS REGISTRADOS PARA ESTE CLIENTE!</h4>
+                        <h4>¡NO HAY DESCUENTOS REGISTRADOS PARA USTED HASTA AHORA!</h4>
                     </div>
                     <table class="table table-responsive-sm" *ngIf='listaDescuentos && listaDescuentos.length'>
                         <thead class="thead-light">

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AlertModalComponent } from '../@base/alert-modal/alert-modal.component';
 import { ImagenproductoView } from '../ESB/Models/imagenproducto-view';
 import { Producto } from '../ESB/Models/producto';
 import { ImagenProductoService } from '../services/imagen-producto.service';
@@ -21,7 +23,8 @@ export class PrincipalComponent implements OnInit {
     private productoService: ProductoService,
     private imagenService: ImagenProductoService,
     private pedidoService: PedidoService,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -53,12 +56,22 @@ export class PrincipalComponent implements OnInit {
   }
 
   anadirProductoAlCarro(posicion: number) {
-    let productoAAgregar: Producto = this.productosRegistrardos[posicion];
-    productoAAgregar.cantidad = this.cantidadProducto[posicion];
+    if (this.cantidadProducto[posicion] <= this.productosRegistrardos[posicion].cantidad) {
+      let productoAAgregar: Producto = this.productosRegistrardos[posicion];
+      productoAAgregar.cantidad = this.cantidadProducto[posicion];
 
-    if (productoAAgregar.cantidad != 0) {
-      this.pedidoService.AnadirProductoAlCarro(productoAAgregar);
+      if (productoAAgregar.cantidad > 0) {
+        this.pedidoService.AnadirProductoAlCarro(productoAAgregar);
+      } else {
+        const messageBox = this.modalService.open(AlertModalComponent)
+        messageBox.componentInstance.title = "ALERTA";
+        messageBox.componentInstance.message = "La cantidad que intenta comprar es invalida, utilice cantidadess positiva.";
+      }
+      this.cantidadProducto[posicion] = 0;
+    } else {
+      const messageBox = this.modalService.open(AlertModalComponent)
+      messageBox.componentInstance.title = "ALERTA";
+      messageBox.componentInstance.message = "La cantidad que intenta comprar excede la actual: " + this.productosRegistrardos[posicion].cantidad;
     }
-    this.cantidadProducto[posicion] = 0;
   }
 }

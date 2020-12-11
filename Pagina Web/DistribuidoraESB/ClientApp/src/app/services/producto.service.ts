@@ -54,12 +54,12 @@ export class ProductoService {
     )
   }
 
-  PocasCantidades():Observable<number>
+  PocasCantidades():Observable<Producto[]>
   {
-    return  this.http.get<number>(this.baseUrl+'api/Producto/PocasCantidades')
+    return  this.http.get<Producto[]>(this.baseUrl+'api/Producto/PocasCantidades')
     .pipe(
       tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<number>('Registrar Producto', null))
+      catchError(this.handleErrorService.handleError<Producto[]>('Registrar Producto', null))
     )
   }
 }

@@ -83,6 +83,7 @@ export class PerfilComponent implements OnInit {
   descuentoParaTodos: number = 0;
   filtroClientes: string;
   filtroProductos: string;
+  filtroProductosStock: string;
   filtroPedidos: string;
   filtroPedidosSinRuta: string;
   i: number;
@@ -106,7 +107,9 @@ export class PerfilComponent implements OnInit {
   imagenProducto: ImagenProducto = new ImagenProducto();
   imagenProductoView: ImagenproductoView = new ImagenproductoView();
 
-  pocasCantidades: number = 0;
+  pocasCantidades: Producto[]=[];
+
+  rutaSeleccionada: Ruta = new Ruta();
 
   constructor(
     private router: Router,
@@ -144,11 +147,27 @@ export class PerfilComponent implements OnInit {
     this.domiciliarios();
     this.pedidosSinRuta();
     this.productosPocasCAntidades();
+    this.domiciliariosSinrRuta();
+    this.rutaSeleccionada.pedidos = [];
+    this.domiciliarioSeleccionado.moto = new Vehiculo();
     this.signalRService.pedidoReceived.subscribe((pedido: Pedido) => {
       this.listaPedidos.push(pedido);
     });
   }
 
+  reiniciarFormularios(){
+    this.buildFormDomiciliario();
+    this.buildForm();
+  }
+
+  buscarRuta() {
+    this.rutaService.rutaDomiciliario(this.domiciliarioSeleccionado.identificacion).subscribe(r => {
+      this.rutaSeleccionada.pedidos = [];
+      if(r != null){
+        this.rutaSeleccionada = r;
+      }
+    });
+  }
 
   productosPocasCAntidades() {
     this.productoService.PocasCantidades().subscribe(r => {
@@ -272,6 +291,7 @@ export class PerfilComponent implements OnInit {
                       const messageBox = this.modalService.open(AlertModalComponent)
                       messageBox.componentInstance.title = "BIEN HECHO";
                       messageBox.componentInstance.message = "Domiciliario Registrado correctamente.";
+                      this.domiciliariosSinrRuta();
                     })
                   })
                 } else {
@@ -574,6 +594,8 @@ export class PerfilComponent implements OnInit {
     });
   }
 
+
+
   get control() {
     return this.formularioRegistroCliente.controls;
   }
@@ -599,6 +621,7 @@ export class PerfilComponent implements OnInit {
         this.mostrar = 'DescuentosCliente';
         break;
       case "RegistrarPedido":
+        this.pedidoGenrado = new Pedido();
         this.mostrar = "SelccionarProductosPedido";
         break;
     }

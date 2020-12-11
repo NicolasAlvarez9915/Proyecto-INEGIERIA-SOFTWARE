@@ -61,9 +61,9 @@ namespace DistribuidoraESB.Controllers
 
         
         [HttpGet("PocasCantidades")]
-        public ActionResult<int> GetPocasCAntidades()
+        public IEnumerable<ProductoViewModel> GetPocasCAntidades()
         {
-            return service.TodosPocasCantidades();
+            return service.TodosPocasCantidades().Select(p => new ProductoViewModel(p));
         }
 
         private Producto MapearProducto(ProductoInputModel productoInput)

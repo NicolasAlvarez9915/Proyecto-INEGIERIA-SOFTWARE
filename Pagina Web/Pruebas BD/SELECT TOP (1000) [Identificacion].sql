@@ -6,7 +6,8 @@ insert into Administradores (Identificacion, Nombres,Apellidos, Telefono,Whatsap
 
 insert into Clientes (Identificacion, Nombres,Apellidos, Telefono,Whatsapp, Direccion, Horaio, TipoCliente ) values('1120754743','Naac', 'Alvarez', '333333', '3333', '1111', '1111', 'Tiene negocio')
 
-select * from Vehiculos
+select * from Rutas
+
 
 delete Pedidos;
 delete DetalleDePedidos;

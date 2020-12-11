@@ -24,10 +24,14 @@ namespace Logica
                 if (rutas.Count == 0)
                 {
                     ruta = GenerarCodigo(ruta);
+                    List<Pedido> pedidos = ruta.Pedidos;
+                    ruta.Pedidos = null;
                     context.Rutas.Add(ruta);
+                    ruta.Pedidos = pedidos;
                 }else{
                     ruta.Codigo = rutas[0].Codigo;
                 }
+                
                 AsigarPedidosAUnaRuta(ruta, false);
                 ruta.Pedidos = null;
                 context.SaveChanges();
@@ -48,6 +52,7 @@ namespace Logica
                 if(rutaEncontrada == null)
                 {
                     ruta.Codigo = codigoGenerico.ToString();
+                    break;
                 }
                 codigoGenerico++;
             }
@@ -56,13 +61,15 @@ namespace Logica
         }
         public RutaResponse BuscarRuta(string Codigo)
         {
-            Ruta ruta  = context.Rutas.Where(s => s.Codigo == Codigo).Include(s => s.Pedidos).FirstOrDefault();
+            Ruta ruta  = context.Rutas.Where(s => s.CodDomiciliario == Codigo).Include(s => s.Pedidos).FirstOrDefault();
             if(ruta == null)
             {
                 return new RutaResponse("No existe");
             }
             return new RutaResponse(ruta);
         }
+
+
 
         public List<Ruta> Rutas()
         {
