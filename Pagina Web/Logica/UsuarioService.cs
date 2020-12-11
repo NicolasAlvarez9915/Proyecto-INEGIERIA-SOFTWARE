@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Datos;
 using Entity;
 
@@ -45,7 +46,12 @@ namespace Logica
             return new UsuarioResponse(usuarioEncontrado);
         }
 
-        public class UsuarioResponse 
+        public Usuario Validate(string correo, string password) {
+            return context.Usuarios.Where(u => u.Correo == correo && u.Contraseña == password).FirstOrDefault();
+        }
+        
+    }
+    public class UsuarioResponse 
         {
             public UsuarioResponse(Usuario usuario)
             {
@@ -68,5 +74,4 @@ namespace Logica
             public bool Error { get; set; }
             public Usuario usuario { get; set; }
         }
-    }
 }

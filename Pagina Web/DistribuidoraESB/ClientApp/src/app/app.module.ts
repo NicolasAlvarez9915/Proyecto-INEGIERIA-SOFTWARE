@@ -21,6 +21,7 @@ import { ModalDecicionComponent } from './@base/modal-decicion/modal-decicion.co
 import { FiltroProductoPipe } from './pipe/filtro-producto.pipe';
 import { FiltroPedidoPipe } from './pipe/filtro-pedido.pipe';
 import { PerfilClienteComponent } from './ESB/perfil-cliente/perfil-cliente.component';
+import { JwtInterceptor } from './services/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { PerfilClienteComponent } from './ESB/perfil-cliente/perfil-cliente.comp
     NgbModule
   ],
   entryComponents:[AlertModalComponent,ModalDecicionComponent],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

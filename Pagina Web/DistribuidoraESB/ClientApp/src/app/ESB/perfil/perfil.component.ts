@@ -7,6 +7,7 @@ import { stringify } from 'querystring';
 import { Observable } from 'rxjs';
 import { AlertModalComponent } from 'src/app/@base/alert-modal/alert-modal.component';
 import { AdministradorService } from 'src/app/services/administrador.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { DescuentoService } from 'src/app/services/descuento.service';
 import { DomiciliarioService } from 'src/app/services/domiciliario.service';
@@ -14,6 +15,7 @@ import { ImagenProductoService } from 'src/app/services/imagen-producto.service'
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { RutaService } from 'src/app/services/ruta.service';
+import { SignalRService } from 'src/app/services/signal-r.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Administrador } from '../Models/administrador';
 import { Cliente } from '../Models/cliente';
@@ -118,7 +120,9 @@ export class PerfilComponent implements OnInit {
     private descuentoService: DescuentoService,
     private imagenProductoService: ImagenProductoService,
     private domiciliarioService: DomiciliarioService,
-    private rutaService: RutaService
+    private rutaService: RutaService,
+    private authenticationService: AuthenticationService,
+    private signalRService: SignalRService
   ) {
     this.administradorActualizar = new Administrador();
   }
@@ -140,11 +144,14 @@ export class PerfilComponent implements OnInit {
     this.domiciliarios();
     this.pedidosSinRuta();
     this.productosPocasCAntidades();
+    this.signalRService.pedidoReceived.subscribe((pedido: Pedido) => {
+      this.listaPedidos.push(pedido);
+    });
   }
 
 
-  productosPocasCAntidades(){
-    this.productoService.PocasCantidades().subscribe(r =>{
+  productosPocasCAntidades() {
+    this.productoService.PocasCantidades().subscribe(r => {
       this.pocasCantidades = r;
     });
   }
@@ -497,14 +504,14 @@ export class PerfilComponent implements OnInit {
   }
 
   validarSesion() {
-    this.usuario = this.usuarioService.UsuarioLogueado();
-    if (this.usuario == null) {
-      this.router.navigate(['/Login']);
-    }
-    document.getElementById("BtnLogin").innerHTML = "LOG OUT";
-    document.getElementById("BtnRegistrar").classList.add("Ocultar");
-    document.getElementById("BtnRegistrar").classList.remove("Mostrar");
-    this.Rol = this.usuario.rol;
+    this.authenticationService.currentUser.subscribe(x => {
+      this.usuario = x;
+      if (this.usuario == null) {
+        this.router.navigate(['/Login']);
+      } else {
+        this.Rol = this.usuario.rol;
+      }
+    });
   }
 
   productos() {

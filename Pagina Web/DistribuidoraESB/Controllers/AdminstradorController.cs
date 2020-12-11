@@ -3,10 +3,12 @@ using Datos;
 using DistribuidoraESB.Models;
 using Entity;
 using Logica;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DistribuidoraESB.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
 

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { DescuentoService } from 'src/app/services/descuento.service';
 import { PedidoService } from 'src/app/services/pedido.service';
+import { SignalRService } from 'src/app/services/signal-r.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Cliente } from '../Models/cliente';
 import { Descuento } from '../Models/descuento';
@@ -31,13 +33,18 @@ export class PerfilClienteComponent implements OnInit {
     private router: Router,
     private clienteService: ClienteService,
     private pedidoService: PedidoService,
-    private descuentoService: DescuentoService
+    private descuentoService: DescuentoService,
+    private authenticationService: AuthenticationService,
+    private signalRService: SignalRService
   ) { }
 
   ngOnInit(): void {
     this.validarSesion(); 
-    this.pedirInforCliente();
-    
+    this.signalRService.pedidoReceived.subscribe((pedido: Pedido) => {
+      if(pedido.idPersona == this.cliente.identificacion){
+        this.lsitaPedidosEnProceso.push(pedido);
+      }
+    });
   }
 
   mostrarDescuentosCliente() {
@@ -55,13 +62,14 @@ export class PerfilClienteComponent implements OnInit {
   }
 
   validarSesion() {
-    this.usuario = this.usuarioService.UsuarioLogueado();
-    if (this.usuario == null) {
-      this.router.navigate(['/Login']);
-    }
-    document.getElementById("BtnLogin").innerHTML = "LOG OUT";
-    document.getElementById("BtnRegistrar").classList.add("Ocultar");
-    document.getElementById("BtnRegistrar").classList.remove("Mostrar");
+    this.authenticationService.currentUser.subscribe(x =>{
+      this.usuario = x;
+      if (this.usuario == null) {
+        this.router.navigate(['/Login']);
+      }else{
+        this.pedirInforCliente();
+      }
+    });
   }
 
   buscarPedido(codigo: string) {

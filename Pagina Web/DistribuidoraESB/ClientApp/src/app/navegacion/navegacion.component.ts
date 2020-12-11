@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Usuario } from '../ESB/Models/usuario';
+import { AuthenticationService } from '../services/authentication.service';
 import { UsuarioService } from '../services/usuario.service';
 
 @Component({
@@ -9,31 +11,31 @@ import { UsuarioService } from '../services/usuario.service';
 })
 export class NavegacionComponent implements OnInit {
 
-  constructor(private service: UsuarioService, private router: Router) { }
+  currentUser: Usuario = new Usuario();
+
+  constructor(private service: UsuarioService, private router: Router,
+    private authenticationService: AuthenticationService
+  ) { 
+
+  }
 
   ngOnInit(): void {
-    this.validarSesion();
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
-  validarSesion() {
-    if (this.service.UsuarioLogueado() == null) {
-      document.getElementById("BtnLogin").innerHTML = "lOG";
-      document.getElementById("BtnRegistrar").classList.add("Mostrar");
-      document.getElementById("BtnRegistrar").classList.remove("Ocultar");
-    } else {
-      document.getElementById("BtnLogin").innerHTML = "lOG OUT";
-      document.getElementById("BtnRegistrar").classList.add("Ocultar");
-      document.getElementById("BtnRegistrar").classList.remove("Mostrar");
-    }
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/Login']);
   }
+
+
+  
 
   RedirigirPerfil() {
-    let Usuario = this.service.UsuarioLogueado();
-    if (Usuario == null) {
+    if (this.currentUser == null) {
       this.router.navigate(['/Login']);
     } else {
-
-      if (Usuario.rol == "Administrador") {
+      if (this.currentUser.rol == "Administrador") {
         this.router.navigate(['/Perfil']);
       } else {
         this.router.navigate(['/PerfilCliente']);

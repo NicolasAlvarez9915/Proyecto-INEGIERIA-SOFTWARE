@@ -8,11 +8,13 @@ using DistribuidoraESB.Hubs;
 using DistribuidoraESB.Models;
 using Entity;
 using Logica;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
 namespace DistribuidoraESB.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ImagenProductoController : ControllerBase
@@ -73,7 +75,7 @@ namespace DistribuidoraESB.Controllers
         {
             return Ok(new ImagenProductoViewModel(service.BuscarImagen(codigo)));
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<ImagenProductoViewModel> GetTodas(string codigo)
         {

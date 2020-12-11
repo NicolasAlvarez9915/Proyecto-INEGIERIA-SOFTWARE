@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from 'src/app/@base/alert-modal/alert-modal.component';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -23,11 +24,11 @@ export class CarritoComponent implements OnInit {
   pedidoSeleccionado: Pedido = new Pedido();
   estadoPedido: string = '';
   constructor(
-    private usuarioService: UsuarioService,
     private router: Router,
     private clienteService: ClienteService,
     private pedidoService: PedidoService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
@@ -35,21 +36,24 @@ export class CarritoComponent implements OnInit {
   }
 
   validarSesion() {
-    this.usuario = this.usuarioService.UsuarioLogueado();
-    if (this.usuario == null) {
-      const messageBox = this.modalService.open(AlertModalComponent)
-      messageBox.componentInstance.title = "ALERTA.";
-      messageBox.componentInstance.message = "Debe iniciar sesion para ver el carrito de compras.";
-      this.router.navigate(['/Login']);
-    } else {
-      if (this.usuario.rol == "Administrador") {
+    this.authenticationService.currentUser.subscribe(x =>{
+      this.usuario = x;
+      if (this.usuario == null) {
         const messageBox = this.modalService.open(AlertModalComponent)
         messageBox.componentInstance.title = "ALERTA.";
-        messageBox.componentInstance.message = "Usted como administrador no registra los pedidos desde el carrito.";
+        messageBox.componentInstance.message = "Debe iniciar sesion para ver el carrito de compras.";
+        this.router.navigate(['/Login']);
       } else {
-        this.buscaCliente();
+        if (this.usuario.rol == "Administrador") {
+          const messageBox = this.modalService.open(AlertModalComponent)
+          messageBox.componentInstance.title = "ALERTA.";
+          messageBox.componentInstance.message = "Usted como administrador no registra los pedidos desde el carrito.";
+        } else {
+          this.buscaCliente();
+        }
       }
-    }
+    });
+   
 
   }
 

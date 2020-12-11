@@ -1,14 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Datos;
+using DistribuidoraESB.Hubs;
 using DistribuidoraESB.Models;
 using Entity;
 using Logica;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace DistribuidoraESB.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PedidoController : ControllerBase
@@ -16,8 +21,10 @@ namespace DistribuidoraESB.Controllers
         private readonly PedidoService service;
         private readonly ProductoService productoService;
 
-        public PedidoController(DESBContext context)
+        private readonly IHubContext<SignalHub> _hubContext;
+        public PedidoController(DESBContext context, IHubContext<SignalHub> hubContext)
         {
+            _hubContext = hubContext;
             service = new PedidoService(context);
             productoService = new ProductoService(context);
         }
@@ -77,15 +84,17 @@ namespace DistribuidoraESB.Controllers
             ClienteInputModel clienteInput = solicituDePedidoInputModel.Cliente;
             List<ProductoInputModel> productoInputs = solicituDePedidoInputModel.productos;
             List<Producto> productos = productoInputs.Select(p => MapearProducto(p)).ToList();
-            return new PedidoViewModel(service.GenerarPedido(productos, MapearCliente(clienteInput)));
+            PedidoViewModel pedidoViewModel = new PedidoViewModel(service.GenerarPedido(productos, MapearCliente(clienteInput)));
+            return pedidoViewModel;
         }
 
         [HttpPost("Registrar/")]
-        public ActionResult<PedidoViewModel> PostPedido(PedidoInputModel pedidoInputModel)
+        public async Task<ActionResult<PedidoViewModel>> PostPedido(PedidoInputModel pedidoInputModel)
         {
             
             productoService.ActualizarCantidadProductos(MapearPedido(pedidoInputModel));
             var response = service.Guardar(MapearPedido(pedidoInputModel));
+            await _hubContext.Clients.All.SendAsync("RegistrarPedido", response.pedido);
             return Ok(response.pedido);
         }
 

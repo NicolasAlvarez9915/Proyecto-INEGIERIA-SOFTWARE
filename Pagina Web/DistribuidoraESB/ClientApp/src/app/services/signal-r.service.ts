@@ -1,6 +1,7 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
 import * as signalR from "@aspnet/signalr";
 import { ImagenproductoView } from '../ESB/Models/imagenproducto-view';
+import { Pedido } from '../ESB/Models/pedido';
 import { Producto } from '../ESB/Models/producto';
 
 @Injectable({
@@ -11,6 +12,7 @@ export class SignalRService {
   private hubConnection: signalR.HubConnection;
   productoReceived = new EventEmitter<Producto>();
   imagenReceived = new EventEmitter<ImagenproductoView>();
+  pedidoReceived = new EventEmitter<Pedido>();
   baseUrl: string;
 
   constructor(@Inject('BASE_URL') baseUrl: string) {
@@ -48,6 +50,9 @@ export class SignalRService {
     });
     this.hubConnection.on("RegistrarImagen", (data: ImagenproductoView) => {
       this.imagenReceived.emit(data);
+    });
+    this.hubConnection.on("RegistrarPedido", (data: Pedido) => {
+      this.pedidoReceived.emit(data);
     });
   }
 }

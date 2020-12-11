@@ -40,7 +40,7 @@ namespace DistribuidoraESB
             services.Configure<AppSetting>(appSettingsSection);
             #endregion
 
-            #region Configure jwt authentication inteprete el token 
+            #region Configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSetting>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>

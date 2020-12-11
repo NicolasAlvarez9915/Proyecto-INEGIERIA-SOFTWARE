@@ -7,11 +7,13 @@ using DistribuidoraESB.Hubs;
 using DistribuidoraESB.Models;
 using Entity;
 using Logica;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
 namespace DistribuidoraESB.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductoController: ControllerBase
@@ -50,7 +52,7 @@ namespace DistribuidoraESB.Controllers
             await _hubContext.Clients.All.SendAsync("RegistrarProducto", response.producto);
             return Ok(response.producto);
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<ProductoViewModel> Get()
         {

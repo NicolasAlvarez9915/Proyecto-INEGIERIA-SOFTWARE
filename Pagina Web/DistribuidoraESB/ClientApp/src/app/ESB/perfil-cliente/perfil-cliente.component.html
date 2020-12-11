@@ -4,21 +4,30 @@
             <h5><span class="fas fa-user"></span>Cliente</h5>
         </div>
         <hr>
-        <button class="btnbarra" style="width: 100%; " type="bootton"
-            (click)="mostrar = 'EditarInfo'">
-            <span class="fas fa-edit spanBarra"></span>Editar info
-        </button>
-        <button class="btnbarra" style="width: 100%; " type="bootton"
-            (click)="mostrar = 'Pedidos';PedidosEntregadosCliente()">
-            <span class="fas fa-suitcase-rolling spanBarra"></span>Pedidos entregados
-        </button>
-        <button class="btnbarra" style="width: 100%; " type="bootton" (click)="mostrar = 'PedidosEnProceso';PedidosEnProcesoCliente()">
-            <span class="fas fa-suitcase-rolling spanBarra"></span>Pedidos en proceso
-        </button>
-        <button class="btnbarra" style="width: 100%; " type="bootton"
-            (click)="mostrar='DescuentosRegistrados';mostrarDescuentosCliente()">
-            <span class="fas fa-percentage spanBarra"></span>Descuentos
-        </button>
+        <p>
+            <button class="btnbarra" style="width: 100%; " type="bootton" (click)="mostrar = 'EditarInfo'">
+                <span class="fas fa-edit spanBarra"></span>Editar info
+            </button>
+        </p>
+        <p>
+            <button class="btnbarra" style="width: 100%; " type="bootton"
+                (click)="mostrar = 'Pedidos';PedidosEntregadosCliente()">
+                <span class="fas fa-suitcase-rolling spanBarra"></span>Pedidos entregados
+            </button>
+        </p>
+
+        <p>
+            <button class="btnbarra" style="width: 100%; " type="bootton"
+                (click)="mostrar = 'PedidosEnProceso';PedidosEnProcesoCliente()">
+                <span class="fas fa-suitcase-rolling spanBarra"></span>Pedidos en proceso
+            </button>
+        </p>
+        <p>
+            <button class="btnbarra" style="width: 100%; " type="bootton"
+                (click)="mostrar='DescuentosRegistrados';mostrarDescuentosCliente()">
+                <span class="fas fa-percentage spanBarra"></span>Descuentos
+            </button>
+        </p>
     </div>
     <div id="content">
         <div class="row barraTituloContenido">
@@ -62,9 +71,10 @@
                     <div class="text-center" *ngIf="listaPedidosEntregados.length == 0">
                         <h4>¡NO HAY PEDIDOS ENTREGADOS REGISTRADOS!</h4>
                     </div>
-                        
+
                     <div class="table-responsive">
-                        <table class="table table-responsive-sm" *ngIf='listaPedidosEntregados && listaPedidosEntregados.length'>
+                        <table class="table table-responsive-sm"
+                            *ngIf='listaPedidosEntregados && listaPedidosEntregados.length'>
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
@@ -80,7 +90,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let pedido of listaPedidosEntregados|filtroPedido:filtroPedidos; index as i">
+                                <tr
+                                    *ngFor="let pedido of listaPedidosEntregados|filtroPedido:filtroPedidos; index as i">
                                     <th scope="row">{{ i + 1 }}</th>
                                     <td>{{ pedido.codigo }} </td>
                                     <td>{{ pedido.idPersona }}</td>
@@ -126,7 +137,8 @@
                         <h4>¡NO HAY PEDIDOS EN PROCESO REGISTRADOS!</h4>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-responsive-sm" *ngIf='lsitaPedidosEnProceso && lsitaPedidosEnProceso.length'>
+                        <table class="table table-responsive-sm"
+                            *ngIf='lsitaPedidosEnProceso && lsitaPedidosEnProceso.length'>
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
@@ -266,7 +278,7 @@
                                                     <div class="col">
                                                         <p>
                                                             {{pedidoSeleccionado.estado}}
-    
+
                                                         </p>
                                                     </div>
                                                 </div>
@@ -275,10 +287,10 @@
                                     </div>
                                 </div>
                             </div>
-    
+
                         </div>
                         <hr style="visibility: hidden;">
-    
+
                         <div class="row d-flex justify-content-center">
                             <div class="col d-flex justify-content-end">
                                 <button class="btn btn-outline-danger" style="width: 150px" type="reset"
@@ -373,7 +385,7 @@
                             </div>
                         </div>
                     </div>
-    
+
                     <hr>
                 </form>
             </div>
@@ -381,42 +393,42 @@
         <div *ngIf="mostrar == 'DescuentosRegistrados'">
             <div>
                 <div class="col table-responsive">
-                        <div class="text-center" style="margin-top: 1rem;">
-                            <h6>Descuentos registrados.</h6>
-                        </div>
-                        <hr>
-                        <div class="col d-flex justify-content-end">
-                            <button class="btn btn-outline-danger" style=" width: 10%"
-                                (click)="mostrar = 'Principal'; mostrarInterno = 'Descuentos'; mostrarOpsInterno = ''">
-                                <span class="icon-arrow-left1"></span> Volver
-                            </button>
-                        </div>
-                        <hr style="visibility: hidden;">
-                        <div class="text-center" *ngIf="listaDescuentos.length == 0">
-                            <h4>¡NO HAY DESCUENTOS REGISTRADOS PARA ESTE CLIENTE!</h4>
-                        </div>
-                        <table class="table table-responsive-sm" *ngIf='listaDescuentos && listaDescuentos.length'>
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Referencia P.</th>
-                                    <th scope="col">Nombre P.</th>
-                                    <th scope="col">%Descuento</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let descuento of listaDescuentos; index as i">
-                                    <th scope="row">{{ i + 1 }}</th>
-                                    <td>{{ descuento.codProducto }} </td>
-                                    <th>{{ descuento.nombreProducto }}</th>
-                                    <td>{{ descuento.porcentaje }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="text-center" style="margin-top: 1rem;">
+                        <h6>Descuentos registrados.</h6>
                     </div>
+                    <hr>
+                    <div class="col d-flex justify-content-end">
+                        <button class="btn btn-outline-danger" style=" width: 10%"
+                            (click)="mostrar = 'Principal'; mostrarInterno = 'Descuentos'; mostrarOpsInterno = ''">
+                            <span class="icon-arrow-left1"></span> Volver
+                        </button>
+                    </div>
+                    <hr style="visibility: hidden;">
+                    <div class="text-center" *ngIf="listaDescuentos.length == 0">
+                        <h4>¡NO HAY DESCUENTOS REGISTRADOS PARA ESTE CLIENTE!</h4>
+                    </div>
+                    <table class="table table-responsive-sm" *ngIf='listaDescuentos && listaDescuentos.length'>
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Referencia P.</th>
+                                <th scope="col">Nombre P.</th>
+                                <th scope="col">%Descuento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let descuento of listaDescuentos; index as i">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>{{ descuento.codProducto }} </td>
+                                <th>{{ descuento.nombreProducto }}</th>
+                                <td>{{ descuento.porcentaje }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    
- 
+
+
 </div>

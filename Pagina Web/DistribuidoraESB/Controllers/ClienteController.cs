@@ -5,10 +5,12 @@ using Datos;
 using DistribuidoraESB.Models;
 using Entity;
 using Logica;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DistribuidoraESB.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ClienteController: ControllerBase
@@ -19,7 +21,7 @@ namespace DistribuidoraESB.Controllers
         {
             service = new ClienteService(context);
         }
-
+        [AllowAnonymous]
         [HttpGet("{identificacion}")]
         public ActionResult<ClienteViewModel> Get(string identificacion)
         {
@@ -30,7 +32,7 @@ namespace DistribuidoraESB.Controllers
             }
             return Ok(response.cliente);
         }
-
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult<ClienteViewModel> post(ClienteInputModel clienteInput)
         {
