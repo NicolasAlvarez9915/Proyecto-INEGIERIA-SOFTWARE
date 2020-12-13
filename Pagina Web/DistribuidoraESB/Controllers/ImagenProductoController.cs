@@ -36,8 +36,6 @@ namespace DistribuidoraESB.Controllers
             {
                 var file = Request.Form;
                 var imagen = file.Files[0];
-
-
                 if (imagen.Length > 0)
                 {
                     using (var memoryStream = new MemoryStream())
@@ -62,7 +60,6 @@ namespace DistribuidoraESB.Controllers
                 {
                     return BadRequest("Error en el controlador");
                 }
-
             }
             catch
             {

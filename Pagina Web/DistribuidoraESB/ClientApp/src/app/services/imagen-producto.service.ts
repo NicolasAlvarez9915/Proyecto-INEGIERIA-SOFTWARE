@@ -20,11 +20,10 @@ export class ImagenProductoService {
     }
     post(imagenProducto: ImagenProducto): Observable<any>
     {
-      console.log(imagenProducto);
+      
       const fd =  new FormData();
       fd.append('image',imagenProducto.imagen,imagenProducto.imagen.name);
       fd.append('codigo', imagenProducto.codProducto);
-      console.log(fd.get.name);
       return this.http.post(this.baseUrl + 'api/ImagenProducto',fd).pipe(
         tap(_ => this.handleErrorService.log('datos enviados')),
         catchError(this.handleErrorService.handleError('Foto registrada',null))

@@ -104,6 +104,8 @@ export class PerfilComponent implements OnInit {
   pedidoSeleccionado: Pedido = new Pedido;
 
   selectedFile: string | ArrayBuffer;
+
+  
   imagenProducto: ImagenProducto = new ImagenProducto();
   imagenProductoView: ImagenproductoView = new ImagenproductoView();
 
@@ -348,19 +350,13 @@ export class PerfilComponent implements OnInit {
   }
 
   onPhotoSelected(event: { target: { files: File[]; }; }): void {
-    console.log(event);
     if (event.target.files && event.target.files[0]) {
 
       this.imagenProducto.imagen = <File>event.target.files[0];
       const reader = new FileReader();
       reader.onload = e => this.selectedFile = reader.result;
       reader.readAsDataURL(this.imagenProducto.imagen);
-
     }
-    console.log(this.selectedFile);
-    console.log(this.imagenProducto.imagen);
-
-
   }
 
   consultarImagen(codigo: string) {
