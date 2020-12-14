@@ -10,7 +10,6 @@ namespace Entity
         public string CodPedido { get; set; }
         [Column(TypeName = "nvarchar(100)")]
         public string Descripcion { get; set;}
-        
         [Key]
         [Column(TypeName = "nvarchar(11)")]
         public string Codigo { get; set; }
