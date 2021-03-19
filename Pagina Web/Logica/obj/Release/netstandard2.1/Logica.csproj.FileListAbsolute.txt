@@ -12,3 +12,17 @@ F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Logica\obj\Release\netstandard2.1\Logi
 F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Logica\obj\Release\netstandard2.1\Logica.csproj.CopyComplete
 F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Logica\obj\Release\netstandard2.1\Logica.dll
 F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Logica\obj\Release\netstandard2.1\Logica.pdb
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\bin\Release\netstandard2.1\Logica.deps.json
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\bin\Release\netstandard2.1\Logica.dll
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\bin\Release\netstandard2.1\Logica.pdb
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\bin\Release\netstandard2.1\Datos.dll
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\bin\Release\netstandard2.1\Entity.dll
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\bin\Release\netstandard2.1\Entity.pdb
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\bin\Release\netstandard2.1\Datos.pdb
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\obj\Release\netstandard2.1\Logica.csprojAssemblyReference.cache
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\obj\Release\netstandard2.1\Logica.AssemblyInfoInputs.cache
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\obj\Release\netstandard2.1\Logica.AssemblyInfo.cs
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\obj\Release\netstandard2.1\Logica.csproj.CoreCompileInputs.cache
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\obj\Release\netstandard2.1\Logica.csproj.CopyComplete
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\obj\Release\netstandard2.1\Logica.dll
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Logica\obj\Release\netstandard2.1\Logica.pdb

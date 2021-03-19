@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "T37iBFDgtGXOO7f4ZoW9O2OlzykJfvkdabGl+RMFse/4INITiXNtGEQD9sTeIz18OUBuMwEtcoU2PhVNuYAC5g==",
+  "dgSpecHash": "kxRdd8NJ56mjaKsL6qPOZ3FofKzACDkl+dCXkFJ+RS6Z5vguFfQVActbTz96S7gzt0fmOAdcqc0FApG8bY1qOQ==",
   "success": true,
-  "projectFilePath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj",
+  "projectFilePath": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Entity\\Entity.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\nicoa\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
+    "C:\\Users\\Nicolas Alvarez\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

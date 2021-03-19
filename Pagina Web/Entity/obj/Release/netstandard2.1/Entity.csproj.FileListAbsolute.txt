@@ -7,3 +7,12 @@ F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Entity\obj\Release\netstandard2.1\Enti
 F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Entity\obj\Release\netstandard2.1\Entity.csproj.CoreCompileInputs.cache
 F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Entity\obj\Release\netstandard2.1\Entity.dll
 F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Entity\obj\Release\netstandard2.1\Entity.pdb
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Release\netstandard2.1\Entity.deps.json
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Release\netstandard2.1\Entity.dll
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Release\netstandard2.1\Entity.pdb
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Release\netstandard2.1\Entity.csprojAssemblyReference.cache
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Release\netstandard2.1\Entity.AssemblyInfoInputs.cache
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Release\netstandard2.1\Entity.AssemblyInfo.cs
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Release\netstandard2.1\Entity.csproj.CoreCompileInputs.cache
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Release\netstandard2.1\Entity.dll
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Release\netstandard2.1\Entity.pdb

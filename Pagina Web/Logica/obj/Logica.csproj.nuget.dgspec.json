@@ -1,23 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Logica\\Logica.csproj": {}
+    "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Logica\\Logica.csproj": {}
   },
   "projects": {
-    "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Datos\\Datos.csproj": {
+    "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Datos\\Datos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Datos\\Datos.csproj",
+        "projectUniqueName": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Datos\\Datos.csproj",
         "projectName": "Datos",
-        "projectPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Datos\\Datos.csproj",
-        "packagesPath": "C:\\Users\\nicoa\\.nuget\\packages\\",
-        "outputPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Datos\\obj\\",
+        "projectPath": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Datos\\Datos.csproj",
+        "packagesPath": "C:\\Users\\Nicolas Alvarez\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Datos\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\nicoa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Nicolas Alvarez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -32,8 +34,8 @@
           "netstandard2.1": {
             "targetAlias": "netstandard2.1",
             "projectReferences": {
-              "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj": {
-                "projectPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj"
+              "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Entity\\Entity.csproj": {
+                "projectPath": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Entity\\Entity.csproj"
               }
             }
           }
@@ -82,24 +84,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj": {
+    "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Entity\\Entity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj",
+        "projectUniqueName": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Entity\\Entity.csproj",
         "projectName": "Entity",
-        "projectPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj",
-        "packagesPath": "C:\\Users\\nicoa\\.nuget\\packages\\",
-        "outputPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\obj\\",
+        "projectPath": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Entity\\Entity.csproj",
+        "packagesPath": "C:\\Users\\Nicolas Alvarez\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Entity\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\nicoa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Nicolas Alvarez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -146,24 +150,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Logica\\Logica.csproj": {
+    "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Logica\\Logica.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Logica\\Logica.csproj",
+        "projectUniqueName": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Logica\\Logica.csproj",
         "projectName": "Logica",
-        "projectPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Logica\\Logica.csproj",
-        "packagesPath": "C:\\Users\\nicoa\\.nuget\\packages\\",
-        "outputPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Logica\\obj\\",
+        "projectPath": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Logica\\Logica.csproj",
+        "packagesPath": "C:\\Users\\Nicolas Alvarez\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Logica\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\nicoa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Nicolas Alvarez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -178,11 +184,11 @@
           "netstandard2.1": {
             "targetAlias": "netstandard2.1",
             "projectReferences": {
-              "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Datos\\Datos.csproj": {
-                "projectPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Datos\\Datos.csproj"
+              "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Datos\\Datos.csproj": {
+                "projectPath": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Datos\\Datos.csproj"
               },
-              "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj": {
-                "projectPath": "F:\\Proyecto INEGIERIA SOFTWARE\\Pagina Web\\Entity\\Entity.csproj"
+              "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Entity\\Entity.csproj": {
+                "projectPath": "C:\\Users\\Nicolas Alvarez\\Documents\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Entity\\Entity.csproj"
               }
             }
           }
@@ -211,7 +217,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

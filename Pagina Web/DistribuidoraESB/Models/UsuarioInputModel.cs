@@ -23,7 +23,6 @@ namespace DistribuidoraESB.Models
             Contraseña = usuario.Contraseña;
             Rol = usuario.Rol;
             IdPersona = usuario.IdPersona;
-            
         }
     }
 }

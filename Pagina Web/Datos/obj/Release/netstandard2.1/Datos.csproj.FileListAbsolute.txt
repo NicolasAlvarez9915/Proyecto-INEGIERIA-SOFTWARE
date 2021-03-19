@@ -10,3 +10,15 @@ F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Release\netstandard2.1\Datos
 F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Release\netstandard2.1\Datos.csproj.CopyComplete
 F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Release\netstandard2.1\Datos.dll
 F:\Proyecto INEGIERIA SOFTWARE\Pagina Web\Datos\obj\Release\netstandard2.1\Datos.pdb
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Datos\bin\Release\netstandard2.1\Datos.deps.json
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Datos\bin\Release\netstandard2.1\Datos.dll
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Datos\bin\Release\netstandard2.1\Datos.pdb
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Datos\bin\Release\netstandard2.1\Entity.dll
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Datos\bin\Release\netstandard2.1\Entity.pdb
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Datos\obj\Release\netstandard2.1\Datos.csprojAssemblyReference.cache
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Datos\obj\Release\netstandard2.1\Datos.AssemblyInfoInputs.cache
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Datos\obj\Release\netstandard2.1\Datos.AssemblyInfo.cs
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Datos\obj\Release\netstandard2.1\Datos.csproj.CoreCompileInputs.cache
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Datos\obj\Release\netstandard2.1\Datos.csproj.CopyComplete
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Datos\obj\Release\netstandard2.1\Datos.dll
+C:\Users\Nicolas Alvarez\Documents\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Datos\obj\Release\netstandard2.1\Datos.pdb
