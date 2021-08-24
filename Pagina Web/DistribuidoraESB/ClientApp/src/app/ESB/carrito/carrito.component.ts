@@ -32,7 +32,6 @@ export class CarritoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.validarSesion();
   }
 
   validarSesion() {
@@ -53,7 +52,7 @@ export class CarritoComponent implements OnInit {
         }
       }
     });
-   
+
 
   }
 

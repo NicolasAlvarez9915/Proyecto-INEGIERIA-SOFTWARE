@@ -37,14 +37,14 @@
           <a class="nav-link text-white" id="BtnRegistrar" [routerLink]="['/Registro']" *ngIf="!currentUser"><span
               class="far fa-user-circle"></span>REGISTRAR</a>
         </li>
-        <li class="nav-item text-white" [routerLinkActive]="['link-active']" >
-          <a class="nav-item nav-link text-white" (click)="logout()" *ngIf="currentUser"> <span
+        <li class="nav-item text-white" [routerLinkActive]="['link-active']" >
+          <a class="nav-item nav-link text-white"(click)="logout()" *ngIf="currentUser"> <span
             class="fas fa-sign-out-alt"></span>LOGOUT</a>
         </li>
-        <li class="nav-item text-white" [routerLinkActive]="['link-active']" >
-          <a class="nav-item nav-link text-white" [routerLink]="['/Login']" *ngIf="!currentUser"><span
+        <li class="nav-item text-white" [routerLinkActive]="['link-active']" >
+          <a class="nav-item nav-link text-white" [routerLink]="['/Login']" *ngIf="!currentUser"><span
             class="fas fa-sign-in-alt"></span>LOGIN</a>
-            
+
         </li>
 
       </ul>
