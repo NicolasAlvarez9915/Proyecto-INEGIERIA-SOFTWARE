@@ -5,5 +5,6 @@ export class Producto {
   cantidad: number;
   descripcion: string;
   valor: number;
+  ruta: string;
   cantidadMinima: number;
 }

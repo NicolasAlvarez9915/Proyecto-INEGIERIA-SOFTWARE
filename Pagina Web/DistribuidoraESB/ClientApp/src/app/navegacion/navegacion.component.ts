@@ -15,12 +15,12 @@ export class NavegacionComponent implements OnInit {
 
   constructor(private service: UsuarioService, private router: Router,
     private authenticationService: AuthenticationService
-  ) { 
+  ) {
 
   }
 
   ngOnInit(): void {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
   logout() {
@@ -29,7 +29,7 @@ export class NavegacionComponent implements OnInit {
   }
 
 
-  
+
 
   RedirigirPerfil() {
     if (this.currentUser == null) {

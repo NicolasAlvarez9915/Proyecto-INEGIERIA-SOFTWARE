@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Text;
 using Datos;
 using DistribuidoraESB.Config;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -84,6 +86,36 @@ namespace DistribuidoraESB
                     }
                 });
             });
+            services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+
+                
+                c.OperationFilter<AuthOperationFilter>();
+            });
+            
             // In production, the Angular files will be served from this directory
             services.AddSignalR();
             services.AddSpaStaticFiles(configuration =>
@@ -108,9 +140,35 @@ namespace DistribuidoraESB
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "wwwroot/Imagenes")),
+                RequestPath = "/Imagenes"
+            });
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "wwwroot/Imagenes")),
+                RequestPath = "/Imagenes"
+            });
             if (!env.IsDevelopment())
             {
-                app.UseSpaStaticFiles();
+                //Habilitar la ruta statica.
+
+                app.UseStaticFiles();
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                        Path.Combine(env.ContentRootPath, "wwwroot/Imagenes")),
+                    RequestPath = "/Imagenes"
+                });
+                app.UseDirectoryBrowser(new DirectoryBrowserOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                        Path.Combine(env.ContentRootPath, "wwwroot/Imagenes")),
+                    RequestPath = "/Imagenes"
+                });
             }
 
             app.UseRouting();
@@ -151,6 +209,22 @@ namespace DistribuidoraESB
                 {
                     spa.UseAngularCliServer(npmScript: "start");
                 }
+            });
+            
+            //Habilitar la ruta statica.
+
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "wwwroot/Imagenes")),
+                RequestPath = "/Imagenes"
+            });
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "wwwroot/Imagenes")),
+                RequestPath = "/Imagenes"
             });
         }
     }

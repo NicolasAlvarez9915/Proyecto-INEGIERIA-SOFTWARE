@@ -7,12 +7,11 @@ import { AlertModalComponent } from './alert-modal/alert-modal.component';
   providedIn: 'root'
 })
 export class HandleHttpErrorService {
-  
+
   constructor() { }
   public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-    console.error(error);
-    return of(result as T);
+    return of(error.error);
     };
     }
     public log(message: string) {

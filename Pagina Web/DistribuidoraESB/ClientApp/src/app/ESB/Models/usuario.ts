@@ -3,5 +3,5 @@ export class Usuario {
   contraseña: string;
   rol: string;
   idPersona: string;
-  token: string;
+  token: string;
 }

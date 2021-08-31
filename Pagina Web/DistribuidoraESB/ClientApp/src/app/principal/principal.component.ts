@@ -29,13 +29,8 @@ export class PrincipalComponent implements OnInit {
 
   ngOnInit(): void {
     this.productos();
-    this.Imagenes();
     this.signalRService.productoReceived.subscribe((producto: Producto) => {
       this.productosRegistrardos.push(producto);
-    });
-    this.signalRService.imagenReceived.subscribe((imagen: ImagenproductoView) => {
-      this.imagenProductoViews.push(imagen)
-      this.cantidadProducto.push(0);
     });
   }
 

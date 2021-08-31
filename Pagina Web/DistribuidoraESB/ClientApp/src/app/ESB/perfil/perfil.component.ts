@@ -30,6 +30,7 @@ import { Ruta } from '../Models/ruta';
 import { SolicitudDePedido } from '../Models/solicitud-de-pedido';
 import { Usuario } from '../Models/usuario';
 import { Vehiculo } from '../Models/vehiculo';
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-perfil',
@@ -57,6 +58,7 @@ export class PerfilComponent implements OnInit {
   estadoPedido: string;
   domiciliario: Domiciliario;
   vehiculo: Vehiculo;
+  imagenRegistrar: File;
 
   listaClientes: Cliente[] = [];
   totalClientes: number;
@@ -105,7 +107,7 @@ export class PerfilComponent implements OnInit {
 
   selectedFile: string | ArrayBuffer;
 
-  
+
   imagenProducto: ImagenProducto = new ImagenProducto();
   imagenProductoView: ImagenproductoView = new ImagenproductoView();
 
@@ -154,6 +156,10 @@ export class PerfilComponent implements OnInit {
     this.domiciliarioSeleccionado.moto = new Vehiculo();
     this.signalRService.pedidoReceived.subscribe((pedido: Pedido) => {
       this.listaPedidos.push(pedido);
+    });
+    this.signalRService.productoReceived.subscribe((producto: Producto) => {
+      this.listaProductos.push(producto);
+      this.totalProductos++;
     });
   }
 
@@ -340,6 +346,7 @@ export class PerfilComponent implements OnInit {
       this.buscarPedido(this.pedidoSeleccionado.codigo);
     });
   }
+
   buscarPedido(codigo: string) {
     this.pedidoService.BuscarPedido(codigo).subscribe(r => {
       this.pedidoSeleccionado = r;
@@ -349,14 +356,16 @@ export class PerfilComponent implements OnInit {
     })
   }
 
-  onPhotoSelected(event: { target: { files: File[]; }; }): void {
-    if (event.target.files && event.target.files[0]) {
-
-      this.imagenProducto.imagen = <File>event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = e => this.selectedFile = reader.result;
-      reader.readAsDataURL(this.imagenProducto.imagen);
+  onPhotoSelected(evento): void {
+    const archivo: File = evento.target.files[0];
+    if (!archivo) {
+      return;
     }
+    this.imagenRegistrar = archivo;
+    const reader = new FileReader();
+    reader.onload = e => this.selectedFile = reader.result;
+    reader.readAsDataURL(this.imagenRegistrar);
+    evento.target.value = "";
   }
 
   consultarImagen(codigo: string) {
@@ -411,6 +420,7 @@ export class PerfilComponent implements OnInit {
     this.productoSeleccionado = new Producto();
     this.codigoProducto = '';
   }
+
   registrarPedido() {
     if (this.pedidoGenrado.detallesDePedidos == null) {
       const messageBox = this.modalService.open(AlertModalComponent)
@@ -489,7 +499,6 @@ export class PerfilComponent implements OnInit {
       }
     })
   }
-
 
   mostrarDescuentosCliente() {
     this.descuentoService.DescuentosPorCliente(this.clienteConsuta.identificacion).subscribe(r => {
@@ -590,8 +599,6 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-
-
   get control() {
     return this.formularioRegistroCliente.controls;
   }
@@ -599,7 +606,6 @@ export class PerfilComponent implements OnInit {
   get controlProducto() {
     return this.formularioregistroProducto.controls;
   }
-
 
   verProducto(producto: Producto) {
     this.productoConsulta = producto;
@@ -640,21 +646,19 @@ export class PerfilComponent implements OnInit {
   registrarProducto() {
     if (this.selectedFile != null) {
       this.producto = this.formularioregistroProducto.value;
-      this.productoService.registrar(this.producto).subscribe(
+      this.productoService.registrar(this.producto, this.imagenRegistrar).pipe(first()).subscribe(
         r => {
           if (r != null) {
             const messageBox = this.modalService.open(AlertModalComponent)
             messageBox.componentInstance.title = "BIEN HECHO.";
             messageBox.componentInstance.message = "Producto registrado correctamente.";
-            this.imagenProducto.codProducto = this.producto.codigo;
-            this.imagenProductoService.post(this.imagenProducto).subscribe(res => console.log(res), err => console.log(err));
             this.productos();
-          } else {
-
-            const messageBox = this.modalService.open(AlertModalComponent)
-            messageBox.componentInstance.title = "ALERTA.";
-            messageBox.componentInstance.message = "Producto existente.";
           }
+        },
+        respuesta => {
+          const messageBox = this.modalService.open(AlertModalComponent)
+          messageBox.componentInstance.title = "ALERTA.";
+          messageBox.componentInstance.message = respuesta.error.mensaje;
         }
       );
     } else {
@@ -687,6 +691,7 @@ export class PerfilComponent implements OnInit {
           } else {
             this.usuarioService.validarSession(this.usuarioRegistrar.correo).subscribe(r => {
               if (r != null) {
+                console.log(r);
                 const messageBox = this.modalService.open(AlertModalComponent)
                 messageBox.componentInstance.title = "ALERTA";
                 messageBox.componentInstance.message = "Ya existe un cliente registrado con este correo";
