@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Datos;
 using Entity;
@@ -16,45 +17,65 @@ namespace Logica
             this.context = context;
         }
 
-        public ProductoResponse Abastecer(Producto producto)
+        public Respuesta<Producto> Abastecer(Producto producto)
         {
-            Producto productoEncontrado = BuscarProducto(producto.Codigo).producto;
+            Producto productoEncontrado = BuscarProducto(producto.Codigo).Objeto;
             productoEncontrado.Cantidad += producto.Cantidad;
             context.Productos.Update(productoEncontrado);
             context.SaveChanges();
-            return new ProductoResponse(productoEncontrado);
+            return new (productoEncontrado);
         }
 
-        public ProductoResponse BuscarProducto(string codigo)
+        public Respuesta<Producto> BuscarProducto(string codigo)
         {
             Producto producto = context.Productos.Find(codigo);
             if(producto == null)
             {
-                return new ProductoResponse("No existe");
+                return new ("Producto inexistente",500);
             }
-            return new ProductoResponse(producto);
+            return new (producto, 200);
         }
 
-        public ProductoResponse Guardar(Producto producto)
+        public Respuesta<Producto> ValidarGuardar(Producto producto, string rutalocal)
+        {
+            try
+            {
+                if (!ValidarCodigo(producto.Codigo))
+                {
+                    File.Delete(rutalocal+producto.Ruta);
+                    return new ("Producto existente." , 409);
+                }
+                var productoGuardado = Guardar(producto);
+                if (productoGuardado.Error)
+                {
+                    File.Delete(rutalocal+producto.Ruta);
+                }
+                return productoGuardado;
+            }
+            catch (Exception e)
+            {
+                return new("Error al validar el registro del producto: " + e.Message, 500);
+            }
+        }
+        
+        public Respuesta<Producto> Guardar(Producto producto)
         {
             try
             {
                 if(!ValidarCodigo(producto.Codigo)){
-                    return new ProductoResponse("Producto Existente");    
+                    return new ("Producto existente",409);    
                 }
                 context.Productos.Add(producto);
                 context.SaveChanges();
-                return new ProductoResponse(producto);
+                return new (producto, 200);
             }
             catch (Exception e)
             {
-                return new ProductoResponse($"Error de la aplicacion: {e.Message}");
+                return new ($"Error de la aplicacion: {e.Message}", 500);
             }
         }
 
         public void ActualizarCantidadProductos(Pedido pedido){
-            
-
             foreach (DetalleDePedido detalleDePedido in pedido.DetallesDePedidos)
             {
                 Producto productoEncontrado = context.Productos.Find(detalleDePedido.CodProducto);
@@ -83,20 +104,5 @@ namespace Logica
             return context.Productos.Where(p => p.Cantidad <=  p.CantidadMinima).ToList();
         }
     }
-    public class ProductoResponse
-    {
-        public ProductoResponse(Producto producto)
-        {
-            Error = false;
-            this.producto = producto;
-        }
-        public ProductoResponse(string mensaje)
-        {
-            Error = true;
-            this.Mensaje = mensaje;
-        }
-        public string Mensaje { get; set; }
-        public bool Error { get; set; }
-        public Producto producto { get; set; }
-    }
+    
 }

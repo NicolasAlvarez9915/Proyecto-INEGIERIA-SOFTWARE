@@ -10,14 +10,14 @@ import { Administrador } from 'src/app/ESB/Models/administrador';
 export class ModalDecicionComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal) { }
-  @Input() title;
-  @Input() message;
+  @Input() title;
+  @Input() message;
   @Input() Administrador: Administrador;
   ngOnInit(): void {
   }
 
   addNewItem(value: boolean) {
-    this.activeModal.dismiss('Close click');
+    this.activeModal.dismiss('Close click');
   }
 
 }

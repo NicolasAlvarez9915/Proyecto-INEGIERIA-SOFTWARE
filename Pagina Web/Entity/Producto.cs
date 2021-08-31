@@ -14,6 +14,8 @@ namespace Entity
         public string Categoria { get; set; }
         [Column(TypeName = "nvarchar(20)")]
         public string Nombre { get; set; }
+        [Column(TypeName = "nvarchar(500)")]
+        public string Ruta { get; set; }
         [Column(TypeName = "real")]
         public double Cantidad { get; set; }
         [Column(TypeName = "real")]

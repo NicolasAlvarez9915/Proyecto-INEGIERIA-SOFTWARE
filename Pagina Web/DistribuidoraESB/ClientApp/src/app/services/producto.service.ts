@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HandleHttpErrorService } from '../@base/handle-http-error.service';
 import { Producto } from '../ESB/Models/producto';
-import { tap, catchError } from 'rxjs/operators';
+import {tap, catchError, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,14 +26,21 @@ export class ProductoService {
     )
   }
 
-  registrar(producto: Producto): Observable<Producto>
+  registrar(producto: Producto, imagen: File): Observable<Producto>
   {
-    return  this.http.post<Producto>(this.baseUrl+'api/Producto',producto)
-    .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Producto>('Registrar Producto', null))
-    )
-    
+    const fd =  new FormData();
+    fd.append('Codigo',producto.codigo);
+    fd.append('Categoria', producto.categoria);
+    fd.append('Nombre', producto.nombre);
+    fd.append('Cantidad', producto.cantidad.toString());
+    fd.append('CantidadMinima', producto.cantidadMinima.toString());
+    fd.append('Descripcion', producto.descripcion);
+    fd.append('Valor', producto.valor.toString());
+    fd.append('Imagen', imagen, imagen.name);
+    return  this.http.post<Producto>(this.baseUrl+'api/Producto',fd)
+    .pipe(map(respuesta => {
+      return respuesta;
+    }));
   }
 
   buscar(codigo: string): Observable<Producto>

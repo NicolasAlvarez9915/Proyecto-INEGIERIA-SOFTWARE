@@ -17,7 +17,6 @@ import { Usuario } from '../Models/usuario';
 export class LoginComponent implements OnInit {
 
   usuario: User;
-  returnUrl: String;
 
   formularioinicioSesion: FormGroup
 
@@ -34,7 +33,6 @@ export class LoginComponent implements OnInit {
     this.usuario = new User;
     this.BotonLogin();
     this.buildForm();
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   private buildForm() {
@@ -65,20 +63,19 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.usuario.correo, this.usuario.contrasena).pipe(first())
     .subscribe(
       data => {
-        this.authenticationService.currentUser.subscribe(x => {
-          if(x != null){
+        this.authenticationService.currentUser.subscribe(x => {
             if (x.rol == "Administrador") {
               this.router.navigate(['/Perfil']);
             } else {
               this.router.navigate(['/PerfilCliente']);
             }
-          }
+
         });
       },
       error => {
         const modalRef = this.modalService.open(AlertModalComponent);
         modalRef.componentInstance.title = 'Acceso Denegado';
-        modalRef.componentInstance.message = error.error;
+        modalRef.componentInstance.message = error.error.mensaje;
       });
   }
 }

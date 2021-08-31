@@ -29,15 +29,17 @@ export class AuthenticationService {
   login(correo, contraseña) {
     return this.http.post<any>(`${this.baseUrl}api/Usuario/InicioSesion`, { correo, contraseña })
       .pipe(map(user => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
+        if(!user.error)
+        {
+          localStorage.setItem('currentUser', JSON.stringify(user.objeto));
+          this.currentUserSubject.next(user.objeto);
+        }
         return user;
       }));
   }
 
   logout() {
-    // remove user from local storage and set current user to null
+    // remove user from local storage and set current user to null
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }

@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div id="sidebar" [ngClass]="{'active':  activa}">
+    <div id="sidebar" [ngClass]="{'active':  activa}">
         <div class="TituloBarra">
             <h5><span class="fas fa-user"></span>Cliente</h5>
         </div>
@@ -41,7 +41,7 @@
                 <h4>Cliente: {{cliente.nombres}} {{cliente.apellidos}}</h4>
             </div>
         </div>
-        <div class="contenedor" [ngClass]="{'Ocultar':  mostrar != 'Principal'}">
+        <div class="contenedor" [ngClass]="{'Ocultar':  mostrar != 'Principal'}">
             <div class="Cuerpo">
                 <div class="row d-flex justify-content-center" style="width: 98%;">
                     <div class="col CuerpoCard Card" (click)="mostrar ='Pedidos';">

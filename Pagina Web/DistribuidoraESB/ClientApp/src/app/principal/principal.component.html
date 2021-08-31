@@ -50,7 +50,7 @@
                             style="border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
                             src="assets/Beneficios-Carne-Res.jpg" alt="First slide">
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -64,16 +64,16 @@
         </a>
     </div>
     <hr>
-    
+
     <hr style="visibility: hidden;">
     <h1 class="d-flex  justify-content-center">Nuestros productos</h1>
     <hr>
     <div class="Cuerpo" >
         <div class="row justify-content-center"
-            *ngIf='productosRegistrardos && productosRegistrardos.length && imagenProductoViews && imagenProductoViews.length'>
+            *ngIf='productosRegistrardos && productosRegistrardos.length'>
             <div class="col text-center producto" style="min-width:  290px ;max-width: 290px;" *ngFor="let producto of productosRegistrardos; index as i">
                 <div id="img" style="background-color: rgb(233, 236, 239); border-radius: 20px;">
-                    <img  [src]="imagenProductoViews[i].imagen" alt="imagen"
+                    <img loading="lazy"  [src]="producto.ruta" alt="imagen"
                         style="max-width: 290px; height: 200px; border-top-left-radius:20px;border-top-right-radius: 20px;"
                         class="img-card-top w-100">
                     <hr>
@@ -89,7 +89,7 @@
                     </div>
                     <div class="row" style="max-width: 250px;padding-left: 1rem;" >
                         <div class="col">
-                            <input type="number"  name="cantidad" [(ngModel)]="cantidadProducto[i]" class="form-control" />
+                            <input type="number"  name="cantidad" [(ngModel)]="cantidadProducto[i]" class="form-control" />
                         </div>
                         <div class="col">
                             <button class="btn btn-outline-dark" style="border-radius: 50%;" (click)="anadirProductoAlCarro(i)">
@@ -102,7 +102,7 @@
             </div>
         </div>
     </div>
-    
+
     <hr>
     <div class="container-fluid d-flex justify-content-center" id="QuienesSomos" style="margin-top: 4rem;">
         <div class="row">

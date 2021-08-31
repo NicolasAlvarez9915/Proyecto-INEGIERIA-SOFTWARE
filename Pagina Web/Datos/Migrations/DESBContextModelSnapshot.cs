@@ -238,6 +238,9 @@ namespace Datos.Migrations
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<string>("Ruta")
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<int>("Valor")
                         .HasColumnType("int");
 

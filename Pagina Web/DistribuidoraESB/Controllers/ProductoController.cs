@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Datos;
@@ -8,6 +9,7 @@ using DistribuidoraESB.Models;
 using Entity;
 using Logica;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
@@ -20,8 +22,10 @@ namespace DistribuidoraESB.Controllers
     {
         private readonly ProductoService service;
         private readonly IHubContext<SignalHub> _hubContext;
-        public ProductoController(DESBContext context, IHubContext<SignalHub> hubContext)
+        private readonly IWebHostEnvironment _webHostEnviroment;
+        public ProductoController(DESBContext context, IHubContext<SignalHub> hubContext, IWebHostEnvironment webHostEnviroment)
         {
+            _webHostEnviroment = webHostEnviroment;
             _hubContext = hubContext;
             service = new ProductoService(context);
         }
@@ -29,8 +33,8 @@ namespace DistribuidoraESB.Controllers
         [HttpPut]
         public ActionResult<ProductoViewModel> Put(ProductoInputModel productoInput)
         {
-            var response = service.Abastecer(MapearProducto(productoInput));
-            return Ok(response.producto);
+            var response = service.Abastecer(productoInput.MapearEntrada());
+            return Ok(response.Objeto);
         }
 
         [HttpGet("Busar/{codigo}")]
@@ -41,17 +45,25 @@ namespace DistribuidoraESB.Controllers
             {
                 return BadRequest(response.Mensaje);
             }
-            return Ok(response.producto);
+            return Ok(response.Objeto);
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<ProductoViewModel>> Post(ProductoInputModel productoInput)
+        [DisableRequestSizeLimit]
+        public async Task<ActionResult<ProductoViewModel>> Post([FromForm]ProductoInputModel productoInput)
         {
-            var response = service.Guardar(MapearProducto(productoInput));
-            await _hubContext.Clients.All.SendAsync("RegistrarProducto", response.producto);
-            return Ok(response.producto);
+            if (productoInput == null)
+            {
+                productoInput.InicializarModelo(Request.Form);
+            }
+            productoInput.CrearArchivo(_webHostEnviroment);
+            var producto = productoInput.MapearEntrada();
+            var response = service.ValidarGuardar(producto,_webHostEnviroment.WebRootPath);
+            if(!response.Error) await _hubContext.Clients.All.SendAsync("RegistrarProducto", response.Objeto);
+            return StatusCode(response.CodigoHttp, response);
         }
+        
         [AllowAnonymous]
         [HttpGet]
         public IEnumerable<ProductoViewModel> Get()
@@ -66,20 +78,7 @@ namespace DistribuidoraESB.Controllers
             return service.TodosPocasCantidades().Select(p => new ProductoViewModel(p));
         }
 
-        private Producto MapearProducto(ProductoInputModel productoInput)
-        {
-            var producto = new Producto
-            {
-                Codigo = productoInput.Codigo,
-                Cantidad = productoInput.Cantidad,
-                Descripcion = productoInput.Descripcion,
-                Categoria = productoInput.Categoria,
-                Nombre = productoInput.Nombre,
-                Valor = productoInput.Valor,
-                CantidadMinima = productoInput.CantidadMinima
-            };
-            return producto;
-        }
+        
         private Descuento MapearDescuento(DescuentoInputModel descuentoInput)
         {
             var descuento = new Descuento
@@ -90,4 +89,5 @@ namespace DistribuidoraESB.Controllers
             return descuento;
         }
     }
+    
 }

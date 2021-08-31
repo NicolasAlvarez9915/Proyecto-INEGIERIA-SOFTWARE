@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div id="sidebar" [ngClass]="{'active':  activa}">
+    <div id="sidebar" [ngClass]="{'active':activa}">
         <div class="TituloBarra">
             <h5><span class="fas fa-user-cog"></span>Admin</h5>
         </div>
@@ -123,7 +123,7 @@
                 <h4>{{administrador.puesto}} {{administrador.nombres}} {{administrador.apellidos}}</h4>
             </div>
         </div>
-        <div class="contenedor" [ngClass]="{'Ocultar':  mostrar != 'Principal'}">
+        <div class="contenedor" [ngClass]="{'Ocultar':mostrar != 'Principal'}">
             <div class="row">
                 <div class="Cuerpo ">
                     <div class="row d-flex justify-content-center" style="width: 98%;">
@@ -195,7 +195,7 @@
                 </div>
             </div>
         </div>
-        <div [ngClass]="{'Ocultar':  mostrar != 'EditarInfo'}">
+        <div [ngClass]="{'Ocultar':mostrar != 'EditarInfo'}">
             <div class="Cuerpo">
                 <form class="col-8 font-weight-normal   " id="formularioEditarAdministrador" style="margin-top: 1rem;">
 
@@ -207,13 +207,13 @@
                         <div class="row">
                             <div class="col">
                                 <label for="LblNameAdministrador">Nombre</label>
-                                <input type="Text" id="LblNameAdministrador" class="form-control" placeholder="Nombres"
+                                <input type="Text" id="LblNameAdministradorEditar" class="form-control" placeholder="Nombres"
                                     [(ngModel)]="administradorActualizar.nombres" [ngModelOptions]="{standalone: true}">
                             </div>
                             <div class="col">
                                 <label for="LblApellidoAdministrador">Apellidos</label>
-                                <input type="text" id="LblApellidoAdministrador" name="apellidos"  placeholder="Apellidos"
-                                    class="form-control"  [(ngModel)]="administradorActualizar.apellidos"
+                                <input type="text" id="LblApellidoAdministrador" name="apellidos" placeholder="Apellidos"
+                                    class="form-control"  [(ngModel)]="administradorActualizar.apellidos"
                                     [ngModelOptions]="{standalone: true}" />
                             </div>
                             <div class="col">
@@ -231,11 +231,10 @@
                             </div>
                             <div class="col">
                                 <label for="LblWhatsappAdministrador">Numero Whatsapp</label>
-                                <input type="text" id="LblWhatsappAdministrador"   name="Whatsapp"
-                                      class="form-control"  [(ngModel)]="administradorActualizar.whatsapp"
+                                <input type="text" id="LblWhatsappAdministrador" name="Whatsapp"
+                                    class="form-control" [(ngModel)]="administradorActualizar.whatsapp"
                                     [ngModelOptions]="{standalone: true}" />
                             </div>
-
                         </div>
                         <div class="row">
                             <div class="col">
@@ -270,7 +269,7 @@
                 </form>
             </div>
         </div>
-        <div [ngClass]="{'Ocultar':  mostrar != 'RegistrarCliente'}">
+        <div [ngClass]="{'Ocultar':mostrar != 'RegistrarCliente'}">
             <div class="Cuerpo">
                 <form class="col-8 font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;"
                     [formGroup]="formularioRegistroCliente">
@@ -280,12 +279,12 @@
                     <hr>
 
                     <div class="col-6">
-                        <label for="">Identificacion</label>
-                        <input type="text"  name="identificacion"  placeholder="identificacion" class="form-control"
+                        <label >Identificacion</label>
+                        <input type="text" name="identificacion" placeholder="identificacion" class="form-control"
                             formControlName="identificacion"
-                             [ngClass]="{'is-invalid':  control.identificacion.touched && control.identificacion.errors}" />
-                        <div *ngIf="control.identificacion.errors" class="invalid-feedback">
-                            <div *ngIf="control.identificacion.errors.required">Se require la identificacion
+                            [ngClass]="{'is-invalid':control.identificacion.touched && control.identificacion.errors}" />
+                        <div *ngIf="control.identificacion.errors" class="invalid-feedback">
+                            <div *ngIf="control.identificacion.errors.required">Se require la identificacion
                             </div>
                         </div>
                     </div>
@@ -296,18 +295,18 @@
                             <label for="LblNameAdministrador">Nombre</label>
                             <input type="Text" id="LblNameAdministrador" class="form-control" placeholder="Nombres"
                                 formControlName="nombres"
-                                [ngClass]="{'is-invalid':  control.nombres.errors  && control.nombres.touched}">
-                            <div *ngIf="control.nombres.errors" class="invalid-feedback">
-                                <div *ngIf="control.nombres.errors.required">Se requiren los nombres</div>
+                                [ngClass]="{'is-invalid':control.nombres.errors  && control.nombres.touched}">
+                            <div *ngIf="control.nombres.errors" class="invalid-feedback">
+                                <div *ngIf="control.nombres.errors.required">Se requiren los nombres</div>
                             </div>
                         </div>
                         <div class="col">
                             <label>Apellidos</label>
-                            <input type="text"  name="apellidos"  placeholder="Apellidos" class="form-control"
+                            <input type="text" name="apellidos" placeholder="Apellidos" class="form-control"
                                 formControlName="apellidos"
-                                 [ngClass]="{'is-invalid':  control.apellidos.touched && control.apellidos.errors}" />
-                            <div *ngIf="control.apellidos.errors" class="invalid-feedback">
-                                <div *ngIf="control.apellidos.errors.required">Se requiren los apellidos</div>
+                                 [ngClass]="{'is-invalid': control.apellidos.touched && control.apellidos.errors}" />
+                            <div *ngIf="control.apellidos.errors" class="invalid-feedback">
+                                <div *ngIf="control.apellidos.errors.required">Se requiren los apellidos</div>
                             </div>
                         </div>
                     </div>
@@ -316,20 +315,20 @@
                             <label for="inputEmail">Correo Electronico</label>
                             <input type="email" id="inputEmail" class="form-control" placeholder="Correo Electronico"
                                 required="" autofocus="" _mstplaceholder="868153" formControlName="correo"
-                                 [ngClass]="{'is-invalid':  control.correo.touched && control.correo.errors}">
-                            <div *ngIf="control.correo.errors" class="invalid-feedback">
-                                <div *ngIf="control.correo.errors.required">Se require el correo</div>
+                                 [ngClass]="{'is-invalid': control.correo.touched && control.correo.errors}">
+                            <div *ngIf="control.correo.errors" class="invalid-feedback">
+                                <div *ngIf="control.correo.errors.required">Se require el correo</div>
                             </div>
                         </div>
                         <div class="col">
-                            <label for="">Tipo de cliente</label>
+                            <label>Tipo de cliente</label>
                             <select class="form-control " formControlName="tipoCliente"
-                                 [ngClass]="{'is-invalid':  control.tipoCliente.touched && control.tipoCliente.errors}">
+                                [ngClass]="{'is-invalid':control.tipoCliente.touched && control.tipoCliente.errors}">
                                 <option value="Cliente Negocio">Tiene negocio</option>
                                 <option value="Cliente casual">Cliente casual</option>
                             </select>
-                            <div *ngIf="control.tipoCliente.errors" class="invalid-feedback">
-                                <div *ngIf="control.tipoCliente.errors.required">Se require que seleccione el
+                            <div *ngIf="control.tipoCliente.errors"class="invalid-feedback">
+                                <div *ngIf="control.tipoCliente.errors.required">Se require que seleccione el
                                     tipo de cliente</div>
                             </div>
                         </div>
@@ -339,18 +338,18 @@
                             <label for="inputPassword1">Contraseña</label>
                             <input type="password" id="inputPassword1" class="form-control" placeholder="Contraseña"
                                 required="" _mstplaceholder="182013" formControlName="contrasena"
-                                 [ngClass]="{'is-invalid':  control.contrasena.touched && control.contrasena.errors}">
-                            <div *ngIf="control.contrasena.errors" class="invalid-feedback">
-                                <div *ngIf="control.contrasena.errors.required">Se require la contraseña</div>
+                                [ngClass]="{'is-invalid':control.contrasena.touched && control.contrasena.errors}">
+                            <div *ngIf="control.contrasena.errors" class="invalid-feedback">
+                                <div *ngIf="control.contrasena.errors.required">Se require la contraseña</div>
                             </div>
                         </div>
                         <div class="col">
                             <label for="inputPassword">Contraseña</label>
                             <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña"
                                 required="" _mstplaceholder="182013" formControlName="contrasenaconfirmar"
-                                 [ngClass]="{'is-invalid':  control.contrasenaconfirmar.touched && control.contrasenaconfirmar.errors}">
-                            <div *ngIf="control.contrasenaconfirmar.errors" class="invalid-feedback">
-                                <div *ngIf="control.contrasenaconfirmar.errors.required">Se require la
+                                 [ngClass]="{'is-invalid': control.contrasenaconfirmar.touched && control.contrasenaconfirmar.errors}">
+                            <div *ngIf="control.contrasenaconfirmar.errors" class="invalid-feedback">
+                                <div *ngIf="control.contrasenaconfirmar.errors.required">Se require la
                                     confirmacion de la contraseña</div>
 
                             </div>
@@ -359,7 +358,7 @@
                     <hr>
                     <div class="row d-flex justify-content-center">
                         <div class="col d-flex justify-content-end">
-                            <button class="btn btn-outline-dark" style="width: 50%" type="submit" (click)="onSubmit()"  
+                            <button class="btn btn-outline-dark" style="width: 50%" type="submit" (click)="onSubmit()"
                                 [disabled]="formularioRegistroCliente.invalid">
                                 <span class="fas fa-user-plus"></span> Registrar
                             </button>
@@ -376,7 +375,7 @@
                 </form>
             </div>
         </div>
-        <div [ngClass]="{'Ocultar':  mostrar != 'Clientes'}">
+        <div [ngClass]="{'Ocultar': mostrar != 'Clientes'}">
             <div class="Cuerpo">
                 <form class="col font-weight-normal">
                     <div class="text-center" style="margin-top: 1rem;">
@@ -448,49 +447,49 @@
                         <h5>Registrar producto</h5>
                     </div>
                     <hr>
-                    
+
                     <div class="row">
                         <div class="col">
-                            <input type="file" class="d-none" (change)="onPhotoSelected($event)" #photoInput>
+                            <input type="file" class="d-none" (change)="onPhotoSelected($event)" #photoInput required>
                             <img [src]="selectedFile || 'assets/images.png'" class="img-fluid" width="300px"
                                 height="300px" alt="no imagen" (click)="photoInput.click()">
                         </div>
 
                         <div class="col">
-                            <label for="">Categoria</label>
+                            <label >Categoria</label>
                             <select class="form-control " formControlName="categoria"
-                                 [ngClass]="{'is-invalid':  controlProducto.categoria.touched && controlProducto.categoria.errors}">
+                                 [ngClass]="{'is-invalid': controlProducto.categoria.touched && controlProducto.categoria.errors}">
                                 <option value="Carne de res">Carne de res</option>
                                 <option value="Pollo">Pollo</option>
                                 <option value="Carne de cerdo">Carne de cerdo</option>
                             </select>
-                            <div *ngIf="controlProducto.categoria.errors" class="invalid-feedback">
-                                <div *ngIf="controlProducto.categoria.errors.required">
+                            <div *ngIf="controlProducto.categoria.errors" class="invalid-feedback">
+                                <div *ngIf="controlProducto.categoria.errors.required">
                                     Se require que seleccione la categoria del producto
                                 </div>
                             </div>
                             <label>Referencia</label>
-                            <input type="text" class="form-control" formControlName="codigo"
-                                 [ngClass]="{'is-invalid':  controlProducto.codigo.touched && controlProducto.codigo.errors}" />
-                            <div *ngIf="controlProducto.codigo.errors" class="invalid-feedback">
-                                <div *ngIf="controlProducto.codigo.errors.required">Se requiere una
+                            <input type="text" class="form-control" formControlName="codigo"
+                                 [ngClass]="{'is-invalid': controlProducto.codigo.touched && controlProducto.codigo.errors}" />
+                            <div *ngIf="controlProducto.codigo.errors" class="invalid-feedback">
+                                <div *ngIf="controlProducto.codigo.errors.required">Se requiere una
                                     referencia</div>
                             </div>
 
-                            <label for="">Nombre</label>
+                            <label >Nombre</label>
                             <input type="text" class="form-control " formControlName="nombre"
-                                [ngClass]="{'is-invalid':  controlProducto.nombre.touched && controlProducto.nombre.errors}" />
-                            <div *ngIf="controlProducto.nombre.errors" class="invalid-feedback">
-                                <div *ngIf="controlProducto.nombre.errors.required">
+                                [ngClass]="{'is-invalid': controlProducto.nombre.touched && controlProducto.nombre.errors}" />
+                            <div *ngIf="controlProducto.nombre.errors" class="invalid-feedback">
+                                <div *ngIf="controlProducto.nombre.errors.required">
                                     Se require que ingrese el nombre del producto
                                 </div>
                             </div>
 
                             <label>Cantidad (Kg)</label>
-                            <input type="number" class="form-control" formControlName="cantidad"
-                                 [ngClass]="{'is-invalid':  controlProducto.cantidad.touched && controlProducto.cantidad.errors}" />
-                            <div *ngIf="controlProducto.cantidad.errors" class="invalid-feedback">
-                                <div *ngIf="controlProducto.cantidad.errors.required">Se require la
+                            <input type="number" class="form-control" formControlName="cantidad"
+                                 [ngClass]="{'is-invalid': controlProducto.cantidad.touched && controlProducto.cantidad.errors}" />
+                            <div *ngIf="controlProducto.cantidad.errors" class="invalid-feedback">
+                                <div *ngIf="controlProducto.cantidad.errors.required">Se require la
                                     cantidad</div>
                             </div>
                         </div>
@@ -499,29 +498,29 @@
                     <div class="row">
                         <div class="col">
                             <label>Cantidad Minima (Kg)</label>
-                            <input type="number" class="form-control" formControlName="cantidadMinima"
-                                 [ngClass]="{'is-invalid':  controlProducto.cantidadMinima.touched && controlProducto.cantidadMinima.errors}" />
-                            <div *ngIf="controlProducto.cantidadMinima.errors" class="invalid-feedback">
-                                <div *ngIf="controlProducto.cantidadMinima.errors.required">Se require la
+                            <input type="number" class="form-control" formControlName="cantidadMinima"
+                                 [ngClass]="{'is-invalid': controlProducto.cantidadMinima.touched && controlProducto.cantidadMinima.errors}" />
+                            <div *ngIf="controlProducto.cantidadMinima.errors" class="invalid-feedback">
+                                <div *ngIf="controlProducto.cantidadMinima.errors.required">Se require la
                                     cantidad minima</div>
                             </div>
                         </div>
                         <div class="col">
                             <label>Precio por kilo</label>
-                            <input type="number" class="form-control" formControlName="valor"
-                                 [ngClass]="{'is-invalid':  controlProducto.valor.touched && controlProducto.valor.errors}" />
-                            <div *ngIf="controlProducto.valor.errors" class="invalid-feedback">
-                                <div *ngIf="controlProducto.valor.errors.required">Se require el valor</div>
+                            <input type="number" class="form-control" formControlName="valor"
+                                 [ngClass]="{'is-invalid': controlProducto.valor.touched && controlProducto.valor.errors}" />
+                            <div *ngIf="controlProducto.valor.errors" class="invalid-feedback">
+                                <div *ngIf="controlProducto.valor.errors.required">Se require el valor</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="">
                         <label>Descripción</label>
-                        <textarea type="text" class="form-control" formControlName="descripcion"
-                             [ngClass]="{'is-invalid':  controlProducto.descripcion.touched && controlProducto.descripcion.errors}"></textarea>
-                        <div *ngIf="controlProducto.descripcion.errors" class="invalid-feedback">
-                            <div *ngIf="controlProducto.descripcion.errors.required">Se requiere una
+                        <textarea type="text" class="form-control" formControlName="descripcion"
+                             [ngClass]="{'is-invalid': controlProducto.descripcion.touched && controlProducto.descripcion.errors}"></textarea>
+                        <div *ngIf="controlProducto.descripcion.errors" class="invalid-feedback">
+                            <div *ngIf="controlProducto.descripcion.errors.required">Se requiere una
                                 breve descripción</div>
                         </div>
                     </div>
@@ -529,7 +528,7 @@
                         <hr style="visibility: hidden;">
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-outline-dark" style="width: 50%; margin-right: .5rem;" type="submit"
-                                (click)="onSubmitProducto()"   [disabled]="formularioregistroProducto.invalid">Registrar
+                                (click)="onSubmitProducto()"   [disabled]="formularioregistroProducto.invalid">Registrar
                             </button>
                             <button class="btn btn-outline-danger" style="width: 50%; margin-left: .5rem;" type="reset"
                                 (click)="mostrar = 'Principal'">
@@ -608,7 +607,7 @@
 
                         <div class="row">
                             <div class="col">
-                                <img [src]="imagenProductoView.imagen" alt="imagen" class="img-card-top w-100">
+                                <img [src]="productoConsulta.ruta" alt="imagen" class="img-card-top w-100">
                             </div>
                             <div class="col">
                                 <div class="row">
@@ -686,7 +685,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label>Referencia:</label>
-                                        <input type="number"  name="BuscarProducto" [(ngModel)]="codigoProducto"
+                                        <input type="number" name="BuscarProducto" [(ngModel)]="codigoProducto"
                                             class="form-control" />
                                     </div>
                                     <div class="col">
@@ -718,7 +717,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label>Cantidad a añadir:</label>
-                                        <input type="number"  name="cantidad" [(ngModel)]="cantidadProducto"
+                                        <input type="number" name="cantidad" [(ngModel)]="cantidadProducto"
                                             class="form-control" />
                                     </div>
                                     <div class="col">
@@ -741,7 +740,7 @@
                 </div>
             </div>
         </div>
-        <div [ngClass]="{'Ocultar':  mostrar != 'Cliente'}">
+        <div [ngClass]="{'Ocultar': mostrar != 'Cliente'}">
             <div class="Cuerpo">
                 <form style="min-width: 700px;">
                     <div class="text-center" style="margin-top: 1rem;">
@@ -753,7 +752,7 @@
                         <h5>Informacion de contacto.</h5>
                         <div class="row">
                             <div class="col">
-                                <label for="LblTelefono">Telefono fijo o movil: </label>
+                                <label>Telefono fijo o movil: </label>
                             </div>
                             <div class="col">
                                 <p>
@@ -763,7 +762,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="LblWhatsapp">Whatsapp: </label>
+                                <label >Whatsapp: </label>
                             </div>
                             <div class="col">
                                 <p>
@@ -781,7 +780,7 @@
                 </form>
             </div>
         </div>
-        <div [ngClass]="{'Ocultar':  mostrar != 'DescuentosCliente'}">
+        <div [ngClass]="{'Ocultar': mostrar != 'DescuentosCliente'}">
             <div class="Cuerpo">
                 <form style="width: 98%;">
                     <div class="text-center" style="margin-top: 1rem;">
@@ -811,7 +810,7 @@
                         </div>
                     </div>
                     <div class="col table-responsive"
-                        [ngClass]="{'Ocultar':  mostrarOpsInterno != 'DescuentosRegistrados'}">
+                        [ngClass]="{'Ocultar': mostrarOpsInterno != 'DescuentosRegistrados'}">
                         <div class="text-center" style="margin-top: 1rem;">
                             <h6>Descuentos registrados.</h6>
                         </div>
@@ -829,7 +828,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let descuento of listaDescuentos|filtroCliente:filtroClientes; index as i">
+                                <tr *ngFor="let descuento of listaDescuentos | filtroCliente:filtroClientes; index as i">
                                     <th scope="row">{{ i + 1 }}</th>
                                     <td>{{ descuento.codProducto }} </td>
                                     <th>{{ descuento.nombreProducto }}</th>
@@ -839,7 +838,7 @@
                         </table>
                     </div>
                     <div class="col table-responsive"
-                        [ngClass]="{'Ocultar':  mostrarOpsInterno != 'ProductosSinDescuento'}">
+                        [ngClass]="{'Ocultar': mostrarOpsInterno != 'ProductosSinDescuento'}">
                         <div class="text-center" style="margin-top: 1rem;">
                             <h6>Productos sin descuentos.</h6>
                         </div>
@@ -892,7 +891,7 @@
                 </form>
             </div>
         </div>
-        <div [ngClass]="{'Ocultar':  mostrar != 'Pedidos'}">
+        <div [ngClass]="{'Ocultar': mostrar != 'Pedidos'}">
             <div class="Cuerpo">
                 <form class="col font-weight-normal">
                     <div class="text-center" style="margin-top: 1rem;">
@@ -954,9 +953,9 @@
                 </form>
             </div>
         </div>
-        <div [ngClass]="{'Ocultar':  mostrar != 'SelccionarProductosPedido'}">
+        <div [ngClass]="{'Ocultar':mostrar != 'SelccionarProductosPedido'}">
             <div class="Cuerpo">
-                <form class="font-weight-normal col-lg-10" id="formularioRgistrarCliente" style="margin-top: 1rem;">
+                <form class="font-weight-normal col-lg-10" id="SeleccionarCliente" style="margin-top: 1rem;">
                     <div  >
                         <div class=" row" style="padding-right: 1rem;">
                             <div class="col">
@@ -1077,7 +1076,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <label>Referencia:</label>
-                                                    <input type="number"  name="BuscarProducto"
+                                                    <input type="number" name="BuscarProducto"
                                                         [(ngModel)]="codigoProducto" class="form-control" />
                                                 </div>
                                                 <div class="col">
@@ -1109,7 +1108,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <label>Cantidad a añadir:</label>
-                                                    <input type="number"  name="cantidad" [(ngModel)]="cantidadProducto"
+                                                    <input type="number" name="cantidad" [(ngModel)]="cantidadProducto"
                                                         class="form-control" />
                                                 </div>
                                                 <div class="col">
@@ -1229,7 +1228,7 @@
         </div>
         <div *ngIf="mostrar == 'Pedido'">
             <div class="Cuerpo">
-                <form class="font-weight-normal col-lg-10" id="formularioRgistrarCliente" style="margin-top: 1rem;">
+                <form class="font-weight-normal col-lg-10" id="Pedido" style="margin-top: 1rem;">
                     <div>
                         <div class=" row">
                             <div class="col">
@@ -1471,10 +1470,10 @@
                             <hr>
                             <div>
                                 <label>Identificacion</label>
-                                <input type="text" class="form-control" formControlName="identificacion"
-                                     [ngClass]="{'is-invalid':  controlDomiciliario.identificacion.touched && controlDomiciliario.identificacion.errors}" />
-                                <div *ngIf="controlDomiciliario.identificacion.errors" class="invalid-feedback">
-                                    <div *ngIf="controlDomiciliario.identificacion.errors.required">
+                                <input type="text" class="form-control" formControlName="identificacion"
+                                     [ngClass]="{'is-invalid': controlDomiciliario.identificacion.touched && controlDomiciliario.identificacion.errors}" />
+                                <div *ngIf="controlDomiciliario.identificacion.errors" class="invalid-feedback">
+                                    <div *ngIf="controlDomiciliario.identificacion.errors.required">
                                         Se requiere la identificación
                                     </div>
                                 </div>
@@ -1482,10 +1481,10 @@
                             <div class="row">
                                 <div class="col">
                                     <label>Nombres</label>
-                                    <input type="text" class="form-control" formControlName="nombres"
-                                         [ngClass]="{'is-invalid':  controlDomiciliario.nombres.touched && controlDomiciliario.nombres.errors}" />
-                                    <div *ngIf="controlDomiciliario.nombres.errors" class="invalid-feedback">
-                                        <div *ngIf="controlDomiciliario.nombres.errors.required">
+                                    <input type="text" class="form-control" formControlName="nombres"
+                                         [ngClass]="{'is-invalid': controlDomiciliario.nombres.touched && controlDomiciliario.nombres.errors}" />
+                                    <div *ngIf="controlDomiciliario.nombres.errors" class="invalid-feedback">
+                                        <div *ngIf="controlDomiciliario.nombres.errors.required">
                                             Se requieren los nombres
                                         </div>
                                     </div>
@@ -1612,7 +1611,7 @@
                     <div class="row d-flex justify-content-center">
                         <div class="col d-flex justify-content-end">
                             <button class="btn btn-outline-dark" style="width: 50%" type="submit"
-                                (click)="onSubmitDomiciliario()"   [disabled]="formularioregistroDomiciliario.invalid">
+                                (click)="onSubmitDomiciliario()"   [disabled]="formularioregistroDomiciliario.invalid">
                                 <span class="fas fa-user-plus"></span> Registrar
                             </button>
                         </div>
@@ -1821,7 +1820,7 @@
                         </div>
                     </div>
                     <hr style="visibility: hidden;">
-                    
+
                     <div class="text-center" *ngIf="ListaPedidosSinruta.length == 0">
                         <h4>¡NO HAY PEDIDOS SIN RUTA ASIGANA!</h4>
                     </div>

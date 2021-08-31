@@ -10,6 +10,18 @@ namespace DistribuidoraESB.Models
         public string Rol { get; set; }
         public string IdPersona { get; set; }
         
+        public Usuario MapearEntrada()
+        {
+            var usuario = new Usuario
+            {
+                Contraseña = Contraseña,
+                IdPersona = IdPersona,
+                Correo = Correo,
+                Rol = Rol
+            };
+            return usuario;
+        }
+        
     }
     public class UsuarioViewModel : UsuarioInputModel
     {

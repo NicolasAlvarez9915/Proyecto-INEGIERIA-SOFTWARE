@@ -10,9 +10,9 @@ export class AlertModalComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal) { }
 
-  
-  @Input() title;
-  @Input() message;
+
+  @Input() title;
+  @Input() message;
   ngOnInit(): void {
   }
 }
