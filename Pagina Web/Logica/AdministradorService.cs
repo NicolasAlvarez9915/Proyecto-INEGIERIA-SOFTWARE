@@ -15,23 +15,40 @@ namespace Logica
             this.context = context;
         }
 
-        public AdministradorResponse Guardar(Administrador administrador)
+        public Respuesta<Administrador> Guardar(Administrador administrador)
         {
             try
             {
                 context.Administradores.Add(administrador);
                 context.SaveChanges();
-                return new AdministradorResponse(administrador);
+                return new (administrador,200);
             }
             catch (Exception e)
             {
-                return new AdministradorResponse($"Error de la aplicacion: {e.Message}");
+                return new ($"Error de la aplicacion: {e.Message}",500);
             }
         }
 
-        public AdministradorResponse Buscar(string Identificacion){
+        public Respuesta<Administrador> ValidarCrear(Administrador administrador)
+        {
+            try
+            {
+                Respuesta<Administrador> AdministradorEncontrador = Buscar(administrador.Identificacion);
+                return (AdministradorEncontrador.Error)
+                    ? new("Arministrador inexistente", 500)
+                        : Guardar(administrador);
+            }
+            catch (Exception e)
+            {
+                return new ($"Error al validar el crear: {e.Message}",500);
+            }
+        }
+
+        public Respuesta<Administrador> Buscar(string Identificacion){
             Administrador administrador = context.Administradores.Find(Identificacion);
-            return new AdministradorResponse(administrador);
+            return (administrador != null) 
+                ? new(administrador, 200) 
+                    : new("Arministrador inexistente", 404);
         }
 
         public void ActualizarInfo(Administrador administrador)
@@ -60,21 +77,5 @@ namespace Logica
             context.Administradores.Update(administradorEncontrado);
             context.SaveChanges();
         }
-    }
-    public class AdministradorResponse 
-    {
-            public AdministradorResponse(Administrador administrador)
-            {
-                Error = false;
-                this.adminitrador = administrador;
-            }
-            public AdministradorResponse(string mensaje)
-            {
-                Error = true;
-                this.Mensaje = mensaje;
-            }
-            public string Mensaje { get; set; }
-            public bool Error { get; set; }
-            public Administrador adminitrador { get; set; }
     }
 }

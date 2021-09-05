@@ -98,48 +98,70 @@ export class RegistroComponent implements OnInit {
       messageBox.componentInstance.message = "Las contraseñas no coninciden";
 
     } else {
-      this.clienteService.buscar(this.cliente.identificacion).subscribe(
-        r => {
-          if (r != null) {
-            const messageBox = this.modalService.open(AlertModalComponent)
-            messageBox.componentInstance.title = "ALERTA";
-            messageBox.componentInstance.message = "Ya existe un cliente registrado con esta identificacion";
-          } else {
-            this.usuarioService.validarSession(this.usuario.correo).subscribe(r => {
-              if (r != null) {
-                const messageBox = this.modalService.open(AlertModalComponent)
-                messageBox.componentInstance.title = "ALERTA";
-                messageBox.componentInstance.message = "Ya existe un cliente registrado con este correo";
-              } else {
-                this.clienteService.post(this.cliente).subscribe
-                  (
-                    r => {
-                      if (r != null) {
-                        this.usuarioService.post(this.usuario).subscribe(
-                          r => {
-                            if (r != null) {
-                              const messageBox = this.modalService.open(AlertModalComponent)
-                              messageBox.componentInstance.title = "BIEN HECHO.";
-                              messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
-                              this.usuarioService.GuardarUsuarioSesion(this.usuario);
-                              this.authenticationService.login(this.usuario.correo, this.usuario.contraseña).pipe(first())
-                                .subscribe(
-                                  data => {
-                                    this.router.navigate(['/PerfilCliente']);
-                                  });
-                            }
-                          }
-                        );
-                      }
-                    }
-                  );
-              }
-            }
-            );
-          }
-        }
-      );
+      this.validarCliente();
     }
 
+  }
+  validarCliente(){
+    this.clienteService.buscar(this.cliente.identificacion).subscribe(
+      respuesta => {
+        if (respuesta != null) {
+          const messageBox = this.modalService.open(AlertModalComponent)
+          messageBox.componentInstance.title = "ALERTA";
+          messageBox.componentInstance.message = "Ya existe un cliente registrado con esta identificacion";
+        } else {
+          this.validarUsuario();
+        }
+      }
+    );
+  }
+  validarUsuario(){
+    this.usuarioService.validarSession(this.usuario.correo).subscribe(
+      r => {
+        const messageBox = this.modalService.open(AlertModalComponent)
+        messageBox.componentInstance.title = "ALERTA";
+        messageBox.componentInstance.message = "Ya existe un usuario registrado con este correo";
+      },
+      error =>{
+        this.crearCliente();
+      }
+    );
+  }
+  crearCliente(){
+    this.clienteService.post(this.cliente).pipe().subscribe
+    (
+      respuesta => {
+        this.crearUsuario();
+      },
+      error =>{
+        this.alertaRespuestaError(error);
+      }
+    );
+  }
+  crearUsuario(){
+    this.usuarioService.post(this.usuario).subscribe(
+      r => {
+        const messageBox = this.modalService.open(AlertModalComponent)
+        messageBox.componentInstance.title = "BIEN HECHO.";
+        messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
+        this.iniciarSesion();
+      }
+    );
+  }
+  iniciarSesion(){
+    this.authenticationService.login(this.usuario.correo, this.usuario.contraseña).pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate(['/PerfilCliente']);
+        },
+        error =>{
+          this.alertaRespuestaError(error);
+        }
+      );
+  }
+  alertaRespuestaError(error){
+    const messageBox = this.modalService.open(AlertModalComponent)
+    messageBox.componentInstance.title = "ALERTA.";
+    messageBox.componentInstance.message = error.error.mensaje;
   }
 }

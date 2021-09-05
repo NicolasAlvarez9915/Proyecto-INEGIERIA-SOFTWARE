@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HandleHttpErrorService } from '../@base/handle-http-error.service';
 import { Producto } from '../ESB/Models/producto';
 import {tap, catchError, map} from 'rxjs/operators';
+import {Respuesta} from '../models/respuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class ProductoService {
     )
   }
 
-  registrar(producto: Producto, imagen: File): Observable<Producto>
+  registrar(producto: Producto, imagen: File): Observable<Respuesta<Producto>>
   {
     const fd =  new FormData();
     fd.append('Codigo',producto.codigo);
@@ -37,7 +38,7 @@ export class ProductoService {
     fd.append('Descripcion', producto.descripcion);
     fd.append('Valor', producto.valor.toString());
     fd.append('Imagen', imagen, imagen.name);
-    return  this.http.post<Producto>(this.baseUrl+'api/Producto',fd)
+    return  this.http.post<Respuesta<Producto>>(this.baseUrl+'api/Producto',fd)
     .pipe(map(respuesta => {
       return respuesta;
     }));

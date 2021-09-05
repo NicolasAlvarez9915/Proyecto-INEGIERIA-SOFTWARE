@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HandleHttpErrorService } from '../@base/handle-http-error.service';
 import { Usuario } from '../ESB/Models/usuario';
+import { Respuesta } from '../models/respuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,8 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  login(correo, contraseña) {
-    return this.http.post<any>(`${this.baseUrl}api/Usuario/InicioSesion`, { correo, contraseña })
+  login(correo, contraseña): Observable<Respuesta<Usuario>> {
+    return this.http.post<Respuesta<Usuario>>(`${this.baseUrl}api/Usuario/InicioSesion`, { correo, contraseña })
       .pipe(map(user => {
         if(!user.error)
         {

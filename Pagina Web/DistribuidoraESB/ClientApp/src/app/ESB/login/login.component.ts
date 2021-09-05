@@ -63,14 +63,11 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.usuario.correo, this.usuario.contrasena).pipe(first())
     .subscribe(
       data => {
-        this.authenticationService.currentUser.subscribe(x => {
-            if (x.rol == "Administrador") {
+            if (data.objeto.rol === "Administrador") {
               this.router.navigate(['/Perfil']);
             } else {
               this.router.navigate(['/PerfilCliente']);
-            }
-
-        });
+            };
       },
       error => {
         const modalRef = this.modalService.open(AlertModalComponent);

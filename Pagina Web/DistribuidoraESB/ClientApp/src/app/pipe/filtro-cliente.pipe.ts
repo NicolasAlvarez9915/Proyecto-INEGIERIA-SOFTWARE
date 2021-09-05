@@ -9,9 +9,11 @@ export class FiltroClientePipe implements PipeTransform {
   transform(clientes: Cliente[], identificacion: string): any {
     if (identificacion == null) return clientes;
      return clientes.filter(p=>
-      p.identificacion.toLowerCase()
+      this.concatenarTodo(p).toLowerCase()
       .indexOf(identificacion.toLowerCase()) !== -1
       );
   }
-
+  concatenarTodo(dato: Cliente): string{
+    return dato.identificacion+ " "+dato.nombres+ " "+dato.apellidos;
+  }
 }

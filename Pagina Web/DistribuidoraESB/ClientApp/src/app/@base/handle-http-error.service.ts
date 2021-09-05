@@ -11,10 +11,10 @@ export class HandleHttpErrorService {
   constructor() { }
   public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-    return of(error.error);
+      return of(error.error);
     };
     }
     public log(message: string) {
-    console.log(message);
+      console.log(message);
     }
 }

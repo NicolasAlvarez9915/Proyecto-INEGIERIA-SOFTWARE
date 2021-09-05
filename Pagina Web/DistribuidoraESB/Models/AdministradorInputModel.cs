@@ -6,6 +6,20 @@ namespace DistribuidoraESB.Models
     public class AdministradorInputModel: PersonaModel
     {
         public string Puesto { get; set; }
+        
+        public Administrador MapearEntrada()
+        {
+            return new ()
+            {
+                Identificacion = Identificacion,
+                Nombres = Nombres,
+                Apellidos = Apellidos,
+                Telefono = Telefono,
+                Whatsapp = Whatsapp,
+                Puesto = Puesto
+                
+            };
+        }
     }
 
     public class AdministradorViewModel : AdministradorInputModel

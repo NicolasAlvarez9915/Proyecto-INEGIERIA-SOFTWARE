@@ -68,11 +68,7 @@ namespace Logica
         public Respuesta<Usuario> ValidarCorreo(string correo)
         {
             var usuarioEncontrado = context.Usuarios.Find(correo);
-            if (usuarioEncontrado == null)
-            {
-                return new ("Correo inexistente", 404);
-            }
-            return new (usuarioEncontrado, 200);
+            return (usuarioEncontrado == null) ? new ("Correo inexistente", 404) :   new (usuarioEncontrado, 200);
         }
 
         public Respuesta<Usuario> Validate(string correo, string password) {

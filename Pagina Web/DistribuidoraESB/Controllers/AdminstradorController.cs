@@ -24,41 +24,23 @@ namespace DistribuidoraESB.Controllers
         [HttpPost]
         public ActionResult<AdministradorViewModel> Post(AdministradorInputModel administradorInput)
         {
-            Administrador administrador = MapearAdministrador(administradorInput);
-            var response = service.Guardar(administrador);
-            return Ok(response.adminitrador);
+            var response = service.ValidarCrear(administradorInput.MapearEntrada());
+            return StatusCode(response.CodigoHttp, response);
         }
 
         [HttpGet("{identificacion}")]
         public ActionResult<AdministradorViewModel> Get(string identificacion)
         {
             var response = service.Buscar(identificacion);
-            if(response.Error)
-            {
-                return BadRequest(response.Mensaje);
-            }
-            return Ok(response.adminitrador);
+            return StatusCode(response.CodigoHttp, response);
         }
 
         [HttpPut("{campo}")]
         public ActionResult<String> Put(string campo, AdministradorInputModel administradorInput)
         {
-            service.ActualizarInfo(MapearAdministrador(administradorInput));
-            return Ok("Correcto");
+            service.ActualizarInfo(administradorInput.MapearEntrada());
+            return StatusCode(200, new Respuesta<string>("Correcto",false,200));
         }
-        private Administrador MapearAdministrador(AdministradorInputModel administradorInput)
-        {
-            var administrador = new Administrador
-            {
-                Identificacion = administradorInput.Identificacion,
-                Nombres = administradorInput.Nombres,
-                Apellidos = administradorInput.Apellidos,
-                Telefono = administradorInput.Telefono,
-                Whatsapp =administradorInput.Whatsapp,
-                Puesto = administradorInput.Puesto
-                
-            };
-            return administrador;
-        }
+        
     }
 }

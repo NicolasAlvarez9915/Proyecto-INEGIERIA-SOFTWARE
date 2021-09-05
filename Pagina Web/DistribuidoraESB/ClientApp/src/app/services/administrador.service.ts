@@ -3,7 +3,8 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HandleHttpErrorService } from '../@base/handle-http-error.service';
 import { Administrador } from '../ESB/Models/administrador';
-import { tap, catchError } from 'rxjs/operators';
+import {tap, catchError, map} from 'rxjs/operators';
+import {Respuesta} from "../models/respuesta";
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +19,14 @@ export class AdministradorService {
       this.baseUrl = baseUrl;
   }
 
-  buscar(identificacion: string): Observable<Administrador>
+  buscar(identificacion: string): Observable<Respuesta<Administrador>>
   {
-    return this.http.get<Administrador>(this.baseUrl+'api/Adminstrador/'+identificacion)
-    .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<Administrador>('Buscar Administrador', null))
+    return this.http.get<Respuesta<Administrador>>(this.baseUrl+'api/Adminstrador/'+identificacion)
+    .pipe(map(
+      (Respuesta) => {
+        return Respuesta;
+      }
+      )
     );
   }
 
@@ -31,8 +34,11 @@ export class AdministradorService {
   {
     return this.http.put<String>(this.baseUrl+'api/Adminstrador/Todo',administrador)
     .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<String>('Buscar Administrador', null))
+      map(
+        Respuesta => {
+          return Respuesta;
+        }
+      )
     );
   }
 }

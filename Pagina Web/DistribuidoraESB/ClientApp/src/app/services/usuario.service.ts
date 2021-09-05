@@ -3,7 +3,8 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HandleHttpErrorService } from '../@base/handle-http-error.service';
 import { Usuario } from '../ESB/Models/usuario';
-import { tap, catchError } from 'rxjs/operators';
+import {tap, catchError, map} from 'rxjs/operators';
+import {Respuesta} from "../models/respuesta";
 
 @Injectable({
   providedIn: 'root'
@@ -18,28 +19,30 @@ export class UsuarioService {
       this.baseUrl = baseUrl;
   }
 
-  post(usuario : Usuario): Observable<Usuario>
+  post(usuario : Usuario): Observable<Respuesta<Usuario>>
   {
-    return this.http.post<Usuario>(this.baseUrl+'api/Usuario',usuario)
+    return this.http.post<Respuesta<Usuario>>(this.baseUrl+'api/Usuario',usuario)
     .pipe(
       tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Usuario>('Registrar Usuario', null))
+      catchError(this.handleErrorService.handleError<Respuesta<Usuario>>('Registrar Usuario', null))
     );
   }
-  validarSession(correo: string): Observable<Usuario>{
-    return this.http.get<Usuario>(this.baseUrl+'api/Usuario/'+correo)
+  validarSession(correo: string): Observable<Respuesta<Usuario>>{
+    return this.http.get<Respuesta<Usuario>>(this.baseUrl+'api/Usuario/'+correo)
     .pipe(
-      tap(_ => this.handleErrorService.log('datos enviados')),
-      catchError(this.handleErrorService.handleError<Usuario>('Validar Usuario', null))
+      map( Respuesta =>{
+        return Respuesta
+      })
     );
   }
 
-  actualizarContraseña(usuario: Usuario): Observable<String>
+  actualizarContraseña(usuario: Usuario): Observable<Respuesta<String>>
   {
-    return this.http.put<String>(this.baseUrl+'api/Usuario/Todo',usuario)
+    return this.http.put<Respuesta<String>>(this.baseUrl+'api/Usuario/Todo',usuario)
     .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<String>('Buscar Administrador', null))
+      map( Respuesta =>{
+        return Respuesta
+      })
     );
   }
 

@@ -288,44 +288,65 @@ export class PerfilComponent implements OnInit {
       messageBox.componentInstance.title = "ALERTA";
       messageBox.componentInstance.message = "Las contraseñas no coninciden";
     } else {
-      this.domiciliarioService.validarExistenciaDomiciliario(this.domiciliario.identificacion).subscribe(r => {
-        if (r == null) {
-          this.domiciliarioService.validarExistenciaVehiculo(this.domiciliario.moto.placa).subscribe(s => {
-            if (s == null) {
-              this.usuarioService.validarSession(this.usuarioRegistrar.correo).subscribe(a => {
-                if (a == null) {
-                  this.domiciliarioService.registrar(this.domiciliario).subscribe(d => {
-                    this.usuarioService.post(this.usuarioRegistrar).subscribe(f => {
-                      const messageBox = this.modalService.open(AlertModalComponent)
-                      messageBox.componentInstance.title = "BIEN HECHO";
-                      messageBox.componentInstance.message = "Domiciliario Registrado correctamente.";
-                      this.domiciliariosSinrRuta();
-                    })
-                  })
-                } else {
-
-                  const messageBox = this.modalService.open(AlertModalComponent)
-                  messageBox.componentInstance.title = "ALERTA";
-                  messageBox.componentInstance.message = "Existe un usuario con este correo registrado.";
-                }
-              });
-            } else {
-
-              const messageBox = this.modalService.open(AlertModalComponent)
-              messageBox.componentInstance.title = "ALERTA";
-              messageBox.componentInstance.message = "Vehiculo existente.";
-            }
-          });
-        } else {
-
-          const messageBox = this.modalService.open(AlertModalComponent)
-          messageBox.componentInstance.title = "ALERTA";
-          messageBox.componentInstance.message = "Domiciliario existente.";
-        }
-      });
+      this.validarExistenciaDomiciliario();
     }
   }
 
+  validarExistenciaDomiciliario(){
+    this.domiciliarioService.validarExistenciaDomiciliario(this.domiciliario.identificacion).subscribe(r => {
+      if (r != null) {
+        this.validarExistenciaVehiculo();
+      } else {
+        const messageBox = this.modalService.open(AlertModalComponent)
+        messageBox.componentInstance.title = "ALERTA";
+        messageBox.componentInstance.message = "Domiciliario existente.";
+      }
+    });
+  }
+
+  validarExistenciaVehiculo()
+  {
+    this.domiciliarioService.validarExistenciaVehiculo(this.domiciliario.moto.placa).subscribe(s => {
+      if (s != null) {
+        this.validarUsuarioDomiciliario();
+      } else {
+        const messageBox = this.modalService.open(AlertModalComponent)
+        messageBox.componentInstance.title = "ALERTA";
+        messageBox.componentInstance.message = "Vehiculo existente.";
+      }
+    });
+  }
+
+  validarUsuarioDomiciliario(){
+    this.usuarioService.validarSession(this.usuarioRegistrar.correo).subscribe(a => {
+        const messageBox = this.modalService.open(AlertModalComponent)
+        messageBox.componentInstance.title = "ALERTA";
+        messageBox.componentInstance.message = "Existe un usuario con este correo registrado.";
+    },
+      error =>{
+        this.crearDomiciliario();
+      });
+  }
+
+  crearDomiciliario(){
+    this.domiciliarioService.registrar(this.domiciliario).subscribe(d => {
+      this.crearUsuario("Domiciliario Registrado correctamente");
+    });
+  }
+
+  crearUsuario(mensaje){
+    this.usuarioService.post(this.usuarioRegistrar).subscribe(respuesta => {
+      const messageBox = this.modalService.open(AlertModalComponent)
+      messageBox.componentInstance.title = "BIEN HECHO";
+      messageBox.componentInstance.message = mensaje;
+      this.domiciliariosSinrRuta();
+      this.domiciliarios();
+      this.clientes();
+    },
+      error =>{
+        this.alertaRespuestaError(error);
+      })
+  }
   llenarObjetos() {
     this.domiciliario = this.formularioregistroDomiciliario.value;
     this.vehiculo = new Vehiculo();
@@ -646,19 +667,17 @@ export class PerfilComponent implements OnInit {
   registrarProducto() {
     if (this.selectedFile != null) {
       this.producto = this.formularioregistroProducto.value;
-      this.productoService.registrar(this.producto, this.imagenRegistrar).pipe(first()).subscribe(
-        r => {
-          if (r != null) {
+      this.productoService.registrar(this.producto, this.imagenRegistrar).subscribe(
+        respuesta => {
+          if (!respuesta.error) {
             const messageBox = this.modalService.open(AlertModalComponent)
             messageBox.componentInstance.title = "BIEN HECHO.";
             messageBox.componentInstance.message = "Producto registrado correctamente.";
             this.productos();
           }
         },
-        respuesta => {
-          const messageBox = this.modalService.open(AlertModalComponent)
-          messageBox.componentInstance.title = "ALERTA.";
-          messageBox.componentInstance.message = respuesta.error.mensaje;
+        error => {
+          this.alertaRespuestaError(error);
         }
       );
     } else {
@@ -682,47 +701,55 @@ export class PerfilComponent implements OnInit {
       messageBox.componentInstance.title = "ALERTA";
       messageBox.componentInstance.message = "Las contraseñas no coninciden";
     } else {
-      this.clienteService.buscar(this.clienteRegistrar.identificacion).subscribe(
-        r => {
-          if (r != null) {
-            const messageBox = this.modalService.open(AlertModalComponent)
-            messageBox.componentInstance.title = "ALERTA";
-            messageBox.componentInstance.message = "Ya existe un cliente registrado con esta identificacion";
-          } else {
-            this.usuarioService.validarSession(this.usuarioRegistrar.correo).subscribe(r => {
-              if (r != null) {
-                console.log(r);
-                const messageBox = this.modalService.open(AlertModalComponent)
-                messageBox.componentInstance.title = "ALERTA";
-                messageBox.componentInstance.message = "Ya existe un cliente registrado con este correo";
-              } else {
-                this.clienteService.post(this.clienteRegistrar).subscribe
-                  (
-                    r => {
-                      this.usuarioService.post(this.usuarioRegistrar).subscribe(
-                        r => {
-                          if (r != null) {
-                            const messageBox = this.modalService.open(AlertModalComponent)
-                            messageBox.componentInstance.title = "BIEN HECHO.";
-                            messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
-                            this.clientes();
-                          }
-                        }
-                      )
-                    }
-                  );
-              }
-            })
-
-          }
-        }
-      );
+      this.validarCliente();
     }
   }
+
+  validarCliente(){
+    this.clienteService.buscar(this.clienteRegistrar.identificacion).subscribe(
+      r => {
+        if (r != null) {
+          const messageBox = this.modalService.open(AlertModalComponent)
+          messageBox.componentInstance.title = "ALERTA";
+          messageBox.componentInstance.message = "Ya existe un cliente registrado con esta identificacion";
+        } else {
+          this.validarUsuarioCliente();
+        }
+      }
+    );
+  }
+
+  validarUsuarioCliente(){
+    this.usuarioService.validarSession(this.usuarioRegistrar.correo).subscribe(r => {
+        const messageBox = this.modalService.open(AlertModalComponent)
+        messageBox.componentInstance.title = "ALERTA";
+        messageBox.componentInstance.message = "Ya existe un cliente registrado con este correo";
+      },
+      error => {
+        this.crearCliente();
+      }
+    );
+  }
+
+  crearCliente(){
+    this.clienteService.post(this.clienteRegistrar).subscribe
+    (
+      r => {
+        this.crearUsuario("Cliente registrado. Cuenta de cliente creada.")
+      },
+      error =>{
+        this.alertaRespuestaError(error);
+    }
+    );
+  }
+
   pedirInforAdministrador() {
     this.administradorService.buscar(this.usuario.idPersona).subscribe(
-      r => {
-        this.administrador = r;
+      respuesta => {
+        this.administrador = respuesta.objeto;
+      },
+      error =>{
+        this.alertaRespuestaError(error);
       }
     )
   }
@@ -771,6 +798,9 @@ export class PerfilComponent implements OnInit {
         this.administradorService.Actualizar(administradorInformacionNueva).subscribe(r => {
           this.pedirInforAdministrador();
           alert("Datos actualizados personales correctamente");
+        },
+          error => {
+          this.alertaRespuestaError(error);
         });
       }
       acumulado = 0;
@@ -784,9 +814,10 @@ export class PerfilComponent implements OnInit {
         if (acumulado == 2) {
           if (this.contrasenaActualizar == this.contrasenaconfirmar) {
             this.usuario.contraseña = this.contrasenaconfirmar;
-            this.usuarioService.actualizarContraseña(this.usuario).subscribe(r => {
+            this.usuarioService.actualizarContraseña(this.usuario).pipe(first()).subscribe(
+              data => {
               this.usuario.contraseña = null;
-              alert("Contraseña actualizada")
+              alert("Contraseña actualizada");
             });
           } else {
             alert("Las contraseñas no coinsiden");
@@ -796,5 +827,11 @@ export class PerfilComponent implements OnInit {
         }
       }
     }
+  }
+
+  alertaRespuestaError(error){
+    const messageBox = this.modalService.open(AlertModalComponent)
+    messageBox.componentInstance.title = "ALERTA.";
+    messageBox.componentInstance.message = error.error.mensaje;
   }
 }
