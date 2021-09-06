@@ -21,38 +21,29 @@ namespace DistribuidoraESB.Controllers
         {
             service = new ClienteService(context);
         }
+        
         [AllowAnonymous]
         [HttpGet("{identificacion}")]
         public ActionResult<ClienteViewModel> Get(string identificacion)
         {
             var response = service.Buscar(identificacion);
-            if(response.Error)
-            {
-                return BadRequest(response.Mensaje);
-            }
-            return Ok(response.cliente);
+            return StatusCode(response.CodigoHttp,response);
         }
+        
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult<ClienteViewModel> post(ClienteInputModel clienteInput)
+        public ActionResult<ClienteViewModel> Post(ClienteInputModel clienteInput)
         {
-            Cliente cliente = MapearCliente(clienteInput);
-            var response = service.Guardar(cliente);
-            return Ok(response.cliente);
+            
+            var response = service.ValidarCrear(clienteInput.MapearCliente());
+            return StatusCode(response.CodigoHttp,response);
         }
 
-        [HttpPut("{tipoInformacion}")]
-        public ActionResult<String> Put(string tipoInformacion, ClienteInputModel clienteInput)
+        [HttpPut]
+        public ActionResult<String> Put(ClienteInputModel clienteInput)
         {
-            Cliente cliente = MapearCliente(clienteInput);
-
-            if(tipoInformacion == "Personal")
-            {
-                service.ActualizarInfoPersonal(cliente);
-            }else{
-                service.ActualizarInfoDomicilio(cliente);
-            }
-            return Ok("Correcto");
+            service.ActualizarInfo(clienteInput.MapearCliente());
+            return StatusCode(200,new Respuesta<string>("Correcto", false, 200));
         }
 
         [HttpGet]
@@ -60,33 +51,6 @@ namespace DistribuidoraESB.Controllers
         {
             var clientes = service.Todos().Select(p => new ClienteViewModel(p));
             return clientes;
-        }
-
-        private Cliente MapearCliente(ClienteInputModel clienteInput)
-        {
-            var cliente = new Cliente
-            {
-                Identificacion = clienteInput.Identificacion,
-                Nombres = clienteInput.Nombres,
-                Apellidos = clienteInput.Apellidos,
-                Telefono = ValidarNull(clienteInput.Telefono),
-                Whatsapp = ValidarNull(clienteInput.Whatsapp),
-                Direccion = ValidarNull(clienteInput.Direccion),
-                Horaio = ValidarNull(clienteInput.Horaio),
-                TipoCliente = ValidarNull(clienteInput.TipoCliente),
-                Descuentos = clienteInput.Descuentos
-            };
-            return cliente;
-        }
-
-        
-        private string ValidarNull(string texto)
-        {
-            if(texto == null)
-            {
-                return "No asignado";
-            }
-            return texto;
         }
     }
 }

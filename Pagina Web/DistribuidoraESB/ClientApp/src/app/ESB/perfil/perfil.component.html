@@ -788,27 +788,39 @@
                             {{clienteConsuta.identificacion}}</h5>
                     </div>
                     <hr>
+                  <div *ngIf="clienteConsuta.tipoCliente == 'Cliente Negocio'">
                     <div class="row d-flex justify-content-center">
-                        <div class="col d-flex justify-content-center">
-                            <button class="btn btn-outline-dark"
+                      <div class="col d-flex justify-content-center">
+                        <button class="btn btn-outline-dark"
                                 (click)="mostrarDescuentosCliente(); mostrarOpsInterno = 'DescuentosRegistrados'">
-                                <span class="fas fa-sync-alt"></span>Descuentos
-                            </button>
-                        </div>
-                        <div class="col d-flex justify-content-center">
-                            <button class="btn btn-outline-dark"
+                          <span class="fas fa-sync-alt"></span>Descuentos
+                        </button>
+                      </div>
+                      <div class="col d-flex justify-content-center">
+                        <button class="btn btn-outline-dark"
                                 (click)="productosSindescuento(); mostrarOpsInterno = 'ProductosSinDescuento'">
-                                <span class="fas fa-sync-alt"></span>Productos sin Descuentos
-                            </button>
-                        </div>
+                          <span class="fas fa-sync-alt"></span>Productos sin Descuentos
+                        </button>
+                      </div>
 
-                        <div class="col d-flex justify-content-center">
-                            <button class="btn btn-outline-danger" style=" width: 50%"
+                      <div class="col d-flex justify-content-center">
+                        <button class="btn btn-outline-danger" style=" width: 50%"
                                 (click)="mostrar = 'Clientes'; mostrarInterno = 'Descuentos'; mostrarOpsInterno = ''">
-                                <span class="icon-arrow-left1"></span> Volver
-                            </button>
-                        </div>
+                          <span class="icon-arrow-left1"></span> Volver
+                        </button>
+                      </div>
                     </div>
+                  </div>
+                  <div *ngIf="clienteConsuta.tipoCliente != 'Cliente Negocio'" class="row col justify-content-center" style="text-align: center">
+                    <h4>ESTE CLIENTE ES UN CLIENTE CASUAL, NO TIENE DESCUENTOS</h4>
+                    <div class="row col justify-content-end">
+                      <button class="btn btn-outline-danger" style=" max-width: 50%"
+                              (click)="mostrar = 'Clientes'; mostrarInterno = 'Descuentos'; mostrarOpsInterno = ''">
+                        <span class="icon-arrow-left1"></span> Volver
+                      </button>
+                    </div>
+                  </div>
+
                     <div class="col table-responsive"
                         [ngClass]="{'Ocultar': mostrarOpsInterno != 'DescuentosRegistrados'}">
                         <div class="text-center" style="margin-top: 1rem;">

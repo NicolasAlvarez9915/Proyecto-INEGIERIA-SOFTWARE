@@ -25,7 +25,7 @@ namespace Logica
             }
             catch (Exception e)
             {
-                return new ($"Error de la aplicacion: {e.Message}",500);
+                return new ($"Error de la aplicacion: {e.Message}",409);
             }
         }
 
@@ -35,12 +35,12 @@ namespace Logica
             {
                 Respuesta<Administrador> AdministradorEncontrador = Buscar(administrador.Identificacion);
                 return (AdministradorEncontrador.Error)
-                    ? new("Arministrador inexistente", 500)
+                    ? new("Arministrador existente", 409)
                         : Guardar(administrador);
             }
             catch (Exception e)
             {
-                return new ($"Error al validar el crear: {e.Message}",500);
+                return new ($"Error al validar el crear: {e.Message}",409);
             }
         }
 

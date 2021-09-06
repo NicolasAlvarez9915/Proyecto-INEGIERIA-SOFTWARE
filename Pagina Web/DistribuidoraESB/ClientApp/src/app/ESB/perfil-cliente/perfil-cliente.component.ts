@@ -10,6 +10,8 @@ import { Cliente } from '../Models/cliente';
 import { Descuento } from '../Models/descuento';
 import { Pedido } from '../Models/pedido';
 import { Usuario } from '../Models/usuario';
+import {AlertModalComponent} from '../../@base/alert-modal/alert-modal.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-perfil-cliente',
@@ -36,7 +38,8 @@ export class PerfilClienteComponent implements OnInit {
     private pedidoService: PedidoService,
     private descuentoService: DescuentoService,
     private authenticationService: AuthenticationService,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -57,10 +60,13 @@ export class PerfilClienteComponent implements OnInit {
   pedirInforCliente() {
     this.clienteService.buscar(this.usuario.idPersona).subscribe(
       r => {
-        this.cliente = r;
+        this.cliente = r.objeto;
         this.mostrarDescuentosCliente();
         this.PedidosEnProcesoCliente();
         this.PedidosEntregadosCliente();
+      },
+      error =>{
+        this.alertaRespuestaError(error);
       }
     )
   }
@@ -71,7 +77,9 @@ export class PerfilClienteComponent implements OnInit {
       if (this.usuario == null) {
         this.router.navigate(['/Login']);
       } else {
-        this.pedirInforCliente();
+        if(this.usuario.rol == "Cliente"){
+          this.pedirInforCliente();
+        }
       }
     });
   }
@@ -92,6 +100,12 @@ export class PerfilClienteComponent implements OnInit {
     this.pedidoService.PedidosEnProcesoCliente(this.cliente.identificacion).subscribe(r => {
       this.lsitaPedidosEnProceso = r;
     });
+  }
+
+  alertaRespuestaError(error){
+    const messageBox = this.modalService.open(AlertModalComponent)
+    messageBox.componentInstance.title = "ALERTA.";
+    messageBox.componentInstance.message = error.error.mensaje;
   }
 
 }

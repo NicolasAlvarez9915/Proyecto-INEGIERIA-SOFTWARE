@@ -8,13 +8,15 @@ import { CarritoComponent } from './ESB/carrito/carrito.component';
 import { PerfilClienteComponent } from './ESB/perfil-cliente/perfil-cliente.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { AuthGuard } from './services/auth.guard';
+import {AuthPerfilClienteGuard} from './services/auth-perfil-cliente.guard';
+import {AuthPerfilAdminGuard} from './services/auth-perfil-admin.guard';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent},
   { path: 'Registro', component: RegistroComponent },
-  { path: 'Perfil', component: PerfilComponent, canActivate: [AuthGuard]},
-  { path: 'Carrito', component: CarritoComponent },
-  { path: 'PerfilCliente', component: PerfilClienteComponent },
+  { path: 'Perfil', component: PerfilComponent, canActivate: [AuthPerfilAdminGuard]},
+  { path: 'Carrito', component: CarritoComponent, canActivate: [AuthPerfilClienteGuard]},
+  { path: 'PerfilCliente', component: PerfilClienteComponent, canActivate: [AuthPerfilClienteGuard]},
   { path: 'Principal', component: PrincipalComponent }
 ]
 

@@ -11,7 +11,6 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { DescuentoService } from 'src/app/services/descuento.service';
 import { DomiciliarioService } from 'src/app/services/domiciliario.service';
-import { ImagenProductoService } from 'src/app/services/imagen-producto.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { RutaService } from 'src/app/services/ruta.service';
@@ -125,7 +124,6 @@ export class PerfilComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productoService: ProductoService,
     private descuentoService: DescuentoService,
-    private imagenProductoService: ImagenProductoService,
     private domiciliarioService: DomiciliarioService,
     private rutaService: RutaService,
     private authenticationService: AuthenticationService,
@@ -372,7 +370,7 @@ export class PerfilComponent implements OnInit {
     this.pedidoService.BuscarPedido(codigo).subscribe(r => {
       this.pedidoSeleccionado = r;
       this.clienteService.buscar(this.pedidoSeleccionado.idPersona).subscribe(r => {
-        this.clienteConsuta = r;
+        this.clienteConsuta = r.objeto;
       })
     })
   }
@@ -389,11 +387,7 @@ export class PerfilComponent implements OnInit {
     evento.target.value = "";
   }
 
-  consultarImagen(codigo: string) {
-    this.imagenProductoService.get(codigo).subscribe(result => {
-      this.imagenProductoView = result;
-    });
-  }
+
 
   abastecer() {
     if (this.productoSeleccionado.cantidad == undefined) {
@@ -631,7 +625,6 @@ export class PerfilComponent implements OnInit {
   verProducto(producto: Producto) {
     this.productoConsulta = producto;
     this.mostrar = "Producto";
-    this.consultarImagen(producto.codigo);
   }
 
   vercliente(cliente: Cliente) {
@@ -707,14 +700,13 @@ export class PerfilComponent implements OnInit {
 
   validarCliente(){
     this.clienteService.buscar(this.clienteRegistrar.identificacion).subscribe(
-      r => {
-        if (r != null) {
-          const messageBox = this.modalService.open(AlertModalComponent)
-          messageBox.componentInstance.title = "ALERTA";
-          messageBox.componentInstance.message = "Ya existe un cliente registrado con esta identificacion";
-        } else {
-          this.validarUsuarioCliente();
-        }
+      respuesta => {
+        const messageBox = this.modalService.open(AlertModalComponent)
+        messageBox.componentInstance.title = "ALERTA";
+        messageBox.componentInstance.message = "Ya existe un cliente registrado con esta identificacion";
+      },
+      error => {
+        this.validarUsuarioCliente();
       }
     );
   }
@@ -829,9 +821,9 @@ export class PerfilComponent implements OnInit {
     }
   }
 
-  alertaRespuestaError(error){
+  alertaRespuestaError(Respuesta){
     const messageBox = this.modalService.open(AlertModalComponent)
     messageBox.componentInstance.title = "ALERTA.";
-    messageBox.componentInstance.message = error.error.mensaje;
+    messageBox.componentInstance.message = Respuesta.error.mensaje;
   }
 }

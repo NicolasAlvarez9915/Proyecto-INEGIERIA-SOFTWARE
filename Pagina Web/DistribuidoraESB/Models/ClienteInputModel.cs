@@ -10,6 +10,32 @@ namespace DistribuidoraESB.Models
         public string Horaio { get; set; }
         public string TipoCliente { get; set; }
         public List<Descuento> Descuentos { get; set; }
+        public Cliente MapearCliente()
+        {
+            var cliente = new Cliente
+            {
+                Identificacion = Identificacion,
+                Nombres = Nombres,
+                Apellidos = Apellidos,
+                Telefono = ValidarNull(Telefono),
+                Whatsapp = ValidarNull(Whatsapp),
+                Direccion = ValidarNull(Direccion),
+                Horaio = ValidarNull(Horaio),
+                TipoCliente = ValidarNull(TipoCliente),
+                Descuentos = Descuentos
+            };
+            return cliente;
+        }
+
+        
+        private string ValidarNull(string texto)
+        {
+            if(texto == null)
+            {
+                return "No asignado";
+            }
+            return texto;
+        }
     }
 
     public class ClienteViewModel: ClienteInputModel

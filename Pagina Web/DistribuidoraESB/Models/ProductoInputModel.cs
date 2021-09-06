@@ -66,10 +66,10 @@ namespace DistribuidoraESB.Models
         {
             try
             {
-                var rutaAudio = _webHostEnviroment.WebRootPath + @"/Imagenes";
+                var rutaImg = _webHostEnviroment.WebRootPath + @"/Imagenes";
                 var extension = Path.GetExtension(Imagen.FileName);
                 var nombreImagen = Imagen.FileName + Guid.NewGuid() + extension;
-                var filePath = Path.Combine(rutaAudio, nombreImagen);
+                var filePath = Path.Combine(rutaImg, nombreImagen);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     Imagen.CopyTo(stream);

@@ -32,31 +32,15 @@ export class CarritoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  }
-
-  validarSesion() {
     this.authenticationService.currentUser.subscribe(x =>{
       this.usuario = x;
-      if (this.usuario == null) {
-        const messageBox = this.modalService.open(AlertModalComponent)
-        messageBox.componentInstance.title = "ALERTA.";
-        messageBox.componentInstance.message = "Debe iniciar sesion para ver el carrito de compras.";
-        this.router.navigate(['/Login']);
-      } else {
-        if (this.usuario.rol == "Administrador") {
-          const messageBox = this.modalService.open(AlertModalComponent)
-          messageBox.componentInstance.title = "ALERTA.";
-          messageBox.componentInstance.message = "Usted como administrador no registra los pedidos desde el carrito.";
-        } else {
-          this.buscaCliente();
-        }
-      }
+      this.buscaCliente();
     });
   }
 
   buscaCliente() {
     this.clienteService.buscar(this.usuario.idPersona).subscribe(r => {
-      this.clienteConsuta = r;
+      this.clienteConsuta = r.objeto;
     });
     this.generarPedido();
   }

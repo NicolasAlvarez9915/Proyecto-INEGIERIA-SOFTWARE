@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UseExistingWebDriver } from 'protractor/built/driverProviders';
 import { first } from 'rxjs/operators';
 import { AlertModalComponent } from 'src/app/@base/alert-modal/alert-modal.component';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -105,13 +104,12 @@ export class RegistroComponent implements OnInit {
   validarCliente(){
     this.clienteService.buscar(this.cliente.identificacion).subscribe(
       respuesta => {
-        if (respuesta != null) {
           const messageBox = this.modalService.open(AlertModalComponent)
           messageBox.componentInstance.title = "ALERTA";
           messageBox.componentInstance.message = "Ya existe un cliente registrado con esta identificacion";
-        } else {
-          this.validarUsuario();
-        }
+      },
+      error => {
+        this.validarUsuario();
       }
     );
   }

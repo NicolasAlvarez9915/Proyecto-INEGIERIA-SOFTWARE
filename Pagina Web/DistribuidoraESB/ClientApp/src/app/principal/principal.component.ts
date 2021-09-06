@@ -3,7 +3,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from '../@base/alert-modal/alert-modal.component';
 import { ImagenproductoView } from '../ESB/Models/imagenproducto-view';
 import { Producto } from '../ESB/Models/producto';
-import { ImagenProductoService } from '../services/imagen-producto.service';
 import { PedidoService } from '../services/pedido.service';
 import { ProductoService } from '../services/producto.service';
 import { SignalRService } from '../services/signal-r.service';
@@ -17,11 +16,9 @@ export class PrincipalComponent implements OnInit {
 
 
   productosRegistrardos: Producto[] = [];
-  imagenProductoViews: ImagenproductoView[] = [];
   cantidadProducto: number[] = [];
   constructor(
     private productoService: ProductoService,
-    private imagenService: ImagenProductoService,
     private pedidoService: PedidoService,
     private signalRService: SignalRService,
     private modalService: NgbModal
@@ -44,11 +41,7 @@ export class PrincipalComponent implements OnInit {
     });
   }
 
-  Imagenes() {
-    this.imagenService.Todos().subscribe(r => {
-      this.imagenProductoViews = r;
-    });
-  }
+
 
   anadirProductoAlCarro(posicion: number) {
     if (this.cantidadProducto[posicion] <= this.productosRegistrardos[posicion].cantidad) {
