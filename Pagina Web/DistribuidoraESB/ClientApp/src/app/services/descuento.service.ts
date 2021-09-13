@@ -19,26 +19,20 @@ export class DescuentoService {
   }
 
   DescuentosPorCliente(IdCliente: string): Observable<Descuento[]>{
-    return this.http.get<Descuento[]>(this.baseUrl+'api/Descuento/'+IdCliente)
-    .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<Descuento[]>('Buscar Clientes', null))
+    return this.http.get<Descuento[]>(this.baseUrl+'api/Descuento/'+IdCliente).pipe(
+      catchError(this.handleErrorService.handleError<Descuento[]>('Fallo al buscar los descuentos.',null))
     );
   }
 
   ProductosSinDescuento(IdCliente: string): Observable<Producto[]>{
-    return this.http.get<Producto[]>(this.baseUrl+'api/Descuento/string/'+IdCliente)
-    .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<Producto[]>('Buscar Productos', null))
+    return this.http.get<Producto[]>(this.baseUrl+'api/Descuento/string/'+IdCliente).pipe(
+      catchError(this.handleErrorService.handleError<Producto[]>('Fallo al buscar los productos sin descuentos.',null))
     );
   }
 
   registrarDescuentos(descuentos: Descuento[]): Observable<Descuento>{
-    return this.http.post<Descuento>(this.baseUrl+'api/Descuento',descuentos)
-    .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<Descuento>('Registrar descuentos', null))
+    return this.http.post<Descuento>(this.baseUrl+'api/Descuento',descuentos).pipe(
+      catchError(this.handleErrorService.handleError<Descuento>('Fallo al registrar los descuentos.',null))
     );
   }
 }

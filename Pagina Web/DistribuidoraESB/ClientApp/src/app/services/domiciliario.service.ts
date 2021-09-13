@@ -5,6 +5,8 @@ import { HandleHttpErrorService } from '../@base/handle-http-error.service';
 import { Domiciliario } from '../ESB/Models/domiciliario';
 import { tap, catchError } from 'rxjs/operators';
 import { Vehiculo } from '../ESB/Models/vehiculo';
+import {Respuesta} from '../models/respuesta';
+import {Usuario} from '../ESB/Models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -18,51 +20,39 @@ export class DomiciliarioService {
     this.baseUrl = baseUrl;
   }
 
-  registrar(domiciliario: Domiciliario): Observable<Domiciliario>{
-    return this.http.post<Domiciliario>(this.baseUrl+'api/Domiciliario',domiciliario)
-    .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<Domiciliario>('Registrar Domiciliaro', null))
+  registrar(domiciliario: Domiciliario, usuario: Usuario): Observable<Respuesta<Domiciliario>>{
+    return this.http.post<Respuesta<Domiciliario>>(this.baseUrl+'api/CrearPersona',{domiciliario, usuario}).pipe(
+      catchError(this.handleErrorService.handleError<Respuesta<Domiciliario>>('Fallo al registrar el domiciliario.',null))
     );
   }
 
-  validarExistenciaDomiciliario(idDomiciliario: string): Observable<Domiciliario>{
-    return this.http.get<Domiciliario>(this.baseUrl+'api/Domiciliario/Domiciliario/'+idDomiciliario)
-    .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<Domiciliario>('Buscar Domiciliaro', null))
+  validarExistenciaDomiciliario(idDomiciliario: string): Observable<Respuesta<Domiciliario>>{
+    return this.http.get<Respuesta<Domiciliario>>(this.baseUrl+'api/Domiciliario/Domiciliario/'+idDomiciliario).pipe(
+      catchError(this.handleErrorService.handleError<Respuesta<Domiciliario>>('Fallo al buscar al domiciliario.',null))
     );
   }
 
-  validarExistenciaVehiculo(placa: string): Observable<Vehiculo>{
-    return this.http.get<Vehiculo>(this.baseUrl+'api/Domiciliario/Vehiculo/'+placa)
-    .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<Vehiculo>('Buscar Vehiculo', null))
+  validarExistenciaVehiculo(placa: string): Observable<Respuesta<Vehiculo>>{
+    return this.http.get<Respuesta<Vehiculo>>(this.baseUrl+'api/Domiciliario/Vehiculo/'+placa).pipe(
+      catchError(this.handleErrorService.handleError<Respuesta<Vehiculo>>('Fallo al  buscar el vehiculo.',null))
     );
   }
 
   Todos(): Observable<Domiciliario[]>{
-    return this.http.get<Domiciliario[]>(this.baseUrl+'api/Domiciliario')
-    .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<Domiciliario[]>('Buscar todos', null))
+    return this.http.get<Domiciliario[]>(this.baseUrl+'api/Domiciliario').pipe(
+      catchError(this.handleErrorService.handleError<Domiciliario[]>('Fallo al obtener todos los domiciliarios.',null))
     );
   }
 
-  buscarVehiculo(idDomiciliario: string): Observable<Vehiculo>{
-    return this.http.get<Vehiculo>(this.baseUrl+'api/Domiciliario/BuscarVehiculo/'+idDomiciliario)
-    .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<Vehiculo>('Buscar Moto', null))
+  buscarVehiculo(idDomiciliario: string): Observable<Respuesta<Vehiculo>>{
+    return this.http.get<Respuesta<Vehiculo>>(this.baseUrl+'api/Domiciliario/BuscarVehiculo/'+idDomiciliario).pipe(
+      catchError(this.handleErrorService.handleError<Respuesta<Vehiculo>>('Fallo al buscar el vehiculo.',null))
     );
   }
 
   sinRuta(): Observable<Domiciliario[]>{
-    return this.http.get<Domiciliario[]>(this.baseUrl+'api/Domiciliario/SinRuta')
-    .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<Domiciliario[]>('Buscar todos', null))
+    return this.http.get<Domiciliario[]>(this.baseUrl+'api/Domiciliario/SinRuta').pipe(
+      catchError(this.handleErrorService.handleError<Domiciliario[]>('Fallo al obtener los domiciliarios disponibles',null))
     );
   }
 }

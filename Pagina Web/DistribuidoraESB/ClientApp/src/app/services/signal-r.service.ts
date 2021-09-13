@@ -23,7 +23,7 @@ export class SignalRService {
 
   private buildConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(this.baseUrl + "signalHub") //use your api adress here and make sure you use right hub name.
+      .withUrl(this.baseUrl + "signalHub")
       .build();
   };
 

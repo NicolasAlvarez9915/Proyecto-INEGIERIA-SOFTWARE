@@ -5,29 +5,29 @@
         </div>
         <hr>
         <p>
-            <button class="btnbarra" style="width: 100%; " type="bootton" (click)="mostrar = 'EditarInfo'">
+            <button class="btnbarra" style="width: 100%; " type="button" (click)="mostrar = 'EditarInfo'">
                 <span class="far fa-edit spanBarra"></span> Editar info
             </button>
         </p>
         <p>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes">
                 <span class="fas fa-users spanBarra"></span>Clientes
             </button>
         </p>
         <div class=" collapse OpsMenu" id="collapseOpsClientes">
             <hr style="background-color: rgb(250, 81, 81);">
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
                 (click)="mostrar ='RegistrarCliente';reiniciarFormularios();">
                 <span class="fas fa-user-plus spanBarra"></span>Registrar
             </button>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
                 (click)="mostrar = 'Clientes';mostrarInterno='Cliente';clientes()">
                 <span class="fas fa-users spanBarra"></span>Lista
             </button>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsClientes" aria-expanded="false" aria-controls="collapseOpsClientes"
                 (click)="mostrar = 'Clientes'; mostrarInterno='Descuentos'">
                 <span class="fas fa-percentage spanBarra"></span>Descuentos
@@ -42,43 +42,43 @@
         </p>
         <div class="collapse OpsMenu" id="collapseOpsProductos">
             <hr>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsProductos" (click)="mostrar ='RegistrarPrdocuto';reiniciarFormularios(); selectedFile = null">
                 <span class="fas fa-tag spanBarra"></span> Registrar
             </button>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsProductos" (click)="mostrar = 'Productos'; productos()">
                 <span class="fas fa-tags spanBarra"></span> Lista
             </button>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsProductos" (click)="mostrar = 'Abastecer'; resetearProductoSeleccionado()">
                 <span class="fas fa-parachute-box spanBarra"></span> Abastecer
             </button>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsProductos" (click)="mostrar = 'ProductosStovkMinimo'; productosPocasCAntidades()">
                 <span class="fas fa-sort-amount-down spanBarra"></span>En stock minimo
             </button>
             <hr>
         </div>
         <p>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos">
                 <span class="fas fa-luggage-cart spanBarra"></span>Pedidos
             </button>
         </p>
         <div class="collapse OpsMenu" id="collapseOpsPedidos">
             <hr style="background-color: rgb(250, 81, 81);">
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
                 (click)="mostrar ='Clientes';mostrarInterno='RegistrarPedido'; opcionTabbla = 'Registrar'">
                 <span class="fas fa-luggage-cart spanBarra"></span>Registrar
             </button>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
                 (click)="mostrar = 'Pedidos';pedidos(); opcionTabbla = 'ver'">
                 <span class="fas fa-luggage-cart spanBarra"></span>Lista
             </button>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsPedidos" aria-expanded="false" aria-controls="collapseOpsPedidos"
                 (click)="mostrar = 'RegistrarRuta';pedidosSinRuta()">
                 <span class="fas fa-route spanBarra"></span>Sin Ruta
@@ -86,24 +86,24 @@
             <hr>
         </div>
         <p>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios">
                 <span class="fas fa-truck-loading spanBarra"></span>Domiciliarios
             </button>
         </p>
         <div class="collapse OpsMenu" id="collapseOpsDomiciliarios">
             <hr style="background-color: rgb(250, 81, 81);">
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios"
                 (click)="mostrar ='RegistrarDomiciliario';mostrarInterno='RegistrarDomiciliario';reiniciarFormularios(); opcionTabbla = 'Registrar'">
                 <span class="fas fa-truck-loading spanBarra"></span>Registrar
             </button>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios"
                 (click)="mostrar ='Domiciliarios'; opcionTabblaDomiciliarios = 'Ver'">
                 <span class="fas fa-truck-loading spanBarra"></span>Lista
             </button>
-            <button class="btnbarra" style="width: 100%; " type="bootton" data-toggle="collapse"
+            <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
                 data-target="#collapseOpsDomiciliarios" aria-expanded="false" aria-controls="collapseOpsDomiciliarios"
                 (click)="mostrar ='DomiciliariosSinRutaLista'; opcionTabblaDomiciliarios = 'Ver'">
                 <span class="fas fa-truck-loading spanBarra"></span>Disponibles
@@ -198,7 +198,6 @@
         <div [ngClass]="{'Ocultar':mostrar != 'EditarInfo'}">
             <div class="Cuerpo">
                 <form class="col-8 font-weight-normal   " id="formularioEditarAdministrador" style="margin-top: 1rem;">
-
                     <div class="text-center">
                         <h5>Editar informacion</h5>
                     </div>
@@ -805,7 +804,7 @@
 
                       <div class="col d-flex justify-content-center">
                         <button class="btn btn-outline-danger" style=" width: 50%"
-                                (click)="mostrar = 'Clientes'; mostrarInterno = 'Descuentos'; mostrarOpsInterno = ''">
+                                (click)="mostrar = 'Clientes'; mostrarInterno = 'Descuentos'; mostrarOpsInterno = ''; reiniciarListaDescuentos()">
                           <span class="icon-arrow-left1"></span> Volver
                         </button>
                       </div>
@@ -815,7 +814,7 @@
                     <h4>ESTE CLIENTE ES UN CLIENTE CASUAL, NO TIENE DESCUENTOS</h4>
                     <div class="row col justify-content-end">
                       <button class="btn btn-outline-danger" style=" max-width: 50%"
-                              (click)="mostrar = 'Clientes'; mostrarInterno = 'Descuentos'; mostrarOpsInterno = ''">
+                              (click)="mostrar = 'Clientes'; mostrarInterno = 'Descuentos'; mostrarOpsInterno = ''; reiniciarListaDescuentos()">
                         <span class="icon-arrow-left1"></span> Volver
                       </button>
                     </div>
@@ -1730,30 +1729,31 @@
                                 {{domiciliarioSeleccionado.fechaPermisoConduccion}}
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <h5>Placa del Vehiculo:</h5>
-                            </div>
-                            <div class="col">
-                                {{domiciliarioSeleccionado.moto.placa}}
-                            </div>
+                      <div class="row" *ngIf="domiciliarioSeleccionado.moto">
+                        <div class="col">
+                          <h5>Placa del Vehiculo:</h5>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <h5>Fecha Soat:</h5>
-                            </div>
-                            <div class="col">
-                                {{domiciliarioSeleccionado.moto.fechaSoat}}
-                            </div>
+                        <div class="col">
+                          {{domiciliarioSeleccionado.moto.placa}}
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <h5>Fecha Tecnomecánica:</h5>
-                            </div>
-                            <div class="col">
-                                {{domiciliarioSeleccionado.moto.fechaTecnoMecanica}}
-                            </div>
+                      </div>
+                      <div class="row" *ngIf="domiciliarioSeleccionado.moto">
+                        <div class="col">
+                          <h5>Fecha Soat:</h5>
                         </div>
+                        <div class="col">
+                          {{domiciliarioSeleccionado.moto.fechaSoat}}
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="domiciliarioSeleccionado.moto">
+                        <div class="col">
+                          <h5>Fecha Tecnomecánica:</h5>
+                        </div>
+                        <div class="col">
+                          {{domiciliarioSeleccionado.moto.fechaTecnoMecanica}}
+                        </div>
+                      </div>
+
                     </div>
                     <div class="col d-flex justify-content-end">
                         <button class="btn btn-outline-danger" style=" width: 150px"
@@ -1762,7 +1762,7 @@
                         </button>
                     </div>
                     <hr style="visibility: hidden;">
-                    <div class="text-center" *ngIf="rutaSeleccionada.pedidos.length == 0">
+                    <div class="text-center" *ngIf="!rutaSeleccionada.pedidos">
                         <h4>¡NO TIENE RUTA ASIGNADA!</h4>
                     </div>
                     <div class="table-responsive">

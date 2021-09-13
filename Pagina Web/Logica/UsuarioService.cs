@@ -14,7 +14,7 @@ namespace Logica
             this.context = context;
         }
 
-        public void validarUsuarioPorDefecto()
+        public void ValidarUsuarioPorDefecto()
         {
             var admin = context.Usuarios.Find("admin@admin.com");
             if (admin == null)
@@ -51,11 +51,11 @@ namespace Logica
             }
             catch (Exception e)
             {
-                return new ($"Error de la aplicacion: {e.Message}", 409);
+                return new ($"Error de la aplicacion: {e.Message}", 500);
             }
         }
 
-        public Respuesta<Usuario> actualizarContraseña(Usuario usuario)
+        public Respuesta<Usuario> ActualizarContraseña(Usuario usuario)
         {
             Usuario usuarioActual =  context.Usuarios.Find(usuario.Correo);
             if (usuarioActual == null) return new("Usuario inexistente.", 404);

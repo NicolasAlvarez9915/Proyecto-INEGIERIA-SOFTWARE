@@ -10,6 +10,19 @@ namespace DistribuidoraESB.Models
         public string CodProducto { get; set; }
         public string NombreProducto { get; set; }
         public string IdPersona { get; set; }
+        
+        public Descuento MapearEntrada()
+        {
+            var descuento = new Descuento
+            {
+                Codigo = Codigo,
+                Porcentaje = Porcentaje,
+                CodProducto = CodProducto,
+                IdPersona = IdPersona,
+                NombreProducto = NombreProducto
+            };
+            return descuento;
+        }
     }
 
     public class DescuentoViewModel: DescuentoInputModel

@@ -34,18 +34,14 @@ namespace DistribuidoraESB.Controllers
         public ActionResult<ProductoViewModel> Put(ProductoInputModel productoInput)
         {
             var response = service.Abastecer(productoInput.MapearEntrada());
-            return Ok(response.Objeto);
+            return StatusCode(response.CodigoHttp, response);
         }
 
         [HttpGet("Busar/{codigo}")]
         public ActionResult<ProductoViewModel> GetProducto(string codigo)
         {
             var response = service.BuscarProducto(codigo);
-            if(response.Error)
-            {
-                return BadRequest(response.Mensaje);
-            }
-            return Ok(response.Objeto);
+            return StatusCode(response.CodigoHttp, response);
         }
 
 
@@ -76,17 +72,6 @@ namespace DistribuidoraESB.Controllers
         public IEnumerable<ProductoViewModel> GetPocasCAntidades()
         {
             return service.TodosPocasCantidades().Select(p => new ProductoViewModel(p));
-        }
-
-        
-        private Descuento MapearDescuento(DescuentoInputModel descuentoInput)
-        {
-            var descuento = new Descuento
-            {
-                Codigo = descuentoInput.Codigo,
-                Porcentaje = descuentoInput.Porcentaje
-            };
-            return descuento;
         }
     }
     

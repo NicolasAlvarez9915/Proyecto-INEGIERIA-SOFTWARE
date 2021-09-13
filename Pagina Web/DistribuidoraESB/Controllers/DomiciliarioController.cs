@@ -25,54 +25,29 @@ namespace DistribuidoraESB.Controllers
         [HttpPost]
         public ActionResult<DomiciliarioViewModel> post(DomiciliarioInputModel domiciliarioInput)
         {
-            Domiciliario domiciliario = MapearDomiciliario(domiciliarioInput);
-            var response = service.Guardar(domiciliario, domiciliarioInput.Moto);
-            return Ok(response.Domiciliario);
-        }
-
-        private Domiciliario MapearDomiciliario(DomiciliarioInputModel domiciliarioInput)
-        {
-            var domiciliario = new Domiciliario
-            {
-                Identificacion = domiciliarioInput.Identificacion,
-                Nombres = domiciliarioInput.Nombres,
-                Apellidos = domiciliarioInput.Apellidos,
-                Telefono = domiciliarioInput.Telefono,
-                Whatsapp = domiciliarioInput.Whatsapp,
-                FechaPermisoConduccion = domiciliarioInput.FechaPermisoConduccion
-            };
-            return domiciliario;
+            var response = service.Guardar(domiciliarioInput.MapearEntrada(), domiciliarioInput.Moto);
+            return StatusCode(response.CodigoHttp,response);
         }
 
         [HttpGet("Domiciliario/{identificacion}")]
-
         public ActionResult<DomiciliarioViewModel> GetDomiciliario(string identificacion)
         {
             var response = service.ValidarExistenciaDomicilio(identificacion);
-            if (response.Error){
-                return BadRequest(response.Mensaje);
-            }
-            return new DomiciliarioViewModel(response.Domiciliario);
+            return StatusCode(response.CodigoHttp, response);
         }
 
         [HttpGet("Vehiculo/{Placa}")]
         public ActionResult<VehiculoViewModel> GetVehiculo(string Placa)
         {
             var response = service.ValidarExistenciaVehiculo(Placa);
-            if (response.Error){
-                return BadRequest(response.Mensaje);
-            }
-            return new VehiculoViewModel(response.Vehiculo);
+            return StatusCode(response.CodigoHttp, response);
         }
 
         [HttpGet("BuscarVehiculo/{Identificacion}")]
         public ActionResult<VehiculoViewModel> GetBuscarVehiculo(string Identificacion)
         {
             var response = service.BuscarVehiculo(Identificacion);
-            if (response.Error){
-                return BadRequest(response.Mensaje);
-            }
-            return new VehiculoViewModel(response.Vehiculo);
+            return StatusCode(response.CodigoHttp, response);
         }
 
         [HttpGet]

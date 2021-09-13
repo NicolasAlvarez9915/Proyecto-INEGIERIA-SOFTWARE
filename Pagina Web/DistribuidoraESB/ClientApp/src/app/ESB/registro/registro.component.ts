@@ -97,52 +97,20 @@ export class RegistroComponent implements OnInit {
       messageBox.componentInstance.message = "Las contraseñas no coninciden";
 
     } else {
-      this.validarCliente();
+      this.crearCliente();
     }
 
   }
-  validarCliente(){
-    this.clienteService.buscar(this.cliente.identificacion).subscribe(
-      respuesta => {
-          const messageBox = this.modalService.open(AlertModalComponent)
-          messageBox.componentInstance.title = "ALERTA";
-          messageBox.componentInstance.message = "Ya existe un cliente registrado con esta identificacion";
-      },
-      error => {
-        this.validarUsuario();
-      }
-    );
-  }
-  validarUsuario(){
-    this.usuarioService.validarSession(this.usuario.correo).subscribe(
-      r => {
-        const messageBox = this.modalService.open(AlertModalComponent)
-        messageBox.componentInstance.title = "ALERTA";
-        messageBox.componentInstance.message = "Ya existe un usuario registrado con este correo";
-      },
-      error =>{
-        this.crearCliente();
-      }
-    );
-  }
   crearCliente(){
-    this.clienteService.post(this.cliente).pipe().subscribe
+    this.clienteService.post(this.cliente, this.usuario).pipe().subscribe
     (
       respuesta => {
-        this.crearUsuario();
-      },
-      error =>{
-        this.alertaRespuestaError(error);
-      }
-    );
-  }
-  crearUsuario(){
-    this.usuarioService.post(this.usuario).subscribe(
-      r => {
-        const messageBox = this.modalService.open(AlertModalComponent)
-        messageBox.componentInstance.title = "BIEN HECHO.";
-        messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
-        this.iniciarSesion();
+        if(!respuesta.error){
+          const messageBox = this.modalService.open(AlertModalComponent)
+          messageBox.componentInstance.title = "BIEN HECHO.";
+          messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
+          this.iniciarSesion();
+        }
       }
     );
   }
@@ -150,6 +118,7 @@ export class RegistroComponent implements OnInit {
     this.authenticationService.login(this.usuario.correo, this.usuario.contraseña).pipe(first())
       .subscribe(
         data => {
+          debugger
           this.router.navigate(['/PerfilCliente']);
         },
         error =>{

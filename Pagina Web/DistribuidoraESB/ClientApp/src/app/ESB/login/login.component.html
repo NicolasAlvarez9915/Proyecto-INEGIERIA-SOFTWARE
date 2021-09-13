@@ -9,13 +9,13 @@
         <div class="col">
             <div>
                 <label for="inputEmail">Correo electronico</label>
-                <input type="email"  name="identificacion"   class="form-control" placeholder="Correo electronico" formControlName="correo" [ngClass]="{'is-invalid':  control.correo.touched && control.correo.errors}"/>
+                <input type="email" id="inputEmail" name="CorreoLogin"   class="form-control" placeholder="Correo electronico" formControlName="correo" [ngClass]="{'is-invalid':  control.correo.touched && control.correo.errors}"/>
                 <div *ngIf="control.correo.errors" class="invalid-feedback">
                     <div *ngIf="control.correo.errors.required">Se require el correo</div>
                 </div>
             </div>
             <label for="inputPassword">Contraseña</label>
-            <input type="password"  name="contraseña" class="form-control" placeholder="Contraseña" formControlName="contrasena" [ngClass]="{'is-invalid':  control.contrasena.touched && control.contrasena.errors}"/>
+            <input type="password" id="inputPassword" name="contraseñaLogin" class="form-control" placeholder="Contraseña" formControlName="contrasena" [ngClass]="{'is-invalid':  control.contrasena.touched && control.contrasena.errors}"/>
             <div *ngIf="control.contrasena.errors" class="invalid-feedback">
                 <div *ngIf="control.contrasena.errors.required">Se require la contraseña</div>
             </div>

@@ -18,13 +18,12 @@ export class ProductoService {
     this.baseUrl = baseUrl;
   }
 
-  Abastecer(producto: Producto): Observable<Producto>
+  Abastecer(producto: Producto): Observable<Respuesta<Producto>>
   {
-    return this.http.put<Producto>(this.baseUrl+'api/Producto',producto)
+    return this.http.put<Respuesta<Producto>>(this.baseUrl+'api/Producto',producto)
     .pipe(
-      tap(_ => this.handleErrorService.log('Actualizado')),
-      catchError(this.handleErrorService.handleError<Producto>('Actualizar Producto', null))
-    )
+      catchError(this.handleErrorService.handleError<Respuesta<Producto>>('Fallo al actualizar el producto.', null))
+    );
   }
 
   registrar(producto: Producto, imagen: File): Observable<Respuesta<Producto>>
@@ -39,17 +38,16 @@ export class ProductoService {
     fd.append('Valor', producto.valor.toString());
     fd.append('Imagen', imagen, imagen.name);
     return  this.http.post<Respuesta<Producto>>(this.baseUrl+'api/Producto',fd)
-    .pipe(map(respuesta => {
-      return respuesta;
-    }));
+      .pipe(
+        catchError(this.handleErrorService.handleError<Respuesta<Producto>>('Fallo al registrar el producto', null))
+      );
   }
 
-  buscar(codigo: string): Observable<Producto>
+  buscar(codigo: string): Observable<Respuesta<Producto>>
   {
-    return this.http.get<Producto>(this.baseUrl+'api/Producto/Busar/'+codigo)
+    return this.http.get<Respuesta<Producto>>(this.baseUrl+'api/Producto/Busar/'+codigo)
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Producto>('Buscar Producto', null))
+      catchError(this.handleErrorService.handleError<Respuesta<Producto>>('Buscar Producto', null))
     )
   }
 
@@ -57,7 +55,6 @@ export class ProductoService {
   {
     return  this.http.get<Producto[]>(this.baseUrl+'api/Producto')
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
       catchError(this.handleErrorService.handleError<Producto[]>('Registrar Producto', null))
     )
   }
@@ -66,7 +63,6 @@ export class ProductoService {
   {
     return  this.http.get<Producto[]>(this.baseUrl+'api/Producto/PocasCantidades')
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
       catchError(this.handleErrorService.handleError<Producto[]>('Registrar Producto', null))
     )
   }

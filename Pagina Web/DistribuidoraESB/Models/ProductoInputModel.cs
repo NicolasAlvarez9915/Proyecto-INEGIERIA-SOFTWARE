@@ -58,15 +58,15 @@ namespace DistribuidoraESB.Models
             }
             catch (Exception e)
             {
-                return new Respuesta<string>("Error al mapear el modelo.", 500);
+                return new Respuesta<string>($"Error al mapear el modelo: "+e.Message, 500);
             }
         }
         
-        public Respuesta<String> CrearArchivo(IWebHostEnvironment _webHostEnviroment)
+        public Respuesta<String> CrearArchivo(IWebHostEnvironment webHostEnviroment)
         {
             try
             {
-                var rutaImg = _webHostEnviroment.WebRootPath + @"/Imagenes";
+                var rutaImg = webHostEnviroment.WebRootPath + @"/Imagenes";
                 var extension = Path.GetExtension(Imagen.FileName);
                 var nombreImagen = Imagen.FileName + Guid.NewGuid() + extension;
                 var filePath = Path.Combine(rutaImg, nombreImagen);
@@ -79,7 +79,7 @@ namespace DistribuidoraESB.Models
             }
             catch (Exception e)
             {
-                return new Respuesta<string>("Error al crear la imagen.", 500);
+                return new Respuesta<string>($"Error al crear la imagen: {e.Message}", 500);
             }
                 
         }

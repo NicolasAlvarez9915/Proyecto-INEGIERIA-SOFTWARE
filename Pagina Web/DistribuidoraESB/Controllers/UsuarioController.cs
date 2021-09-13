@@ -22,7 +22,7 @@ namespace DistribuidoraESB.Controllers
         public UsuarioController(DESBContext context, IOptions<AppSetting> appSetting)
         {
             service = new UsuarioService(context);
-            service.validarUsuarioPorDefecto();
+            service.ValidarUsuarioPorDefecto();
             _jwtService = new JwtService(appSetting);
         }
         [AllowAnonymous]
@@ -46,7 +46,7 @@ namespace DistribuidoraESB.Controllers
         [HttpPut("{campo}")]
         public ActionResult<String> Put(string campo, UsuarioInputModel usuarioInput)
         {
-            var response = service.actualizarContraseña(usuarioInput.MapearEntrada());
+            var response = service.ActualizarContraseña(usuarioInput.MapearEntrada());
             return StatusCode(response.CodigoHttp, response);
         }
         [AllowAnonymous]

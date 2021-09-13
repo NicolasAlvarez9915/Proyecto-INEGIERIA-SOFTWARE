@@ -22,7 +22,6 @@ export class CarritoComponent implements OnInit {
   usuario: Usuario;
   clienteConsuta: Cliente = new Cliente();
   pedidoSeleccionado: Pedido = new Pedido();
-  estadoPedido: string = '';
   constructor(
     private router: Router,
     private clienteService: ClienteService,
@@ -32,22 +31,28 @@ export class CarritoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authenticationService.currentUser.subscribe(x =>{
-      this.usuario = x;
+    this.authenticationService.currentUser.subscribe(usuario =>{
+      this.usuario = usuario;
       this.buscaCliente();
     });
   }
 
   buscaCliente() {
-    this.clienteService.buscar(this.usuario.idPersona).subscribe(r => {
-      this.clienteConsuta = r.objeto;
+    this.clienteService.buscar(this.usuario.idPersona).subscribe(respuesta => {
+      if(!respuesta.error)
+      {
+        this.clienteConsuta = respuesta.objeto;
+        this.generarPedido();
+      }
     });
-    this.generarPedido();
   }
 
   generarPedido() {
-    this.pedidoService.generarPedido(this.clienteConsuta, this.pedidoService.obtenerCarrito()).subscribe(r => {
-      this.pedidoSeleccionado = r;
+    this.pedidoService.generarPedido(this.clienteConsuta, this.pedidoService.obtenerCarrito()).subscribe(respuesta => {
+      if(!respuesta.error)
+      {
+        this.pedidoSeleccionado = respuesta.objeto;
+      }
     });
   }
   EliminarProducto(detalle: DetalleDePedido) {
@@ -55,21 +60,18 @@ export class CarritoComponent implements OnInit {
     this.generarPedido();
   }
   registrarPedido() {
-
     if (this.pedidoSeleccionado.detallesDePedidos.length == 0) {
       const messageBox = this.modalService.open(AlertModalComponent)
       messageBox.componentInstance.title = "ALERTA.";
       messageBox.componentInstance.message = "Debe ingresar productos a la factura.";
     } else {
       this.pedidoSeleccionado.idPersona = this.clienteConsuta.identificacion;
-      this.pedidoService.registrarPedido(this.pedidoSeleccionado).subscribe(r => {
-        if (r != null) {
+      this.pedidoService.registrarPedido(this.pedidoSeleccionado).subscribe(respuesta => {
           const messageBox = this.modalService.open(AlertModalComponent)
           messageBox.componentInstance.title = "BIEN HECHO.";
           messageBox.componentInstance.message = "Pedido registrado correctamente.";
           this.pedidoService.EliminarCarrito();
           this.generarPedido();
-        }
       })
     }
   }

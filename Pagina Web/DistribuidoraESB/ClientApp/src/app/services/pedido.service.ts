@@ -7,13 +7,13 @@ import { Pedido } from '../ESB/Models/pedido';
 import { Producto } from '../ESB/Models/producto';
 import { SolicitudDePedido } from '../ESB/Models/solicitud-de-pedido';
 import { tap, catchError } from 'rxjs/operators';
+import {Respuesta} from '../models/respuesta';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidoService {
   baseUrl: string;
-  solicitud: SolicitudDePedido = new SolicitudDePedido();
   constructor(
     private http: HttpClient,
     @Inject('BASE_URL') baseUrl: string,
@@ -21,73 +21,61 @@ export class PedidoService {
     this.baseUrl = baseUrl;
   }
 
-  generarPedido(cliente: Cliente, productos: Producto[]): Observable<Pedido>{
-    
-    this.solicitud.cliente = cliente;
-    this.solicitud.productos = productos;
-
-    return this.http.post<Pedido>(this.baseUrl+'api/Pedido',this.solicitud)
+  generarPedido(cliente: Cliente, productos: Producto[]): Observable<Respuesta<Pedido>>{
+    return this.http.post<Respuesta<Pedido>>(this.baseUrl+'api/Pedido',{cliente, productos})
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Pedido>('Generar pedido', null))
+      catchError(this.handleErrorService.handleError<Respuesta<Pedido>>('Fallo al generar el pedido.', null))
     )
   }
 
-  registrarPedido(pedido: Pedido): Observable<Pedido>{
-    return this.http.post<Pedido>(this.baseUrl+'api/Pedido/Registrar',pedido)
+  registrarPedido(pedido: Pedido): Observable<Respuesta<Pedido>>{
+    return this.http.post<Respuesta<Pedido>>(this.baseUrl+'api/Pedido/Registrar',pedido)
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Pedido>('Registrar pedido', null))
+      catchError(this.handleErrorService.handleError<Respuesta<Pedido>>('Fallo al registrar el pedido.', null))
     )
   }
 
-  BuscarPedido(codigo: string): Observable<Pedido>{
-    return this.http.get<Pedido>(this.baseUrl+'api/Pedido/'+codigo)
+  BuscarPedido(codigo: string): Observable<Respuesta<Pedido>>{
+    return this.http.get<Respuesta<Pedido>>(this.baseUrl+'api/Pedido/'+codigo)
     .pipe(
-      tap(_ => this.handleErrorService.log('Buscando pedido bien')),
-      catchError(this.handleErrorService.handleError<Pedido>('Buscando pedido', null))
+      catchError(this.handleErrorService.handleError<Respuesta<Pedido>>('Fallo al buscando el pedido.', null))
     )
   }
 
   todos(): Observable<Pedido[]>{
     return this.http.get<Pedido[]>(this.baseUrl+'api/Pedido')
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Pedido[]>('Consultar pedidos', null))
+      catchError(this.handleErrorService.handleError<Pedido[]>('Fallo al consultar los pedidos.', null))
     )
   }
 
   SinRuta(): Observable<Pedido[]>{
     return this.http.get<Pedido[]>(this.baseUrl+'api/Pedido/SinRuta')
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Pedido[]>('Consultar pedidos sin ruta', null))
+      catchError(this.handleErrorService.handleError<Pedido[]>('Fallo al consultar los pedidos sin ruta.', null))
     )
   }
 
   PedidosEntregadosCliente(identificacion: string): Observable<Pedido[]>{
     return this.http.get<Pedido[]>(this.baseUrl+'api/Pedido/Entregados/'+identificacion)
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Pedido[]>('Consultar pedidos', null))
+      catchError(this.handleErrorService.handleError<Pedido[]>('Fallo al consultar los pedidos entregados del cliente.', null))
     )
   }
 
   PedidosEnProcesoCliente(identificacion: string): Observable<Pedido[]>{
     return this.http.get<Pedido[]>(this.baseUrl+'api/Pedido/EnProceso/'+identificacion)
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Pedido[]>('Consultar pedidos', null))
+      catchError(this.handleErrorService.handleError<Pedido[]>('Fallo al consultar los pedidos en procesos del cliente.', null))
     )
   }
 
-  Actualizar(pedido: Pedido, estado: string): Observable<string>
+  Actualizar(pedido: Pedido, estado: string): Observable<Respuesta<Pedido>>
   {
-    return this.http.put<string>(this.baseUrl+'api/Pedido/'+estado,pedido)
-    .pipe(
-      tap(_ => this.handleErrorService.log('Encontrado')),
-      catchError(this.handleErrorService.handleError<string>('Actualizar estado', null))
-    );
+    return this.http.put<Respuesta<Pedido>>(this.baseUrl+'api/Pedido/'+estado,pedido)
+      .pipe(
+        catchError(this.handleErrorService.handleError<Respuesta<Pedido>>('Fallo al actualizar el estado del pedido.', null))
+      );
   }
 
   obtenerCarrito(){
@@ -108,26 +96,26 @@ export class PedidoService {
           encontrado = true;
         }
       });
-    } 
+    }
     if (!encontrado){
-      productos.push(producto); 
+      productos.push(producto);
     }
     localStorage.setItem('Carrito', JSON.stringify(productos));
   }
   EliminarProductoDelCarrito(codigo: string){
     let productos: Producto[] = [];
-    let productosR: Producto[] = [];
-    
+    let productosResultado: Producto[] = [];
+
     productos = this.obtenerCarrito();
     if (productos != null){
       productos.forEach(p =>{
         if(p.codigo != codigo){
-          productosR.push(p);
+          productosResultado.push(p);
         }
       });
-      localStorage.setItem('Carrito', JSON.stringify(productosR));
+      localStorage.setItem('Carrito', JSON.stringify(productosResultado));
     }
-  }  
+  }
 
   EliminarCarrito(){
     let productos: Producto[] = [];

@@ -25,7 +25,7 @@ namespace Logica
             }
             catch (Exception e)
             {
-                return new ImagenProductoResponse($"Error de la aplicacion: {e.Message}");
+                return new ImagenProductoResponse($"Error de la aplicacion");
             }
         }
 

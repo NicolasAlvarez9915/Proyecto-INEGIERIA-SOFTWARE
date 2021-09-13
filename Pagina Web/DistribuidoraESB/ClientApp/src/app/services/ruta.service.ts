@@ -5,6 +5,7 @@ import { HandleHttpErrorService } from '../@base/handle-http-error.service';
 import { Ruta } from '../ESB/Models/ruta';
 import { tap, catchError } from 'rxjs/operators';
 import { Pedido } from '../ESB/Models/pedido';
+import {Respuesta} from '../models/respuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -18,37 +19,33 @@ export class RutaService {
     this.baseUrl = baseUrl;
   }
 
-  registrar(ruta: Ruta): Observable<Ruta>
+  registrar(ruta: Ruta): Observable<Respuesta<Ruta>>
   {
-    return  this.http.post<Ruta>(this.baseUrl+'api/Ruta',ruta)
+    return  this.http.post<Respuesta<Ruta>>(this.baseUrl+'api/Ruta',ruta)
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Ruta>('Registrar Ruta', null))
+      catchError(this.handleErrorService.handleError<Respuesta<Ruta>>('Fallo al registrar la ruta.', null))
     )
   }
 
-  AsignarPedidosAUnaRuta(pedidos: Pedido[]): Observable<Pedido>
+  AsignarPedidosAUnaRuta(pedidos: Pedido[]): Observable<Respuesta<Pedido>>
   {
-    return  this.http.post<Pedido>(this.baseUrl+'api/Ruta/AsignarPedidos',pedidos)
+    return  this.http.post<Respuesta<Pedido>>(this.baseUrl+'api/Ruta/AsignarPedidos',pedidos)
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Pedido>('Asiganar Pedidos a una ruta', null))
+      catchError(this.handleErrorService.handleError<Respuesta<Pedido>>('Fallo al asignar pedidos a la ruta.', null))
     )
   }
-  
+
   rutas(): Observable<Ruta[]>{
     return this.http.get<Ruta[]>(this.baseUrl+'api/Ruta')
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Ruta[]>('Buscar Ruta[]', null))
+      catchError(this.handleErrorService.handleError<Ruta[]>('Fallo al buscar las ruta', null))
     )
   }
 
-  rutaDomiciliario(idDomiciliario: string): Observable<Ruta>{
-    return this.http.get<Ruta>(this.baseUrl+'api/Ruta/'+idDomiciliario)
+  rutaDomiciliario(idDomiciliario: string, mostrarAlerta: boolean = true): Observable<Respuesta<Ruta>>{
+    return this.http.get<Respuesta<Ruta>>(this.baseUrl+'api/Ruta/'+idDomiciliario)
     .pipe(
-      tap(_ => this.handleErrorService.log('Resgitrado')),
-      catchError(this.handleErrorService.handleError<Ruta>('Buscar Ruta[]', null))
-    )
+      catchError(this.handleErrorService.handleError<Respuesta<Ruta>>('Fallo al buscar la ruta del domiciliario.', null, mostrarAlerta))
+    );
   }
 }

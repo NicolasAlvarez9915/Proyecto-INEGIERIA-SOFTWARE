@@ -29,5 +29,28 @@ namespace Entity
         public double TotalConDescuento { get; set; }
         [Column(TypeName = "real")]
         public double total { get; set; }
+
+        public DetalleDePedido()
+        {
+            
+        }
+
+        public DetalleDePedido(Producto producto, Descuento descuento)
+        {
+            Descripcion = producto.Descripcion;
+            CodProducto = producto.Codigo;
+            Cantidad = producto.Cantidad;
+            ValorUnitario = producto.Valor;
+            Descuento = (descuento != null) ? descuento.Porcentaje : 0;
+            CalcularTodo();
+        }
+
+        public void CalcularTodo()
+        {
+            SubTotal = ValorUnitario * Cantidad;
+            TotalDescuento = SubTotal * (Descuento/100);
+            TotalConDescuento = SubTotal - TotalDescuento;
+            total = SubTotal- TotalDescuento;
+        }
     }
 }

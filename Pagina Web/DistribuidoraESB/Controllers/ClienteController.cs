@@ -30,7 +30,7 @@ namespace DistribuidoraESB.Controllers
             return StatusCode(response.CodigoHttp,response);
         }
         
-        [AllowAnonymous]
+         
         [HttpPost]
         public ActionResult<ClienteViewModel> Post(ClienteInputModel clienteInput)
         {

@@ -15,7 +15,6 @@ export class AuthPerfilAdminGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser.rol == "Administrador") {
-      // authorized so return true
       return true;
     }
     this.router.navigate(['/Login']);

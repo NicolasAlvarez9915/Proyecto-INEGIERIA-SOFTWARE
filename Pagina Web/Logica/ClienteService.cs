@@ -26,7 +26,7 @@ namespace Logica
             }
             catch (Exception e)
             {
-                return new Respuesta<Cliente>($"Error de la aplicacion: {e.Message}",409);
+                return new Respuesta<Cliente>($"Error de la aplicacion.",500);
             }
         }
         
@@ -41,7 +41,7 @@ namespace Logica
             }
             catch (Exception e)
             {
-                return new ($"Error al validar el crear: {e.Message}",409);
+                return new ($"Error al validar el crear: "+e.Message,500);
             }
         }
         

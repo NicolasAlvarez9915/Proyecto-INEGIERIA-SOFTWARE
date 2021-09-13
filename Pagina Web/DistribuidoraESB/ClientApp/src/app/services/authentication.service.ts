@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import { HandleHttpErrorService } from '../@base/handle-http-error.service';
 import { Usuario } from '../ESB/Models/usuario';
 import { Respuesta } from '../models/respuesta';
+import {AlertModalComponent} from '../@base/alert-modal/alert-modal.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,7 @@ export class AuthenticationService {
   public currentUser: Observable<Usuario>;
   baseUrl: string;
   constructor(
+    private handleErrorService: HandleHttpErrorService,
     private http: HttpClient,
     @Inject('BASE_URL') baseUrl: string) {
     this.currentUserSubject = new BehaviorSubject<Usuario>(JSON.parse(localStorage.getItem('currentUser')));
@@ -28,18 +31,18 @@ export class AuthenticationService {
 
   login(correo, contraseña): Observable<Respuesta<Usuario>> {
     return this.http.post<Respuesta<Usuario>>(`${this.baseUrl}api/Usuario/InicioSesion`, { correo, contraseña })
-      .pipe(map(user => {
-        if(!user.error)
-        {
-          localStorage.setItem('currentUser', JSON.stringify(user.objeto));
-          this.currentUserSubject.next(user.objeto);
-        }
-        return user;
-      }));
+      .pipe(
+        tap(respuesta => {
+          if(!respuesta.error){
+            localStorage.setItem('currentUser', JSON.stringify(respuesta.objeto));
+            this.currentUserSubject.next(respuesta.objeto);
+          }
+        }),
+        catchError(this.handleErrorService.handleError<Respuesta<Usuario>>('Fallo al iniciar sesión.', null))
+        );
   }
 
   logout() {
-    // remove user from local storage and set current user to null
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }

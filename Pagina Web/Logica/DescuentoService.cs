@@ -15,7 +15,7 @@ namespace Logica
             this.context = context;
         }
 
-        public DescuentoResponse Guardar(List<Descuento> descuentos)
+        public Respuesta<Descuento> Guardar(List<Descuento> descuentos)
         {
             try
             {
@@ -24,11 +24,11 @@ namespace Logica
                     context.Descuentos.Add(GenerarCodigo(descuento));
                     context.SaveChanges();
                 }
-                return new DescuentoResponse(descuentos[0]);
+                return new (descuentos[0],200);
             }
             catch (Exception e)
             {
-                return new DescuentoResponse($"Error de la aplicacion: {e.Message}");
+                return new ($"Error de la aplicacion: {e.Message}",500);
             }
         }
 
@@ -86,21 +86,5 @@ namespace Logica
             }
             return ProductosSinDescuentos;
         }
-    }
-    public class DescuentoResponse
-    {
-        public DescuentoResponse(Descuento descuento)
-        {
-            Error = false;
-            this.descuento = descuento;
-        }
-        public DescuentoResponse(string mensaje)
-        {
-            Error = true;
-            this.Mensaje = mensaje;
-        }
-        public string Mensaje { get; set; }
-        public bool Error { get; set; }
-        public Descuento descuento { get; set; }
     }
 }

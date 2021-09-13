@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
   }
   iniciarSession() {
     this.usuario = this.formularioinicioSesion.value;
-    this.authenticationService.login(this.usuario.correo, this.usuario.contrasena).pipe(first())
+    this.authenticationService.login(this.usuario.correo, this.usuario.contrasena)
     .subscribe(
       data => {
             if (data.objeto.rol === "Administrador") {
@@ -68,11 +68,6 @@ export class LoginComponent implements OnInit {
             } else {
               this.router.navigate(['/PerfilCliente']);
             };
-      },
-      error => {
-        const modalRef = this.modalService.open(AlertModalComponent);
-        modalRef.componentInstance.title = 'Acceso Denegado';
-        modalRef.componentInstance.message = error.error.mensaje;
       });
   }
 }

@@ -16,12 +16,12 @@ namespace Logica
             this.context = context;
         }
 
-        public RutaResponse Guardar(Ruta ruta)
+        public Respuesta<Ruta> Guardar(Ruta ruta)
         {
             try
             {
-                List<Ruta> rutas = context.Rutas.Where(p => p.CodDomiciliario == ruta.CodDomiciliario).ToList();
-                if (rutas.Count == 0)
+                Ruta rutas = context.Rutas.FirstOrDefault(p => p.CodDomiciliario == ruta.CodDomiciliario);
+                if (rutas == null)
                 {
                     ruta = GenerarCodigo(ruta);
                     List<Pedido> pedidos = ruta.Pedidos;
@@ -29,17 +29,17 @@ namespace Logica
                     context.Rutas.Add(ruta);
                     ruta.Pedidos = pedidos;
                 }else{
-                    ruta.Codigo = rutas[0].Codigo;
+                    ruta.Codigo = rutas.Codigo;
                 }
                 
                 AsigarPedidosAUnaRuta(ruta, false);
                 ruta.Pedidos = null;
                 context.SaveChanges();
-                return new RutaResponse(ruta);
+                return new (ruta, 200);
             }
             catch (Exception e)
             {
-                return new RutaResponse($"Error de la aplicacion: {e.Message}");
+                return new ($"Error de la aplicacion: {e.Message}", 500);
             }
         }
 
@@ -59,14 +59,14 @@ namespace Logica
             ruta.Codigo = codigoGenerico.ToString();
             return ruta;
         }
-        public RutaResponse BuscarRuta(string Codigo)
+        public Respuesta<Ruta> BuscarRuta(string Codigo)
         {
             Ruta ruta  = context.Rutas.Where(s => s.CodDomiciliario == Codigo).Include(s => s.Pedidos).FirstOrDefault();
             if(ruta == null)
             {
-                return new RutaResponse("No existe");
+                return new ("No existe", 404);
             }
-            return new RutaResponse(ruta);
+            return new (ruta, 200);
         }
 
 
@@ -96,23 +96,6 @@ namespace Logica
             context.Rutas.Update(RutaEncontrada);
             context.SaveChanges();
         }
-    }
-
-    public class RutaResponse 
-    {
-        public RutaResponse(Ruta ruta )
-        {
-            Error = false;
-            this.ruta  = ruta;
-        }
-        public RutaResponse(string mensaje)
-        {
-            Error = true;
-            this.Mensaje = mensaje;
-        }
-        public string Mensaje { get; set; }
-        public bool Error { get; set; }
-        public Ruta ruta { get; set; }
     }
     
 }

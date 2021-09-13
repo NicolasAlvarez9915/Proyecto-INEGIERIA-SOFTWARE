@@ -23,7 +23,7 @@ namespace Logica
             productoEncontrado.Cantidad += producto.Cantidad;
             context.Productos.Update(productoEncontrado);
             context.SaveChanges();
-            return new (productoEncontrado);
+            return new (productoEncontrado, 201);
         }
 
         public Respuesta<Producto> BuscarProducto(string codigo)
@@ -31,7 +31,7 @@ namespace Logica
             Producto producto = context.Productos.Find(codigo);
             if(producto == null)
             {
-                return new ("Producto inexistente",500);
+                return new ("Producto inexistente.",404);
             }
             return new (producto, 200);
         }
@@ -43,7 +43,7 @@ namespace Logica
                 if (!ValidarCodigo(producto.Codigo))
                 {
                     File.Delete(rutalocal+producto.Ruta);
-                    return new ("Producto existente." , 409);
+                    return new ("Producto existente." , 404);
                 }
                 var productoGuardado = Guardar(producto);
                 if (productoGuardado.Error)
@@ -54,7 +54,7 @@ namespace Logica
             }
             catch (Exception e)
             {
-                return new("Error al validar el registro del producto: " + e.Message, 500);
+                return new($"Error al validar el registro del producto: {e.Message}", 500);
             }
         }
         

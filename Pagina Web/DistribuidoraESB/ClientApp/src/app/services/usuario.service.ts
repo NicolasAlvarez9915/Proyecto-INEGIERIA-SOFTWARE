@@ -5,6 +5,7 @@ import { HandleHttpErrorService } from '../@base/handle-http-error.service';
 import { Usuario } from '../ESB/Models/usuario';
 import {tap, catchError, map} from 'rxjs/operators';
 import {Respuesta} from "../models/respuesta";
+import {Ruta} from '../ESB/Models/ruta';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class UsuarioService {
   baseUrl: string;
   constructor(
       private http: HttpClient,
-      @Inject('BASE_URL') baseUrl: string)
+      @Inject('BASE_URL') baseUrl: string,
+      private handleErrorService: HandleHttpErrorService)
   {
       this.baseUrl = baseUrl;
   }
@@ -21,14 +23,23 @@ export class UsuarioService {
   post(usuario : Usuario): Observable<Respuesta<Usuario>>
   {
     return this.http.post<Respuesta<Usuario>>(this.baseUrl+'api/Usuario',usuario)
+      .pipe(
+        catchError(this.handleErrorService.handleError<Respuesta<Usuario>>('Fallo al buscar la ruta del domiciliario.', null))
+      );
   }
   validarSession(correo: string): Observable<Respuesta<Usuario>>{
     return this.http.get<Respuesta<Usuario>>(this.baseUrl+'api/Usuario/'+correo)
+      .pipe(
+        catchError(this.handleErrorService.handleError<Respuesta<Usuario>>('Fallo al buscar la ruta del domiciliario.', null))
+      );
   }
 
   actualizarContraseña(usuario: Usuario): Observable<Respuesta<String>>
   {
     return this.http.put<Respuesta<String>>(this.baseUrl+'api/Usuario/Todo',usuario)
+      .pipe(
+        catchError(this.handleErrorService.handleError<Respuesta<String>>('Fallo al buscar la ruta del domiciliario.', null))
+      );
   }
 
   GuardarUsuarioSesion(usuario: Usuario){

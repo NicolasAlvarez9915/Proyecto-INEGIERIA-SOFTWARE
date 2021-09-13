@@ -17,6 +17,26 @@ namespace DistribuidoraESB.Models
         public double TotalIva { get; set; }
         public string Estado { get; set; }
         public string CodRuta { get; set; }
+        
+        
+
+        public Pedido MapearPedido()
+        {
+            var pedido = new Pedido
+            {
+                Codigo = Codigo,
+                Descuento = Descuento,
+                DetallesDePedidos = DetallesDePedidos,
+                Fecha = Fecha,
+                IdPersona = IdPersona,
+                Iva = Iva,
+                SubTotal = SubTotal,
+                Total = Total,
+                TotalIva = TotalIva,
+                Estado = Estado
+            };
+            return pedido;
+        }
     }
 
     public class PedidoViewModel: PedidoInputModel

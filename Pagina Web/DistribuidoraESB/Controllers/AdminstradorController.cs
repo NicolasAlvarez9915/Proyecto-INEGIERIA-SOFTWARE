@@ -39,7 +39,7 @@ namespace DistribuidoraESB.Controllers
         public ActionResult<String> Put(string campo, AdministradorInputModel administradorInput)
         {
             service.ActualizarInfo(administradorInput.MapearEntrada());
-            return StatusCode(200, new Respuesta<string>("Correcto",false,200));
+            return StatusCode(201, new Respuesta<string>("Correcto",false,201));
         }
         
     }

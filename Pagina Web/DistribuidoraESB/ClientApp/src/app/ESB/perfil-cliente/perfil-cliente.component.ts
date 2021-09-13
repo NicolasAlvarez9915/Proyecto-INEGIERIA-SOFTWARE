@@ -28,6 +28,10 @@ export class PerfilClienteComponent implements OnInit {
   listaPedidosEntregados: Pedido[] = [];
   lsitaPedidosEnProceso: Pedido[] = [];
 
+  contrasena: string = "";
+  contrasenaConfirmar: string = "";
+
+
   listaDescuentos: Descuento[] = [];
 
   pedidoSeleccionado: Pedido = new Pedido();
@@ -64,9 +68,6 @@ export class PerfilClienteComponent implements OnInit {
         this.mostrarDescuentosCliente();
         this.PedidosEnProcesoCliente();
         this.PedidosEntregadosCliente();
-      },
-      error =>{
-        this.alertaRespuestaError(error);
       }
     )
   }
@@ -86,7 +87,7 @@ export class PerfilClienteComponent implements OnInit {
 
   buscarPedido(codigo: string) {
     this.pedidoService.BuscarPedido(codigo).subscribe(r => {
-      this.pedidoSeleccionado = r;
+      this.pedidoSeleccionado = r.objeto;
     })
   }
 

@@ -2,7 +2,7 @@ import { Vehiculo } from "./vehiculo"
 
 export class Domiciliario {
   fechaPermisoConduccion: Date;
-  moto: Vehiculo;
+  moto: Vehiculo = new Vehiculo();
   identificacion: string;
   nombres: string;
   apellidos: string;

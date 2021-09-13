@@ -15,7 +15,6 @@ export class AuthPerfilClienteGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser.rol == "Cliente") {
-      // authorized so return true
       return true;
     }
     this.router.navigate(['/Login']);

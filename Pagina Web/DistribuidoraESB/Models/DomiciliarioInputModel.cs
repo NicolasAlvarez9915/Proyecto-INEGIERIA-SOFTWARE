@@ -7,6 +7,20 @@ namespace DistribuidoraESB.Models
     {
         public DateTime FechaPermisoConduccion { get; set; }
         public Vehiculo Moto { get; set; }
+        
+        public Domiciliario MapearEntrada()
+        {
+            var domiciliario = new Domiciliario
+            {
+                Identificacion = Identificacion,
+                Nombres = Nombres,
+                Apellidos = Apellidos,
+                Telefono = Telefono,
+                Whatsapp = Whatsapp,
+                FechaPermisoConduccion = FechaPermisoConduccion
+            };
+            return domiciliario;
+        }
     }
 
     public class DomiciliarioViewModel: DomiciliarioInputModel

@@ -1,6 +1,6 @@
 export class Vehiculo {
-    placa: string;
-    idDomiciliario: string;
-    fechaSoat: Date;
-    fechaTecnoMecanica: Date;
+    placa: string = "";
+    idDomiciliario: string = "";
+    fechaSoat: Date = new Date();
+    fechaTecnoMecanica: Date = new Date();
 }

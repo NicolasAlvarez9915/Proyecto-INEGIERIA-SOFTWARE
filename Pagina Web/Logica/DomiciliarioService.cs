@@ -15,49 +15,37 @@ namespace Logica
             this.context = context;
         }
 
-        public DomiciliarioResponse Guardar(Domiciliario domiciliario, Vehiculo vehiculo)
+        public Respuesta<Domiciliario> Guardar(Domiciliario domiciliario, Vehiculo vehiculo)
         {
             try
             {
                 context.Domiciliarios.Add(domiciliario);
                 context.Vehiculos.Add(vehiculo);
                 context.SaveChanges();
-                return new DomiciliarioResponse(domiciliario);
+                return new (domiciliario, 200);
             }
             catch (Exception e)
             {
-                return new DomiciliarioResponse($"Error de la aplicacion: {e.Message}");
+                return new ($"Error de la aplicacion: {e.Message}", 500);
             }
         }
 
-        public DomiciliarioResponse ValidarExistenciaDomicilio(string Identificacion)
+        public Respuesta<Domiciliario> ValidarExistenciaDomicilio(string Identificacion)
         {
             Domiciliario domiciliario = context.Domiciliarios.Find(Identificacion);
-            if( domiciliario == null)
-            {
-                return new DomiciliarioResponse("No existe");
-            }
-            return  new DomiciliarioResponse(domiciliario);
+            return domiciliario == null ? new ("Domiciliario inexistente", 404) : new (domiciliario, 200);
         }
         
-        public VehiculoResponse ValidarExistenciaVehiculo(string Placa)
+        public Respuesta<Vehiculo> ValidarExistenciaVehiculo(string Placa)
         {
             Vehiculo vehiculo = context.Vehiculos.Find(Placa);
-            if( vehiculo == null)
-            {
-                return new VehiculoResponse("No existe");
-            }
-            return  new VehiculoResponse(vehiculo);
+            return vehiculo == null ? new("Vehiculo inexistente", 404) :  new (vehiculo, 200);
         }
 
-        public VehiculoResponse BuscarVehiculo(string Identificacion)
+        public Respuesta<Vehiculo> BuscarVehiculo(string Identificacion)
         {
             List<Vehiculo> vehiculos = context.Vehiculos.Where(p => p.IdDomiciliario == Identificacion).ToList();
-            if( vehiculos.Count == 0)
-            {
-                return new VehiculoResponse("No existe");
-            }
-            return  new VehiculoResponse(vehiculos[0]);
+            return vehiculos.Count == 0 ? new("Vehiculo inexistente", 404) : new (vehiculos[0],200);
         }
 
         public List<Domiciliario> Todos()
@@ -84,43 +72,8 @@ namespace Logica
 
         public bool domiciliarioConMenosDeTresPedidos(List<Ruta> rutas){
             List<Pedido> pedidos = context.Pedidos.Where(p => p.CodRuta == rutas[0].Codigo && p.Estado != "Entregado").ToList();
-            if (pedidos.Count <= 3) return true;
-            return false;
+            return pedidos.Count <= 3;
         }
-    }
-
-    public class VehiculoResponse 
-    {
-        public VehiculoResponse(Vehiculo vehiculo)
-        {
-            Error = false;
-            Vehiculo  = vehiculo;
-        }
-        public VehiculoResponse(string mensaje)
-        {
-            Error = true;
-            this.Mensaje = mensaje;
-        }
-        public string Mensaje { get; set; }
-        public bool Error { get; set; }
-        public Vehiculo Vehiculo { get; set; }
-    }
-    
-    public class DomiciliarioResponse 
-    {
-        public DomiciliarioResponse(Domiciliario domiciliario )
-        {
-            Error = false;
-            this.Domiciliario  = domiciliario;
-        }
-        public DomiciliarioResponse(string mensaje)
-        {
-            Error = true;
-            this.Mensaje = mensaje;
-        }
-        public string Mensaje { get; set; }
-        public bool Error { get; set; }
-        public Domiciliario Domiciliario { get; set; }
     }
     
 }
