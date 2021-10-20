@@ -10,7 +10,7 @@ namespace DistribuidoraESB.Models
         
         public Domiciliario MapearEntrada()
         {
-            var domiciliario = new Domiciliario
+            return new Domiciliario
             {
                 Identificacion = Identificacion,
                 Nombres = Nombres,
@@ -19,7 +19,6 @@ namespace DistribuidoraESB.Models
                 Whatsapp = Whatsapp,
                 FechaPermisoConduccion = FechaPermisoConduccion
             };
-            return domiciliario;
         }
     }
 
@@ -37,6 +36,7 @@ namespace DistribuidoraESB.Models
             Telefono = domiciliario.Telefono;
             Whatsapp = domiciliario.Whatsapp;
             FechaPermisoConduccion = domiciliario.FechaPermisoConduccion;
+            Estado = domiciliario.Estado;
         }
     }
 }

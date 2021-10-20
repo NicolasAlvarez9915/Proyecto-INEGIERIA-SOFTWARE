@@ -13,16 +13,22 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "12.2.4",
+    "@angular/cdk": "^12.2.5",
     "@angular/common": "12.2.4",
     "@angular/compiler": "12.2.4",
     "@angular/core": "12.2.4",
     "@angular/forms": "12.2.4",
     "@angular/localize": "^12.2.4",
+    "@angular/material": "^12.2.5",
     "@angular/platform-browser": "12.2.4",
     "@angular/platform-browser-dynamic": "12.2.4",
     "@angular/platform-server": "12.2.4",
     "@angular/router": "12.2.4",
     "@aspnet/signalr": "^1.1.4",
+    "@fortawesome/angular-fontawesome": "^0.9.0",
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@microsoft/signalr": "^5.0.2",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "@nguniversal/aspnetcore-engine": "^11.0.0",
@@ -56,7 +62,6 @@
     "typescript": "4.3.5"
   },
   "optionalDependencies": {
-    "node-sass": "^4.14.1",
     "protractor": "~7.0.0",
     "ts-node": "~8.4.1",
     "tslint": "~6.1.0"

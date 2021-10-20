@@ -20,6 +20,7 @@ namespace Logica
         {
             try
             {
+                cliente.Estado = "Activo";
                 context.Clientes.Add(cliente);
                 context.SaveChanges();
                 return new Respuesta<Cliente>(cliente, 200);
@@ -86,6 +87,23 @@ namespace Logica
             context.Clientes.Update(clienteEncontrado);
             context.SaveChanges();
         }
-
+        public Respuesta<Cliente> ValidarEliminarCliente(string id)
+        {
+            Pedido pedido = context.Pedidos.FirstOrDefault(x => x.IdPersona == id && x.Estado != "Entregado" && x.Estado != "Pagado");
+            if (pedido != null)
+            {
+                return new("No se puede eliminar un cliente que tiene pedidos en proceso.",409);
+            }
+            return EliminarCliente(id);
+        }
+        public Respuesta<Cliente> EliminarCliente(string id)
+        {
+            Cliente cliente = context.Clientes.Find(id);
+            cliente.Estado = "Inactivo";
+            Usuario usuario = context.Usuarios.FirstOrDefault(x => x.IdPersona == id);
+            usuario.Estado = "Inactivo";
+            context.SaveChanges();
+            return new(cliente, 200);
+        }
     }
 }

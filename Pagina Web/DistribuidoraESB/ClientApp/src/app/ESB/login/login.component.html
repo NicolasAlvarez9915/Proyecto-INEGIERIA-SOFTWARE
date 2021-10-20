@@ -1,7 +1,7 @@
 <div class="row  container-fluid justify-content-center ">
     <form class="form-signin col-md-4 frmLogin " [formGroup]="formularioinicioSesion">
-        <div class="d-flex justify-content-center divLogo">
-            <img class="mb-4" src="assets/LogoNombreBlanco.png" alt="" width="300" height="300">
+        <div class="d-flex justify-content-center divLogo" [style]="style">
+            <img class="mb-4" [src]="this.baseUrl+'imagenes/imagenesSistema/LogoNombreBlanco.png'" alt="" width="300" height="300">
         </div>
 
         <h1 class="font-weight-normal text-center ">LOGIN</h1>

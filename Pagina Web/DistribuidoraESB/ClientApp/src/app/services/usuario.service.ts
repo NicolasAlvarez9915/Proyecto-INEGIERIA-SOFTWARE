@@ -24,13 +24,21 @@ export class UsuarioService {
   {
     return this.http.post<Respuesta<Usuario>>(this.baseUrl+'api/Usuario',usuario)
       .pipe(
-        catchError(this.handleErrorService.handleError<Respuesta<Usuario>>('Fallo al buscar la ruta del domiciliario.', null))
+        catchError(this.handleErrorService.handleError<Respuesta<Usuario>>('Fallo al crear al usuario.', null))
       );
   }
   validarSession(correo: string): Observable<Respuesta<Usuario>>{
     return this.http.get<Respuesta<Usuario>>(this.baseUrl+'api/Usuario/'+correo)
       .pipe(
-        catchError(this.handleErrorService.handleError<Respuesta<Usuario>>('Fallo al buscar la ruta del domiciliario.', null))
+        catchError(this.handleErrorService.handleError<Respuesta<Usuario>>('Fallo al validar la session.', null))
+      );
+  }
+
+  eliminarUsuario(id: string): Observable<string>
+  {
+    return this.http.delete<string>(this.baseUrl+'api/Usuario/'+id)
+      .pipe(
+        catchError(this.handleErrorService.handleError<string>('Fallo al eliminar el usuario.', null))
       );
   }
 

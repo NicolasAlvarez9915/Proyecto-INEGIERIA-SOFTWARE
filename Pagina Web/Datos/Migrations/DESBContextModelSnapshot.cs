@@ -27,6 +27,9 @@ namespace Datos.Migrations
                     b.Property<string>("Apellidos")
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nombres")
                         .HasColumnType("nvarchar(50)");
 
@@ -54,6 +57,9 @@ namespace Datos.Migrations
 
                     b.Property<string>("Direccion")
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Horaio")
                         .HasColumnType("nvarchar(50)");
@@ -149,6 +155,9 @@ namespace Datos.Migrations
                     b.Property<string>("Apellidos")
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("FechaPermisoConduccion")
                         .HasColumnType("Date");
 
@@ -164,19 +173,6 @@ namespace Datos.Migrations
                     b.HasKey("Identificacion");
 
                     b.ToTable("Domiciliarios");
-                });
-
-            modelBuilder.Entity("Entity.ImagenProducto", b =>
-                {
-                    b.Property<string>("CodProducto")
-                        .HasColumnType("nvarchar(11)");
-
-                    b.Property<byte[]>("Imagen")
-                        .HasColumnType("varbinary(max)");
-
-                    b.HasKey("CodProducto");
-
-                    b.ToTable("ImagenProductos");
                 });
 
             modelBuilder.Entity("Entity.Pedido", b =>
@@ -221,7 +217,7 @@ namespace Datos.Migrations
             modelBuilder.Entity("Entity.Producto", b =>
                 {
                     b.Property<string>("Codigo")
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<float>("Cantidad")
                         .HasColumnType("real");
@@ -269,6 +265,9 @@ namespace Datos.Migrations
 
                     b.Property<string>("Contraseña")
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IdPersona")
                         .HasColumnType("nvarchar(11)");

@@ -20,6 +20,14 @@ export class ClienteService {
       this.baseUrl = baseUrl;
   }
 
+  eliminarCliente(id: string): Observable<Respuesta<Cliente>>
+  {
+    return this.http.delete<Respuesta<Cliente>>(this.baseUrl+'api/Cliente/'+id)
+      .pipe(
+        catchError(this.handleErrorService.handleError<Respuesta<Cliente>>('Fallo al eliminar cliente.', null))
+      );
+  }
+
   buscar(identificacion: string): Observable<Respuesta<Cliente>>
   {
     return this.http.get<Respuesta<Cliente>>(this.baseUrl+'api/Cliente/'+identificacion).pipe(

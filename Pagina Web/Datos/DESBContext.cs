@@ -14,7 +14,6 @@ namespace Datos
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<DetalleDePedido> DetalleDePedidos { get; set; }
-        public DbSet<ImagenProducto> ImagenProductos { get; set; }
         public DbSet<Domiciliario> Domiciliarios { get; set; }
         public DbSet<Vehiculo> Vehiculos { get; set; }
         public DbSet<Ruta> Rutas { get; set; }

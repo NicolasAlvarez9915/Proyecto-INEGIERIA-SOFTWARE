@@ -21,6 +21,13 @@ namespace DistribuidoraESB.Controllers
         {
             service = new DomiciliarioService(context);
         }
+        
+        [HttpDelete("{id}")]
+        public ActionResult<string> Delete(String id)
+        {
+            var response = service.ValidarEliminarDomiciliario(id);
+            return StatusCode(response.CodigoHttp, response);
+        }
 
         [HttpPost]
         public ActionResult<DomiciliarioViewModel> post(DomiciliarioInputModel domiciliarioInput)

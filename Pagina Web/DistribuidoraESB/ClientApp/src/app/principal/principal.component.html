@@ -1,135 +1,153 @@
-<div class="container-fluid">
-    <hr style="visibility: hidden;">
-    <h1 class="d-flex  justify-content-center">Distribuidora E.S.B</h1>
-    <h4 class="d-flex  justify-content-center">Tienda Online</h4>
-    <hr>
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active ">
-                <div class="row ">
-                    <DIV class="col d-flex  justify-content-star">
-                        <img class="d-block" width="100%" height="400"
-                            style="border-top-left-radius: 50px;border-bottom-left-radius: 50px;" src="assets/Pollo.jpg"
-                            alt="First slide">
-                    </DIV>
-                    <div class="col d-flex justify-content-end">
-                        <img class="d-block" width="100%" height="400"
-                            style="border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
-                            src="assets/carne-de-pollo.jpg" alt="First slide">
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row ">
-                    <DIV class="col d-flex  justify-content-star">
-                        <img class="d-block" width="100%" height="400"
-                            style="border-top-left-radius: 50px;border-bottom-left-radius: 50px;"
-                            src="assets/carne.jpeg" alt="First slide">
-                    </DIV>
-                    <div class="col d-flex justify-content-end">
-                        <img class="d-block" width="100%" height="400"
-                            style="border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
-                            src="assets/carne-de-cerdo-id.jpg" alt="First slide">
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row ">
-                    <DIV class="col d-flex  justify-content-star">
-                        <img class="d-block" width="100%" height="400"
-                            style="border-top-left-radius: 50px;border-bottom-left-radius: 50px;"
-                            src="assets/carne_res_foto2.png" alt="First slide">
-                    </DIV>
-                    <div class="col d-flex justify-content-end">
-                        <img class="d-block" width="100%" height="400"
-                            style="border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
-                            src="assets/Beneficios-Carne-Res.jpg" alt="First slide">
-                    </div>
-
-                </div>
-            </div>
+<div class="container-fluid" style="min-height: 80vh;">
+  <hr style="visibility: hidden">
+  <div style="text-align: center">
+    <h1>¡DISTRIBUIDORA E.S.B!</h1>
+  </div>
+  <div class="divContainer">
+    <ngb-carousel *ngIf="urlImagenes" [showNavigationArrows]="false" [showNavigationIndicators]="false">
+      <ng-template ngbSlide *ngFor="let image of urlImagenes">
+        <hr style="visibility: hidden">
+        <div class="picsum-img-wrapper">
+          <img [src]="image" alt="Random slide" height="500px" style="border-radius: 20px" >
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only" style="color: black;">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only" style="color: black;">Next</span>
-        </a>
-    </div>
-    <hr>
-
-    <hr style="visibility: hidden;">
-    <h1 class="d-flex  justify-content-center">Nuestros productos</h1>
-    <hr>
-    <div class="Cuerpo" >
-        <div class="row justify-content-center"
-            *ngIf='productosRegistrardos && productosRegistrardos.length'>
-            <div class="col text-center producto" style="min-width:  290px ;max-width: 290px;" *ngFor="let producto of productosRegistrardos; index as i">
-                <div id="img" style="background-color: rgb(233, 236, 239); border-radius: 20px;">
-                    <img loading="lazy"  [src]="producto.ruta" alt="imagen"
-                        style="max-width: 290px; height: 200px; border-top-left-radius:20px;border-top-right-radius: 20px;"
-                        class="img-card-top w-100">
-                    <hr>
-                    <div>
-                        <p>
-                            {{producto.nombre}}
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            COP {{producto.valor}}Kg ¿Quieres?
-                        </p>
-                    </div>
-                    <div class="row" style="max-width: 250px;padding-left: 1rem;" >
-                        <div class="col">
-                            <input type="number"  name="cantidad" [(ngModel)]="cantidadProducto[i]" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-outline-dark" style="border-radius: 50%;" (click)="anadirProductoAlCarro(i)">
-                                <span class="fas fa-cart-plus" style="margin-right: 0rem;"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <hr style="visibility: hidden;">
-                </div>
-            </div>
+        <div class="carousel-caption">
+          <h1>Distribuidora E.S.B</h1>
+          <p>La mejor elección para tus comidas.</p>
         </div>
-    </div>
+        <hr style="visibility: hidden">
+      </ng-template>
+    </ngb-carousel>
+  </div>
+  <hr style="visibility: hidden">
+  <div style="text-align: center">
+    <h1>¡Nuestros prodcutos!</h1>
+  </div>
+  <div class="divContainer">
+    <mat-tab-group mat-align-tabs="center" style="width: 100%; min-height: 40vh">
+      <mat-tab>
+        <ng-template mat-tab-label >
+          <h1>Carne de res</h1>
+        </ng-template>
+        <div>
+          <hr style="visibility: hidden">
+          <div class="row justify-content-center" style="width: 98%">
+            <div  *ngFor="let producto of productosRegistrardos.carneRes; index as i">
+              <div class="col">
+                <mat-card class="example-card">
+                  <mat-card-header>
+                    <mat-card-title>{{producto.nombre}}</mat-card-title>
+                    <mat-card-subtitle>{{producto.categoria}}</mat-card-subtitle>
+                    <mat-card-subtitle>Por tan solo: {{producto.valor}}kg</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image [src]="producto.ruta" alt="Photo of a Shiba Inu" style="max-height: 200px">
+                  <mat-card-actions>
+                    <div class="row justify-content-center">
+                      <button type="button" class="btn btn-outline-danger btnMenu" (click)="ComprarProducto(producto)"
+                              style="border-radius: 20px;">
+                        <span class="fas fa-cart-arrow-down" style="margin-right: 0rem;"></span> comprar
+                      </button>
+                    </div>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+          <hr style="visibility: hidden">
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label >
+          <h1>Carne de cerdo</h1>
+        </ng-template>
+        <div>
+          <hr style="visibility: hidden">
+          <div class="row justify-content-center" style="width: 98%">
+            <div  *ngFor="let producto of productosRegistrardos.carneCerdo; index as i">
+              <div class="col">
+                <mat-card class="example-card">
+                  <mat-card-header>
+                    <mat-card-title>{{producto.nombre}}</mat-card-title>
+                    <mat-card-subtitle>{{producto.categoria}}</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image [src]="producto.ruta" alt="Photo of a Shiba Inu" style="max-height: 200px">
+                  <mat-card-actions >
+                    <div class="row justify-content-center">
+                      <button type="button" class="btn btn-outline-danger btnMenu" (click)="ComprarProducto(producto)"
+                              style="border-radius: 20px;">
+                        <span class="fas fa-cart-arrow-down" style="margin-right: 0rem;"></span> comprar
+                      </button>
+                    </div>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+          <hr style="visibility: hidden">
+        </div>
+      </mat-tab>
+      <mat-tab >
+        <ng-template mat-tab-label >
+          <h1>Pollo</h1>
+        </ng-template>
+        <div>
+          <hr style="visibility: hidden">
+          <div class="row justify-content-center" style="width: 98%">
+            <div  *ngFor="let producto of productosRegistrardos.pollo; index as i">
+              <div class="col">
+                <mat-card class="example-card">
+                  <mat-card-header>
+                    <mat-card-title>{{producto.nombre}}</mat-card-title>
+                    <mat-card-subtitle>{{producto.categoria}}</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image [src]="producto.ruta" alt="Photo of a Shiba Inu" style="max-height: 200px">
+                  <mat-card-actions>
+                    <div class="row justify-content-center">
+                      <button type="button" class="btn btn-outline-danger btnMenu" (click)="ComprarProducto(producto)"
+                              style="border-radius: 20px;">
+                        <span class="fas fa-cart-arrow-down" style="margin-right: 0rem;"></span> comprar
+                      </button>
+                    </div>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+          <hr style="visibility: hidden">
+        </div>
+      </mat-tab>
+    </mat-tab-group>
 
-    <hr>
+
+
+  </div>
+  <hr style="visibility: hidden">
+  <div class="divContainer">
     <div class="container-fluid d-flex justify-content-center" id="QuienesSomos" style="margin-top: 4rem;">
-        <div class="row">
-            <form class="col-sm">
-                <div class="col d-flex justify-content-center">
-                    <img class="mb-4" src="assets/LogoNombreNegro.png" alt="" width="400" height="400">
-                </div>
-            </form>
-            <form class="col-sm" style="margin-left: 5rem;">
-                <h1>TU CARNICERIA ONLINE</h1>
-                <p style="width: 95%; font-size: 20px; text-align: justify;">
-                    Nuestra tienda virtual llegó para ofrecerles a todos los amantes de la buena carne un producto de
-                    excelente calidad. ¿Cómo lo hacemos? en primer lugar, todos nuestros cortes se someten a un proceso
-                    de maduración de mínimo 12 días, lo cual nos permite realzar el olor, sabor y terneza de nuestra
-                    carne. En segundo lugar, al ser productos que se entregan empacados al vacío, garantizamos higiene,
-                    y confiabilidad en nuestros procesos. En tercer lugar, no solo les entregamos los cortes porcionados
-                    que consumidos en el día a día, sino también, los cortes Premium que trae una res.
-                </p>
-                <p style="width: 95%; font-size: 20px; text-align: justify;">
-                    Por último y no siendo menos importante, les ofrecemos a nuestros clientes un servicio ágil y
-                    confiable, pues entendemos la importancia que hoy por hoy, tienen las ventas on-line y el factor
-                    tiempo para las familias. Bajo este panorama, es un placer para nosotros, llevarles hasta la puerta
-                    de sus casas un producto y servicio de calidad.
-                </p>
-            </form>
-        </div>
+      <div class="row">
+        <form class="col-sm">
+          <div class="col d-flex justify-content-center">
+            <img class="mb-4" [src]="baseUrl+'imagenes/imagenesSistema/LogoNombreNegro.png'" alt="" width="400" height="400">
+          </div>
+        </form>
+        <form class="col-sm" style="margin-left: 5rem;">
+          <h1>TU CARNICERIA ONLINE</h1>
+          <p style="width: 95%; font-size: 20px; text-align: justify;">
+            Nuestra tienda virtual llegó para ofrecerles a todos los amantes de la buena carne un producto de
+            excelente calidad. ¿Cómo lo hacemos? en primer lugar, todos nuestros cortes se someten a un proceso
+            de maduración de mínimo 12 días, lo cual nos permite realzar el olor, sabor y terneza de nuestra
+            carne. En segundo lugar, al ser productos que se entregan empacados al vacío, garantizamos higiene,
+            y confiabilidad en nuestros procesos. En tercer lugar, no solo les entregamos los cortes porcionados
+            que consumidos en el día a día, sino también, los cortes Premium que trae una res.
+          </p>
+          <p style="width: 95%; font-size: 20px; text-align: justify;">
+            Por último y no siendo menos importante, les ofrecemos a nuestros clientes un servicio ágil y
+            confiable, pues entendemos la importancia que hoy por hoy, tienen las ventas on-line y el factor
+            tiempo para las familias. Bajo este panorama, es un placer para nosotros, llevarles hasta la puerta
+            de sus casas un producto y servicio de calidad.
+          </p>
+        </form>
+      </div>
     </div>
-
-
+  </div>
+  <hr style="visibility: hidden">
 </div>

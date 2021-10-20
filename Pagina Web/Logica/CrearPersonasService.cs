@@ -27,6 +27,8 @@ namespace Logica
                     return new ($"Usuario existente",409);
                 }
 
+                cliente.Estado = "Activo";
+                usuario.Estado = "Activo";
                 context.Clientes.Add(cliente);
                 context.Usuarios.Add(usuario);
                 context.SaveChanges();
@@ -56,6 +58,8 @@ namespace Logica
                     return new ($"Usuario existente",409);
                 }
 
+                domiciliario.Estado = "Activo";
+                usuario.Estado = "Activo";
                 context.Domiciliarios.Add(domiciliario);
                 context.Vehiculos.Add(vehiculo);
                 context.Usuarios.Add(usuario);

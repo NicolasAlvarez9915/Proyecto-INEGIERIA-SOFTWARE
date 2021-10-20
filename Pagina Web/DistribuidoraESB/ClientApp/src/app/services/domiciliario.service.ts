@@ -26,6 +26,14 @@ export class DomiciliarioService {
     );
   }
 
+  eliminarDomiciliario(id: string): Observable<Respuesta<Domiciliario>>
+  {
+    return this.http.delete<Respuesta<Domiciliario>>(this.baseUrl+'api/Domiciliario/'+id)
+      .pipe(
+        catchError(this.handleErrorService.handleError<Respuesta<Domiciliario>>('Fallo al eliminar domiciliario.', null))
+      );
+  }
+
   validarExistenciaDomiciliario(idDomiciliario: string): Observable<Respuesta<Domiciliario>>{
     return this.http.get<Respuesta<Domiciliario>>(this.baseUrl+'api/Domiciliario/Domiciliario/'+idDomiciliario).pipe(
       catchError(this.handleErrorService.handleError<Respuesta<Domiciliario>>('Fallo al buscar al domiciliario.',null))

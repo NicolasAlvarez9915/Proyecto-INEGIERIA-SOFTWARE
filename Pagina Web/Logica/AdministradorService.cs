@@ -19,6 +19,7 @@ namespace Logica
         {
             try
             {
+                administrador.Estado = "Activo";
                 context.Administradores.Add(administrador);
                 context.SaveChanges();
                 return new (administrador,200);

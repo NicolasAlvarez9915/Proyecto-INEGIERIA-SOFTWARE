@@ -9,5 +9,6 @@ export class Cliente {
     telefono: string;
     whatsapp: string;
     tipoCliente: string;
-    descuentos: Descuento[];    
+    descuentos: Descuento[];
+  estado: string;
 }

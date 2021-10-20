@@ -1,5 +1,5 @@
 import { Route } from '@angular/compiler/src/core';
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -21,6 +21,8 @@ export class RegistroComponent implements OnInit {
   cliente: Cliente;
   usuario: Usuario;
   check: Boolean;
+  style: {}
+  baseUrl: string;
 
   formularioRegistro: FormGroup;
 
@@ -30,8 +32,17 @@ export class RegistroComponent implements OnInit {
     private usuarioService: UsuarioService,
     private clienteService: ClienteService,
     private modalService: NgbModal,
-    private authenticationService: AuthenticationService,
-  ) { }
+    private authenticationService: AuthenticationService,@Inject('BASE_URL') baseUrl: string,
+  ) {
+    this.baseUrl = baseUrl; this.generarEstilosFondo();
+  }
+
+  generarEstilosFondo()
+  {
+    this.style = {
+      backgroundImage: 'url('+this.baseUrl+'imagenes/imagenesSistema/PicsArt_10-14-12.14.04.jpg)'
+    };
+  }
 
   Permitir: boolean;
   ngOnInit(): void {

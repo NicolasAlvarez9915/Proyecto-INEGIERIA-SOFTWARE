@@ -16,8 +16,8 @@ namespace DistribuidoraESB.Models
                 Apellidos = Apellidos,
                 Telefono = Telefono,
                 Whatsapp = Whatsapp,
-                Puesto = Puesto
-                
+                Puesto = Puesto,
+                Estado =  Estado
             };
         }
     }
@@ -36,6 +36,7 @@ namespace DistribuidoraESB.Models
             Telefono = administrador.Telefono;
             Whatsapp = administrador.Whatsapp;
             Puesto = administrador.Puesto;
+            Estado = administrador.Estado;
         }
     }
 }

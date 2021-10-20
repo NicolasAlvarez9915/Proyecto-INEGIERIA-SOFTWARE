@@ -5,4 +5,5 @@ export class Administrador {
   apellidos: string;
   telefono: string;
   whatsapp: string;
+  estado: string;
 }

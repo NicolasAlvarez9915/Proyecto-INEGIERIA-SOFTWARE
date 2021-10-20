@@ -52,7 +52,7 @@ span{
     transition: all 0.3s;
 }
 .btnbarra:focus {
-    outline: none; 
+    outline: none;
 }
 
 .spanBarra{
@@ -72,6 +72,7 @@ span{
     padding-left: 15px;
     transition: all 0.5s;
     width: 100%;
+  background-color: white;
 }
 
 .info{
@@ -93,7 +94,7 @@ span{
 }
 
 .btn{
-    border-radius: 18px; 
+    border-radius: 18px;
 }
 
 hr{
@@ -125,7 +126,7 @@ hr{
 }
 
 .iconoCard{
-    background-color: rgb(250, 81, 81); 
+    background-color: rgb(250, 81, 81);
     max-width: 30%;
     margin-top: -2rem;
     margin-bottom: 1rem;
@@ -145,7 +146,7 @@ hr{
 
 @media (max-width: 768px){
     #sidebar {
-        
+
         margin-left: -220px;
     }
     #sidebar.active {

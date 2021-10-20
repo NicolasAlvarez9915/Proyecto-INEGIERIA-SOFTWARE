@@ -12,6 +12,8 @@ import { Pedido } from '../Models/pedido';
 import { Usuario } from '../Models/usuario';
 import {AlertModalComponent} from '../../@base/alert-modal/alert-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModalService} from '../../compartido/servicios/modal.service';
+import {faUserMinus} from '@fortawesome/free-solid-svg-icons/faUserMinus';
 
 @Component({
   selector: 'app-perfil-cliente',
@@ -19,6 +21,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./perfil-cliente.component.css']
 })
 export class PerfilClienteComponent implements OnInit {
+  faEliminar = faUserMinus;
+
 
   usuario: Usuario;
   cliente: Cliente = new Cliente();
@@ -28,6 +32,7 @@ export class PerfilClienteComponent implements OnInit {
   listaPedidosEntregados: Pedido[] = [];
   lsitaPedidosEnProceso: Pedido[] = [];
 
+  clienteActualizar: Cliente = new Cliente();
   contrasena: string = "";
   contrasenaConfirmar: string = "";
 
@@ -43,7 +48,8 @@ export class PerfilClienteComponent implements OnInit {
     private descuentoService: DescuentoService,
     private authenticationService: AuthenticationService,
     private signalRService: SignalRService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private modalMaterialService: ModalService
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +61,76 @@ export class PerfilClienteComponent implements OnInit {
     });
   }
 
+  eliminarCuenta(){
+    this.modalMaterialService.openDialogDesicion("Eliminar cuenta", "¿Esta seguro?").subscribe( result =>{
+        if(result){
+          this.clienteService.eliminarCliente(this.cliente.identificacion).subscribe(
+            result =>{
+              if(!result.error)
+              {
+                this.modalMaterialService.openDialogInfo("Cuenta eliminada satisfactoriamente", "Sera redireccionado fuera del aplciativo");
+                this.authenticationService.logout();
+                this.router.navigate(["/Login"])
+              }
+            }
+          )
+        }
+      }
+    )
+  }
+  actualizarInfo(){
+    this.modalMaterialService.openDialogDesicion("Actualizar información.","¿Esta seguro?").subscribe(result =>{
+      if(result){
+        this.clienteService.Actualizar(this.cliente).subscribe(
+          respuesta =>{
+            if(this.validarActualizarContrasena())
+            {
+              this.usuario.contraseña = this.contrasena;
+              this.usuarioService.actualizarContraseña(this.usuario).subscribe(
+                respuesta => {
+                  this.usuario.contraseña = null;
+                  this.modalMaterialService.openDialogInfo("Actualizar contraseña", "Contraseña actualizada correctamente.");
+                }
+              )
+            }
+            this.modalMaterialService.openDialogInfo("Actualizar información", "información actualizada correctamente.");
+          }
+        )
+
+      }
+    })
+  }
+
+  validarActualizarContrasena(): boolean
+  {
+    let acumulado = 0;
+    if(this.validarDatoVacio(this.contrasena))
+    {
+      acumulado++;
+    }
+    if(this.validarDatoVacio(this.contrasenaConfirmar))
+    {
+      acumulado++;
+    }
+    if(acumulado != 2 && acumulado != 0)
+    {
+      this.modalMaterialService.openDialogInfo("Actualizar contraseña", "Para actualizar la contraseña ingresar la contraseña nueva y su confirmacion.",2);
+      return false;
+    }
+    if(this.contrasena != this.contrasenaConfirmar)
+    {
+      acumulado++;
+      this.modalMaterialService.openDialogInfo("Actualizar contraseña", "Las contraseñas no coinsiden.",2);
+      return false;
+    }
+    return acumulado != 0;
+
+  }
+
+  validarDatoVacio(Dato: string)
+  {
+    return (Dato != undefined && Dato != "")
+  }
   mostrarDescuentosCliente() {
     this.descuentoService.DescuentosPorCliente(this.cliente.identificacion).subscribe(r => {
       this.listaDescuentos = r;
@@ -84,6 +160,8 @@ export class PerfilClienteComponent implements OnInit {
       }
     });
   }
+
+
 
   buscarPedido(codigo: string) {
     this.pedidoService.BuscarPedido(codigo).subscribe(r => {

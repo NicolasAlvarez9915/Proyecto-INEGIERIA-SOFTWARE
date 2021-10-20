@@ -7,6 +7,7 @@ using Entity;
 using Logica;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
 
 namespace DistribuidoraESB.Controllers
 {
@@ -20,6 +21,13 @@ namespace DistribuidoraESB.Controllers
         public ClienteController(DESBContext context)
         {
             service = new ClienteService(context);
+        }
+        
+        [HttpDelete("{id}")]
+        public ActionResult<string> Delete(String id)
+        {
+            var respuesta = service.ValidarEliminarCliente(id);
+            return StatusCode(respuesta.CodigoHttp, respuesta);
         }
         
         [AllowAnonymous]

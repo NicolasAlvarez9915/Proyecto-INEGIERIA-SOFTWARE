@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Usuario } from '../ESB/Models/usuario';
 import { AuthenticationService } from '../services/authentication.service';
 import { UsuarioService } from '../services/usuario.service';
+import {faUserCircle, faUserMinus} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navegacion',
@@ -11,6 +12,7 @@ import { UsuarioService } from '../services/usuario.service';
 })
 export class NavegacionComponent implements OnInit {
 
+  addUser = faUserCircle;
   currentUser: Usuario = new Usuario();
 
   constructor(private service: UsuarioService, private router: Router,

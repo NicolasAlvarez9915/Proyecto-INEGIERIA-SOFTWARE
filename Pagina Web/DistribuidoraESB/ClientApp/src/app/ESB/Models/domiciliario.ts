@@ -8,4 +8,5 @@ export class Domiciliario {
   apellidos: string;
   telefono: string;
   whatsapp: string;
+  estado: string;
 }

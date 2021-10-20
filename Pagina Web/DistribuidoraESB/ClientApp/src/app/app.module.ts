@@ -22,6 +22,19 @@ import { FiltroProductoPipe } from './pipe/filtro-producto.pipe';
 import { FiltroPedidoPipe } from './pipe/filtro-pedido.pipe';
 import { PerfilClienteComponent } from './ESB/perfil-cliente/perfil-cliente.component';
 import { JwtInterceptor } from './services/jwt.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularMaterialModule } from './compartido/AngularMaterial/angular-material.module';
+import { ModalInfoComponent } from './compartido/componentes/modal-info/modal-info.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
+import { ProductoComponent } from './principal/componentes/producto/producto.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -39,18 +52,31 @@ import { JwtInterceptor } from './services/jwt.interceptor';
     ModalDecicionComponent,
     FiltroProductoPipe,
     FiltroPedidoPipe,
-    PerfilClienteComponent
+    PerfilClienteComponent,
+    ModalInfoComponent,
+    ProductoComponent
   ],
   imports: [
     ReactiveFormsModule,
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-    { path: '', component: PrincipalComponent, pathMatch: 'full' }
-], { relativeLinkResolution: 'legacy' }),
+      {path: '', component: PrincipalComponent, pathMatch: 'full'}
+    ], {relativeLinkResolution: 'legacy'}),
     AppRoutingModule,
-    NgbModule
+    FontAwesomeModule,
+    NgbModule,
+    BrowserAnimationsModule,
+    AngularMaterialModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatTooltipModule,
+    MatTabsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   entryComponents:[AlertModalComponent,ModalDecicionComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],

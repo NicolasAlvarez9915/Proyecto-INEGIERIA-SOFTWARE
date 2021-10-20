@@ -21,11 +21,11 @@ namespace Logica
         }
 
         public List<Pedido> PedidosEntregadosCliente(string Identificacion){
-            List<Pedido> pedidos =context.Pedidos.Where(p => p.IdPersona == Identificacion && p.Estado == "Entregado").ToList();
+            List<Pedido> pedidos =context.Pedidos.Where(p => p.IdPersona == Identificacion && p.Estado == "Entregado" && p.Estado == "Pagado").ToList();
             return pedidos;
         }
         public List<Pedido> PedidosEnProcesoCliente(string Identificacion){
-            return context.Pedidos.Where(p => p.IdPersona == Identificacion && p.Estado != "Entregado").ToList();
+            return context.Pedidos.Where(p => p.IdPersona == Identificacion && p.Estado != "Entregado" && p.Estado != "Pagado").ToList();
         }
         public List<Pedido> Pedidos()
         {

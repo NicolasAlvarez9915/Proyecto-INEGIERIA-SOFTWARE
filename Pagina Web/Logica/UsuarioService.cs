@@ -26,7 +26,8 @@ namespace Logica
                         Nombres = "Nicolas",
                         Puesto = "Gerente",
                         Telefono = "3017120334",
-                        Whatsapp = "+573017120334"
+                        Whatsapp = "+573017120334",
+                        Estado = "Activo"
                     }
                 );
                 context.Usuarios.Add(new Usuario()
@@ -34,7 +35,8 @@ namespace Logica
                         Correo = "admin@admin.com",
                         Contraseña = "123",
                         IdPersona = "1120754742",
-                        Rol = "Administrador"
+                        Rol = "Administrador",
+                        Estado = "Activo"
                     }
                 );
                 context.SaveChanges();
@@ -45,6 +47,7 @@ namespace Logica
         {
             try
             {
+                usuario.Estado = "Activo";
                 context.Usuarios.Add(usuario);
                 context.SaveChanges();
                 return new (usuario, 200);
@@ -75,8 +78,15 @@ namespace Logica
             Usuario usuario =  context.Usuarios.Where(u => u.Correo == correo).FirstOrDefault();
             return (usuario == null) ? new("Usuario inexistente.", 404) :
                 (usuario.Contraseña != password) ? new("Contraseña incorrecta.", 409) : 
-                new(usuario, 201);
+                (usuario.Estado == "Activo") ? new(usuario, 201): new("Usuario eliminado (Acceso denegado)", 409);
         }
-        
+
+
+        public void EliminarUsuario(string id)
+        {
+            Usuario usuario = context.Usuarios.FirstOrDefault(x => x.IdPersona == id);
+            usuario.Estado = "Inactivo";
+            context.SaveChanges();
+        }
     }
 }

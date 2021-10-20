@@ -15,5 +15,7 @@ namespace Entity
         public string Contraseña { get; set; }
         [Column(TypeName = "nvarchar(50)")]
         public string Rol { get; set; }
+
+        public string Estado { get; set; }
     }
 }

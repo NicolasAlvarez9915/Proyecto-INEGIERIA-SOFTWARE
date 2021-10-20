@@ -12,7 +12,7 @@ namespace DistribuidoraESB.Models
         public List<Descuento> Descuentos { get; set; }
         public Cliente MapearCliente()
         {
-            var cliente = new Cliente
+            return new Cliente
             {
                 Identificacion = Identificacion,
                 Nombres = Nombres,
@@ -22,9 +22,9 @@ namespace DistribuidoraESB.Models
                 Direccion = ValidarNull(Direccion),
                 Horaio = ValidarNull(Horaio),
                 TipoCliente = ValidarNull(TipoCliente),
-                Descuentos = Descuentos
+                Descuentos = Descuentos,
+                Estado =  Estado
             };
-            return cliente;
         }
 
         
@@ -55,6 +55,7 @@ namespace DistribuidoraESB.Models
             Horaio = cliente.Horaio;
             TipoCliente = cliente.TipoCliente;
             Descuentos = cliente.Descuentos;
+            Estado = cliente.Estado;
         }
     }
 }

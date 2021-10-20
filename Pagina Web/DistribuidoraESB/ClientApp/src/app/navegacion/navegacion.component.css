@@ -3,6 +3,13 @@
     border-bottom-width: .1rem;
     border-bottom-color:  rgb(250, 81, 81);
 }*/
+.example-button {
+  margin-top: 16px;
+}
+
+.example-tooltip-red {
+  background: #b71c1c;
+}
 a{
     border-radius: 18px;
 }

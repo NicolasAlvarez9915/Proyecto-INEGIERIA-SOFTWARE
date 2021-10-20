@@ -8,7 +8,6 @@ namespace Entity
     public class Producto
     {
         [Key]
-        [Column(TypeName = "nvarchar(11)")]
         public string Codigo { get; set; }
         [Column(TypeName = "nvarchar(20)")]
         public string Categoria { get; set; }

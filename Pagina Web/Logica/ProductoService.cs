@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Datos;
 using Entity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Logica
 {
@@ -102,6 +104,34 @@ namespace Logica
         public List<Producto> TodosPocasCantidades()
         {
             return context.Productos.Where(p => p.Cantidad <=  p.CantidadMinima).ToList();
+        }
+
+        public Respuesta<ProductoByCategoria> OrganizarProductoByCategoria()
+        {
+            List<Producto> todos = Todos();
+            ProductoByCategoria resultado = new()
+            {
+                Pollo = new(),
+                CarneCerdo = new(),
+                CarneRes = new()
+            };
+            foreach (var iterador in todos)
+            {
+                switch(iterador.Categoria)
+                {
+                  case "Pollo":
+                      resultado.Pollo.Add(iterador);
+                      break;
+                  case "Carne de res":
+                      resultado.CarneRes.Add(iterador);
+                      break;
+                  case "Carne de cerdo":
+                      resultado.CarneCerdo.Add(iterador);
+                      break;
+                }
+            }
+
+            return new (resultado, 200);
         }
     }
     

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
 import { AlertModalComponent } from './alert-modal/alert-modal.component';
+import {ModalService} from '../compartido/servicios/modal.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { AlertModalComponent } from './alert-modal/alert-modal.component';
 export class HandleHttpErrorService {
 
   constructor(
-    private modalService: NgbModal) { }
+    private modalService: ModalService) { }
   public handleError<T>(operation = 'operation', result?: T, mostrarError: boolean = true) {
     return (error: any): Observable<T> => {
       var mensaje = error.error.mensaje;
@@ -27,8 +28,6 @@ export class HandleHttpErrorService {
       console.log(message);
     }
   alertaRespuestaError(mensaje){
-    const messageBox = this.modalService.open(AlertModalComponent)
-    messageBox.componentInstance.title = "ALERTA.";
-    messageBox.componentInstance.message = mensaje;
+    this.modalService.openDialogInfo("Error al realizar la accion", mensaje, 2);
   }
 }

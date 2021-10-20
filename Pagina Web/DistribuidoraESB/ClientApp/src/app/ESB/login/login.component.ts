@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,6 +16,9 @@ import { Usuario } from '../Models/usuario';
 })
 export class LoginComponent implements OnInit {
 
+  style: {}
+  baseUrl: string;
+
   usuario: User;
 
   formularioinicioSesion: FormGroup
@@ -26,9 +29,18 @@ export class LoginComponent implements OnInit {
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService
-  ) { }
+    private authenticationService: AuthenticationService,
+    @Inject('BASE_URL') baseUrl: string,
+  ) {
+    this.baseUrl = baseUrl; this.generarEstilosFondo();
+  }
 
+  generarEstilosFondo()
+  {
+    this.style = {
+      backgroundImage: 'url('+this.baseUrl+'imagenes/imagenesSistema/PicsArt_10-14-12.14.04.jpg)'
+    };
+  }
   ngOnInit(): void {
     this.usuario = new User;
     this.BotonLogin();

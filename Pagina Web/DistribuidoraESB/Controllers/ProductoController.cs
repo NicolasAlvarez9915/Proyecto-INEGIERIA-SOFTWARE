@@ -73,6 +73,12 @@ namespace DistribuidoraESB.Controllers
         {
             return service.TodosPocasCantidades().Select(p => new ProductoViewModel(p));
         }
+
+        [HttpGet("ByCategoria")]
+        public ActionResult<Respuesta<ProductoByCategoria>> GetByCategoria()
+        {
+            return StatusCode(200, service.OrganizarProductoByCategoria());
+        }
     }
     
 }

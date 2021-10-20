@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Datos;
 using Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Logica
 {
@@ -19,6 +20,7 @@ namespace Logica
         {
             try
             {
+                domiciliario.Estado = "Activo";
                 context.Domiciliarios.Add(domiciliario);
                 context.Vehiculos.Add(vehiculo);
                 context.SaveChanges();
@@ -55,7 +57,7 @@ namespace Logica
 
         public List<Domiciliario> DomiciliariosSinRuta()
         {
-            List<Domiciliario> domiciliarios = Todos();
+            List<Domiciliario> domiciliarios = Todos().Where(d => d.Estado == "Activo").ToList();
             List<Ruta> rutas = context.Rutas.ToList();
             List<Domiciliario> domiciliariosSinRuta = new List<Domiciliario>();
             foreach (Domiciliario domiciliario in domiciliarios)
@@ -73,6 +75,39 @@ namespace Logica
         public bool domiciliarioConMenosDeTresPedidos(List<Ruta> rutas){
             List<Pedido> pedidos = context.Pedidos.Where(p => p.CodRuta == rutas[0].Codigo && p.Estado != "Entregado").ToList();
             return pedidos.Count <= 3;
+        }
+        
+        public Respuesta<Domiciliario> ValidarEliminarDomiciliario(string id)
+        {
+            
+            Ruta ruta = context.Rutas.Where(x => x.CodDomiciliario == id).Include(s => s.Pedidos).FirstOrDefault();
+            if (ruta == null)
+            {
+                   return new(EliminarDomiciliario(id), 200);
+            }
+            foreach (var iterador in ruta.Pedidos)
+            {
+                if (iterador.Estado == "En camino")
+                {
+                    return new("No se puede eliminar el domiciliario, tiene pedidos que estan en camino", 409);
+                }
+                else
+                {
+                    iterador.CodRuta = null;
+                }
+            }
+            context.Rutas.Remove(ruta);
+            return new(EliminarDomiciliario(id), 200);
+        }
+
+        private Domiciliario EliminarDomiciliario(string id)
+        {
+            Domiciliario domiciliario = context.Domiciliarios.Find(id);
+            domiciliario.Estado = "Inactivo";
+            Usuario usuario = context.Usuarios.FirstOrDefault(x => x.IdPersona == id);
+            usuario.Estado = "Inactivo";
+            context.SaveChanges();
+            return domiciliario;
         }
     }
     

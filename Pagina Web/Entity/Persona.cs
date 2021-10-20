@@ -17,5 +17,7 @@ namespace Entity
         public string Telefono { get; set; }
         [Column(TypeName = "nvarchar(15)")]
         public string Whatsapp { get; set; }
+
+        public String Estado { get; set; }
     }
 }

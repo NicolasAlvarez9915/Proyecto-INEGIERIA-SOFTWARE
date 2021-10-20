@@ -5,6 +5,7 @@ import { HandleHttpErrorService } from '../@base/handle-http-error.service';
 import { Producto } from '../ESB/Models/producto';
 import {tap, catchError, map} from 'rxjs/operators';
 import {Respuesta} from '../models/respuesta';
+import {ProductoByCategoria} from '../ESB/Models/producto-by-categoria';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class ProductoService {
   {
     return this.http.get<Respuesta<Producto>>(this.baseUrl+'api/Producto/Busar/'+codigo)
     .pipe(
-      catchError(this.handleErrorService.handleError<Respuesta<Producto>>('Buscar Producto', null))
+      catchError(this.handleErrorService.handleError<Respuesta<Producto>>('Fallo al buscar Producto', null))
     )
   }
 
@@ -55,15 +56,22 @@ export class ProductoService {
   {
     return  this.http.get<Producto[]>(this.baseUrl+'api/Producto')
     .pipe(
-      catchError(this.handleErrorService.handleError<Producto[]>('Registrar Producto', null))
+      catchError(this.handleErrorService.handleError<Producto[]>('Fallo al buscar todos los propductos', null))
     )
   }
 
+  ByCategoria():Observable<Respuesta<ProductoByCategoria>>
+  {
+    return  this.http.get<Respuesta<ProductoByCategoria>>(this.baseUrl+'api/Producto/ByCategoria')
+      .pipe(
+        catchError(this.handleErrorService.handleError<Respuesta<ProductoByCategoria>>('Fallo al buscar todos los propductos', null))
+      )
+  }
   PocasCantidades():Observable<Producto[]>
   {
     return  this.http.get<Producto[]>(this.baseUrl+'api/Producto/PocasCantidades')
     .pipe(
-      catchError(this.handleErrorService.handleError<Producto[]>('Registrar Producto', null))
+      catchError(this.handleErrorService.handleError<Producto[]>('Fallo al buscar lso productos con pocas cantidades.', null))
     )
   }
 }

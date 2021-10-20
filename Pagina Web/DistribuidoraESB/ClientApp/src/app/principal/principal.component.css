@@ -3,6 +3,13 @@
     font-family: 'Poppins';
 }
 
+.divContainer{
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  box-shadow: 1px 10px 5px 0px rgba(0,0,0,0.38);
+}
+
 .carrusel{
     height: 16cm;
 }
@@ -11,11 +18,11 @@
     color:  rgb(0, 0, 0);
 }
 .btn{
-    border-radius: 18px; 
+    border-radius: 18px;
 }
 
 .producto:hover{
-    width: 310;
+    width: 310px;
     transition: all 0.5s;
 }
 
@@ -28,3 +35,12 @@
     display: flex;
     justify-content: center;
 }
+
+.example-card {
+  max-width: 400px;
+  height: 420px;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.33);
+  border-radius: 20px;
+}
+
+

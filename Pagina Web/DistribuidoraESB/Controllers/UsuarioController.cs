@@ -35,6 +35,13 @@ namespace DistribuidoraESB.Controllers
                 : StatusCode(response.CodigoHttp,
                     new Respuesta<LoginViewModel>(_jwtService.GenerateToken(response.Objeto), response.CodigoHttp));
         }
+
+        [HttpDelete("{idPersona}")]
+        public ActionResult<string> Delete(string idPersona)
+        {
+            service.EliminarUsuario(idPersona);
+            return StatusCode(201, new Respuesta<string>("Correcto",false,201));
+        }
         [AllowAnonymous]
         [HttpPost]
         public ActionResult<UsuarioViewModel> Post(UsuarioInputModel usuarioInput)

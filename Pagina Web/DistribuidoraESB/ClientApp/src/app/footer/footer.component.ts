@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -7,7 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  style: {}
+  baseUrl: string;
+  constructor(
+    @Inject('BASE_URL') baseUrl: string,
+  ) {
+    this.baseUrl = baseUrl;
+    this.generarEstilosFondo();
+  }
+
+  generarEstilosFondo()
+  {
+    this.style = {
+      backgroundImage: 'url('+this.baseUrl+'imagenes/imagenesSistema/PicsArt_10-14-03.19.11.jpg)'
+    };
+  }
+
 
   ngOnInit(): void {
   }

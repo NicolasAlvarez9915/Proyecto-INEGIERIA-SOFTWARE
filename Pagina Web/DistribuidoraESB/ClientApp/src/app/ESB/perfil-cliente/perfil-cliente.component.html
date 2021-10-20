@@ -490,36 +490,36 @@
                 <div class="col">
                   <label for="LblName">Nombre</label>
                   <input type="Text" id="LblName" class="form-control" placeholder="Nombres"
-                        [ngModel]="cliente.nombres" [ngModelOptions]="{standalone: true}">
+                        [(ngModel)]="cliente.nombres" [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="col">
                   <label for="LblApellido">Apellidos</label>
                   <input type="text" id="LblApellido" name="apellidos" placeholder="Apellidos"
-                         class="form-control" [ngModel]="cliente.apellidos"
+                         class="form-control" [(ngModel)]="cliente.apellidos"
                          [ngModelOptions]="{standalone: true}" />
                 </div>
                 <div class="col">
                   <label for="LblDireccion">Dirección</label>
                   <input type="Text" id="LblDireccion" class="form-control" placeholder="Dirección"
-                        [ngModel]="cliente.direccion" [ngModelOptions]="{standalone: true}">
+                         [(ngModel)]="cliente.direccion" [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
               <div class="row">
                 <div class="col">
                   <label for="LblTelefonoAdministrador">Telefono fijo o Movil</label>
                   <input type="text" id="LblTelefonoAdministrador" class="form-control"
-                          [ngModel]="cliente.telefono"
+                         [(ngModel)]="cliente.telefono"
                          [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="col">
                   <label for="LblWhatsappAdministrador">Numero Whatsapp</label>
                   <input type="text" id="LblWhatsappAdministrador" name="Whatsapp"
-                         class="form-control" [ngModel]="cliente.whatsapp"
+                         class="form-control" [(ngModel)]="cliente.whatsapp"
                          [ngModelOptions]="{standalone: true}" />
                 </div>
                 <div class="col">
                   <label >Horario de entrega</label>
-                  <select class="form-control " [ngModel]="cliente.horaio" [ngModelOptions]="{standalone: true}">
+                  <select class="form-control " [(ngModel)]="cliente.horaio" [ngModelOptions]="{standalone: true}">
                     <option value="1">Seleccione</option>
                     <option value="H1">8:00 AM / 6:00 PM</option>
                     <option value="H2">8:00 AM / 12:00 PM</option>
@@ -531,13 +531,13 @@
                 <div class="col">
                   <label for="inputPassword1Administrador">Contraseña</label>
                   <input type="password" id="inputPassword1Administrador" class="form-control"
-                         placeholder="Contraseña" required="" [ngModel]="contrasena"
+                         placeholder="Contraseña" required="" [(ngModel)]="contrasena"
                           [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="col">
                   <label for="inputPasswordAdministrador">Contraseña</label>
                   <input type="password" id="inputPasswordAdministrador" class="form-control"
-                         placeholder="Contraseña" required="" [ngModel]="contrasenaConfirmar"
+                         placeholder="Contraseña" required="" [(ngModel)]="contrasenaConfirmar"
                           [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
@@ -546,8 +546,14 @@
             <div class="row d-flex justify-content-center">
               <div class="col d-flex justify-content-center">
                 <button class="btn btn-outline-dark" style=" width: 50%" type="submit"
-                        >
+                        (click)="actualizarInfo()">
                   <span class="fas fa-sync-alt"></span> Editar
+                </button>
+              </div>
+              <div class="col d-flex justify-content-center">
+                <button class="btn btn-outline-dark" type="submit"
+                        (click)="eliminarCuenta()">
+                  <fa-icon [icon]="faEliminar"></fa-icon> Eliminar cuenta
                 </button>
               </div>
               <div class="col d-flex justify-content-center">

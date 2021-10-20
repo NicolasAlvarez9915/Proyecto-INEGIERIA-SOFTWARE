@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -24,6 +24,9 @@ import { Ruta } from '../Models/ruta';
 import { Usuario } from '../Models/usuario';
 import { Vehiculo } from '../Models/vehiculo';
 import {first} from "rxjs/operators";
+import {faUserMinus} from '@fortawesome/free-solid-svg-icons/faUserMinus';
+import {faUserEdit} from '@fortawesome/free-solid-svg-icons/faUserEdit';
+import {ModalService} from '../../compartido/servicios/modal.service';
 
 @Component({
   selector: 'app-perfil',
@@ -31,6 +34,10 @@ import {first} from "rxjs/operators";
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
+
+  userEdit = faUserEdit;
+  userMinus =  faUserMinus;
+  baseUrl: string;
   formularioRegistroCliente: FormGroup;
   formularioregistroProducto: FormGroup;
   formularioregistroDomiciliario: FormGroup;
@@ -65,6 +72,7 @@ export class PerfilComponent implements OnInit {
   ListaDomiciliariosSinRuta: Domiciliario[] = [];
   ListaPedidosSinruta: Pedido[] = [];
   pedidoGenrado: Pedido = new Pedido();
+  listaEstadosDisponiblePedido: string[] = [];
 
   productoConsulta: Producto = new Producto;
 
@@ -112,8 +120,11 @@ export class PerfilComponent implements OnInit {
     private domiciliarioService: DomiciliarioService,
     private rutaService: RutaService,
     private authenticationService: AuthenticationService,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
+    private modalMaterialService: ModalService,
+    @Inject('BASE_URL') baseUrl: string,
   ) {
+    this.baseUrl = baseUrl;
     this.administradorActualizar = new Administrador();
   }
 
@@ -144,6 +155,39 @@ export class PerfilComponent implements OnInit {
       this.listaProductos.push(producto);
       this.totalProductos++;
     });
+  }
+
+  eliminarCuentaCliente(){
+    this.modalMaterialService.openDialogDesicion("Eliminar cuenta", "¿Esta seguro?").subscribe( result =>{
+        if(result){
+          this.clienteService.eliminarCliente(this.clienteConsuta.identificacion).subscribe(
+            result =>{
+              if(!result.error)
+              {
+                this.modalMaterialService.openDialogInfo("Cuenta eliminada satisfactoriamente", "Paso a un estado de inactividad");
+                this.clientes();
+              }
+            }
+          )
+        }
+      }
+    )
+  }
+  eliminarCuentaDomiciliario(){
+    this.modalMaterialService.openDialogDesicion("Eliminar cuenta", "¿Esta seguro?").subscribe( result =>{
+        if(result){
+          this.domiciliarioService.eliminarDomiciliario(this.domiciliarioSeleccionado.identificacion).subscribe(
+            result =>{
+              if(!result.error)
+              {
+                this.modalMaterialService.openDialogInfo("Cuenta eliminada satisfactoriamente", "Paso a un estado de inactividad");
+                this.clientes();
+              }
+            }
+          )
+        }
+      }
+    )
   }
 
   reiniciarFormularios(){
@@ -277,13 +321,17 @@ export class PerfilComponent implements OnInit {
 
   crearDomiciliario(){
     this.domiciliarioService.registrar(this.domiciliario, this.usuarioRegistrar).subscribe(d => {
-        const messageBox = this.modalService.open(AlertModalComponent)
-        messageBox.componentInstance.title = "BIEN HECHO";
-        messageBox.componentInstance.message = "Domiciliario registrado. Cuenta creada exitosamente.";
-        this.domiciliariosSinrRuta();
-        this.domiciliarios();
+        if(!d.error)
+        {
+          const messageBox = this.modalService.open(AlertModalComponent)
+          messageBox.componentInstance.title = "BIEN HECHO";
+          messageBox.componentInstance.message = "Domiciliario registrado. Cuenta creada exitosamente.";
+          this.domiciliariosSinrRuta();
+          this.domiciliarios();
+        }
     });
   }
+
 
 
   llenarObjetos() {
@@ -310,12 +358,27 @@ export class PerfilComponent implements OnInit {
   buscarPedido(codigo: string) {
     this.pedidoService.BuscarPedido(codigo).subscribe(r => {
       this.pedidoSeleccionado = r.objeto;
+      this.validarEstadosDisponibles();
       this.clienteService.buscar(this.pedidoSeleccionado.idPersona).subscribe(r => {
         this.clienteConsuta = r.objeto;
       })
     })
   }
 
+  validarEstadosDisponibles()
+  {
+    let estados = ["Bodega","En camino", "Entregado", "Pagado"];
+    this.listaEstadosDisponiblePedido = [];
+    let encontrado = false;
+      estados.forEach(estado => {
+        if(encontrado){
+          this.listaEstadosDisponiblePedido.push(estado);
+        }
+        if(estado == this.pedidoSeleccionado.estado){
+          encontrado = true;
+        }
+      })
+  }
   onPhotoSelected(evento): void {
     const archivo: File = evento.target.files[0];
     if (!archivo) {
@@ -681,9 +744,6 @@ export class PerfilComponent implements OnInit {
         this.administradorService.Actualizar(administradorInformacionNueva).subscribe(r => {
           this.pedirInforAdministrador();
           alert("Datos actualizados personales correctamente");
-        },
-          error => {
-          this.alertaRespuestaError(error);
         });
       }
       acumulado = 0;

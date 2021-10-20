@@ -1,8 +1,11 @@
-
 <body style="background-color:  rgb(255, 255, 255);">
+<div class="example-container">
   <app-navegacion></app-navegacion>
-  <div>
-    <router-outlet></router-outlet>
-  </div>
-  <app-footer></app-footer>
+    <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
 </body>

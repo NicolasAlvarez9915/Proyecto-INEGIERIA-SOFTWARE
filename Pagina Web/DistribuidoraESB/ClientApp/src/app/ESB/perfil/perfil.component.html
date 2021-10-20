@@ -43,7 +43,7 @@
         <div class="collapse OpsMenu" id="collapseOpsProductos">
             <hr>
             <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
-                data-target="#collapseOpsProductos" (click)="mostrar ='RegistrarPrdocuto';reiniciarFormularios(); selectedFile = null">
+                data-target="#collapseOpsProductos" (click)="mostrar ='RegistrarProducto';reiniciarFormularios(); selectedFile = null">
                 <span class="fas fa-tag spanBarra"></span> Registrar
             </button>
             <button class="btnbarra" style="width: 100%; " type="button" data-toggle="collapse"
@@ -268,7 +268,7 @@
                 </form>
             </div>
         </div>
-        <div [ngClass]="{'Ocultar':mostrar != 'RegistrarCliente'}">
+        <div *ngIf="mostrar == 'RegistrarCliente'">
             <div class="Cuerpo">
                 <form class="col-8 font-weight-normal" id="formularioRgistrarCliente" style="margin-top: 1rem;"
                     [formGroup]="formularioRegistroCliente">
@@ -374,7 +374,7 @@
                 </form>
             </div>
         </div>
-        <div [ngClass]="{'Ocultar': mostrar != 'Clientes'}">
+        <div *ngIf="mostrar == 'Clientes'" >
             <div class="Cuerpo">
                 <form class="col font-weight-normal">
                     <div class="text-center" style="margin-top: 1rem;">
@@ -414,6 +414,7 @@
                                     <th scope="col">Direccion</th>
                                     <th scope="col">Horario</th>
                                     <th scope="col">Tipo Cliente</th>
+                                  <th scope="col">Estado</th>
                                     <th scope="col">Opcion</th>
                                 </tr>
                             </thead>
@@ -428,6 +429,7 @@
                                     <td>{{ cliente.direccion }}</td>
                                     <td>{{ cliente.horaio }}</td>
                                     <td>{{ cliente.tipoCliente }}</td>
+                                  <td>{{ cliente.estado }}</td>
                                     <td><button class="btn btn-outline-dark"
                                             (click)="vercliente(cliente)">{{opcionTabbla}}</button>
                                     </td>
@@ -439,106 +441,106 @@
                 </form>
             </div>
         </div>
-        <div *ngIf="mostrar == 'RegistrarPrdocuto'">
-            <div class="Cuerpo contenedor">
-                <form [formGroup]="formularioregistroProducto">
-                    <div class="text-center" style="margin-top: 1rem;">
-                        <h5>Registrar producto</h5>
-                    </div>
-                    <hr>
-
-                    <div class="row">
-                        <div class="col">
-                            <input type="file" class="d-none" (change)="onPhotoSelected($event)" #photoInput required>
-                            <img [src]="selectedFile || 'assets/images.png'" class="img-fluid" width="300px"
-                                height="300px" alt="no imagen" (click)="photoInput.click()">
-                        </div>
-
-                        <div class="col">
-                            <label >Categoria</label>
-                            <select class="form-control " formControlName="categoria"
-                                 [ngClass]="{'is-invalid': controlProducto.categoria.touched && controlProducto.categoria.errors}">
-                                <option value="Carne de res">Carne de res</option>
-                                <option value="Pollo">Pollo</option>
-                                <option value="Carne de cerdo">Carne de cerdo</option>
-                            </select>
-                            <div *ngIf="controlProducto.categoria.errors" class="invalid-feedback">
-                                <div *ngIf="controlProducto.categoria.errors.required">
-                                    Se require que seleccione la categoria del producto
-                                </div>
-                            </div>
-                            <label>Referencia</label>
-                            <input type="text" class="form-control" formControlName="codigo"
-                                 [ngClass]="{'is-invalid': controlProducto.codigo.touched && controlProducto.codigo.errors}" />
-                            <div *ngIf="controlProducto.codigo.errors" class="invalid-feedback">
-                                <div *ngIf="controlProducto.codigo.errors.required">Se requiere una
-                                    referencia</div>
-                            </div>
-
-                            <label >Nombre</label>
-                            <input type="text" class="form-control " formControlName="nombre"
-                                [ngClass]="{'is-invalid': controlProducto.nombre.touched && controlProducto.nombre.errors}" />
-                            <div *ngIf="controlProducto.nombre.errors" class="invalid-feedback">
-                                <div *ngIf="controlProducto.nombre.errors.required">
-                                    Se require que ingrese el nombre del producto
-                                </div>
-                            </div>
-
-                            <label>Cantidad (Kg)</label>
-                            <input type="number" class="form-control" formControlName="cantidad"
-                                 [ngClass]="{'is-invalid': controlProducto.cantidad.touched && controlProducto.cantidad.errors}" />
-                            <div *ngIf="controlProducto.cantidad.errors" class="invalid-feedback">
-                                <div *ngIf="controlProducto.cantidad.errors.required">Se require la
-                                    cantidad</div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label>Cantidad Minima (Kg)</label>
-                            <input type="number" class="form-control" formControlName="cantidadMinima"
-                                 [ngClass]="{'is-invalid': controlProducto.cantidadMinima.touched && controlProducto.cantidadMinima.errors}" />
-                            <div *ngIf="controlProducto.cantidadMinima.errors" class="invalid-feedback">
-                                <div *ngIf="controlProducto.cantidadMinima.errors.required">Se require la
-                                    cantidad minima</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label>Precio por kilo</label>
-                            <input type="number" class="form-control" formControlName="valor"
-                                 [ngClass]="{'is-invalid': controlProducto.valor.touched && controlProducto.valor.errors}" />
-                            <div *ngIf="controlProducto.valor.errors" class="invalid-feedback">
-                                <div *ngIf="controlProducto.valor.errors.required">Se require el valor</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="">
-                        <label>Descripción</label>
-                        <textarea type="text" class="form-control" formControlName="descripcion"
-                             [ngClass]="{'is-invalid': controlProducto.descripcion.touched && controlProducto.descripcion.errors}"></textarea>
-                        <div *ngIf="controlProducto.descripcion.errors" class="invalid-feedback">
-                            <div *ngIf="controlProducto.descripcion.errors.required">Se requiere una
-                                breve descripción</div>
-                        </div>
-                    </div>
-                    <div class="col ">
-                        <hr style="visibility: hidden;">
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-outline-dark" style="width: 50%; margin-right: .5rem;" type="submit"
-                                (click)="onSubmitProducto()"   [disabled]="formularioregistroProducto.invalid">Registrar
-                            </button>
-                            <button class="btn btn-outline-danger" style="width: 50%; margin-left: .5rem;" type="reset"
-                                (click)="mostrar = 'Principal'">
-                                <span class="icon-arrow-left1"></span>Volver
-                            </button>
-                        </div>
-                    </div>
-                    <hr>
-                </form>
+      <div *ngIf="mostrar == 'RegistrarProducto'">
+        <div class="Cuerpo contenedor">
+          <form [formGroup]="formularioregistroProducto">
+            <div class="text-center" style="margin-top: 1rem;">
+              <h5>Registrar producto</h5>
             </div>
+            <hr>
+
+            <div class="row">
+              <div class="col">
+                <input type="file" class="d-none" (change)="onPhotoSelected($event)" #photoInput required>
+                <img [src]="selectedFile || baseUrl+'imagenes/imagenesSistema/images.png'" class="img-fluid" width="300px"
+                     height="300px" alt="no imagen" (click)="photoInput.click()">
+              </div>
+
+              <div class="col">
+                <label >Categoria</label>
+                <select class="form-control " formControlName="categoria"
+                        [ngClass]="{'is-invalid': controlProducto.categoria.touched && controlProducto.categoria.errors}">
+                  <option value="Carne de res">Carne de res</option>
+                  <option value="Pollo">Pollo</option>
+                  <option value="Carne de cerdo">Carne de cerdo</option>
+                </select>
+                <div *ngIf="controlProducto.categoria.errors" class="invalid-feedback">
+                  <div *ngIf="controlProducto.categoria.errors.required">
+                    Se require que seleccione la categoria del producto
+                  </div>
+                </div>
+                <label>Referencia</label>
+                <input type="text" class="form-control" formControlName="codigo"
+                       [ngClass]="{'is-invalid': controlProducto.codigo.touched && controlProducto.codigo.errors}" />
+                <div *ngIf="controlProducto.codigo.errors" class="invalid-feedback">
+                  <div *ngIf="controlProducto.codigo.errors.required">Se requiere una
+                    referencia</div>
+                </div>
+
+                <label >Nombre</label>
+                <input type="text" class="form-control " formControlName="nombre"
+                       [ngClass]="{'is-invalid': controlProducto.nombre.touched && controlProducto.nombre.errors}" />
+                <div *ngIf="controlProducto.nombre.errors" class="invalid-feedback">
+                  <div *ngIf="controlProducto.nombre.errors.required">
+                    Se require que ingrese el nombre del producto
+                  </div>
+                </div>
+
+                <label>Cantidad (Kg)</label>
+                <input type="number" class="form-control" formControlName="cantidad"
+                       [ngClass]="{'is-invalid': controlProducto.cantidad.touched && controlProducto.cantidad.errors}" />
+                <div *ngIf="controlProducto.cantidad.errors" class="invalid-feedback">
+                  <div *ngIf="controlProducto.cantidad.errors.required">Se require la
+                    cantidad</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col">
+                <label>Cantidad Minima (Kg)</label>
+                <input type="number" class="form-control" formControlName="cantidadMinima"
+                       [ngClass]="{'is-invalid': controlProducto.cantidadMinima.touched && controlProducto.cantidadMinima.errors}" />
+                <div *ngIf="controlProducto.cantidadMinima.errors" class="invalid-feedback">
+                  <div *ngIf="controlProducto.cantidadMinima.errors.required">Se require la
+                    cantidad minima</div>
+                </div>
+              </div>
+              <div class="col">
+                <label>Precio por kilo</label>
+                <input type="number" class="form-control" formControlName="valor"
+                       [ngClass]="{'is-invalid': controlProducto.valor.touched && controlProducto.valor.errors}" />
+                <div *ngIf="controlProducto.valor.errors" class="invalid-feedback">
+                  <div *ngIf="controlProducto.valor.errors.required">Se require el valor</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="">
+              <label>Descripción</label>
+              <textarea type="text" class="form-control" formControlName="descripcion"
+                        [ngClass]="{'is-invalid': controlProducto.descripcion.touched && controlProducto.descripcion.errors}"></textarea>
+              <div *ngIf="controlProducto.descripcion.errors" class="invalid-feedback">
+                <div *ngIf="controlProducto.descripcion.errors.required">Se requiere una
+                  breve descripción</div>
+              </div>
+            </div>
+            <div class="col ">
+              <hr style="visibility: hidden;">
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-dark" style="width: 50%; margin-right: .5rem;" type="submit"
+                        (click)="onSubmitProducto()"   [disabled]="formularioregistroProducto.invalid">Registrar
+                </button>
+                <button class="btn btn-outline-danger" style="width: 50%; margin-left: .5rem;" type="reset"
+                        (click)="mostrar = 'Principal'">
+                  <span class="icon-arrow-left1"></span>Volver
+                </button>
+              </div>
+            </div>
+            <hr>
+          </form>
         </div>
+      </div>
         <div *ngIf="mostrar == 'Productos'">
             <div class="Cuerpo">
                 <form class="col font-weight-normal">
@@ -770,11 +772,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col d-flex justify-content-end">
-                        <button class="btn btn-outline-danger" style=" width: 150px" (click)="mostrar = 'Clientes'">
-                            <span class="icon-arrow-left1"></span> Volver
-                        </button>
+                  <div class="row d-flex justify-content-center">
+                    <div class="col d-flex justify-content-center">
+                      <button class="btn btn-outline-dark" type="submit"
+                              (click)="eliminarCuentaCliente()">
+                        <fa-icon [icon]="userMinus"></fa-icon> Eliminar cuenta
+                      </button>
                     </div>
+                      <div class="col d-flex justify-content-end">
+                        <button class="btn btn-outline-danger" style=" width: 150px" (click)="mostrar = 'Clientes'">
+                          <span class="icon-arrow-left1"></span> Volver
+                        </button>
+                      </div>
+                  </div>
                     <hr>
                 </form>
             </div>
@@ -1342,13 +1352,10 @@
                                                             {{pedidoSeleccionado.estado}}
 
                                                         </p>
-                                                        <div *ngIf="pedidoSeleccionado.estado != 'Entregado'">
+                                                        <div *ngIf="pedidoSeleccionado.estado != 'Pagado'">
                                                             <select class="form-control " name="Estado"
                                                                 [(ngModel)]="estadoPedido">
-                                                                <option value="En camino"
-                                                                    *ngIf="pedidoSeleccionado.estado != 'En camino'">En
-                                                                    camino</option>
-                                                                <option value="Entregado">Entregado</option>
+                                                                <option [value]="estado" *ngFor="let estado of listaEstadosDisponiblePedido">{{estado}}</option>
                                                             </select>
                                                             <button class="btn btn-outline-dark"
                                                                 style="padding-top: 1rem;"
@@ -1673,6 +1680,7 @@
                                     <th scope="col">Telefono</th>
                                     <th scope="col">Whatsapp</th>
                                     <th scope="col">Fecha Permiso</th>
+                                  <th scope="col">Estado</th>
                                     <th scope="col">opciones</th>
                                 </tr>
                             </thead>
@@ -1685,6 +1693,7 @@
                                     <td>{{ domiciliario.telefono }}</td>
                                     <td>{{ domiciliario.whatsapp }}</td>
                                     <td>{{ domiciliario.fechaPermisoConduccion }}</td>
+                                  <td>{{ domiciliario.estado }}</td>
                                     <td><button class="btn btn-outline-dark"
                                             (click)="domiciliarioSeleccionado = domiciliario;mostrar = 'Domiciliario';buscarMoto(); buscarRuta()">{{opcionTabblaDomiciliarios}}</button>
                                     </td>
@@ -1753,14 +1762,26 @@
                           {{domiciliarioSeleccionado.moto.fechaTecnoMecanica}}
                         </div>
                       </div>
-
+                    </div>
+                  <div class="row">
+                    <div class="col d-flex justify-content-start">
+                      <button class="btn btn-outline-danger" style=" width: 150px"
+                              (click)="mostrar = 'EditarDomiciliario'">
+                        <fa-icon [icon]="userEdit"></fa-icon>Editar
+                      </button>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                      <button class="btn btn-outline-danger" style=" width: 150px" (click)="eliminarCuentaDomiciliario()">
+                        <fa-icon [icon]="userMinus"></fa-icon> Eliminar
+                      </button>
                     </div>
                     <div class="col d-flex justify-content-end">
-                        <button class="btn btn-outline-danger" style=" width: 150px"
-                            (click)="mostrar = 'Domiciliarios'">
-                            <span class="icon-arrow-left1"></span> Volver
-                        </button>
+                      <button class="btn btn-outline-danger" style=" width: 150px"
+                              (click)="mostrar = 'Domiciliarios'">
+                        <span class="icon-arrow-left1"></span> Volver
+                      </button>
                     </div>
+                  </div>
                     <hr style="visibility: hidden;">
                     <div class="text-center" *ngIf="!rutaSeleccionada.pedidos">
                         <h4>¡NO TIENE RUTA ASIGNADA!</h4>
@@ -1796,10 +1817,34 @@
                         </table>
                     </div>
                     <hr>
-
                 </form>
             </div>
         </div>
+      <div *ngIf="mostrar == 'EditarDomiciliario'">
+        <div class="Cuerpo">
+           <form>
+             <div class="text-center" style="margin-top: 1rem;">
+               <h5>Editar domiciliario.</h5>
+             </div>
+             <div class="col">
+               <div class="row">
+                 <div class="col">
+                   1
+                 </div>
+                 <div class="col">
+                   2
+                 </div>
+               </div>
+             </div>
+             <div class="col d-flex justify-content-end">
+               <button class="btn btn-outline-danger" style=" width: 150px"
+                       (click)="mostrar = 'Domiciliario'">
+                 <span class="icon-arrow-left1"></span> Volver
+               </button>
+             </div>
+           </form>
+        </div>
+      </div>
         <div *ngIf="mostrar == 'RegistrarRuta'">
             <div class="Cuerpo">
                 <form class="col font-weight-normal">

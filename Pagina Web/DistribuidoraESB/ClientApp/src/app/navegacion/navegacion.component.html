@@ -22,28 +22,28 @@
             SOMOS</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link text-white" [routerLink]="['/']"> <span class="far fa-comments"></span>CONTACTANOS</a>
+          <a class="nav-link text-white" href="https://wa.me/+573017120334" target="_blank"> <span class="fab fa-whatsapp"></span>CONTACTANOS</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item text-white">
-          <a class="nav-link text-white" [routerLink]="['/Carrito']" *ngIf="currentUser && currentUser.rol == 'Cliente'"><span
-              class="fas fa-shopping-cart"></span>CARRITO</a>
+          <a class="nav-link text-white" matTooltip="Carrito" [routerLink]="['/Carrito']" *ngIf="currentUser && currentUser.rol == 'Cliente'"><span
+              class="fas fa-shopping-cart" style="padding-left: 2px"></span></a>
         </li>
         <li class="nav-item text-white">
-          <a class="nav-link text-white" (click)="RedirigirPerfil()"><span class="fas fa-user-circle"></span>PERFIL</a>
+          <a class="nav-link text-white" matTooltip="Perfil" (click)="RedirigirPerfil()"><span class="fas fa-user-circle" style="padding-left: 2px"></span></a>
         </li>
         <li class="nav-item text-white">
-          <a class="nav-link text-white" id="BtnRegistrar" [routerLink]="['/Registro']" *ngIf="!currentUser"><span
-              class="far fa-user-circle"></span>REGISTRAR</a>
+          <a class="nav-link text-white" matTooltip="Registrar" id="BtnRegistrar" [routerLink]="['/Registro']" *ngIf="!currentUser"><span
+              class="fas fa-user-plus" style="padding-left: 2px"></span></a>
         </li>
         <li class="nav-item text-white" [routerLinkActive]="['link-active']" >
-          <a class="nav-item nav-link text-white"(click)="logout()" *ngIf="currentUser"> <span
-            class="fas fa-sign-out-alt"></span>LOGOUT</a>
+          <a class="nav-item nav-link text-white" matTooltip="Cerrar sesión" (click)="logout()" *ngIf="currentUser"> <span
+            class="fas fa-sign-out-alt" style="padding-left: 2px"></span></a>
         </li>
         <li class="nav-item text-white" [routerLinkActive]="['link-active']" >
-          <a class="nav-item nav-link text-white" [routerLink]="['/Login']" *ngIf="!currentUser"><span
-            class="fas fa-sign-in-alt"></span>LOGIN</a>
+          <a class="nav-item nav-link text-white " matTooltip="Iniciar sesión" [routerLink]="['/Login']" *ngIf="!currentUser"><span
+            class="fas fa-sign-in-alt" style="padding-left: 2px"></span></a>
         </li>
       </ul>
     </div>
