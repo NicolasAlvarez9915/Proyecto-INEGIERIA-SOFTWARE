@@ -4,7 +4,15 @@
 a {
   color: #0366d6;
 }
-
+.sombra-border{
+  box-shadow: 3px 10px 12px 15px rgba(0,0,0,0.17);
+  border-radius: 20px
+}
+.sombra-border-titulo{
+  background-color:   rgb(73, 78, 82);
+  border-radius: 20px;
+  color: white
+}
 code {
   color: #e01a76;
 }
@@ -20,6 +28,15 @@ code {
 
 .modal-content {
   border-radius: 40px;
+}
+
+.page-item.active .page-link{
+  background-color:   rgb(73, 78, 82) !important;
+  color: white !important;
+  border-color: rgb(73, 78, 82) !important;
+}
+.page-link{
+  color: rgb(73, 78, 82) !important;
 }
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

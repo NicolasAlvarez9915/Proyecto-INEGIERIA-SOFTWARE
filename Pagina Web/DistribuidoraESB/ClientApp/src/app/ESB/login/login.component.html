@@ -1,21 +1,22 @@
 <div class="row  container-fluid justify-content-center ">
     <form class="form-signin col-md-4 frmLogin " [formGroup]="formularioinicioSesion">
-        <div class="d-flex justify-content-center divLogo" [style]="style">
+        <div class="sombra-border-titulo">
+          <div class="d-flex justify-content-center divLogo" [style]="style">
             <img class="mb-4" [src]="this.baseUrl+'imagenes/imagenesSistema/LogoNombreBlanco.png'" alt="" width="300" height="300">
-        </div>
+          </div>
 
-        <h1 class="font-weight-normal text-center ">LOGIN</h1>
-        <hr>
+          <h1 class="font-weight-normal text-center ">LOGIN</h1>
+        </div>
         <div class="col">
             <div>
                 <label for="inputEmail">Correo electronico</label>
-                <input type="email" id="inputEmail" name="CorreoLogin"   class="form-control" placeholder="Correo electronico" formControlName="correo" [ngClass]="{'is-invalid':  control.correo.touched && control.correo.errors}"/>
+                <input type="email" id="inputEmail" name="CorreoLogin" style="border-radius: 20px"   class="form-control" placeholder="Correo electronico" formControlName="correo" [ngClass]="{'is-invalid':  control.correo.touched && control.correo.errors}"/>
                 <div *ngIf="control.correo.errors" class="invalid-feedback">
                     <div *ngIf="control.correo.errors.required">Se require el correo</div>
                 </div>
             </div>
             <label for="inputPassword">Contraseña</label>
-            <input type="password" id="inputPassword" name="contraseñaLogin" class="form-control" placeholder="Contraseña" formControlName="contrasena" [ngClass]="{'is-invalid':  control.contrasena.touched && control.contrasena.errors}"/>
+            <input type="password" id="inputPassword" name="contraseñaLogin" class="form-control" style="border-radius: 20px" placeholder="Contraseña" formControlName="contrasena" [ngClass]="{'is-invalid':  control.contrasena.touched && control.contrasena.errors}"/>
             <div *ngIf="control.contrasena.errors" class="invalid-feedback">
                 <div *ngIf="control.contrasena.errors.required">Se require la contraseña</div>
             </div>

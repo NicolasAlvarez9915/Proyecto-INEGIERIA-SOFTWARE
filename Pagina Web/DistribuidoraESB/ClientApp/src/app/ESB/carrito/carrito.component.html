@@ -1,14 +1,16 @@
 <div class="Cuerpo">
-    <form class="font-weight-normal col-lg-10" id="formularioRgistrarCliente" style="margin-top: 1rem;">
+    <form class="font-weight-normal col-lg-10 sombra-border" id="formularioRgistrarCliente" style="margin-top: 1rem;">
         <div>
             <div class=" row">
-                <div class="col">
-                    <div class="card">
+                <div class="col ">
+                  <br>
+                    <div class="card " style="border-radius: 20px">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title"><span class="fas fa-user"></span>Cliente.</h5>
-                                    <hr>
+                                    <div class="sombra-border-titulo" style="text-align: center">
+                                      <h2 class="card-title"><span class="fas fa-user"></span>Cliente.</h2>
+                                    </div>
                                     <div class="row">
 
                                         <div class="col">
@@ -48,25 +50,21 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <h5 class="card-title"><span class="fas fa-calendar-alt"></span>Fecha.
-                                    </h5>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p>
-                                                Fecha:
-                                            </p>
-                                        </div>
-                                        <div class="col">
-                                            <p>
-                                                {{pedidoSeleccionado.fecha}}
-                                            </p>
-                                        </div>
+                                  <div class="sombra-border-titulo" style="text-align: center">
+                                    <h2 class="card-title"><span class="fas fa-truck-loading"></span>Entrega.</h2>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                      <p>
+                                        Fecha:
+                                      </p>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <h5 class="card-title"><span class="fas fa-truck-loading"></span>Entrega.</h5>
-                                    <hr>
+                                    <div class="col">
+                                      <p>
+                                        {{pedidoSeleccionado.fecha}}
+                                      </p>
+                                    </div>
+                                  </div>
                                     <div class="row">
                                         <div class="col">
                                             <p>
@@ -76,30 +74,6 @@
                                         <div class="col">
                                             <p>
                                                 {{clienteConsuta.direccion}}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p>
-                                                Ruta:
-                                            </p>
-                                        </div>
-                                        <div class="col">
-                                            <p>
-                                                Por asignar
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p>
-                                                Estado:
-                                            </p>
-                                        </div>
-                                        <div class="col">
-                                            <p>
-                                                Por asignar
                                             </p>
                                         </div>
                                     </div>
@@ -152,10 +126,11 @@
         <hr style="visibility: hidden;">
         <div class="row d-flex justify-content-end">
             <div class="col-sm-6 ">
-                <div class="card">
+                <div class="card" style="border-radius: 20px">
                     <div class="card-body">
-                        <h5 class="card-title"><span class="fas fa-poll-h"></span>Totales.</h5>
-                        <hr>
+                        <div class="sombra-border-titulo" style="text-align: center">
+                          <h2 class="card-title"><span class="fas fa-poll-h"></span>Totales.</h2>
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <p>

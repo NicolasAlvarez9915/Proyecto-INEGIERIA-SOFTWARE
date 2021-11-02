@@ -3,8 +3,8 @@
   <div style="text-align: center">
     <h1>¡DISTRIBUIDORA E.S.B!</h1>
   </div>
-  <div class="divContainer">
-    <ngb-carousel *ngIf="urlImagenes" [showNavigationArrows]="false" [showNavigationIndicators]="false">
+  <div class="divContainer" *ngIf="urlImagenes">
+    <ngb-carousel  [showNavigationArrows]="false" [showNavigationIndicators]="false">
       <ng-template ngbSlide *ngFor="let image of urlImagenes">
         <hr style="visibility: hidden">
         <div class="picsum-img-wrapper">
@@ -19,106 +19,108 @@
     </ngb-carousel>
   </div>
   <hr style="visibility: hidden">
-  <div style="text-align: center">
-    <h1>¡Nuestros prodcutos!</h1>
-  </div>
-  <div class="divContainer">
-    <mat-tab-group mat-align-tabs="center" style="width: 100%; min-height: 40vh">
-      <mat-tab>
-        <ng-template mat-tab-label >
-          <h1>Carne de res</h1>
-        </ng-template>
-        <div>
-          <hr style="visibility: hidden">
-          <div class="row justify-content-center" style="width: 98%">
-            <div  *ngFor="let producto of productosRegistrardos.carneRes; index as i">
-              <div class="col">
-                <mat-card class="example-card">
-                  <mat-card-header>
-                    <mat-card-title>{{producto.nombre}}</mat-card-title>
-                    <mat-card-subtitle>{{producto.categoria}}</mat-card-subtitle>
-                    <mat-card-subtitle>Por tan solo: {{producto.valor}}kg</mat-card-subtitle>
-                  </mat-card-header>
-                  <img mat-card-image [src]="producto.ruta" alt="Photo of a Shiba Inu" style="max-height: 200px">
-                  <mat-card-actions>
-                    <div class="row justify-content-center">
-                      <button type="button" class="btn btn-outline-danger btnMenu" (click)="ComprarProducto(producto)"
-                              style="border-radius: 20px;">
-                        <span class="fas fa-cart-arrow-down" style="margin-right: 0rem;"></span> comprar
-                      </button>
-                    </div>
-                  </mat-card-actions>
-                </mat-card>
+  <div  style="background-color:   rgb(73, 78, 82); border-radius: 20px;color: white">
+    <hr style="visibility: hidden">
+    <div style="text-align: center">
+      <h1>¡Nuestros prodcutos!</h1>
+    </div>
+    <div class="divContainer">
+      <mat-tab-group mat-align-tabs="center" style="width: 100%; min-height: 40vh">
+        <mat-tab>
+          <ng-template mat-tab-label >
+            <h1 style="color: white">Carne de res</h1>
+          </ng-template>
+          <div>
+            <hr style="visibility: hidden">
+            <div class="row justify-content-center" style="width: 98%">
+              <div  *ngFor="let producto of productosRegistrardos.carneRes; index as i">
+                <div class="col">
+                  <mat-card class="example-card">
+                    <mat-card-header>
+                      <mat-card-title>{{producto.nombre}}</mat-card-title>
+                      <mat-card-subtitle>{{producto.categoria}}</mat-card-subtitle>
+                      <mat-card-subtitle>Por tan solo: {{producto.valor}}kg</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image [src]="producto.ruta" alt="Photo of a Shiba Inu" style="max-height: 200px">
+                    <mat-card-actions>
+                      <div class="row justify-content-center">
+                        <button type="button" class="btn btn-outline-danger btnMenu" (click)="ComprarProducto(producto)"
+                                style="border-radius: 20px;">
+                          <span class="fas fa-cart-arrow-down" style="margin-right: 0rem;"></span> comprar
+                        </button>
+                      </div>
+                    </mat-card-actions>
+                  </mat-card>
+                </div>
               </div>
             </div>
+            <hr style="visibility: hidden">
           </div>
-          <hr style="visibility: hidden">
-        </div>
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label >
-          <h1>Carne de cerdo</h1>
-        </ng-template>
-        <div>
-          <hr style="visibility: hidden">
-          <div class="row justify-content-center" style="width: 98%">
-            <div  *ngFor="let producto of productosRegistrardos.carneCerdo; index as i">
-              <div class="col">
-                <mat-card class="example-card">
-                  <mat-card-header>
-                    <mat-card-title>{{producto.nombre}}</mat-card-title>
-                    <mat-card-subtitle>{{producto.categoria}}</mat-card-subtitle>
-                  </mat-card-header>
-                  <img mat-card-image [src]="producto.ruta" alt="Photo of a Shiba Inu" style="max-height: 200px">
-                  <mat-card-actions >
-                    <div class="row justify-content-center">
-                      <button type="button" class="btn btn-outline-danger btnMenu" (click)="ComprarProducto(producto)"
-                              style="border-radius: 20px;">
-                        <span class="fas fa-cart-arrow-down" style="margin-right: 0rem;"></span> comprar
-                      </button>
-                    </div>
-                  </mat-card-actions>
-                </mat-card>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label >
+            <h1 style="color: white">Carne de cerdo</h1>
+          </ng-template>
+          <div>
+            <hr style="visibility: hidden">
+            <div class="row justify-content-center" style="width: 98%">
+              <div  *ngFor="let producto of productosRegistrardos.carneCerdo; index as i">
+                <div class="col">
+                  <mat-card class="example-card">
+                    <mat-card-header>
+                      <mat-card-title>{{producto.nombre}}</mat-card-title>
+                      <mat-card-subtitle>{{producto.categoria}}</mat-card-subtitle>
+                      <mat-card-subtitle>Por tan solo: {{producto.valor}}kg</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image [src]="producto.ruta" alt="Photo of a Shiba Inu" style="max-height: 200px">
+                    <mat-card-actions >
+                      <div class="row justify-content-center">
+                        <button type="button" class="btn btn-outline-danger btnMenu" (click)="ComprarProducto(producto)"
+                                style="border-radius: 20px;">
+                          <span class="fas fa-cart-arrow-down" style="margin-right: 0rem;"></span> comprar
+                        </button>
+                      </div>
+                    </mat-card-actions>
+                  </mat-card>
+                </div>
               </div>
             </div>
+            <hr style="visibility: hidden">
           </div>
-          <hr style="visibility: hidden">
-        </div>
-      </mat-tab>
-      <mat-tab >
-        <ng-template mat-tab-label >
-          <h1>Pollo</h1>
-        </ng-template>
-        <div>
-          <hr style="visibility: hidden">
-          <div class="row justify-content-center" style="width: 98%">
-            <div  *ngFor="let producto of productosRegistrardos.pollo; index as i">
-              <div class="col">
-                <mat-card class="example-card">
-                  <mat-card-header>
-                    <mat-card-title>{{producto.nombre}}</mat-card-title>
-                    <mat-card-subtitle>{{producto.categoria}}</mat-card-subtitle>
-                  </mat-card-header>
-                  <img mat-card-image [src]="producto.ruta" alt="Photo of a Shiba Inu" style="max-height: 200px">
-                  <mat-card-actions>
-                    <div class="row justify-content-center">
-                      <button type="button" class="btn btn-outline-danger btnMenu" (click)="ComprarProducto(producto)"
-                              style="border-radius: 20px;">
-                        <span class="fas fa-cart-arrow-down" style="margin-right: 0rem;"></span> comprar
-                      </button>
-                    </div>
-                  </mat-card-actions>
-                </mat-card>
+        </mat-tab>
+        <mat-tab >
+          <ng-template mat-tab-label >
+            <h1 style="color: white">Pollo</h1>
+          </ng-template>
+          <div>
+            <hr style="visibility: hidden">
+            <div class="row justify-content-center" style="width: 98%">
+              <div  *ngFor="let producto of productosRegistrardos.pollo; index as i">
+                <div class="col">
+                  <mat-card class="example-card">
+                    <mat-card-header>
+                      <mat-card-title>{{producto.nombre}}</mat-card-title>
+                      <mat-card-subtitle>{{producto.categoria}}</mat-card-subtitle>
+                      <mat-card-subtitle>Por tan solo: {{producto.valor}}kg</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image [src]="producto.ruta" alt="Photo of a Shiba Inu" style="max-height: 200px">
+                    <mat-card-actions>
+                      <div class="row justify-content-center">
+                        <button type="button" class="btn btn-outline-danger btnMenu" (click)="ComprarProducto(producto)"
+                                style="border-radius: 20px;">
+                          <span class="fas fa-cart-arrow-down" style="margin-right: 0rem;"></span> comprar
+                        </button>
+                      </div>
+                    </mat-card-actions>
+                  </mat-card>
+                </div>
               </div>
             </div>
+            <hr style="visibility: hidden">
           </div>
-          <hr style="visibility: hidden">
-        </div>
-      </mat-tab>
-    </mat-tab-group>
-
-
-
+        </mat-tab>
+      </mat-tab-group>
+    </div>
   </div>
   <hr style="visibility: hidden">
   <div class="divContainer">

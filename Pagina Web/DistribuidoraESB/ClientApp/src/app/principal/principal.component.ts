@@ -16,7 +16,7 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class PrincipalComponent implements OnInit {
 
-  urlImagenes = [];
+  urlImagenes: string[];
   productosRegistrardos: ProductoByCategoria;
   baseUrl: string;
   constructor(
@@ -28,10 +28,10 @@ export class PrincipalComponent implements OnInit {
     private modalService: NgbModal
   ) {
     this.baseUrl = baseUrl;
-    this.urlImagenes = [1,2,3,4,5,6].map((n)=> this.baseUrl+"imagenes/imagenesSistema/carrusel/1 ("+n+").jpg");
   }
 
   ngOnInit(): void {
+    this.urlImagenes = [1,2,3,4,5,6].map((n)=> this.baseUrl+"imagenes/imagenesSistema/carrusel/1 ("+n+").jpg");
     this.productos();
     this.signalRService.productoReceived.subscribe((producto: Producto) => {
       switch (producto.categoria)

@@ -1,570 +1,630 @@
-<div class="wrapper">
-    <div id="sidebar" [ngClass]="{'active':  activa}">
-        <div class="TituloBarra">
-            <h5><span class="fas fa-user"></span>Cliente</h5>
-        </div>
-        <hr>
-        <p>
-            <button class="btnbarra" style="width: 100%; " type="button" (click)="mostrar = 'EditarInfo'">
-                <span class="fas fa-edit spanBarra"></span>Editar info
-            </button>
-        </p>
-        <p>
-            <button class="btnbarra" style="width: 100%; " type="button"
-                (click)="mostrar = 'Pedidos';PedidosEntregadosCliente()">
-                <span class="fas fas fa-luggage-cart spanBarra"></span>Pedidos recibidos
-            </button>
-        </p>
-
-        <p>
-            <button class="btnbarra" style="width: 100%; " type="button"
-                (click)="mostrar = 'PedidosEnProceso';PedidosEnProcesoCliente()">
-                <span class="fas fas fa-luggage-cart spanBarra"></span>Pedidos en espera
-            </button>
-        </p>
-        <p>
-            <button class="btnbarra" style="width: 100%; " type="button"
-                (click)="mostrar='DescuentosRegistrados';mostrarDescuentosCliente()">
-                <span class="fas fa-percentage spanBarra"></span>Descuentos
-            </button>
-        </p>
+<mat-drawer-container>
+  <mat-drawer #drawer mode="over" style="width: 300px; min-height: 100vh;background-color:   rgb(73, 78, 82); ">
+    <div class="TituloBarra" style="color: white">
+      <h2><span class="fas fa-user"></span>Cliente</h2>
     </div>
-    <div id="content">
-      <div class="row barraTituloContenido">
-          <div class="col" style="max-width: 50px;">
-              <button type="button" id="sidebarCollapse" class="btn btn-outline-danger btnMenu"
-                  style="border-radius: 50%;" (click)="activa = !activa">
-                  <span class="fas fa-bars" style="margin-right: 0rem;"></span>
+  <br>
+    <div style="width: 95%;background-color: white;border-radius: 5px">
+      <br>
+      <p>
+        <button class="btnbarra" style="width: 100%; " type="button" (click)="mostrar = 'EditarInfo';drawer.toggle()">
+          <span class="fas fa-edit spanBarra"></span>Editar info
+        </button>
+      <p>
+        <button class="btnbarra" style="width: 100%; " type="button"
+                (click)="mostrar = 'Pedidos';PedidosEntregadosCliente();drawer.toggle()">
+          <span class="fas fas fa-luggage-cart spanBarra"></span>Pedidos recibidos
+        </button>
+      </p>
+
+      <p>
+        <button class="btnbarra" style="width: 100%; " type="button"
+                (click)="mostrar = 'PedidosEnProceso';PedidosEnProcesoCliente();drawer.toggle()">
+          <span class="fas fas fa-luggage-cart spanBarra"></span>Pedidos en espera
+        </button>
+      </p>
+      <p>
+        <button class="btnbarra" style="width: 100%; " type="button"
+                (click)="mostrar='DescuentosRegistrados';mostrarDescuentosCliente();drawer.toggle()">
+          <span class="fas fa-percentage spanBarra"></span>Descuentos
+        </button>
+      </p>
+      <br>
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content style="width: 100%; min-height: 100vh; background-color: white">
+    <div class="row barraTituloContenido">
+      <div class="col" style="max-width: 50px;">
+        <button type="button" class="btn btn-outline-danger btnMenu"
+                style="border-radius: 50%;" (click)="drawer.toggle()">
+          <span class="fas fa-bars" style="margin-right: 0rem;"></span>
+        </button>
+      </div>
+      <div class="col text-center" style="margin-top: 1rem; max-width: 100%;">
+        <h1>Cliente: {{cliente.nombres}} {{cliente.apellidos}}</h1>
+      </div>
+    </div>
+    <br>
+    <div class="contenedor" *ngIf="mostrar == 'Principal'" >
+      <div class="Cuerpo">
+        <div class="row d-flex justify-content-center" style="width: 98%;">
+          <div class="col CuerpoCard Card" (click)="mostrar ='Pedidos';">
+            <div class="row" style="margin: 1rem;">
+              <div class="col iconoCard">
+                <div style="font-size: 2rem;">
+                  <span class="fas fa-luggage-cart"></span>
+                </div>
+              </div>
+              <div class="col d-flex justify-content-end">
+                <h2>Pedidos.</h2>
+              </div>
+            </div>
+            <hr>
+            <div style="margin-bottom: .5rem; font-size: .4cm">
+              Pedidos recibidos: {{listaPedidosEntregados.length}}
+            </div>
+          </div>
+          <div class="col CuerpoCard Card" (click)="mostrar = 'PedidosEnProceso';">
+            <div class="row" style="margin: 1rem;">
+              <div class="col iconoCard">
+                <div style="font-size: 2rem;">
+                  <span class="fas fa-luggage-cart"></span>
+                </div>
+              </div>
+              <div class="col d-flex justify-content-end">
+                <h2>Pedidos.</h2>
+              </div>
+            </div>
+            <hr>
+            <div style="margin-bottom: .5rem;font-size: .4cm">
+              Pedidos en espera: {{lsitaPedidosEnProceso.length}}
+            </div>
+          </div>
+          <div class="col CuerpoCard Card" (click)="mostrar='DescuentosRegistrados';mostrarDescuentosCliente()">
+            <div class="row" style="margin: 1rem;">
+              <div class="col iconoCard">
+                <div style="font-size: 2rem;">
+                  <span class="fas fa-percent"></span>
+                </div>
+              </div>
+              <div class="col d-flex justify-content-end">
+                <h2>Descuentos.</h2>
+              </div>
+            </div>
+            <hr>
+            <div style="margin-bottom: .5rem;font-size: .4cm">
+              Descuentos adquiridos: {{listaDescuentos.length}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="mostrar == 'Pedidos'">
+      <div class="Cuerpo">
+        <form class="col-11 font-weight-normal sombra-border" >
+          <br>
+          <div class="text-center sombra-border-titulo">
+            <h2>Pedidos</h2>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label>Filtro por codigo o fecha.</label>
+              <input class="form-control col-5" type="text" style="width: 200px; border-radius: 20px" placeholder="Referencia"
+                     [(ngModel)]="filtroPedidos" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
+              <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
+                      (click)="mostrar = 'Principal'">
+                <span class="icon-arrow-left1"></span> Volver
               </button>
+            </div>
           </div>
-          <div class="col text-center" style="margin-top: 1rem;">
-              <h4>Cliente: {{cliente.nombres}} {{cliente.apellidos}}</h4>
+          <hr style="visibility: hidden;">
+          <div class="text-center" *ngIf="listaPedidosEntregados.length == 0">
+            <h4>¡NO HAY PEDIDOS RECIBIDOS REGISTRADOS!</h4>
           </div>
+
+          <div class="table-responsive">
+            <table class="table table-responsive-sm"
+                   *ngIf='listaPedidosEntregados && listaPedidosEntregados.length'>
+              <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">codigo</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">fecha</th>
+                <th scope="col">subTotal</th>
+                <th scope="col">Iva</th>
+                <th scope="col">Descuento</th>
+                <th scope="col">total</th>
+                <th scope="col">Estado</th>
+                <th scope="col">opciones</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr
+                *ngFor="let pedido of listaPedidosEntregados|filtroPedido:filtroPedidos; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ pedido.codigo }} </td>
+                <td>{{ pedido.idPersona }}</td>
+                <td>{{ pedido.fecha }}</td>
+                <td>{{ pedido.subTotal }}</td>
+                <td>{{ pedido.iva }}</td>
+                <td>{{ pedido.descuento }}</td>
+                <td>{{ pedido.total }}</td>
+                <th>{{ pedido.estado }}</th>
+                <td><button class="btn btn-outline-dark"
+                            (click)="buscarPedido(pedido.codigo);mostrar = 'Pedido'">ver</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination
+                [collectionSize]="totalPedidos"
+                [(page)]="pagePedidos"
+                [pageSize]="pageSizePedidos"
+                (pageChange)="PedidosEntregadosCliente()">
+              </ngb-pagination>
+
+              <select class="custom-select" style="width: auto; border-radius: 20px" name="selectPa"
+                      [(ngModel)]="pageSizePedidos"
+                      (change)="PedidosEntregadosCliente()">
+                <option [ngValue]="20">20 pedidos por pagina</option>
+                <option [ngValue]="40">40 pedidos por pagina</option>
+                <option [ngValue]="60">60 pedidos por pagina</option>
+              </select>
+            </div>
+          </div>
+          <hr>
+        </form>
       </div>
-      <div class="contenedor" [ngClass]="{'Ocultar':  mostrar != 'Principal'}">
-          <div class="Cuerpo">
-              <div class="row d-flex justify-content-center" style="width: 98%;">
-                  <div class="col CuerpoCard Card" (click)="mostrar ='Pedidos';">
-                      <div class="row" style="margin: 1rem;">
-                          <div class="col iconoCard">
-                              <div style="font-size: 2rem;">
-                                  <span class="fas fa-luggage-cart"></span>
-                              </div>
-                          </div>
-                          <div class="col d-flex justify-content-end">
-                              <h5>Pedidos.</h5>
-                          </div>
-                      </div>
-                      <hr>
-                      <div style="margin-bottom: .5rem; font-size: .4cm">
-                          Pedidos recibidos: {{listaPedidosEntregados.length}}
-                      </div>
-                  </div>
-                  <div class="col CuerpoCard Card" (click)="mostrar = 'PedidosEnProceso';">
-                      <div class="row" style="margin: 1rem;">
-                          <div class="col iconoCard">
-                              <div style="font-size: 2rem;">
-                                  <span class="fas fa-luggage-cart"></span>
-                              </div>
-                          </div>
-                          <div class="col d-flex justify-content-end">
-                              <h5>Pedidos.</h5>
-                          </div>
-                      </div>
-                      <hr>
-                      <div style="margin-bottom: .5rem;font-size: .4cm">
-                          Pedidos en espera: {{lsitaPedidosEnProceso.length}}
-                      </div>
-                  </div>
-                  <div class="col CuerpoCard Card" (click)="mostrar='DescuentosRegistrados';mostrarDescuentosCliente()">
-                      <div class="row" style="margin: 1rem;">
-                          <div class="col iconoCard">
-                              <div style="font-size: 2rem;">
-                                  <span class="fas fa-percent"></span>
-                              </div>
-                          </div>
-                          <div class="col d-flex justify-content-end">
-                              <h5>Descuentos.</h5>
-                          </div>
-                      </div>
-                      <hr>
-                      <div style="margin-bottom: .5rem;font-size: .4cm">
-                          Descuentos adquiridos: {{listaDescuentos.length}}
-                      </div>
-                  </div>
-              </div>
+    </div>
+    <div *ngIf="mostrar == 'PedidosEnProceso'">
+      <div class="Cuerpo">
+        <form class="col-11 font-weight-normal sombra-border">
+          <br>
+          <div class="text-center sombra-border-titulo">
+            <h2>Pedidos</h2>
           </div>
-      </div>
-      <div *ngIf="mostrar == 'Pedidos'">
-          <div class="Cuerpo">
-              <form class="col font-weight-normal">
-                  <div class="text-center" style="margin-top: 1rem;">
-                      <h5>Pedidos</h5>
-                  </div>
-
-                  <hr>
-                  <div class="row">
-                      <div class="col">
-                          <label>Filtro por codigo.</label>
-                          <input class="form-control col-5" type="text" style="width: 200px;" placeholder="Referencia"
-                              [(ngModel)]="filtroPedidos" [ngModelOptions]="{standalone: true}">
-                      </div>
-                      <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
-                          <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
-                              (click)="mostrar = 'Principal'">
-                              <span class="icon-arrow-left1"></span> Volver
-                          </button>
-                      </div>
-                  </div>
-                  <hr style="visibility: hidden;">
-                  <div class="text-center" *ngIf="listaPedidosEntregados.length == 0">
-                      <h4>¡NO HAY PEDIDOS RECIBIDOS REGISTRADOS!</h4>
-                  </div>
-
-                  <div class="table-responsive">
-                      <table class="table table-responsive-sm"
-                          *ngIf='listaPedidosEntregados && listaPedidosEntregados.length'>
-                          <thead class="thead-light">
-                              <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">codigo</th>
-                                  <th scope="col">Cliente</th>
-                                  <th scope="col">fecha</th>
-                                  <th scope="col">subTotal</th>
-                                  <th scope="col">Iva</th>
-                                  <th scope="col">Descuento</th>
-                                  <th scope="col">total</th>
-                                  <th scope="col">Estado</th>
-                                  <th scope="col">opciones</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr
-                                  *ngFor="let pedido of listaPedidosEntregados|filtroPedido:filtroPedidos; index as i">
-                                  <th scope="row">{{ i + 1 }}</th>
-                                  <td>{{ pedido.codigo }} </td>
-                                  <td>{{ pedido.idPersona }}</td>
-                                  <td>{{ pedido.fecha }}</td>
-                                  <td>{{ pedido.subTotal }}</td>
-                                  <td>{{ pedido.iva }}</td>
-                                  <td>{{ pedido.descuento }}</td>
-                                  <td>{{ pedido.total }}</td>
-                                  <th>{{ pedido.estado }}</th>
-                                  <td><button class="btn btn-outline-dark"
-                                          (click)="buscarPedido(pedido.codigo);mostrar = 'Pedido'">ver</button>
-                                  </td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-                  <hr>
-              </form>
+          <hr>
+          <div class="row">
+            <div class="col">
+              <label>Filtro por codigo o fecha.</label>
+              <input class="form-control col-5" type="text" style="width: 200px; border-radius: 20px" placeholder="Referencia"
+                     [(ngModel)]="filtroPedidos" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
+              <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
+                      (click)="mostrar = 'Principal'">
+                <span class="icon-arrow-left1"></span> Volver
+              </button>
+            </div>
           </div>
-      </div>
-      <div *ngIf="mostrar == 'PedidosEnProceso'">
-          <div class="Cuerpo">
-              <form class="col font-weight-normal">
-                  <div class="text-center" style="margin-top: 1rem;">
-                      <h5>Pedidos</h5>
-                  </div>
-                  <hr>
-                  <div class="row">
-                      <div class="col">
-                          <label>Filtro por codigo.</label>
-                          <input class="form-control col-5" type="text" style="width: 200px;" placeholder="Referencia"
-                              [(ngModel)]="filtroPedidos" [ngModelOptions]="{standalone: true}">
-                      </div>
-                      <div class="col d-flex justify-content-end" style="padding-top: 2rem;">
-                          <button class="btn btn-outline-danger" style=" width: 150px;height: 40px;"
-                              (click)="mostrar = 'Principal'">
-                              <span class="icon-arrow-left1"></span> Volver
-                          </button>
-                      </div>
-                  </div>
-                  <hr style="visibility: hidden;">
-                  <div class="text-center" *ngIf="lsitaPedidosEnProceso.length == 0">
-                      <h4>¡NO HAY PEDIDOS EN ESPERA REGISTRADOS!</h4>
-                  </div>
-                  <div class="table-responsive">
-                      <table class="table table-responsive-sm"
-                          *ngIf='lsitaPedidosEnProceso && lsitaPedidosEnProceso.length'>
-                          <thead class="thead-light">
-                              <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">codigo</th>
-                                  <th scope="col">Cliente</th>
-                                  <th scope="col">fecha</th>
-                                  <th scope="col">subTotal</th>
-                                  <th scope="col">Iva</th>
-                                  <th scope="col">Descuento</th>
-                                  <th scope="col">total</th>
-                                  <th scope="col">Estado</th>
-                                  <th scope="col">opciones</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr *ngFor="let pedido of lsitaPedidosEnProceso|filtroPedido:filtroPedidos; index as i">
-                                  <th scope="row">{{ i + 1 }}</th>
-                                  <td>{{ pedido.codigo }} </td>
-                                  <td>{{ pedido.idPersona }}</td>
-                                  <td>{{ pedido.fecha }}</td>
-                                  <td>{{ pedido.subTotal }}</td>
-                                  <td>{{ pedido.iva }}</td>
-                                  <td>{{ pedido.descuento }}</td>
-                                  <td>{{ pedido.total }}</td>
-                                  <th>{{ pedido.estado }}</th>
-                                  <td><button class="btn btn-outline-dark"
-                                          (click)="buscarPedido(pedido.codigo);mostrar = 'Pedido'">ver</button>
-                                  </td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-                  <hr>
-              </form>
+          <hr style="visibility: hidden;">
+          <div class="text-center" *ngIf="lsitaPedidosEnProceso.length == 0">
+            <h4>¡NO HAY PEDIDOS EN ESPERA REGISTRADOS!</h4>
           </div>
-      </div>
-      <div *ngIf="mostrar == 'Pedido'">
-          <div class="Cuerpo">
-              <form class="font-weight-normal col-lg-10" id="formularioRgistrarCliente" style="margin-top: 1rem;">
-                  <div>
-                      <div class=" row">
-                          <div class="col">
-                              <div class="card">
-                                  <div class="card-body">
-                                      <div class="row">
-                                          <div class="col">
-                                              <h5 class="card-title"><span class="fas fa-user"></span>Cliente.</h5>
-                                              <hr>
-                                              <div class="row">
-                                                  <div class="col">
-                                                      <p>
-                                                          Identificacion:
-                                                      </p>
-                                                  </div>
-                                                  <div class="col">
-                                                      <p>
-                                                          {{cliente.identificacion}}
-                                                      </p>
-                                                  </div>
-                                              </div>
-                                              <div class="row">
-                                                  <div class="col">
-                                                      <p>
-                                                          Nombres:
-                                                      </p>
-                                                  </div>
-                                                  <div class="col">
-                                                      <p>
-                                                          {{cliente.nombres}}
-                                                      </p>
-                                                  </div>
-                                              </div>
-                                              <div class="row">
-                                                  <div class="col">
-                                                      <p>
-                                                          Apellidos:
-                                                      </p>
-                                                  </div>
-                                                  <div class="col">
-                                                      <p>
-                                                          {{cliente.apellidos}}
-                                                      </p>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="col">
-                                              <h5 class="card-title"><span class="fas fa-calendar-alt"></span>Fecha.
-                                              </h5>
-                                              <hr>
-                                              <div class="row">
-                                                  <div class="col">
-                                                      <p>
-                                                          Fecha:
-                                                      </p>
-                                                  </div>
-                                                  <div class="col">
-                                                      <p>
-                                                          {{pedidoSeleccionado.fecha}}
-                                                      </p>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="col">
-                                              <h5 class="card-title"><span
-                                                      class="fas fa-truck-loading"></span>Entrega.</h5>
-                                              <hr>
-                                              <div class="row">
-                                                  <div class="col">
-                                                      <p>
-                                                          Dirección:
-                                                      </p>
-                                                  </div>
-                                                  <div class="col">
-                                                      <p>
-                                                          {{cliente.direccion}}
-                                                      </p>
-                                                  </div>
-                                              </div>
-                                              <div class="row">
-                                                  <div class="col">
-                                                      <p>
-                                                          Ruta:
-                                                      </p>
-                                                  </div>
-                                                  <div class="col">
-                                                      <p>
-                                                          {{pedidoSeleccionado.codRuta}}
-                                                      </p>
-                                                  </div>
-                                              </div>
-                                              <div class="row">
-                                                  <div class="col">
-                                                      <p>
-                                                          Estado:
-                                                      </p>
-                                                  </div>
-                                                  <div class="col">
-                                                      <p>
-                                                          {{pedidoSeleccionado.estado}}
+          <div class="table-responsive">
+            <table class="table table-responsive-sm"
+                   *ngIf='lsitaPedidosEnProceso && lsitaPedidosEnProceso.length'>
+              <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">codigo</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">fecha</th>
+                <th scope="col">subTotal</th>
+                <th scope="col">Iva</th>
+                <th scope="col">Descuento</th>
+                <th scope="col">total</th>
+                <th scope="col">Estado</th>
+                <th scope="col">opciones</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let pedido of lsitaPedidosEnProceso|filtroPedido:filtroPedidos; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ pedido.codigo }} </td>
+                <td>{{ pedido.idPersona }}</td>
+                <td>{{ pedido.fecha }}</td>
+                <td>{{ pedido.subTotal }}</td>
+                <td>{{ pedido.iva }}</td>
+                <td>{{ pedido.descuento }}</td>
+                <td>{{ pedido.total }}</td>
+                <th>{{ pedido.estado }}</th>
+                <td><button class="btn btn-outline-dark"
+                            (click)="buscarPedido(pedido.codigo);mostrar = 'Pedido'">ver</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination
+                [collectionSize]="totalPedidosEntregados"
+                [(page)]="pagePedidosEntregados"
+                [pageSize]="pageSizePedidosEntregados"
+                (pageChange)="PedidosEnProcesoCliente()">
+              </ngb-pagination>
 
-                                                      </p>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                      </div>
-                      <hr style="visibility: hidden;">
-
-                      <div class="row d-flex justify-content-center">
-                          <div class="col d-flex justify-content-end">
-                              <button class="btn btn-outline-danger" style="width: 150px" type="reset"
-                                  (click)="mostrar = 'PedidosEnProceso';">
-                                  <span class="icon-arrow-left1"></span>Volver
-                              </button>
-                          </div>
-                      </div>
-                      <hr style="visibility: hidden;">
-                      <div class="table-responsive">
-                          <table class="table table-responsive-sm"
-                              *ngIf='pedidoSeleccionado.detallesDePedidos && pedidoSeleccionado.detallesDePedidos.length'>
-                              <thead class="thead-light">
-                                  <tr>
-                                      <th scope="col">#</th>
-                                      <th scope="col">codigo Producto</th>
-                                      <th scope="col">cantidad</th>
-                                      <th scope="col">Valor unitario</th>
-                                      <th scope="col">Descuento</th>
-                                      <th scope="col">Sub total</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr *ngFor="let detalle of pedidoSeleccionado.detallesDePedidos; index as i">
-                                      <th scope="row">{{ i + 1 }}</th>
-                                      <td>{{ detalle.codProducto }} </td>
-                                      <td>{{ detalle.cantidad }}</td>
-                                      <td>{{ detalle.valorUnitario }}</td>
-                                      <td>{{ detalle.totalDescuento }}</td>
-                                      <td>{{ detalle.subTotal}}</td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-                  <hr style="visibility: hidden;">
-                  <div class="row d-flex justify-content-end">
-                      <div class="col-sm-6 ">
-                          <div class="card">
-                              <div class="card-body">
-                                  <h5 class="card-title"><span class="fas fa-poll-h"></span>Totales.</h5>
-                                  <hr>
-                                  <div class="row">
-                                      <div class="col">
-                                          <p>
-                                              Total:
-                                          </p>
-                                      </div>
-                                      <div class="col">
-                                          <p>
-                                              {{pedidoSeleccionado.total}}
-                                          </p>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col">
-                                          <p>
-                                              Sub Total:
-                                          </p>
-                                      </div>
-                                      <div class="col">
-                                          <p>
-                                              {{pedidoSeleccionado.subTotal}}
-                                          </p>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col">
-                                          <p>
-                                              Porcentaje iva:
-                                          </p>
-                                      </div>
-                                      <div class="col">
-                                          <p>
-                                              {{pedidoSeleccionado.iva}}
-                                          </p>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col">
-                                          <p>
-                                              Total iva:
-                                          </p>
-                                      </div>
-                                      <div class="col">
-                                          <p>
-                                              {{pedidoSeleccionado.totalIva}}
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <hr>
-              </form>
+              <select class="custom-select" style="width: auto; border-radius: 20px" name="selectPa"
+                      [(ngModel)]="pageSizePedidosEntregados"
+                      (change)="PedidosEnProcesoCliente()">
+                <option [ngValue]="20">20 pedidos por pagina</option>
+                <option [ngValue]="40">40 pedidos por pagina</option>
+                <option [ngValue]="60">60 pedidos por pagina</option>
+              </select>
+            </div>
           </div>
+          <hr>
+        </form>
       </div>
-      <div *ngIf="mostrar == 'DescuentosRegistrados'">
+    </div>
+    <div *ngIf="mostrar == 'Pedido'">
+      <div class="Cuerpo">
+        <form class="font-weight-normal col-lg-10 sombra-border" id="formularioRgistrarCliente" style="margin-top: 1rem;">
+          <br>
           <div>
-              <div class="col table-responsive">
-                  <div class="text-center" style="margin-top: 1rem;">
-                      <h6>Descuentos registrados.</h6>
-                  </div>
-                  <hr>
-                  <div class="col d-flex justify-content-end">
-                      <button class="btn btn-outline-danger" style=" width: 10%"
-                          (click)="mostrar = 'Principal';">
-                          <span class="icon-arrow-left1"></span> Volver
-                      </button>
-                  </div>
-                  <hr style="visibility: hidden;">
-                  <div class="text-center" *ngIf="listaDescuentos.length == 0">
-                      <h4>¡NO HAY DESCUENTOS REGISTRADOS PARA USTED HASTA AHORA!</h4>
-                  </div>
-                  <table class="table table-responsive-sm" *ngIf='listaDescuentos && listaDescuentos.length'>
-                      <thead class="thead-light">
-                          <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Referencia P.</th>
-                              <th scope="col">Nombre P.</th>
-                              <th scope="col">%Descuento</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr *ngFor="let descuento of listaDescuentos; index as i">
-                              <th scope="row">{{ i + 1 }}</th>
-                              <td>{{ descuento.codProducto }} </td>
-                              <th>{{ descuento.nombreProducto }}</th>
-                              <td>{{ descuento.porcentaje }}</td>
-                          </tr>
-                      </tbody>
-                  </table>
-              </div>
-          </div>
-      </div>
+            <div class=" row">
+              <div class="col">
+                <div class="card" style="border-radius: 20px">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <div class="sombra-border-titulo" style="text-align: center">
+                          <h2 class="card-title"><span class="fas fa-user"></span>Cliente.</h2>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col">
+                            <p>
+                              Identificacion:
+                            </p>
+                          </div>
+                          <div class="col">
+                            <p>
+                              {{cliente.identificacion}}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <p>
+                              Nombres:
+                            </p>
+                          </div>
+                          <div class="col">
+                            <p>
+                              {{cliente.nombres}}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <p>
+                              Apellidos:
+                            </p>
+                          </div>
+                          <div class="col">
+                            <p>
+                              {{cliente.apellidos}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="sombra-border-titulo" style="text-align: center">
+                          <h2 class="card-title"><span
+                            class="fas fa-truck-loading"></span>Entrega.</h2>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col">
+                            <p>
+                              Fecha:
+                            </p>
+                          </div>
+                          <div class="col">
+                            <p>
+                              {{pedidoSeleccionado.fecha}}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <p>
+                              Dirección:
+                            </p>
+                          </div>
+                          <div class="col">
+                            <p>
+                              {{cliente.direccion}}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <p>
+                              Ruta:
+                            </p>
+                          </div>
+                          <div class="col">
+                            <p>
+                              {{pedidoSeleccionado.codRuta}}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <p>
+                              Estado:
+                            </p>
+                          </div>
+                          <div class="col">
+                            <p>
+                              {{pedidoSeleccionado.estado}}
 
-      <div *ngIf="mostrar == 'EditarInfo'">
-        <div class="Cuerpo">
-          <form class="col-8 font-weight-normal   " id="formularioEditarAdministrador" style="margin-top: 1rem;">
-            <div class="text-center">
-              <h5>Editar informacion</h5>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
-            <hr>
-            <div class="col ">
-              <div class="row">
-                <div class="col">
-                  <label for="LblName">Nombre</label>
-                  <input type="Text" id="LblName" class="form-control" placeholder="Nombres"
-                        [(ngModel)]="cliente.nombres" [ngModelOptions]="{standalone: true}">
-                </div>
-                <div class="col">
-                  <label for="LblApellido">Apellidos</label>
-                  <input type="text" id="LblApellido" name="apellidos" placeholder="Apellidos"
-                         class="form-control" [(ngModel)]="cliente.apellidos"
-                         [ngModelOptions]="{standalone: true}" />
-                </div>
-                <div class="col">
-                  <label for="LblDireccion">Dirección</label>
-                  <input type="Text" id="LblDireccion" class="form-control" placeholder="Dirección"
-                         [(ngModel)]="cliente.direccion" [ngModelOptions]="{standalone: true}">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <label for="LblTelefonoAdministrador">Telefono fijo o Movil</label>
-                  <input type="text" id="LblTelefonoAdministrador" class="form-control"
-                         [(ngModel)]="cliente.telefono"
-                         [ngModelOptions]="{standalone: true}">
-                </div>
-                <div class="col">
-                  <label for="LblWhatsappAdministrador">Numero Whatsapp</label>
-                  <input type="text" id="LblWhatsappAdministrador" name="Whatsapp"
-                         class="form-control" [(ngModel)]="cliente.whatsapp"
-                         [ngModelOptions]="{standalone: true}" />
-                </div>
-                <div class="col">
-                  <label >Horario de entrega</label>
-                  <select class="form-control " [(ngModel)]="cliente.horaio" [ngModelOptions]="{standalone: true}">
-                    <option value="1">Seleccione</option>
-                    <option value="H1">8:00 AM / 6:00 PM</option>
-                    <option value="H2">8:00 AM / 12:00 PM</option>
-                    <option value="H2">12:00 PM / 6:00 PM</option><
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <label for="inputPassword1Administrador">Contraseña</label>
-                  <input type="password" id="inputPassword1Administrador" class="form-control"
-                         placeholder="Contraseña" required="" [(ngModel)]="contrasena"
-                          [ngModelOptions]="{standalone: true}">
-                </div>
-                <div class="col">
-                  <label for="inputPasswordAdministrador">Contraseña</label>
-                  <input type="password" id="inputPasswordAdministrador" class="form-control"
-                         placeholder="Contraseña" required="" [(ngModel)]="contrasenaConfirmar"
-                          [ngModelOptions]="{standalone: true}">
-                </div>
-              </div>
-            </div>
-            <hr>
+            <hr style="visibility: hidden;">
+
             <div class="row d-flex justify-content-center">
-              <div class="col d-flex justify-content-center">
-                <button class="btn btn-outline-dark" style=" width: 50%" type="submit"
-                        (click)="actualizarInfo()">
-                  <span class="fas fa-sync-alt"></span> Editar
-                </button>
-              </div>
-              <div class="col d-flex justify-content-center">
-                <button class="btn btn-outline-dark" type="submit"
-                        (click)="eliminarCuenta()">
-                  <fa-icon [icon]="faEliminar"></fa-icon> Eliminar cuenta
-                </button>
-              </div>
-              <div class="col d-flex justify-content-center">
-                <button class="btn btn-outline-danger" style=" width: 50%" (click)="mostrar = 'Principal'">
-                  <span class="icon-arrow-left1"></span> Volver
+              <div class="col d-flex justify-content-end">
+                <button class="btn btn-outline-danger" style="width: 150px" type="reset"
+                        (click)="mostrar = 'PedidosEnProceso';">
+                  <span class="icon-arrow-left1"></span>Volver
                 </button>
               </div>
             </div>
             <hr style="visibility: hidden;">
-          </form>
+            <div class="table-responsive">
+              <table class="table table-responsive-sm"
+                     *ngIf='pedidoSeleccionado.detallesDePedidos && pedidoSeleccionado.detallesDePedidos.length'>
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">codigo Producto</th>
+                  <th scope="col">cantidad</th>
+                  <th scope="col">Valor unitario</th>
+                  <th scope="col">Descuento</th>
+                  <th scope="col">Sub total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let detalle of pedidoSeleccionado.detallesDePedidos; index as i">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>{{ detalle.codProducto }} </td>
+                  <td>{{ detalle.cantidad }}</td>
+                  <td>{{ detalle.valorUnitario }}</td>
+                  <td>{{ detalle.totalDescuento }}</td>
+                  <td>{{ detalle.subTotal}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <hr style="visibility: hidden;">
+          <div class="row d-flex justify-content-end">
+            <div class="col-sm-6 ">
+              <div class="card" style="border-radius: 20px">
+                <div class="card-body">
+                  <div class="sombra-border-titulo" style="text-align: center">
+                    <h2 class="card-title"><span class="fas fa-poll-h"></span>Totales.</h2>
+                  </div>
+
+                  <br>
+                  <div class="row">
+                    <div class="col">
+                      <p>
+                        Total:
+                      </p>
+                    </div>
+                    <div class="col">
+                      <p>
+                        {{pedidoSeleccionado.total}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <p>
+                        Sub Total:
+                      </p>
+                    </div>
+                    <div class="col">
+                      <p>
+                        {{pedidoSeleccionado.subTotal}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <p>
+                        Porcentaje iva:
+                      </p>
+                    </div>
+                    <div class="col">
+                      <p>
+                        {{pedidoSeleccionado.iva}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <p>
+                        Total iva:
+                      </p>
+                    </div>
+                    <div class="col">
+                      <p>
+                        {{pedidoSeleccionado.totalIva}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+        </form>
+      </div>
+    </div>
+    <div *ngIf="mostrar == 'DescuentosRegistrados'">
+      <div class="row d-flex justify-content-center">
+        <div class="col-11  sombra-border table-responsive">
+          <br>
+          <div class="text-center sombra-border-titulo" >
+            <h2>Descuentos registrados.</h2>
+          </div>
+          <br>
+          <div class="col d-flex justify-content-end">
+            <button class="btn btn-outline-danger" style=" width: 10%"
+                    (click)="mostrar = 'Principal';">
+              <span class="icon-arrow-left1"></span> Volver
+            </button>
+          </div>
+          <hr style="visibility: hidden;">
+          <div class="text-center" *ngIf="listaDescuentos.length == 0">
+            <h4>¡NO HAY DESCUENTOS REGISTRADOS PARA USTED HASTA AHORA!</h4>
+          </div>
+          <table class="table table-responsive-sm" *ngIf='listaDescuentos && listaDescuentos.length'>
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Referencia P.</th>
+              <th scope="col">Nombre P.</th>
+              <th scope="col">%Descuento</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let descuento of listaDescuentos; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ descuento.codProducto }} </td>
+              <th>{{ descuento.nombreProducto }}</th>
+              <td>{{ descuento.porcentaje }}</td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-between p-2">
+            <ngb-pagination
+              [collectionSize]="totalDescuentosRegitrados"
+              [(page)]="pageDescuentosRegistrados"
+              [pageSize]="pageSizeDescuentosRegistrados"
+              (pageChange)="mostrarDescuentosCliente()">
+            </ngb-pagination>
+
+            <select class="custom-select" style="width: auto; border-radius: 20px" name="selectPa"
+                    [(ngModel)]="pageSizeDescuentosRegistrados"
+                    (change)="mostrarDescuentosCliente()">
+              <option [ngValue]="20">20 descuentos por pagina</option>
+              <option [ngValue]="40">40 descuentos por pagina</option>
+              <option [ngValue]="60">60 descuentos por pagina</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
-</div>
+    <div *ngIf="mostrar == 'EditarInfo'">
+      <div class="Cuerpo">
+        <form class="col-8 font-weight-normal sombra-border  " id="formularioEditarAdministrador" style="margin-top: 1rem;">
+          <br>
+          <div class="text-center sombra-border-titulo">
+            <h2>Editar informacion</h2>
+          </div>
+          <br>
+          <div class="col ">
+            <div class="row">
+              <div class="col">
+                <label for="LblName">Nombre</label>
+                <input type="Text" id="LblName" class="form-control" placeholder="Nombres" style="border-radius: 20px"
+                       [(ngModel)]="cliente.nombres" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col">
+                <label for="LblApellido">Apellidos</label>
+                <input type="text" id="LblApellido" name="apellidos" placeholder="Apellidos" style="border-radius: 20px"
+                       class="form-control" [(ngModel)]="cliente.apellidos"
+                       [ngModelOptions]="{standalone: true}" />
+              </div>
+              <div class="col">
+                <label for="LblDireccion">Dirección</label>
+                <input type="Text" id="LblDireccion" class="form-control" placeholder="Dirección" style="border-radius: 20px"
+                       [(ngModel)]="cliente.direccion" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="LblTelefonoAdministrador">Telefono fijo o Movil</label>
+                <input type="text" id="LblTelefonoAdministrador" class="form-control" style="border-radius: 20px"
+                       [(ngModel)]="cliente.telefono"
+                       [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col">
+                <label for="LblWhatsappAdministrador">Numero Whatsapp</label>
+                <input type="text" id="LblWhatsappAdministrador" name="Whatsapp" style="border-radius: 20px"
+                       class="form-control" [(ngModel)]="cliente.whatsapp"
+                       [ngModelOptions]="{standalone: true}" />
+              </div>
+              <div class="col">
+                <label >Horario de entrega</label>
+                <select class="form-control " [(ngModel)]="cliente.horaio" [ngModelOptions]="{standalone: true}" style="border-radius: 20px">
+                  <option value="1">Seleccione</option>
+                  <option value="H1">8:00 AM / 6:00 PM</option>
+                  <option value="H2">8:00 AM / 12:00 PM</option>
+                  <option value="H2">12:00 PM / 6:00 PM</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="inputPassword1Administrador">Contraseña</label>
+                <input type="password" id="inputPassword1Administrador" class="form-control" style="border-radius: 20px"
+                       placeholder="Contraseña" required="" [(ngModel)]="contrasena"
+                       [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col">
+                <label for="inputPasswordAdministrador">Contraseña</label>
+                <input type="password" id="inputPasswordAdministrador" class="form-control" style="border-radius: 20px"
+                       placeholder="Contraseña" required="" [(ngModel)]="contrasenaConfirmar"
+                       [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row d-flex justify-content-center">
+            <div class="col d-flex justify-content-center">
+              <button class="btn btn-outline-dark" style=" width: 50%" type="submit"
+                      (click)="actualizarInfo()">
+                <span class="fas fa-sync-alt"></span> Editar
+              </button>
+            </div>
+            <div class="col d-flex justify-content-center">
+              <button class="btn btn-outline-dark" type="submit"
+                      (click)="eliminarCuenta()">
+                <fa-icon [icon]="faEliminar"></fa-icon> Eliminar cuenta
+              </button>
+            </div>
+            <div class="col d-flex justify-content-center">
+              <button class="btn btn-outline-danger" style=" width: 50%" (click)="mostrar = 'Principal'">
+                <span class="icon-arrow-left1"></span> Volver
+              </button>
+            </div>
+          </div>
+          <hr style="visibility: hidden;">
+        </form>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+

@@ -16,6 +16,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Wkhtmltopdf.NetCore;
 
 namespace DistribuidoraESB
 {
@@ -35,6 +36,7 @@ namespace DistribuidoraESB
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DESBContext>(p => p.UseSqlServer(connectionString));
 
+            services.AddWkhtmltopdf("Wkhtmltopdf");
             services.AddControllersWithViews();
 
             #region    configure strongly typed settings objects
@@ -226,6 +228,7 @@ namespace DistribuidoraESB
                     Path.Combine(env.ContentRootPath, "wwwroot/Imagenes")),
                 RequestPath = "/Imagenes"
             });
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath,"../Wkhtmltopdf/Windows");
         }
     }
 }

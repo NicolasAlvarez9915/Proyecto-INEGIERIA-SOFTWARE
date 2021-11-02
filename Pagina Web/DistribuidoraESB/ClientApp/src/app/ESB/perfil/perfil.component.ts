@@ -35,6 +35,33 @@ import {ModalService} from '../../compartido/servicios/modal.service';
 })
 export class PerfilComponent implements OnInit {
 
+  page = 1;
+  pageSize:number = 20;
+  pageTablaClientes = 1;
+  pageSizeTablaClientes:number = 20;
+  pageDescuentosRegistrados = 1;
+  pageSizeDescuentosRegistrados:number = 20;
+  totalDescuentosRegitrados: number;
+  pageDescuentosNuevos = 1;
+  pageSizeDescuentosNuevos:number = 20;
+  totalDescuentosNuevos: number;
+  pagePedidos = 1;
+  pageSizePedidos:number = 20;
+  totalPedidos: number;
+  pageDomiciliarios = 1;
+  pageSizeDomiciliarios:number = 20;
+  totalDomiciliarios: number;
+  pageDomiciliariosSinRuta = 1;
+  pageSizeDomiciliariosSinRuta:number = 20;
+  totalDomiciliariosSinRuta: number;
+  pagePedidosSinRuta = 1;
+  pageSizePedidosSinRuta:number = 20;
+  totalPedidosSinRuta: number;
+  pageProductosStock = 1;
+  pageSizeProductosStock:number = 20;
+  totalProductosStock: number;
+
+
   userEdit = faUserEdit;
   userMinus =  faUserMinus;
   baseUrl: string;
@@ -84,6 +111,8 @@ export class PerfilComponent implements OnInit {
   filtroProductos: string;
   filtroProductosStock: string;
   filtroPedidos: string;
+  filtroDomiciliario: string;
+  filtroDomiciliariosSinruta: string;
   filtroPedidosSinRuta: string;
   i: number;
   existe: Boolean;
@@ -189,25 +218,27 @@ export class PerfilComponent implements OnInit {
       }
     )
   }
-
   reiniciarFormularios(){
     this.buildFormDomiciliario();
     this.buildForm();
   }
-
   buscarRuta() {
     this.rutaService.rutaDomiciliario(this.domiciliarioSeleccionado.identificacion,false).subscribe(r => {
       this.rutaSeleccionada.pedidos = null;
         this.rutaSeleccionada = r.objeto;
     });
   }
-
   productosPocasCAntidades() {
     this.productoService.PocasCantidades().subscribe(r => {
       this.pocasCantidades = r;
+      this.sliceProductosStock();
     });
   }
-
+  sliceProductosStock()
+  {
+    this.totalProductosStock = this.pocasCantidades.length;
+    this.pocasCantidades = this.pocasCantidades.slice((this.pageProductosStock - 1) * this.pageSizeProductosStock, (this.pageProductosStock - 1) * this.pageSizeProductosStock + this.pageSizeProductosStock);
+  }
   registrarRuta(domiciliario: Domiciliario) {
     let ruta: Ruta = new Ruta;
     ruta.codDomiciliario = domiciliario.identificacion;
@@ -228,13 +259,17 @@ export class PerfilComponent implements OnInit {
         this.mostrar = "RegistrarRuta";
     });
   }
-
   domiciliariosSinrRuta() {
     this.domiciliarioService.sinRuta().subscribe(r => {
       this.ListaDomiciliariosSinRuta = r;
+      this.sliceDomiciliariosSinRuta();
     });
   }
-
+  sliceDomiciliariosSinRuta()
+  {
+    this.totalDomiciliariosSinRuta = this.ListaDomiciliariosSinRuta.length;
+    this.ListaDomiciliariosSinRuta = this.ListaDomiciliariosSinRuta.slice((this.pageDomiciliariosSinRuta - 1) * this.pageSizeDomiciliariosSinRuta, (this.pageDomiciliariosSinRuta - 1) * this.pageSizeDomiciliariosSinRuta + this.pageSizeDomiciliariosSinRuta);
+  }
   pedidosSinRuta() {
     this.pedidoService.SinRuta().subscribe(r => {
       this.ListaPedidosSinruta = r;
@@ -243,7 +278,6 @@ export class PerfilComponent implements OnInit {
       });
     });
   }
-
   private buildFormDomiciliario() {
     this.domiciliario = new Domiciliario();
     this.domiciliario.moto = new Vehiculo();
@@ -279,35 +313,35 @@ export class PerfilComponent implements OnInit {
       contrasenaConfirmar: [this.contrasenaconfirmar, Validators.required]
     });
   }
-
   reiniciarListaDescuentos(){
     this.listaDescuentos = [];
   }
-
   buscarMoto() {
     this.domiciliarioService.buscarVehiculo(this.domiciliarioSeleccionado.identificacion).subscribe(r => {
       this.domiciliarioSeleccionado.moto = new Vehiculo();
       this.domiciliarioSeleccionado.moto = r.objeto;
     });
   }
-
   domiciliarios() {
     this.domiciliarioService.Todos().subscribe(r => {
       this.LsitaDomiciliarios = r;
+      this.sliceDomiciliarios();
     });
   }
-
+  sliceDomiciliarios()
+  {
+    this.totalDomiciliarios = this.LsitaDomiciliarios.length;
+    this.LsitaDomiciliarios = this.LsitaDomiciliarios.slice((this.pageDomiciliarios - 1) * this.pageSizeDomiciliarios, (this.pageDomiciliarios - 1) * this.pageSizeDomiciliarios + this.pageSizeDomiciliarios);
+  }
   get controlDomiciliario() {
     return this.formularioregistroDomiciliario.controls
   }
-
   onSubmitDomiciliario() {
     if (this.formularioregistroDomiciliario.invalid) {
       return;
     }
     this.registrarDomiciliario();
   }
-
   registrarDomiciliario() {
     this.llenarObjetos();
     if (this.contrasenaconfirmar != this.contrasenaActualizar) {
@@ -318,7 +352,6 @@ export class PerfilComponent implements OnInit {
       this.crearDomiciliario();
     }
   }
-
   crearDomiciliario(){
     this.domiciliarioService.registrar(this.domiciliario, this.usuarioRegistrar).subscribe(d => {
         if(!d.error)
@@ -331,9 +364,6 @@ export class PerfilComponent implements OnInit {
         }
     });
   }
-
-
-
   llenarObjetos() {
     this.domiciliario = this.formularioregistroDomiciliario.value;
     this.vehiculo = new Vehiculo();
@@ -348,13 +378,11 @@ export class PerfilComponent implements OnInit {
     this.usuarioRegistrar.idPersona = this.domiciliario.identificacion;
     this.usuarioRegistrar.rol = "Domiciliario";
   }
-
   actualizarPedido() {
     this.pedidoService.Actualizar(this.pedidoSeleccionado, this.estadoPedido).subscribe(r => {
       this.buscarPedido(this.pedidoSeleccionado.codigo);
     });
   }
-
   buscarPedido(codigo: string) {
     this.pedidoService.BuscarPedido(codigo).subscribe(r => {
       this.pedidoSeleccionado = r.objeto;
@@ -364,7 +392,6 @@ export class PerfilComponent implements OnInit {
       })
     })
   }
-
   validarEstadosDisponibles()
   {
     let estados = ["Bodega","En camino", "Entregado", "Pagado"];
@@ -390,7 +417,6 @@ export class PerfilComponent implements OnInit {
     reader.readAsDataURL(this.imagenRegistrar);
     evento.target.value = "";
   }
-
   abastecer() {
     if (this.productoSeleccionado.cantidad == undefined) {
       const messageBox = this.modalService.open(AlertModalComponent)
@@ -406,7 +432,6 @@ export class PerfilComponent implements OnInit {
       this.resetearProductoSeleccionado();
     }
   }
-
   AgregarProducto() {
     if (this.productoSeleccionado.cantidad == undefined) {
       const messageBox = this.modalService.open(AlertModalComponent)
@@ -419,7 +444,6 @@ export class PerfilComponent implements OnInit {
       this.resetearProductoSeleccionado();
     }
   }
-
   EliminarProducto(detalle: DetalleDePedido) {
     for (let index = 0; index < this.listaProductoPedido.length; index++) {
       const element = this.listaProductoPedido[index];
@@ -432,7 +456,6 @@ export class PerfilComponent implements OnInit {
     }
     this.generarPedido();
   }
-
   registrarPedido() {
     if (this.pedidoGenrado.detallesDePedidos == null) {
       const messageBox = this.modalService.open(AlertModalComponent)
@@ -449,42 +472,40 @@ export class PerfilComponent implements OnInit {
       })
     }
   }
-
   generarPedido() {
     this.pedidoService.generarPedido(this.clienteConsuta, this.listaProductoPedido).subscribe(r => {
       this.pedidoGenrado = r.objeto;
     })
   }
-
   resetearProductoSeleccionado() {
     this.productoSeleccionado = new Producto();
     this.codigoProducto = '';
     this.cantidadProducto = 1;
   }
-
   BuscarProducto() {
     this.productoService.buscar(this.codigoProducto).subscribe(r => {
         this.productoSeleccionado = r.objeto;
     })
   }
-
   pedidos() {
     this.pedidoService.todos().subscribe(r => {
       this.listaPedidos = r;
+      this.slicePedidos();
     });
   }
-
+  slicePedidos(){
+    this.totalPedidos = this.listaPedidos.length;
+    this.listaPedidos = this.listaPedidos.slice((this.pagePedidos - 1) * this.pageSizePedidos, (this.pagePedidos - 1) * this.pageSizePedidos + this.pageSizePedidos);
+  }
   SelccionarProductosPedido(cliente: Cliente) {
     this.clienteConsuta = cliente;
     this.mostrar = 'SelccionarProductosPedido';
   }
-
   aplicarATodosUnDescuento() {
     this.listaDescuentosNuevos.forEach(descuento => {
       descuento.porcentaje = this.descuentoParaTodos;
     });
   }
-
   registrarDescuentos() {
     this.listaDescuentosARegistrar = [];
     this.listaDescuentosNuevos.forEach(descuento => {
@@ -502,16 +523,21 @@ export class PerfilComponent implements OnInit {
       this.alertaRespuestaError(respuesta);
     })
   }
-
   mostrarDescuentosCliente() {
     this.descuentoService.DescuentosPorCliente(this.clienteConsuta.identificacion).subscribe(r => {
       this.listaDescuentos = r;
+      this.sliceDescuentosRegistrados();
     });
+  }
+
+  sliceDescuentosRegistrados()
+  {
+    this.totalDescuentosRegitrados = this.listaDescuentos.length;
+    this.listaDescuentos = this.listaDescuentos.slice((this.pageDescuentosRegistrados - 1) * this.pageSizeDescuentosRegistrados, (this.pageDescuentosRegistrados - 1) * this.pageSizeDescuentosRegistrados + this.pageSizeDescuentosRegistrados);
   }
 
   productosSindescuento() {
     this.descuentoParaTodos = 0;
-
     this.descuentoService.ProductosSinDescuento(this.clienteConsuta.identificacion).subscribe(r => {
       this.listaProductosSinDescuento = r;
       this.listaDescuentosNuevos = [];
@@ -524,9 +550,14 @@ export class PerfilComponent implements OnInit {
         this.descuentoNuevo.codigo = '123';
         this.listaDescuentosNuevos.push(this.descuentoNuevo);
       });
+      this.sliceDescuentosNuevos();
     })
   }
-
+  sliceDescuentosNuevos()
+  {
+    this.totalDescuentosNuevos = this.listaProductosSinDescuento.length;
+    this.listaProductosSinDescuento = this.listaProductosSinDescuento.slice((this.pageDescuentosNuevos - 1) * this.pageSizeDescuentosNuevos, (this.pageDescuentosNuevos - 1) * this.pageSizeDescuentosNuevos + this.pageSizeDescuentosNuevos);
+  }
   validarSesion() {
     this.authenticationService.currentUser.subscribe(x => {
       this.usuario = x;
@@ -537,24 +568,32 @@ export class PerfilComponent implements OnInit {
       }
     });
   }
-
   productos() {
     this.productoService.todos().subscribe(
       r => {
-        this.listaProductos = r;
-        this.totalProductos = this.listaProductos.length;
+        this.listaProductos = r
+        this.sliceProductos();
       }
     )
   }
-
+  sliceProductos()
+  {
+    this.totalProductos = this.listaProductos.length;
+    this.listaProductos = this.listaProductos.slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  }
   clientes() {
     this.clienteService.Todos().subscribe
       (
         r => {
           this.listaClientes = r;
-          this.totalClientes = this.listaClientes.length;
+          this.sliceClientes()
         }
       )
+  }
+  sliceClientes()
+  {
+    this.totalClientes = this.listaClientes.length;
+    this.listaClientes = this.listaClientes.slice((this.pageTablaClientes - 1) * this.pageSizeTablaClientes, (this.pageTablaClientes - 1) * this.pageSizeTablaClientes + this.pageSizeTablaClientes);
   }
 
   private buildForm() {

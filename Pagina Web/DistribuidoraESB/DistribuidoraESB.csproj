@@ -19,8 +19,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+    <PackageReference Include="Wkhtmltopdf.NetCore" Version="5.0.2-preview" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +30,12 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    <None Update="Wkhtmltopdf\Windows\wkhtmltopdf.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rotativa\wkhtmltopdf.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Wkhtmltopdf\bin" />
     <Folder Include="wwwroot\Imagenes" />
     <Folder Include="wwwroot\Imagenes\" />
   </ItemGroup>

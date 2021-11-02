@@ -22,7 +22,19 @@ import {faUserMinus} from '@fortawesome/free-solid-svg-icons/faUserMinus';
 })
 export class PerfilClienteComponent implements OnInit {
   faEliminar = faUserMinus;
+  panelOpenState = false;
 
+  totalPedidos: number;
+  pagePedidos = 1;
+  pageSizePedidos:number = 20;
+
+  totalPedidosEntregados: number;
+  pagePedidosEntregados = 1;
+  pageSizePedidosEntregados:number = 20;
+
+  pageDescuentosRegistrados = 1;
+  pageSizeDescuentosRegistrados:number = 20;
+  totalDescuentosRegitrados: number;
 
   usuario: Usuario;
   cliente: Cliente = new Cliente();
@@ -134,7 +146,13 @@ export class PerfilClienteComponent implements OnInit {
   mostrarDescuentosCliente() {
     this.descuentoService.DescuentosPorCliente(this.cliente.identificacion).subscribe(r => {
       this.listaDescuentos = r;
+      this.sliceDescuentosRegistrados();
     });
+  }
+  sliceDescuentosRegistrados()
+  {
+    this.totalDescuentosRegitrados = this.listaDescuentos.length;
+    this.listaDescuentos = this.listaDescuentos.slice((this.pageDescuentosRegistrados - 1) * this.pageSizeDescuentosRegistrados, (this.pageDescuentosRegistrados - 1) * this.pageSizeDescuentosRegistrados + this.pageSizeDescuentosRegistrados);
   }
 
   pedirInforCliente() {
@@ -172,13 +190,27 @@ export class PerfilClienteComponent implements OnInit {
   PedidosEntregadosCliente() {
     this.pedidoService.PedidosEntregadosCliente(this.cliente.identificacion).subscribe(r => {
       this.listaPedidosEntregados = r;
+      this.slicePedidos();
     });
+  }
+
+  slicePedidos()
+  {
+    this.totalPedidos = this.listaPedidosEntregados.length;
+    this.listaPedidosEntregados = this.listaPedidosEntregados.slice((this.pagePedidos - 1) * this.pageSizePedidos, (this.pagePedidos - 1) * this.pageSizePedidos + this.pageSizePedidos);
   }
 
   PedidosEnProcesoCliente() {
     this.pedidoService.PedidosEnProcesoCliente(this.cliente.identificacion).subscribe(r => {
       this.lsitaPedidosEnProceso = r;
+      this.slicePedidosProcesos();
     });
+  }
+
+  slicePedidosProcesos()
+  {
+    this.totalPedidosEntregados = this.lsitaPedidosEnProceso.length;
+    this.listaPedidosEntregados = this.lsitaPedidosEnProceso.slice((this.pagePedidosEntregados - 1) * this.pageSizePedidosEntregados, (this.pagePedidosEntregados - 1) * this.pageSizePedidosEntregados + this.pageSizePedidosEntregados);
   }
 
   alertaRespuestaError(error){

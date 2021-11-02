@@ -2,8 +2,24 @@
     font-family: 'Poppins';
 }
 
+.divCentrado{
+  width: 100%;
+  display: flex;
+  justify-content: center
+}
 span{
     margin-right: .5rem;
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
 }
 
 .Card:hover{
@@ -32,6 +48,7 @@ span{
     margin-top: 1rem;
     margin-bottom: .5rem;
     display: flex;
+  box-shadow: 3px 10px 12px 0px rgba(0,0,0,0.24);
     justify-content: center;
 }
 
@@ -109,11 +126,8 @@ hr{
 .barraTituloContenido{
     color: black;
     background-color: white;
-    border-bottom-style: solid;
-    border-bottom-width: .1rem;
-    border-bottom-color:  rgb(250, 81, 81);
+  box-shadow: 3px 10px 12px 0px rgba(0,0,0,0.24);
     margin: 0cm;
-    margin-left: -1rem;
 }
 
 .CuerpoCard{
@@ -142,6 +156,7 @@ hr{
     display: flex;
     justify-content: center;
     margin-left: -1rem;
+
 }
 
 @media (max-width: 768px){

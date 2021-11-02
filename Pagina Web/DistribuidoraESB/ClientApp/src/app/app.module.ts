@@ -35,6 +35,10 @@ import {MatCardModule} from '@angular/material/card';
 import { ProductoComponent } from './principal/componentes/producto/producto.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatStepperModule} from '@angular/material/stepper';
+import { FiltroDomicliarioPipe } from './pipe/filtro-domicliario.pipe';
 
 @NgModule({
   declarations: [
@@ -54,7 +58,8 @@ import {MatInputModule} from '@angular/material/input';
     FiltroPedidoPipe,
     PerfilClienteComponent,
     ModalInfoComponent,
-    ProductoComponent
+    ProductoComponent,
+    FiltroDomicliarioPipe
   ],
   imports: [
     ReactiveFormsModule,
@@ -76,7 +81,10 @@ import {MatInputModule} from '@angular/material/input';
     MatTabsModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatExpansionModule,
+    MatPaginatorModule,
+    MatStepperModule
   ],
   entryComponents:[AlertModalComponent,ModalDecicionComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],

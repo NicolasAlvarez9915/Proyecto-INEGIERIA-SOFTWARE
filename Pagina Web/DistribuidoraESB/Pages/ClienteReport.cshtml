@@ -1,0 +1,26 @@
+﻿@using Entity
+@model DistribuidoraESB.Controllers.Datos<List<Cliente>>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Clientes</title>
+    
+</head>
+<body>
+<div>
+      <img src="https://localhost:44392/imagenes/1%20(1).jpg791d78f4-9647-47c6-b68e-ffe3323752f3.jpg" style="border-radius: 20px"/>
+      @foreach (Cliente iterador in Model.Objeto)
+      {
+          <p>
+              @iterador.Nombres
+          </p>
+      }
+</div>
+</body>
+</html>

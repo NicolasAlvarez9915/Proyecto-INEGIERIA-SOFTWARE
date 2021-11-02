@@ -21,12 +21,12 @@ span{
 }
 
 .TituloBarra{
-    margin-top: 1rem;
-    margin-bottom: .5rem;
-    display: flex;
-    justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+  display: flex;
+  box-shadow: 3px 10px 12px 0px rgba(0,0,0,0.24);
+  justify-content: center;
 }
-
 .btnbarra{
     height: 2rem;
     color: rgb(0, 0, 0);
@@ -91,14 +91,12 @@ hr{
 }
 
 .barraTituloContenido{
-    color: black;
-    background-color: white;
-    border-bottom-style: solid;
-    border-bottom-width: .1rem;
-    border-bottom-color:  rgb(250, 81, 81);
-    margin: 0cm;
-    margin-left: -1rem;
+  color: black;
+  background-color: white;
+  box-shadow: 3px 10px 12px 0px rgba(0,0,0,0.24);
+  margin: 0cm;
 }
+
 
 .Ocultar{
     display: none;
