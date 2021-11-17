@@ -1898,17 +1898,58 @@
             <h2>Editar domiciliario.</h2>
           </div>
           <div class="col">
-            <div class="row">
-              <div class="col">
-                1
-              </div>
-              <div class="col">
-                2
-              </div>
-            </div>
+            <mat-stepper orientation="horizontal" [linear]="false" #stepper>
+              <mat-step>
+                <ng-template  matStepLabel>Información domiciliario</ng-template>
+                <div>
+                  <label>Identificacion</label>
+                  <label>{{domiciliarioSeleccionado.identificacion}}</label>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label>Nombres</label>
+                    <input type="text" class="form-control" name="DomiciliarioSeleccionadoNombre" [(ngModel)]="domiciliarioSeleccionado.nombres" style="border-radius: 20px"/>
+                  </div>
+                  <div class="col">
+                    <label>Apellidos</label>
+                    <input type="text" class="form-control" name="DomiciliarioSeleccionadoApellidos" [(ngModel)]="domiciliarioSeleccionado.apellidos" style="border-radius: 20px" />
+                  </div>
+                </div>
+                <div>
+                  <label>Fecha de expiracion del permiso de conducción</label>
+                  <input type="date" class="form-control" name="DomiciliarioSeleccionadofechaPermisoConduccion" [(ngModel)]="domiciliarioSeleccionado.fechaPermisoConduccion"  style="border-radius: 20px" />
+                </div>
+                <br>
+                <div class="row d-flex justify-content-end">
+                  <button matStepperNext class="btn btn-outline-dark" style="width: 140px">
+                    Siguiente <span  class="icon-arrow-right1"></span>
+                  </button>
+                </div>
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>Informacion vehículo</ng-template>
+                <div>
+                  <label>Fecha de expiracion del Soat</label>
+                  <input type="date" class="form-control" name="DomiciliarioSeleccionadofechaSoat" [(ngModel)]="domiciliarioSeleccionado.moto.fechaSoat" style="border-radius: 20px"/>
+                </div>
+                <div>
+                  <label>Fecha de expiracion de la tecno Mecanica</label>
+                  <input type="date" class="form-control" name="DomiciliarioSeleccionadofechaTecnoMecanica" style="border-radius: 20px" [(ngModel)]="domiciliarioSeleccionado.moto.fechaTecnoMecanica"/>
+                </div>
+                <br>
+                <div class="">
+                  <button matStepperPrevious class="btn btn-outline-danger" style="width: 100px">
+                    <span class="icon-arrow-left1"></span>Volver
+                  </button>
+                </div>
+              </mat-step>
+            </mat-stepper>
           </div>
           <hr>
-          <div class="col d-flex justify-content-end">
+          <div class="d-flex justify-content-between p-2">
+            <button class="btn btn-outline-dark" style=" width: 150px">
+              <fa-icon [icon]="userEdit"></fa-icon> Actualizar
+            </button>
             <button class="btn btn-outline-danger" style=" width: 150px"
                     (click)="mostrar = 'Domiciliario'">
               <span class="icon-arrow-left1"></span> Volver

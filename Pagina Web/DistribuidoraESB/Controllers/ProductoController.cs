@@ -37,6 +37,7 @@ namespace DistribuidoraESB.Controllers
             return StatusCode(response.CodigoHttp, response);
         }
 
+        [AllowAnonymous]
         [HttpGet("Busar/{codigo}")]
         public ActionResult<ProductoViewModel> GetProducto(string codigo)
         {
@@ -73,7 +74,8 @@ namespace DistribuidoraESB.Controllers
         {
             return service.TodosPocasCantidades().Select(p => new ProductoViewModel(p));
         }
-
+        
+        [AllowAnonymous]
         [HttpGet("ByCategoria")]
         public ActionResult<Respuesta<ProductoByCategoria>> GetByCategoria()
         {
