@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iEs2ID6f1wbIU08zN6kq3wckzYE+hiazerm9tZF7+8OmjDoINv9VtPCV5Lt76BBK2uGQI039GGQRl0KbgJ5u0w==",
+  "dgSpecHash": "8dCkqYlYSHVu44e0469MAsmtxBGRZVeEV6hEjNJBpYzgXP7qWzLWufw+Qi/V8n1B+tDRJHWXwiDbjQRrTx9kzw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nicoa\\Documents\\Proyecto Ingenieria de software 2.0\\Primera version\\2.0\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Entity\\Entity.csproj",
+  "projectFilePath": "C:\\Users\\nicoa\\Documents\\GitHub\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Entity\\Entity.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nicoa\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
   ],
