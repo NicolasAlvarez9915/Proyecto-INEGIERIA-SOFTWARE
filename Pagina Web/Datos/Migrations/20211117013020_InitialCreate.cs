@@ -16,7 +16,7 @@ namespace Datos.Migrations
                     Apellidos = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Telefono = table.Column<string>(type: "nvarchar(15)", nullable: true),
                     Whatsapp = table.Column<string>(type: "nvarchar(15)", nullable: true),
-                    Estado = table.Column<int>(nullable: false),
+                    Estado = table.Column<string>(nullable: true),
                     Puesto = table.Column<string>(type: "nvarchar(50)", nullable: true)
                 },
                 constraints: table =>
@@ -33,7 +33,7 @@ namespace Datos.Migrations
                     Apellidos = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Telefono = table.Column<string>(type: "nvarchar(15)", nullable: true),
                     Whatsapp = table.Column<string>(type: "nvarchar(15)", nullable: true),
-                    Estado = table.Column<int>(nullable: false),
+                    Estado = table.Column<string>(nullable: true),
                     Direccion = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     Horaio = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     TipoCliente = table.Column<string>(type: "nvarchar(20)", nullable: true)
@@ -52,24 +52,12 @@ namespace Datos.Migrations
                     Apellidos = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Telefono = table.Column<string>(type: "nvarchar(15)", nullable: true),
                     Whatsapp = table.Column<string>(type: "nvarchar(15)", nullable: true),
-                    Estado = table.Column<int>(nullable: false),
+                    Estado = table.Column<string>(nullable: true),
                     FechaPermisoConduccion = table.Column<DateTime>(type: "Date", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Domiciliarios", x => x.Identificacion);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ImagenProductos",
-                columns: table => new
-                {
-                    CodProducto = table.Column<string>(type: "nvarchar(11)", nullable: false),
-                    Imagen = table.Column<byte[]>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ImagenProductos", x => x.CodProducto);
                 });
 
             migrationBuilder.CreateTable(
@@ -234,9 +222,6 @@ namespace Datos.Migrations
 
             migrationBuilder.DropTable(
                 name: "Domiciliarios");
-
-            migrationBuilder.DropTable(
-                name: "ImagenProductos");
 
             migrationBuilder.DropTable(
                 name: "Productos");

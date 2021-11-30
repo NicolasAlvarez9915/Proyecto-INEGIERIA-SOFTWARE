@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datos.Migrations
 {
     [DbContext(typeof(DESBContext))]
-    [Migration("20211017222746_InitialCreate")]
+    [Migration("20211117013020_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,8 +29,8 @@ namespace Datos.Migrations
                     b.Property<string>("Apellidos")
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("Estado")
-                        .HasColumnType("int");
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombres")
                         .HasColumnType("nvarchar(50)");
@@ -60,8 +60,8 @@ namespace Datos.Migrations
                     b.Property<string>("Direccion")
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("Estado")
-                        .HasColumnType("int");
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Horaio")
                         .HasColumnType("nvarchar(50)");
@@ -157,8 +157,8 @@ namespace Datos.Migrations
                     b.Property<string>("Apellidos")
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("Estado")
-                        .HasColumnType("int");
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("FechaPermisoConduccion")
                         .HasColumnType("Date");
@@ -175,19 +175,6 @@ namespace Datos.Migrations
                     b.HasKey("Identificacion");
 
                     b.ToTable("Domiciliarios");
-                });
-
-            modelBuilder.Entity("Entity.ImagenProducto", b =>
-                {
-                    b.Property<string>("CodProducto")
-                        .HasColumnType("nvarchar(11)");
-
-                    b.Property<byte[]>("Imagen")
-                        .HasColumnType("varbinary(max)");
-
-                    b.HasKey("CodProducto");
-
-                    b.ToTable("ImagenProductos");
                 });
 
             modelBuilder.Entity("Entity.Pedido", b =>

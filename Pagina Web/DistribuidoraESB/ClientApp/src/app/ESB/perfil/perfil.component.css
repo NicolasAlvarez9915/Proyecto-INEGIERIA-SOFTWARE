@@ -67,6 +67,7 @@ span{
     background-color: rgb(250, 81, 81);
     text-decoration: none;
     transition: all 0.3s;
+  border-radius: 5px;
 }
 .btnbarra:focus {
     outline: none;
