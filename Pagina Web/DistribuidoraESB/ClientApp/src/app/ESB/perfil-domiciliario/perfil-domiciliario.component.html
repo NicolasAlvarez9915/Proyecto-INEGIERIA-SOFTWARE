@@ -1,0 +1,161 @@
+<mat-drawer-container>
+  <mat-drawer #drawer mode="over" style="width: 300px; min-height: 100vh;background-color:   rgb(73, 78, 82);">
+    <div class="TituloBarra" style="color: white">
+      <h2><span class="fas fa-user"></span>Domiciliario</h2>
+    </div>
+    <div style="width: 95%;background-color: white;border-radius: 5px">
+      <br>
+        <button class="btnbarra" style="width: 100%; " type="button" (click)="mostrar = 'EditarInfo';drawer.toggle()">
+          <span class="fas fa-edit spanBarra"></span>Editar info
+        </button>
+      <br><br>
+    </div>
+  </mat-drawer>
+  <mat-sidenav-content style="width: 100%; min-height: 100vh; background-color: white">
+    <div class="row barraTituloContenido">
+      <div class="col" style="max-width: 50px;">
+        <button type="button" class="btn btn-outline-danger btnMenu"
+                style="border-radius: 50%;" (click)="drawer.toggle()">
+          <span class="fas fa-bars" style="margin-right: 0rem;"></span>
+        </button>
+      </div>
+      <div class="col text-center" style="margin-top: 1rem; max-width: 100%;">
+        <h1>Domiciliario: {{domiciliario.nombres}} {{domiciliario.apellidos}}</h1>
+      </div>
+    </div>
+    <br>
+    <div class="contenedor " *ngIf="mostrar == 'Principal'" >
+      <div class="Cuerpo">
+        <div class="col-11 sombra-border">
+          <br>
+          <div class="text-center sombra-border-titulo">
+            <h2>Ruta</h2>
+          </div>
+          <br>
+          <div class="col">
+            <label>Filtro por codigo, identificacion del cliente o fecha.</label>
+            <input class="form-control col-5" type="text" style="width: 200px; border-radius: 20px" placeholder="Referencia"
+                   [(ngModel)]="filtroPedidos" [ngModelOptions]="{standalone: true}">
+          </div>
+          <br>
+          <div class="text-center" *ngIf="ruta.pedidos.length == 0">
+            <h4>¡NO HAY PEDIDOS RECIBIDOS REGISTRADOS!</h4>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-responsive-sm"
+                   *ngIf='ruta.pedidos && ruta && ruta.pedidos && ruta.pedidos.length'>
+              <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">codigo</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">fecha</th>
+                <th scope="col">Estado</th>
+                <th scope="col">opciones</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr
+                *ngFor="let pedido of ruta.pedidos|filtroPedido:filtroPedidos; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ pedido.codigo }} </td>
+                <td>{{ pedido.idPersona }}</td>
+                <td>{{ pedido.fecha }}</td>
+                <th>{{ pedido.estado }}</th>
+                <td><button class="btn btn-outline-dark" (click)="verPedido(pedido.codigo)">ver</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination
+                [collectionSize]="totalPedidos"
+                [(page)]="pagePedidos"
+                [pageSize]="pageSizePedidos"
+                (pageChange)="obtenerRuta()">
+              </ngb-pagination>
+
+              <select class="custom-select" style="width: auto; border-radius: 20px" name="selectPa"
+                      [(ngModel)]="pageSizePedidos"
+                      (change)="obtenerRuta()">
+                <option [ngValue]="20">20 pedidos por pagina</option>
+                <option [ngValue]="40">40 pedidos por pagina</option>
+                <option [ngValue]="60">60 pedidos por pagina</option>
+              </select>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div *ngIf="mostrar == 'EditarInfo'">
+      <div class="Cuerpo">
+        <form class="col-8 font-weight-normal sombra-border  " id="formularioEditarAdministrador" style="margin-top: 1rem;">
+          <br>
+          <div class="text-center sombra-border-titulo">
+            <h2>Editar informacion</h2>
+          </div>
+          <br>
+          <div class="col ">
+            <div class="row">
+              <div class="col">
+                <label for="LblName">Nombre</label>
+                <input type="Text" id="LblName" class="form-control" placeholder="Nombres" style="border-radius: 20px"
+                       [(ngModel)]="domiciliario.nombres" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col">
+                <label for="LblApellido">Apellidos</label>
+                <input type="text" id="LblApellido" name="apellidos" placeholder="Apellidos" style="border-radius: 20px"
+                       class="form-control" [(ngModel)]="domiciliario.apellidos"
+                       [ngModelOptions]="{standalone: true}" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="LblTelefonoAdministrador">Telefono fijo o Movil</label>
+                <input type="text" id="LblTelefonoAdministrador" class="form-control" style="border-radius: 20px"
+                       [(ngModel)]="domiciliario.telefono"
+                       [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col">
+                <label for="LblWhatsappAdministrador">Numero Whatsapp</label>
+                <input type="text" id="LblWhatsappAdministrador" name="Whatsapp" style="border-radius: 20px"
+                       class="form-control" [(ngModel)]="domiciliario.whatsapp"
+                       [ngModelOptions]="{standalone: true}" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="inputPassword1Administrador">Contraseña</label>
+                <input type="password" id="inputPassword1Administrador" class="form-control" style="border-radius: 20px"
+                       placeholder="Contraseña" required="" [(ngModel)]="contrasena"
+                       [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col">
+                <label for="inputPasswordAdministrador">Contraseña</label>
+                <input type="password" id="inputPasswordAdministrador" class="form-control" style="border-radius: 20px"
+                       placeholder="Contraseña" required="" [(ngModel)]="contrasenaConfirmar"
+                       [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row d-flex justify-content-center">
+            <div class="col d-flex justify-content-center">
+              <button class="btn btn-outline-dark" style=" width: 50%" type="submit">
+                <span class="fas fa-sync-alt"></span> Editar
+              </button>
+            </div>
+
+            <div class="col d-flex justify-content-center">
+              <button class="btn btn-outline-danger" style=" width: 50%" (click)="mostrar = 'Principal'">
+                <span class="icon-arrow-left1"></span> Volver
+              </button>
+            </div>
+          </div>
+          <hr style="visibility: hidden;">
+        </form>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-drawer-container>

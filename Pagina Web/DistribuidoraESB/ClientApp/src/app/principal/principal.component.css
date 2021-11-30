@@ -9,6 +9,9 @@
   border-radius: 20px;
   box-shadow: 1px 10px 5px 0px rgba(0,0,0,0.38);
 }
+.example-card[_ngcontent-ng-cli-universal-c185]{
+ margin-bottom: .5cm !important;
+}
 
 .carrusel{
     height: 16cm;

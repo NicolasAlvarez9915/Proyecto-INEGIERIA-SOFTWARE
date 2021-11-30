@@ -185,7 +185,6 @@ export class PerfilComponent implements OnInit {
       this.totalProductos++;
     });
   }
-
   eliminarCuentaCliente(){
     this.modalMaterialService.openDialogDesicion("Eliminar cuenta", "¿Esta seguro?").subscribe( result =>{
         if(result){
@@ -234,8 +233,7 @@ export class PerfilComponent implements OnInit {
       this.sliceProductosStock();
     });
   }
-  sliceProductosStock()
-  {
+  sliceProductosStock() {
     this.totalProductosStock = this.pocasCantidades.length;
     this.pocasCantidades = this.pocasCantidades.slice((this.pageProductosStock - 1) * this.pageSizeProductosStock, (this.pageProductosStock - 1) * this.pageSizeProductosStock + this.pageSizeProductosStock);
   }
@@ -253,9 +251,7 @@ export class PerfilComponent implements OnInit {
         this.pedidos();
         this.domiciliariosSinrRuta();
         this.domiciliarios();
-        const messageBox = this.modalService.open(AlertModalComponent)
-        messageBox.componentInstance.title = "BIEN HECHO.";
-        messageBox.componentInstance.message = "Pedidos asignador correctamente.";
+        this.modalMaterialService.openDialogInfo("BIEN HECHO","Pedidos asignados correctamente.");
         this.mostrar = "RegistrarRuta";
     });
   }
@@ -265,8 +261,7 @@ export class PerfilComponent implements OnInit {
       this.sliceDomiciliariosSinRuta();
     });
   }
-  sliceDomiciliariosSinRuta()
-  {
+  sliceDomiciliariosSinRuta() {
     this.totalDomiciliariosSinRuta = this.ListaDomiciliariosSinRuta.length;
     this.ListaDomiciliariosSinRuta = this.ListaDomiciliariosSinRuta.slice((this.pageDomiciliariosSinRuta - 1) * this.pageSizeDomiciliariosSinRuta, (this.pageDomiciliariosSinRuta - 1) * this.pageSizeDomiciliariosSinRuta + this.pageSizeDomiciliariosSinRuta);
   }
@@ -328,8 +323,7 @@ export class PerfilComponent implements OnInit {
       this.sliceDomiciliarios();
     });
   }
-  sliceDomiciliarios()
-  {
+  sliceDomiciliarios() {
     this.totalDomiciliarios = this.LsitaDomiciliarios.length;
     this.LsitaDomiciliarios = this.LsitaDomiciliarios.slice((this.pageDomiciliarios - 1) * this.pageSizeDomiciliarios, (this.pageDomiciliarios - 1) * this.pageSizeDomiciliarios + this.pageSizeDomiciliarios);
   }
@@ -344,21 +338,18 @@ export class PerfilComponent implements OnInit {
   }
   registrarDomiciliario() {
     this.llenarObjetos();
-    if (this.contrasenaconfirmar != this.contrasenaActualizar) {
-      const messageBox = this.modalService.open(AlertModalComponent)
-      messageBox.componentInstance.title = "ALERTA";
-      messageBox.componentInstance.message = "Las contraseñas no coninciden";
+    if (this.formularioregistroDomiciliario.value.contrasena != this.formularioregistroDomiciliario.value.contrasenaConfirmar) {
+      this.modalMaterialService.openDialogInfo("ALERTA","Las contraseñas no coinciden",2);
     } else {
       this.crearDomiciliario();
     }
   }
   crearDomiciliario(){
+    this.usuarioRegistrar.contraseña = this.formularioregistroDomiciliario.value.contrasena;
     this.domiciliarioService.registrar(this.domiciliario, this.usuarioRegistrar).subscribe(d => {
         if(!d.error)
         {
-          const messageBox = this.modalService.open(AlertModalComponent)
-          messageBox.componentInstance.title = "BIEN HECHO";
-          messageBox.componentInstance.message = "Domiciliario registrado. Cuenta creada exitosamente.";
+          this.modalMaterialService.openDialogInfo("BIEN HECHO","Domiciliario registrado, cuenta creada exitosamente");
           this.domiciliariosSinrRuta();
           this.domiciliarios();
         }
@@ -392,8 +383,7 @@ export class PerfilComponent implements OnInit {
       })
     })
   }
-  validarEstadosDisponibles()
-  {
+  validarEstadosDisponibles() {
     let estados = ["Bodega","En camino", "Entregado", "Pagado"];
     this.listaEstadosDisponiblePedido = [];
     let encontrado = false;
@@ -419,9 +409,7 @@ export class PerfilComponent implements OnInit {
   }
   abastecer() {
     if (this.productoSeleccionado.cantidad == undefined) {
-      const messageBox = this.modalService.open(AlertModalComponent)
-      messageBox.componentInstance.title = "ALERTA.";
-      messageBox.componentInstance.message = "Debe buscar un producto.";
+      this.modalMaterialService.openDialogInfo("ALERTA", "Debe buscar un prducto", 2);
     } else {
       this.productoSeleccionado.cantidad = this.cantidadProducto;
       this.productoService.Abastecer(this.productoSeleccionado).subscribe(
@@ -458,14 +446,10 @@ export class PerfilComponent implements OnInit {
   }
   registrarPedido() {
     if (this.pedidoGenrado.detallesDePedidos == null) {
-      const messageBox = this.modalService.open(AlertModalComponent)
-      messageBox.componentInstance.title = "ALERTA.";
-      messageBox.componentInstance.message = "Debe ingresar productos a la factura.";
+      this.modalMaterialService.openDialogInfo("ALERTA", "Debe ingresar productos al pedido", 2);
     } else {
       this.pedidoService.registrarPedido(this.pedidoGenrado).subscribe(r => {
-          const messageBox = this.modalService.open(AlertModalComponent)
-          messageBox.componentInstance.title = "BIEN HECHO.";
-          messageBox.componentInstance.message = "Pedido registrado correctamente.";
+        this.modalMaterialService.openDialogInfo("BIEN HECHO", "Pedido registrado correctamente");
           this.listaProductoPedido = [];
           this.productoSeleccionado = new Producto();
           this.pedidos();
@@ -514,9 +498,7 @@ export class PerfilComponent implements OnInit {
       }
     });
     this.descuentoService.registrarDescuentos(this.listaDescuentosARegistrar).subscribe(r => {
-        const messageBox = this.modalService.open(AlertModalComponent)
-        messageBox.componentInstance.title = "BIEN HECHO.";
-        messageBox.componentInstance.message = "Descuentos registrados correctamente.";
+      this.modalMaterialService.openDialogInfo("BIEN HECHO.","Descuentos registrados correctamente.");
         this.productosSindescuento();
     },
       respuesta => {
@@ -529,13 +511,10 @@ export class PerfilComponent implements OnInit {
       this.sliceDescuentosRegistrados();
     });
   }
-
-  sliceDescuentosRegistrados()
-  {
+  sliceDescuentosRegistrados() {
     this.totalDescuentosRegitrados = this.listaDescuentos.length;
     this.listaDescuentos = this.listaDescuentos.slice((this.pageDescuentosRegistrados - 1) * this.pageSizeDescuentosRegistrados, (this.pageDescuentosRegistrados - 1) * this.pageSizeDescuentosRegistrados + this.pageSizeDescuentosRegistrados);
   }
-
   productosSindescuento() {
     this.descuentoParaTodos = 0;
     this.descuentoService.ProductosSinDescuento(this.clienteConsuta.identificacion).subscribe(r => {
@@ -553,8 +532,7 @@ export class PerfilComponent implements OnInit {
       this.sliceDescuentosNuevos();
     })
   }
-  sliceDescuentosNuevos()
-  {
+  sliceDescuentosNuevos() {
     this.totalDescuentosNuevos = this.listaProductosSinDescuento.length;
     this.listaProductosSinDescuento = this.listaProductosSinDescuento.slice((this.pageDescuentosNuevos - 1) * this.pageSizeDescuentosNuevos, (this.pageDescuentosNuevos - 1) * this.pageSizeDescuentosNuevos + this.pageSizeDescuentosNuevos);
   }
@@ -576,8 +554,7 @@ export class PerfilComponent implements OnInit {
       }
     )
   }
-  sliceProductos()
-  {
+  sliceProductos() {
     this.totalProductos = this.listaProductos.length;
     this.listaProductos = this.listaProductos.slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
@@ -590,12 +567,10 @@ export class PerfilComponent implements OnInit {
         }
       )
   }
-  sliceClientes()
-  {
+  sliceClientes() {
     this.totalClientes = this.listaClientes.length;
     this.listaClientes = this.listaClientes.slice((this.pageTablaClientes - 1) * this.pageSizeTablaClientes, (this.pageTablaClientes - 1) * this.pageSizeTablaClientes + this.pageSizeTablaClientes);
   }
-
   private buildForm() {
     this.clienteRegistrar = new Cliente();
     this.clienteRegistrar.apellidos = '';
@@ -636,20 +611,16 @@ export class PerfilComponent implements OnInit {
       categoria: [this.producto.categoria, Validators.required]
     });
   }
-
   get control() {
     return this.formularioRegistroCliente.controls;
   }
-
   get controlProducto() {
     return this.formularioregistroProducto.controls;
   }
-
   verProducto(producto: Producto) {
     this.productoConsulta = producto;
     this.mostrar = "Producto";
   }
-
   vercliente(cliente: Cliente) {
     this.clienteConsuta = cliente;
     switch (this.mostrarInterno) {
@@ -665,41 +636,33 @@ export class PerfilComponent implements OnInit {
         break;
     }
   }
-
   onSubmit() {
     if (this.formularioRegistroCliente.invalid) {
       return;
     }
     this.registrarCliente();
   }
-
   onSubmitProducto() {
     if (this.formularioregistroProducto.invalid) {
       return;
     }
     this.registrarProducto();
   }
-
   registrarProducto() {
     if (this.selectedFile != null) {
       this.producto = this.formularioregistroProducto.value;
       this.productoService.registrar(this.producto, this.imagenRegistrar).subscribe(
         respuesta => {
           if (!respuesta.error) {
-            const messageBox = this.modalService.open(AlertModalComponent)
-            messageBox.componentInstance.title = "BIEN HECHO.";
-            messageBox.componentInstance.message = "Producto registrado correctamente.";
+            this.modalMaterialService.openDialogInfo("BIEN HECHO.","Producto registrado correctamente.");
             this.productos();
           }
         }
       );
     } else {
-      const messageBox = this.modalService.open(AlertModalComponent)
-      messageBox.componentInstance.title = "ALERTA.";
-      messageBox.componentInstance.message = "Debe selecionar una imagen.";
+      this.modalMaterialService.openDialogInfo("ALERTA", "Debe seleccionar una imagen",2);
     }
   }
-
   registrarCliente() {
     this.clienteRegistrar = this.formularioRegistroCliente.value;
     this.clienteRegistrar.descuentos = [];
@@ -711,26 +674,20 @@ export class PerfilComponent implements OnInit {
 
 
     if (this.formularioRegistroCliente.value.contrasenaconfirmar != this.formularioRegistroCliente.value.contrasena) {
-      const messageBox = this.modalService.open(AlertModalComponent)
-      messageBox.componentInstance.title = "ALERTA";
-      messageBox.componentInstance.message = "Las contraseñas no coninciden";
+      this.modalMaterialService.openDialogInfo("ALERTA.","Las contraseñas no coninciden",2);
     } else {
       this.crearCliente();
     }
   }
-
   crearCliente(){
     this.clienteService.post(this.clienteRegistrar, this.usuarioRegistrar).subscribe
     (
       r => {
-        const messageBox = this.modalService.open(AlertModalComponent)
-        messageBox.componentInstance.title = "BIEN HECHO";
-        messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
+        this.modalMaterialService.openDialogInfo("BIEN HECHO","Cliente registrado. Cuenta de cliente creada.");
         this.clientes();
       }
     );
   }
-
   pedirInforAdministrador() {
     this.administradorService.buscar(this.usuario.idPersona).subscribe(
       respuesta => {
@@ -738,7 +695,6 @@ export class PerfilComponent implements OnInit {
       }
     )
   }
-
   atualizarInformacion(tipoInformacion: string) {
     switch (this.Rol) {
       case "Cliente":
@@ -752,7 +708,6 @@ export class PerfilComponent implements OnInit {
         break;
     }
   }
-
   actualizarInformacionAdministrador() {
     var administradorInformacionNueva = this.administrador;
     var acumulado: number;
@@ -810,7 +765,6 @@ export class PerfilComponent implements OnInit {
       }
     }
   }
-
   alertaRespuestaError(Respuesta){
     const messageBox = this.modalService.open(AlertModalComponent)
     messageBox.componentInstance.title = "ALERTA.";

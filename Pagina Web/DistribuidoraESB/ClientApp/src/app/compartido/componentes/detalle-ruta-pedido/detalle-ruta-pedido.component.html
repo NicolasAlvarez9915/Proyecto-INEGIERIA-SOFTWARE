@@ -1,0 +1,90 @@
+<div class="" style="width: 1000px">
+  <br>
+  <div class="text-center sombra-border-titulo">
+    <h2>Detalles del pedido</h2>
+  </div>
+  <br>
+  <div>
+    <div class="row">
+      <div class="col">
+        <h3>Cliente</h3>
+      </div>
+      <div class="col">
+        {{cliente.nombres}} {{cliente.apellidos}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h3>Direccion entrega</h3>
+      </div>
+      <div class="col">
+        {{cliente.direccion}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h3>Horario de entrega</h3>
+      </div>
+      <div class="col" *ngIf="cliente.horaio == 'H1'">
+        8:00 AM - 6:00 PM
+      </div>
+      <div class="col" *ngIf="cliente.horaio == 'H2'">
+        8:00 AM - 12:00 PM
+      </div>
+      <div class="col" *ngIf="cliente.horaio == 'H3'">
+        12:00 PM - 6:00 PM
+      </div>
+      <div class="col" *ngIf="cliente.horaio == 'No asignado'">
+        No asignado
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p>
+          Estado:
+        </p>
+      </div>
+      <div class="col">
+        <p>
+          {{pedido.estado}}
+        </p>
+        <div class="row" *ngIf="pedido.estado != 'Pagado'">
+         <div class="col">
+           <select class="form-control " name="Estado"
+                   [(ngModel)]="estadoPedido">
+             <option [value]="estado" *ngFor="let estado of listaEstadosDisponiblePedido">{{estado}}</option>
+           </select>
+         </div>
+          <div class="col">
+            <button class="btn btn-outline-dark"
+                    style="border-radius: 50%"
+                    (click)="actualizarPedido()"><span
+              class="fa fa-sync-alt"
+              style="padding-right: 0rem;"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="table-responsive">
+      <table class="table table-responsive-sm" *ngIf='pedido.detallesDePedidos && pedido.detallesDePedidos.length'>
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Referencia</th>
+          <th scope="col">cantidad</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let detalle of pedido.detallesDePedidos; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ detalle.codProducto}} </td>
+          <td>{{ detalle.cantidad}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <hr>
+    </div>
+  </div>
+</div>

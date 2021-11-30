@@ -39,6 +39,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatStepperModule} from '@angular/material/stepper';
 import { FiltroDomicliarioPipe } from './pipe/filtro-domicliario.pipe';
+import { PerfilDomiciliarioComponent } from './ESB/perfil-domiciliario/perfil-domiciliario.component';
+import { DetalleRutaPedidoComponent } from './compartido/componentes/detalle-ruta-pedido/detalle-ruta-pedido.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { FiltroDomicliarioPipe } from './pipe/filtro-domicliario.pipe';
     PerfilClienteComponent,
     ModalInfoComponent,
     ProductoComponent,
-    FiltroDomicliarioPipe
+    FiltroDomicliarioPipe,
+    PerfilDomiciliarioComponent,
+    DetalleRutaPedidoComponent
   ],
   imports: [
     ReactiveFormsModule,

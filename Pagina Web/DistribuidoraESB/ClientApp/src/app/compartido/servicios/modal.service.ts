@@ -4,6 +4,7 @@ import {ModalDesicionComponent} from '../componentes/modal-desicion/modal-desici
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {ModalInfoComponent} from '../componentes/modal-info/modal-info.component';
+import {DetalleRutaPedidoComponent} from '../componentes/detalle-ruta-pedido/detalle-ruta-pedido.component';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,13 @@ export class ModalService {
   {
     this.dialog.open(ModalInfoComponent, {
       data: {titulo: titulo, cuerpo: cuerpo, tipo: tipo}
+    });
+  }
+
+  openDialogInfoPedido(idPedido: String)
+  {
+    return this.dialog.open(DetalleRutaPedidoComponent, {
+      data: {idPedido: idPedido}
     });
   }
 }

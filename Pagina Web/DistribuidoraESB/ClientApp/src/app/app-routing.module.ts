@@ -10,6 +10,8 @@ import { PrincipalComponent } from './principal/principal.component';
 import { AuthGuard } from './services/auth.guard';
 import {AuthPerfilClienteGuard} from './services/auth-perfil-cliente.guard';
 import {AuthPerfilAdminGuard} from './services/auth-perfil-admin.guard';
+import {PerfilDomiciliarioComponent} from './ESB/perfil-domiciliario/perfil-domiciliario.component';
+import {AuthPerfilDomiciliarioGuard} from './service/auth-perfil-domiciliario.guard';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent},
@@ -17,6 +19,7 @@ const routes: Routes = [
   { path: 'Perfil', component: PerfilComponent, canActivate: [AuthPerfilAdminGuard]},
   { path: 'Carrito', component: CarritoComponent, canActivate: [AuthPerfilClienteGuard]},
   { path: 'PerfilCliente', component: PerfilClienteComponent, canActivate: [AuthPerfilClienteGuard]},
+  { path: 'PerfilDomiciliario', component: PerfilDomiciliarioComponent, canActivate: [AuthPerfilDomiciliarioGuard]},
   { path: 'Principal', component: PrincipalComponent }
 ]
 

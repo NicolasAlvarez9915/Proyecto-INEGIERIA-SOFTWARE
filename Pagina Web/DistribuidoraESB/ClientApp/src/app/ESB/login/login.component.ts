@@ -75,11 +75,17 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.usuario.correo, this.usuario.contrasena)
     .subscribe(
       data => {
-            if (data.objeto.rol === "Administrador") {
-              this.router.navigate(['/Perfil']);
-            } else {
-              this.router.navigate(['/PerfilCliente']);
-            };
+        switch (data.objeto.rol) {
+          case "Administrador":
+            this.router.navigate(['/Perfil']);
+            break;
+          case "Cliente":
+            this.router.navigate(['/PerfilCliente']);
+            break;
+          case "Domiciliario":
+            this.router.navigate(['/PerfilDomiciliario']);
+            break;
+        }
       });
   }
 }

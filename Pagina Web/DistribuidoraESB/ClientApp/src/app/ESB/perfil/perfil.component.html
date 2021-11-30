@@ -1394,12 +1394,38 @@
                             </p>
                           </div>
                         </div>
+                        <div class="row">
+                          <div class="col">
+                            <p>
+                              Estado:
+                            </p>
+                          </div>
+                          <div class="col">
+                            <p>
+                              {{pedidoSeleccionado.estado}}
+                            </p>
+                            <div class="row" *ngIf="pedidoSeleccionado.estado != 'Pagado'">
+                              <div class="col">
+                                <select class="form-control " name="Estado"
+                                        [(ngModel)]="estadoPedido">
+                                  <option [value]="estado" *ngFor="let estado of listaEstadosDisponiblePedido">{{estado}}</option>
+                                </select>
+                              </div>
+                              <div class="col">
+                                <button class="btn btn-outline-dark"
+                                        style="border-radius: 50%"
+                                        (click)="actualizarPedido()"><span
+                                  class="fa fa-sync-alt"
+                                  style="padding-right: 0rem;"></span></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
             <hr style="visibility: hidden;">
 

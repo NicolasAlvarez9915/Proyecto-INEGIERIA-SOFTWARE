@@ -11,6 +11,7 @@ import { DetalleDePedido } from '../Models/detalle-de-pedido';
 import { Pedido } from '../Models/pedido';
 import { Producto } from '../Models/producto';
 import { Usuario } from '../Models/usuario';
+import {ModalService} from "../../compartido/servicios/modal.service";
 
 @Component({
   selector: 'app-carrito',
@@ -27,7 +28,8 @@ export class CarritoComponent implements OnInit {
     private clienteService: ClienteService,
     private pedidoService: PedidoService,
     private modalService: NgbModal,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private modalMaterialService: ModalService
   ) { }
 
   ngOnInit(): void {
@@ -61,15 +63,11 @@ export class CarritoComponent implements OnInit {
   }
   registrarPedido() {
     if (this.pedidoSeleccionado.detallesDePedidos.length == 0) {
-      const messageBox = this.modalService.open(AlertModalComponent)
-      messageBox.componentInstance.title = "ALERTA.";
-      messageBox.componentInstance.message = "Debe ingresar productos a la factura.";
+      this.modalMaterialService.openDialogInfo("ALERTA.","Debe ingresar productos al pedido.",2);
     } else {
       this.pedidoSeleccionado.idPersona = this.clienteConsuta.identificacion;
       this.pedidoService.registrarPedido(this.pedidoSeleccionado).subscribe(respuesta => {
-          const messageBox = this.modalService.open(AlertModalComponent)
-          messageBox.componentInstance.title = "BIEN HECHO.";
-          messageBox.componentInstance.message = "Pedido registrado correctamente.";
+        this.modalMaterialService.openDialogInfo("BIEN HECHO.","Pedido registrado correctamente.");
           this.pedidoService.EliminarCarrito();
           this.generarPedido();
       })
