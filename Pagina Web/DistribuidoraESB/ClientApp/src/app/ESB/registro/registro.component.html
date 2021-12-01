@@ -10,12 +10,28 @@
       <mat-stepper orientation="horizontal" [linear]="false" #stepper>
         <mat-step style="min-height: 700px">
           <ng-template  matStepLabel>Información personal</ng-template>
-          <div>
-            <label for="LblIdentificacion">Identificacion</label>
-            <input type="Text" id="LblIdentificacion" name="identificacion" style="border-radius: 20px" class="form-control" placeholder="Identificacion" formControlName="identificacion" [ngClass]="{'is-invalid':  control.identificacion.touched && control.identificacion.errors}"/>
-            <div *ngIf="control.identificacion.errors" class="invalid-feedback">
-              <div *ngIf="control.identificacion.errors.required">Se require la identificacion</div>
+          <div class="row">
+            <div class="col">
+              <label for="LblIdentificacion">Identificacion</label>
+              <input type="Text" id="LblIdentificacion" name="identificacion" style="border-radius: 20px" class="form-control" placeholder="Identificacion" formControlName="identificacion" [ngClass]="{'is-invalid':  control.identificacion.touched && control.identificacion.errors}"/>
+              <div *ngIf="control.identificacion.errors" class="invalid-feedback">
+                <div *ngIf="control.identificacion.errors.required">Se require la identificacion</div>
+              </div>
             </div>
+              <div class="col">
+                <label>Tipo de identificación</label>
+                <select class="form-control " style="border-radius: 20px" formControlName="tipoId"
+                        [ngClass]="{'is-invalid':control.tipoId.touched && control.tipoId.errors}">
+                  <option value="CC">Cedula de ciudadania</option>
+                  <option value="CE">Cedula extranjeria</option>
+                  <option value="TI">Tarjeta de identidad</option>
+                  <option value="NIT">NIT</option>
+                </select>
+                <div *ngIf="control.tipoId.errors"class="invalid-feedback">
+                  <div *ngIf="control.tipoId.errors.required">Se require que seleccione el
+                    tipo de identificaion</div>
+                </div>
+              </div>
           </div>
 
           <div class="row">

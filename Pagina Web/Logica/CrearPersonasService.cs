@@ -29,6 +29,7 @@ namespace Logica
 
                 cliente.Estado = "Activo";
                 usuario.Estado = "Activo";
+                usuario.Rol = "Cliente";
                 context.Clientes.Add(cliente);
                 context.Usuarios.Add(usuario);
                 context.SaveChanges();
@@ -60,6 +61,7 @@ namespace Logica
 
                 domiciliario.Estado = "Activo";
                 usuario.Estado = "Activo";
+                usuario.Rol = "Domiciliario";
                 context.Domiciliarios.Add(domiciliario);
                 context.Vehiculos.Add(vehiculo);
                 context.Usuarios.Add(usuario);
@@ -69,6 +71,34 @@ namespace Logica
             catch (Exception e)
             {
                 return new ($"Error de la aplicacion al crear domiciliario: "+e.Message,500);
+            }
+        }
+
+        public Respuesta<Secretaria> CrearSecretaria(Secretaria secretaria, Usuario usuario)
+        {
+            try
+            {
+                if (context.Secretarias.Find(secretaria.Identificacion) != null)
+                {
+                    return new ($"Secretaria existente",409);    
+                }
+
+                if (context.Usuarios.Find(usuario.Correo) != null)
+                {
+                    return new ($"Usuario existente",409);
+                }
+
+                secretaria.Estado = "Activo";
+                usuario.Estado = "Activo";
+                usuario.Rol = "Secretaria";
+                context.Secretarias.Add(secretaria);
+                context.Usuarios.Add(usuario);
+                context.SaveChanges();
+                return new(secretaria, 200);
+            }
+            catch (Exception e)
+            {
+                return new ($"Error de la aplicacion al crear secretaria: "+e.Message,500);
             }
         }
     }

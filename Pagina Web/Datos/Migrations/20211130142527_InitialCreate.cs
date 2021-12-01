@@ -12,6 +12,7 @@ namespace Datos.Migrations
                 columns: table => new
                 {
                     Identificacion = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    TipoId = table.Column<string>(type: "nvarchar(5)", nullable: true),
                     Nombres = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Apellidos = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Telefono = table.Column<string>(type: "nvarchar(15)", nullable: true),
@@ -29,6 +30,7 @@ namespace Datos.Migrations
                 columns: table => new
                 {
                     Identificacion = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    TipoId = table.Column<string>(type: "nvarchar(5)", nullable: true),
                     Nombres = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Apellidos = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Telefono = table.Column<string>(type: "nvarchar(15)", nullable: true),
@@ -48,6 +50,7 @@ namespace Datos.Migrations
                 columns: table => new
                 {
                     Identificacion = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    TipoId = table.Column<string>(type: "nvarchar(5)", nullable: true),
                     Nombres = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Apellidos = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Telefono = table.Column<string>(type: "nvarchar(15)", nullable: true),
@@ -88,6 +91,24 @@ namespace Datos.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rutas", x => x.Codigo);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Secretarias",
+                columns: table => new
+                {
+                    Identificacion = table.Column<string>(type: "nvarchar(11)", nullable: false),
+                    TipoId = table.Column<string>(type: "nvarchar(5)", nullable: true),
+                    Nombres = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    Apellidos = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    Telefono = table.Column<string>(type: "nvarchar(15)", nullable: true),
+                    Whatsapp = table.Column<string>(type: "nvarchar(15)", nullable: true),
+                    Estado = table.Column<string>(nullable: true),
+                    FechaContratacion = table.Column<DateTime>(type: "Date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Secretarias", x => x.Identificacion);
                 });
 
             migrationBuilder.CreateTable(
@@ -225,6 +246,9 @@ namespace Datos.Migrations
 
             migrationBuilder.DropTable(
                 name: "Productos");
+
+            migrationBuilder.DropTable(
+                name: "Secretarias");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

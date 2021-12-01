@@ -11,4 +11,5 @@ export class Cliente {
     tipoCliente: string;
     descuentos: Descuento[];
   estado: string;
+  tipoId: string;
 }

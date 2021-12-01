@@ -1,12 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "6ffvAgZMDjXw2oZdZzUA4xwAla9ixi2nYX+8DPFyDyQhtBwp5FfTUys55j1PlVX1XZzaxnsoVpMPcMOW1TCdBA==",
-=======
-  "dgSpecHash": "ZKc+pVfJ11P162nDxKB51KPcnIPLtNBHwtrvGZMCcaKIkCSV2yZ25iOyPXaB5WgG8Rv4qFW04RQ8833Nxcf9ZA==",
->>>>>>> master
   "success": true,
-  "projectFilePath": "C:\\Users\\nicoa\\Documents\\GitHub\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Logica\\Logica.csproj",
+  "projectFilePath": "C:\\Users\\nicoa\\Documents\\Proyecto Ingenieria de software 2.0\\Primera version\\2.0\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Logica\\Logica.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nicoa\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\nicoa\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

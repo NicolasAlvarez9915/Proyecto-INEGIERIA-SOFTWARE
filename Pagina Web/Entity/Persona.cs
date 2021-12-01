@@ -9,6 +9,8 @@ namespace Entity
         [Key]
         [Column(TypeName = "nvarchar(11)")]
         public string Identificacion { get; set; }
+        [Column(TypeName = "nvarchar(5)")]
+        public string TipoId { get; set; }
         [Column(TypeName = "nvarchar(50)")]
         public string Nombres { get; set; }
         [Column(TypeName = "nvarchar(50)")]

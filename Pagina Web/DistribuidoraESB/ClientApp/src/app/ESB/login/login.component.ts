@@ -85,6 +85,9 @@ export class LoginComponent implements OnInit {
           case "Domiciliario":
             this.router.navigate(['/PerfilDomiciliario']);
             break;
+          case "Secretaria":
+            this.router.navigate(['/PerfilSecretaria']);
+            break;
         }
       });
   }

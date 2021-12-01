@@ -17,7 +17,8 @@ namespace DistribuidoraESB.Models
                 Apellidos = Apellidos,
                 Telefono = Telefono,
                 Whatsapp = Whatsapp,
-                FechaPermisoConduccion = FechaPermisoConduccion
+                FechaPermisoConduccion = FechaPermisoConduccion,
+                TipoId = TipoId
             };
         }
     }
@@ -37,6 +38,7 @@ namespace DistribuidoraESB.Models
             Whatsapp = domiciliario.Whatsapp;
             FechaPermisoConduccion = domiciliario.FechaPermisoConduccion;
             Estado = domiciliario.Estado;
+            TipoId = domiciliario.TipoId;
         }
     }
 }

@@ -27,7 +27,8 @@ namespace Logica
                         Puesto = "Gerente",
                         Telefono = "3017120334",
                         Whatsapp = "+573017120334",
-                        Estado = "Activo"
+                        Estado = "Activo",
+                        TipoId = "CC"
                     }
                 );
                 context.Usuarios.Add(new Usuario()

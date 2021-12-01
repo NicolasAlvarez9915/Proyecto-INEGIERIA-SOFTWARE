@@ -27,6 +27,8 @@ import {first} from "rxjs/operators";
 import {faUserMinus} from '@fortawesome/free-solid-svg-icons/faUserMinus';
 import {faUserEdit} from '@fortawesome/free-solid-svg-icons/faUserEdit';
 import {ModalService} from '../../compartido/servicios/modal.service';
+import {Secretaria} from '../Models/secretaria';
+import {SecretariaService} from '../../services/secretaria.service';
 
 @Component({
   selector: 'app-perfil',
@@ -38,7 +40,9 @@ export class PerfilComponent implements OnInit {
   page = 1;
   pageSize:number = 20;
   pageTablaClientes = 1;
+  pageTablaSecre = 1;
   pageSizeTablaClientes:number = 20;
+  pageSizeTablaSecre:number = 20;
   pageDescuentosRegistrados = 1;
   pageSizeDescuentosRegistrados:number = 20;
   totalDescuentosRegitrados: number;
@@ -65,6 +69,8 @@ export class PerfilComponent implements OnInit {
   userEdit = faUserEdit;
   userMinus =  faUserMinus;
   baseUrl: string;
+  secreatrio: Secretaria;
+  formularioRegistroSecretario: FormGroup;
   formularioRegistroCliente: FormGroup;
   formularioregistroProducto: FormGroup;
   formularioregistroDomiciliario: FormGroup;
@@ -76,6 +82,7 @@ export class PerfilComponent implements OnInit {
   contrasenaconfirmar: string;
   clienteRegistrar: Cliente;
   clienteConsuta: Cliente = new Cliente();
+  secreConsuta: Secretaria = new Secretaria();
   usuarioRegistrar: Usuario;
   codigoProducto: string;
   productoSeleccionado: Producto = new Producto();
@@ -87,6 +94,7 @@ export class PerfilComponent implements OnInit {
 
   listaClientes: Cliente[] = [];
   totalClientes: number;
+  totalSecre: number;
   listaProductos: Producto[] = [];
   totalProductos: number;
   listaDescuentos: Descuento[] = [];
@@ -108,6 +116,7 @@ export class PerfilComponent implements OnInit {
   descuentoNuevo: Descuento;
   descuentoParaTodos: number = 0;
   filtroClientes: string;
+  filtroSecre: string;
   filtroProductos: string;
   filtroProductosStock: string;
   filtroPedidos: string;
@@ -123,6 +132,7 @@ export class PerfilComponent implements OnInit {
   mostrarOpsInterno: string;
   activa: boolean = false;
   domiciliarioSeleccionado: Domiciliario = new Domiciliario();
+  listaSecretarios: Secretaria[] = [];
 
   opcionTabblaDomiciliarios: string;
 
@@ -151,6 +161,7 @@ export class PerfilComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private signalRService: SignalRService,
     private modalMaterialService: ModalService,
+    private secreService: SecretariaService,
     @Inject('BASE_URL') baseUrl: string,
   ) {
     this.baseUrl = baseUrl;
@@ -163,6 +174,7 @@ export class PerfilComponent implements OnInit {
     this.listaDescuentosARegistrar = [];
     this.validarSesion();
     this.buildForm();
+    this.buildFormSecretario();
     this.pedirInforAdministrador();
     this.clientes();
     this.productos();
@@ -175,6 +187,7 @@ export class PerfilComponent implements OnInit {
     this.pedidosSinRuta();
     this.productosPocasCAntidades();
     this.domiciliariosSinrRuta();
+    this.secretarios();
     this.rutaSeleccionada.pedidos = [];
     this.domiciliarioSeleccionado.moto = new Vehiculo();
     this.signalRService.pedidoReceived.subscribe((pedido: Pedido) => {
@@ -184,6 +197,21 @@ export class PerfilComponent implements OnInit {
       this.listaProductos.push(producto);
       this.totalProductos++;
     });
+  }
+  verSecre(secre: Secretaria){
+    this.secreConsuta = secre;
+  }
+  secretarios(){
+    this.secreService.Todos().subscribe(secretarios =>{
+      if(secretarios != null){
+        this.listaSecretarios = secretarios;
+        this.sliceSecre();
+      }
+    })
+  }
+  sliceSecre() {
+    this.totalSecre = this.listaSecretarios.length;
+    this.listaSecretarios = this.listaSecretarios.slice((this.pageTablaSecre - 1) * this.pageSizeTablaSecre, (this.pageTablaSecre - 1) * this.pageSizeTablaSecre + this.pageSizeTablaSecre);
   }
   eliminarCuentaCliente(){
     this.modalMaterialService.openDialogDesicion("Eliminar cuenta", "¿Esta seguro?").subscribe( result =>{
@@ -220,6 +248,57 @@ export class PerfilComponent implements OnInit {
   reiniciarFormularios(){
     this.buildFormDomiciliario();
     this.buildForm();
+    this.buildFormSecretario();
+  }
+  private buildFormSecretario() {
+    this.secreatrio = new Secretaria();
+    this.usuarioRegistrar = new Usuario();
+
+    this.secreatrio.apellidos = "";
+    this.secreatrio.nombres = "";
+    this.secreatrio.identificacion = "";
+    this.secreatrio.telefono = "";
+    this.secreatrio.whatsapp = "";
+    this.secreatrio.tipoId = "";
+
+    this.usuarioRegistrar.correo = '';
+    this.contrasenaActualizar = '';
+    this.contrasenaconfirmar = '';
+
+    this.formularioRegistroSecretario = this.formBuilder.group({
+      apellidos: [this.secreatrio.apellidos, Validators.required],
+      identificacion: [this.secreatrio.identificacion, Validators.required],
+      nombres: [this.secreatrio.nombres, Validators.required],
+      telefono: [this.secreatrio.telefono, Validators.required],
+      whatsapp: [this.secreatrio.whatsapp, Validators.required],
+      correo: [this.usuarioRegistrar.correo, Validators.required],
+      contrasena: [this.contrasenaActualizar, Validators.required],
+      contrasenaConfirmar: [this.contrasenaconfirmar, Validators.required],
+      tipoId: [this.secreatrio.tipoId, Validators.required]
+    });
+  }
+  get controlSecretario() {
+    return this.formularioRegistroSecretario.controls
+  }
+  onSubmitSecretario() {
+    if (this.formularioRegistroSecretario.invalid) {
+      return;
+    }
+    this.registrarSecre();
+  }
+  registrarSecre(){
+    this.secreatrio = new Secretaria();
+    this.secreatrio = this.formularioRegistroSecretario.value;
+    this.usuarioRegistrar = new Usuario();
+    this.usuarioRegistrar.contraseña = this.formularioRegistroSecretario.value.contrasenaConfirmar;
+    this.usuarioRegistrar.correo = this.formularioRegistroSecretario.value.correo;
+    this.usuarioRegistrar.idPersona = this.secreatrio.identificacion;
+    this.usuarioRegistrar.rol = "Secretario";
+    this.secreService.post(this.secreatrio, this.usuarioRegistrar).subscribe(secre =>{
+      if(secre != null){
+        this.modalMaterialService.openDialogInfo("BIEN HECHO.", "Secretario registrado, cuenta creada exitosamente");
+      }
+    })
   }
   buscarRuta() {
     this.rutaService.rutaDomiciliario(this.domiciliarioSeleccionado.identificacion,false).subscribe(r => {
@@ -305,7 +384,8 @@ export class PerfilComponent implements OnInit {
       placa: [this.domiciliario.moto.placa, Validators.required],
       correo: [this.usuarioRegistrar.correo, Validators.required],
       contrasena: [this.contrasenaActualizar, Validators.required],
-      contrasenaConfirmar: [this.contrasenaconfirmar, Validators.required]
+      contrasenaConfirmar: [this.contrasenaconfirmar, Validators.required],
+      tipoId: [this.domiciliario.tipoId, Validators.required]
     });
   }
   reiniciarListaDescuentos(){
@@ -357,6 +437,7 @@ export class PerfilComponent implements OnInit {
   }
   llenarObjetos() {
     this.domiciliario = this.formularioregistroDomiciliario.value;
+    this.domiciliario.tipoId = this.formularioregistroDomiciliario.value.tipoId;
     this.vehiculo = new Vehiculo();
     this.vehiculo.fechaSoat = this.formularioregistroDomiciliario.value.fechaSoat;
     this.vehiculo.fechaTecnoMecanica = this.formularioregistroDomiciliario.value.fechaTecnoMecanica;
@@ -422,9 +503,7 @@ export class PerfilComponent implements OnInit {
   }
   AgregarProducto() {
     if (this.productoSeleccionado.cantidad == undefined) {
-      const messageBox = this.modalService.open(AlertModalComponent)
-      messageBox.componentInstance.title = "ALERTA.";
-      messageBox.componentInstance.message = "Debe buscar un producto.";
+      this.modalMaterialService.openDialogInfo("ALERTA.", "Debe buscar un producto.", 2);
     } else {
       this.productoSeleccionado.cantidad = this.cantidadProducto;
       this.listaProductoPedido.unshift(this.productoSeleccionado);
@@ -598,7 +677,8 @@ export class PerfilComponent implements OnInit {
       tipoCliente: [this.clienteRegistrar.tipoCliente, Validators.required],
       contrasena: [contrasena, Validators.required],
       contrasenaconfirmar: [this.contrasenaconfirmar, [Validators.required]],
-      correo: [correo, Validators.required]
+      correo: [correo, Validators.required],
+      tipoId: [this.clienteRegistrar.tipoId, Validators.required]
     });
 
     this.formularioregistroProducto = this.formBuilder.group({
@@ -766,8 +846,6 @@ export class PerfilComponent implements OnInit {
     }
   }
   alertaRespuestaError(Respuesta){
-    const messageBox = this.modalService.open(AlertModalComponent)
-    messageBox.componentInstance.title = "ALERTA.";
-    messageBox.componentInstance.message = Respuesta.error.mensaje;
+    this.modalMaterialService.openDialogInfo("ALERTA.", Respuesta.error.mensaje, 2)
   }
 }

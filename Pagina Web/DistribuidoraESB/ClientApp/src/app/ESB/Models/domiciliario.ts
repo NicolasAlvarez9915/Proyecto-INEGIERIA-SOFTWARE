@@ -9,4 +9,5 @@ export class Domiciliario {
   telefono: string;
   whatsapp: string;
   estado: string;
+  tipoId: string;
 }

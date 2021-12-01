@@ -5,6 +5,7 @@ namespace DistribuidoraESB.Models
     public class PersonaModel
     {
         public string Identificacion { get; set; }
+        public string TipoId { get; set; }
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
         public string Telefono { get; set; }

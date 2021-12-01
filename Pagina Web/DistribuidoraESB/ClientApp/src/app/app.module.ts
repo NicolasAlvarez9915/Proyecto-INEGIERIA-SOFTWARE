@@ -41,6 +41,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { FiltroDomicliarioPipe } from './pipe/filtro-domicliario.pipe';
 import { PerfilDomiciliarioComponent } from './ESB/perfil-domiciliario/perfil-domiciliario.component';
 import { DetalleRutaPedidoComponent } from './compartido/componentes/detalle-ruta-pedido/detalle-ruta-pedido.component';
+import { PerfilSecretariaComponent } from './ESB/perfil-secretaria/perfil-secretaria.component';
+import { FiltroSecrePipe } from './pipe/filtro-secre.pipe';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { DetalleRutaPedidoComponent } from './compartido/componentes/detalle-rut
     ProductoComponent,
     FiltroDomicliarioPipe,
     PerfilDomiciliarioComponent,
-    DetalleRutaPedidoComponent
+    DetalleRutaPedidoComponent,
+    PerfilSecretariaComponent,
+    FiltroSecrePipe
   ],
   imports: [
     ReactiveFormsModule,

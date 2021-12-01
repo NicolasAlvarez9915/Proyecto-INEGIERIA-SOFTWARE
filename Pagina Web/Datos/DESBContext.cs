@@ -17,5 +17,6 @@ namespace Datos
         public DbSet<Domiciliario> Domiciliarios { get; set; }
         public DbSet<Vehiculo> Vehiculos { get; set; }
         public DbSet<Ruta> Rutas { get; set; }
+        public DbSet<Secretaria> Secretarias { get; set; }
     }
 }

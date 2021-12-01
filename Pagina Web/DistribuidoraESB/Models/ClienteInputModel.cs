@@ -23,7 +23,8 @@ namespace DistribuidoraESB.Models
                 Horaio = ValidarNull(Horaio),
                 TipoCliente = ValidarNull(TipoCliente),
                 Descuentos = Descuentos,
-                Estado =  Estado
+                Estado =  Estado,
+                TipoId = TipoId
             };
         }
 
@@ -46,6 +47,7 @@ namespace DistribuidoraESB.Models
         }
         public ClienteViewModel(Cliente cliente)
         {
+            TipoId = cliente.TipoId;
             Identificacion = cliente.Identificacion;
             Nombres = cliente.Nombres;
             Apellidos = cliente.Apellidos;

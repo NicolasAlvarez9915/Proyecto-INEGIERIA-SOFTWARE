@@ -214,9 +214,7 @@ export class PerfilClienteComponent implements OnInit {
   }
 
   alertaRespuestaError(error){
-    const messageBox = this.modalService.open(AlertModalComponent)
-    messageBox.componentInstance.title = "ALERTA.";
-    messageBox.componentInstance.message = error.error.mensaje;
+    this.modalMaterialService.openDialogInfo("ALERTA.", error.error.mensaje, 2)
   }
 
 }

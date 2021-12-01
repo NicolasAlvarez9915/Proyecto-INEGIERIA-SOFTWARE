@@ -27,10 +27,17 @@ namespace DistribuidoraESB.Controllers
         }
         
         [AllowAnonymous]
-        [HttpPost("Cliente")]
+        [HttpPost("Cliente")] 
         public ActionResult<Respuesta<Cliente>> CrearCliente(CrearClienteModeloEntrada clienteModeloEntrada)
         {
             var responde = service.CrearCliente(clienteModeloEntrada.cliente.MapearCliente(), clienteModeloEntrada.usuario.MapearEntrada());
+            return StatusCode(responde.CodigoHttp, responde);
+        }
+        
+        [HttpPost("RegistrarSecretario")]
+        public ActionResult<Respuesta<Secretaria>> CrearSecretario(CrearSecretariaModeloEntrada secretariaModeloEntrada)
+        {
+            var responde = service.CrearSecretaria(secretariaModeloEntrada.secretaria.MapearEntrada(), secretariaModeloEntrada.usuario.MapearEntrada());
             return StatusCode(responde.CodigoHttp, responde);
         }
     }

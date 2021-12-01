@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datos.Migrations
 {
     [DbContext(typeof(DESBContext))]
-    [Migration("20211117013020_InitialCreate")]
+    [Migration("20211130142527_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace Datos.Migrations
 
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("TipoId")
+                        .HasColumnType("nvarchar(5)");
 
                     b.Property<string>("Whatsapp")
                         .HasColumnType("nvarchar(15)");
@@ -74,6 +77,9 @@ namespace Datos.Migrations
 
                     b.Property<string>("TipoCliente")
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("TipoId")
+                        .HasColumnType("nvarchar(5)");
 
                     b.Property<string>("Whatsapp")
                         .HasColumnType("nvarchar(15)");
@@ -169,6 +175,9 @@ namespace Datos.Migrations
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<string>("TipoId")
+                        .HasColumnType("nvarchar(5)");
+
                     b.Property<string>("Whatsapp")
                         .HasColumnType("nvarchar(15)");
 
@@ -258,6 +267,37 @@ namespace Datos.Migrations
                     b.HasKey("Codigo");
 
                     b.ToTable("Rutas");
+                });
+
+            modelBuilder.Entity("Entity.Secretaria", b =>
+                {
+                    b.Property<string>("Identificacion")
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("Apellidos")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaContratacion")
+                        .HasColumnType("Date");
+
+                    b.Property<string>("Nombres")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("TipoId")
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("Whatsapp")
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Identificacion");
+
+                    b.ToTable("Secretarias");
                 });
 
             modelBuilder.Entity("Entity.Usuario", b =>

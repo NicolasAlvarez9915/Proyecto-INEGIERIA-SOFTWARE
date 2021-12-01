@@ -1,12 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "BYXDgVg+uY+NQakwVlFeI0+KPHsOhqs4XWHXKC7fMpZlFEF8QdKoa+oDRDmmkoQmI9IKDQFzDDf+AjmSgmP1Ng==",
-=======
-  "dgSpecHash": "i1XlGCYTdwe6O61latf2RNQon75rI8w8uTvyEJssMAeeXJ+G+1pT+8P1G93doN92XyNS+a5VZHorp6oU9IEw4Q==",
->>>>>>> master
   "success": true,
-  "projectFilePath": "C:\\Users\\nicoa\\Documents\\GitHub\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Datos\\Datos.csproj",
+  "projectFilePath": "C:\\Users\\nicoa\\Documents\\Proyecto Ingenieria de software 2.0\\Primera version\\2.0\\Proyecto-INEGIERIA-SOFTWARE\\Pagina Web\\Datos\\Datos.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nicoa\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\nicoa\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

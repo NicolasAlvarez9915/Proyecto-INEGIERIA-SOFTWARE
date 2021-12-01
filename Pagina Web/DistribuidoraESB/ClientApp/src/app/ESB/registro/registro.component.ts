@@ -10,6 +10,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Cliente } from '../Models/cliente';
 import { Usuario } from '../Models/usuario';
+import {ModalService} from '../../compartido/servicios/modal.service';
 
 @Component({
   selector: 'app-registro',
@@ -33,6 +34,7 @@ export class RegistroComponent implements OnInit {
     private clienteService: ClienteService,
     private modalService: NgbModal,
     private authenticationService: AuthenticationService,@Inject('BASE_URL') baseUrl: string,
+    private modal: ModalService
   ) {
     this.baseUrl = baseUrl; this.generarEstilosFondo();
   }
@@ -44,7 +46,6 @@ export class RegistroComponent implements OnInit {
     };
   }
 
-  Permitir: boolean;
   ngOnInit(): void {
     this.buildForm();
   }
@@ -75,7 +76,8 @@ export class RegistroComponent implements OnInit {
       contrasena: [contrasena, Validators.required],
       contrasenaConfirmar: [contrasenaConfirmar, Validators.required],
       correo: [correo, Validators.required],
-      check: [this.check, Validators.required]
+      check: [this.check, Validators.required],
+      tipoId: [this.cliente.tipoId, Validators.required]
     });
   }
 
@@ -103,10 +105,7 @@ export class RegistroComponent implements OnInit {
 
 
     if (this.formularioRegistro.value.contrasenaConfirmar != this.formularioRegistro.value.contrasena) {
-      const messageBox = this.modalService.open(AlertModalComponent)
-      messageBox.componentInstance.title = "ALERTA";
-      messageBox.componentInstance.message = "Las contraseñas no coninciden";
-
+      this.modal.openDialogInfo("ALERTA", "Las contraseñas no coninciden",2)
     } else {
       this.crearCliente();
     }
@@ -117,9 +116,7 @@ export class RegistroComponent implements OnInit {
     (
       respuesta => {
         if(!respuesta.error){
-          const messageBox = this.modalService.open(AlertModalComponent)
-          messageBox.componentInstance.title = "BIEN HECHO.";
-          messageBox.componentInstance.message = "Cliente registrado. Cuenta de cliente creada.";
+          this.modal.openDialogInfo("BIEN HECHO.","Cliente registrado. Cuenta de cliente creada.");
           this.iniciarSesion();
         }
       }
@@ -129,7 +126,6 @@ export class RegistroComponent implements OnInit {
     this.authenticationService.login(this.usuario.correo, this.usuario.contraseña).pipe(first())
       .subscribe(
         data => {
-          debugger
           this.router.navigate(['/PerfilCliente']);
         },
         error =>{
@@ -138,8 +134,6 @@ export class RegistroComponent implements OnInit {
       );
   }
   alertaRespuestaError(error){
-    const messageBox = this.modalService.open(AlertModalComponent)
-    messageBox.componentInstance.title = "ALERTA.";
-    messageBox.componentInstance.message = error.error.mensaje;
+    this.modal.openDialogInfo("ALERTA.", error.error.mensaje, 2)
   }
 }
