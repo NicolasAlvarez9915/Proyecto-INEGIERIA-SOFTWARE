@@ -32,9 +32,8 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/DistribuidoraESB/DistribuidoraESB.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "--project",
+                "${workspaceFolder}/DistribuidoraESB/DistribuidoraESB.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

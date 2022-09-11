@@ -68,6 +68,7 @@ namespace DistribuidoraESB.Models
             {
                 var rutaImg = webHostEnviroment.WebRootPath + @"/Imagenes";
                 var extension = Path.GetExtension(Imagen.FileName);
+                if(extension != ".png" && extension != ".jpg" && extension != ".png")return new Respuesta<string>($"; Imagen -> El formato es invalido", 409);
                 var nombreImagen = Imagen.FileName + Guid.NewGuid() + extension;
                 var filePath = Path.Combine(rutaImg, nombreImagen);
                 using (var stream = new FileStream(filePath, FileMode.Create))

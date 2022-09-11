@@ -42,16 +42,15 @@ namespace Logica
         {
             try
             {
+                var respuestaValidacionEntidad = producto.ValidarEntidad();
+                if(respuestaValidacionEntidad != null) return respuestaValidacionEntidad;
                 if (!ValidarCodigo(producto.Codigo))
                 {
                     File.Delete(rutalocal+producto.Ruta);
                     return new ("Producto existente." , 404);
                 }
                 var productoGuardado = Guardar(producto);
-                if (productoGuardado.Error)
-                {
-                    File.Delete(rutalocal+producto.Ruta);
-                }
+                if (productoGuardado.Error)File.Delete(rutalocal+producto.Ruta);
                 return productoGuardado;
             }
             catch (Exception e)

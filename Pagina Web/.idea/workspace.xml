@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0c0bbdee-ca7a-417c-9133-e7757804df35" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Pagina Web.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/Pagina Web/DesignTimeBuild/.dtbcache.v2" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/Pagina Web/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/Pagina Web/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/Pagina Web/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/bin/Debug/net5.0/Datos.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/bin/Debug/net5.0/Datos.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/bin/Debug/net5.0/Datos.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/bin/Debug/net5.0/Datos.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/bin/Debug/net5.0/Entity.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/bin/Debug/net5.0/Entity.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/bin/Debug/net5.0/Entity.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/bin/Debug/net5.0/Entity.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/obj/Datos.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/obj/Datos.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/obj/Datos.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/obj/Datos.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/obj/Datos.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/obj/Datos.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/obj/Debug/net5.0/Datos.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/obj/Debug/net5.0/Datos.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/obj/Debug/net5.0/Datos.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/obj/Debug/net5.0/Datos.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/obj/Debug/net5.0/Datos.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/obj/Debug/net5.0/Datos.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/obj/Debug/net5.0/Datos.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/obj/Debug/net5.0/Datos.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/obj/Debug/net5.0/Datos.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/obj/Debug/net5.0/Datos.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datos/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Datos/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DistribuidoraESB/ClientApp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/DistribuidoraESB/ClientApp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DistribuidoraESB/ClientApp/src/app/ESB/registro/registro.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/DistribuidoraESB/ClientApp/src/app/ESB/registro/registro.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DistribuidoraESB/Controllers/PedidoController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DistribuidoraESB/Controllers/PedidoController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DistribuidoraESB/Models/LoginInputModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DistribuidoraESB/Models/LoginInputModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/bin/Debug/net5.0/Entity.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/bin/Debug/net5.0/Entity.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/bin/Debug/net5.0/Entity.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/bin/Debug/net5.0/Entity.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/obj/Debug/net5.0/Entity.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/obj/Debug/net5.0/Entity.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/obj/Debug/net5.0/Entity.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/obj/Debug/net5.0/Entity.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/obj/Debug/net5.0/Entity.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/obj/Debug/net5.0/Entity.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/obj/Debug/net5.0/Entity.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/obj/Debug/net5.0/Entity.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/obj/Debug/net5.0/Entity.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/obj/Debug/net5.0/Entity.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/obj/Entity.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/obj/Entity.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/obj/Entity.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/obj/Entity.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/obj/Entity.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/obj/Entity.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/Datos.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/Datos.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/Datos.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/Datos.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/Entity.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/Entity.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/Entity.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/Entity.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/Logica.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/Logica.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/Logica.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/Logica.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/ref/Logica.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/bin/Debug/net5.0/ref/Logica.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/Debug/net5.0/Logica.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/Debug/net5.0/Logica.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/Debug/net5.0/Logica.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/Debug/net5.0/Logica.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/Debug/net5.0/Logica.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/Debug/net5.0/Logica.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/Debug/net5.0/Logica.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/Debug/net5.0/Logica.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/Debug/net5.0/Logica.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/Debug/net5.0/Logica.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/Debug/net5.0/ref/Logica.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/Debug/net5.0/ref/Logica.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/Logica.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/Logica.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/Logica.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/Logica.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/Logica.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/Logica.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Logica/obj/rider.project.restore.info" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="23J2O49AiDeachJbamEHZFH9JQp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../Proyectos Free Lance/CalculoExcel/Web/Chocie" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="ts.external.directory.path" value="C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\DistribuidoraESB\ClientApp\node_modules\typescript\lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0c0bbdee-ca7a-417c-9133-e7757804df35" name="Default Changelist" comment="" />
+      <created>1641437833858</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1641437833858</updated>
+      <workItem from="1641437835183" duration="28000" />
+      <workItem from="1646260209172" duration="4683000" />
+      <workItem from="1646319003922" duration="839000" />
+      <workItem from="1646579941385" duration="4536000" />
+      <workItem from="1646674902526" duration="829000" />
+      <workItem from="1647044950972" duration="12327000" />
+      <workItem from="1647094632514" duration="1618000" />
+      <workItem from="1647301558032" duration="4990000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

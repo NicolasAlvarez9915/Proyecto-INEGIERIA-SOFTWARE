@@ -38,7 +38,7 @@ namespace DistribuidoraESB.Controllers
 
         [HttpGet("Entregados/{Identificacion}")]
 
-        public IEnumerable<PedidoViewModel> GetEntregados(string Identificacion)
+        public IEnumerable<PedidoViewModel> GetEntregados(string Identificacion)            
         {
             return service.PedidosEntregadosCliente(Identificacion).Select(p => new PedidoViewModel(p));
         }

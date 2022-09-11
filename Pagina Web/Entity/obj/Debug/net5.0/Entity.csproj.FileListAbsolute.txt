@@ -1,15 +1,3 @@
-C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\Entity.deps.json
-C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\Entity.dll
-C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\ref\Entity.dll
-C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\Entity.pdb
-C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.csproj.AssemblyReference.cache
-C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.AssemblyInfoInputs.cache
-C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.AssemblyInfo.cs
-C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.csproj.CoreCompileInputs.cache
-C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.dll
-C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\ref\Entity.dll
-C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.pdb
 C:\Users\nicoa\Documents\GitHub\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\Entity.deps.json
 C:\Users\nicoa\Documents\GitHub\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\Entity.dll
 C:\Users\nicoa\Documents\GitHub\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\ref\Entity.dll
@@ -22,3 +10,27 @@ C:\Users\nicoa\Documents\GitHub\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\ob
 C:\Users\nicoa\Documents\GitHub\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.dll
 C:\Users\nicoa\Documents\GitHub\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\ref\Entity.dll
 C:\Users\nicoa\Documents\GitHub\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.pdb
+C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\Entity.deps.json
+C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\Entity.dll
+C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\ref\Entity.dll
+C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\Entity.pdb
+C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.AssemblyInfoInputs.cache
+C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.AssemblyInfo.cs
+C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.csproj.CoreCompileInputs.cache
+C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.dll
+C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\ref\Entity.dll
+C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.pdb
+C:\Users\nicoa\Documents\Proyecto Ingenieria de software 2.0\Primera version\2.0\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.csproj.AssemblyReference.cache
+C:\Users\nicoa\Documents\Proyecto-INEGIERIA-SOFTWARE\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\Entity.deps.json
+C:\Users\nicoa\Documents\Proyecto-INEGIERIA-SOFTWARE\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\Entity.dll
+C:\Users\nicoa\Documents\Proyecto-INEGIERIA-SOFTWARE\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\bin\Debug\net5.0\Entity.pdb
+C:\Users\nicoa\Documents\Proyecto-INEGIERIA-SOFTWARE\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.csproj.AssemblyReference.cache
+C:\Users\nicoa\Documents\Proyecto-INEGIERIA-SOFTWARE\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nicoa\Documents\Proyecto-INEGIERIA-SOFTWARE\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.AssemblyInfoInputs.cache
+C:\Users\nicoa\Documents\Proyecto-INEGIERIA-SOFTWARE\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.AssemblyInfo.cs
+C:\Users\nicoa\Documents\Proyecto-INEGIERIA-SOFTWARE\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.csproj.CoreCompileInputs.cache
+C:\Users\nicoa\Documents\Proyecto-INEGIERIA-SOFTWARE\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.dll
+C:\Users\nicoa\Documents\Proyecto-INEGIERIA-SOFTWARE\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\refint\Entity.dll
+C:\Users\nicoa\Documents\Proyecto-INEGIERIA-SOFTWARE\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\Entity.pdb
+C:\Users\nicoa\Documents\Proyecto-INEGIERIA-SOFTWARE\Proyecto-INEGIERIA-SOFTWARE\Pagina Web\Entity\obj\Debug\net5.0\ref\Entity.dll

@@ -1,4 +1,0 @@
-{
-    "appService.defaultWebAppToDeploy": "/subscriptions/7cb68c78-f60b-4f24-a53a-ccdd1da16343/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/DistribuidoraEsb",
-    "appService.deploySubpath": "DistribuidoraESB\\publish"
-}

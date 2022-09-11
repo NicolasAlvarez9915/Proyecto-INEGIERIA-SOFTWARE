@@ -172,7 +172,6 @@ namespace DistribuidoraESB
                     RequestPath = "/Imagenes"
                 });
             }
-
             app.UseRouting();
 
             #region global cors policy activate Authentication/Authorization
@@ -214,7 +213,6 @@ namespace DistribuidoraESB
             });
             
             //Habilitar la ruta statica.
-
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions
             {

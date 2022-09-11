@@ -47,7 +47,6 @@
   <ItemGroup>
     <Folder Include="Wkhtmltopdf\bin" />
     <Folder Include="wwwroot\Imagenes" />
-    <Folder Include="wwwroot\Imagenes\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

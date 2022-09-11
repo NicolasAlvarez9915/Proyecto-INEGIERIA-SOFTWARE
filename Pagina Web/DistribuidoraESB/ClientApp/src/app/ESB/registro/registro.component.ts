@@ -22,7 +22,7 @@ export class RegistroComponent implements OnInit {
   cliente: Cliente;
   usuario: Usuario;
   check: Boolean;
-  style: {}
+  style: {};
   baseUrl: string;
 
   formularioRegistro: FormGroup;

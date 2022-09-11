@@ -54,7 +54,8 @@ namespace DistribuidoraESB.Controllers
             {
                 productoInput.InicializarModelo(Request.Form);
             }
-            productoInput.CrearArchivo(_webHostEnviroment);
+            var respuestaValidacion = productoInput.CrearArchivo(_webHostEnviroment);
+            if(respuestaValidacion.Error)return StatusCode(respuestaValidacion.CodigoHttp, respuestaValidacion);
             var producto = productoInput.MapearEntrada();
             var response = service.ValidarGuardar(producto,_webHostEnviroment.WebRootPath);
             if(!response.Error) await _hubContext.Clients.All.SendAsync("RegistrarProducto", response.Objeto);
